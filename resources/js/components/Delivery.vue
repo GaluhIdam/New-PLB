@@ -1,12 +1,11 @@
 <template>
-    <div class="container">
+    <div class="container-fluid" style="margin-top:50px">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Example Component</div>
-
                     <div class="card-body">
-                        I'm an example component.
+                        Halaman Delivery
+                        <hr>
                     </div>
                 </div>
             </div>
@@ -16,8 +15,7 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+
+
     }
 </script>
