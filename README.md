@@ -3,9 +3,8 @@
 <!-- Logo Project -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="assets/../public/img/logo-gmf-dark.png" alt="Logo" >
-  </a>
+  <a href="#">
+    <img src="/public/img/logo-gmf-dark.png" alt="Logo" >  </a>
 
   <h3 align="center">GMF AeroAsia - Pusat Logistik Berikat</h3>
 
