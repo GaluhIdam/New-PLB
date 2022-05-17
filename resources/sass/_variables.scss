@@ -1,7 +1,66 @@
+// Bootstrap
+// ---------------------------------------------------
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/bootstrap";
+
+// @import '~admin-lte/build/scss/parts/miscellaneous';
+
+
 // Body
 $body-bg: #f8fafc;
+// COLORS
+// --------------------------------------------------------
+$blue: #0073b7 !default;
+$lightblue: #3c8dbc !default;
+$navy: #001f3f !default;
+$teal: #39cccc !default;
+$olive: #3d9970 !default;
+$lime: #01ff70 !default;
+$orange: #ff851b !default;
+$fuchsia: #f012be !default;
+$purple: #605ca8 !default;
+$maroon: #d81b60 !default;
+$black: #111 !default;
+$gray-x-light: #d2d6de !default;
+$plb: #006298 !default;
+$aircraft: #00314c !default;
 
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+// Costumize
+.aircraft{
+    color: $aircraft;
+}
+
+.bg-plb{
+    background-color: $plb;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8)
+}
+
+[class*="sidebar-dark-"] {
+    background-color: $plb;
+  }
+  
+  [class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link {
+    color: #000;
+  }
+
+  .brand-text{
+    text-decoration:none;
+    display: inline-block;
+  }
+  .brand-link .brand-image {
+    float: left;
+    line-height: .8;
+    margin-left: .8rem;
+    margin-right: .5rem;
+  
+    width: auto;
+    height: auto;
+  }

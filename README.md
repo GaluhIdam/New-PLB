@@ -1,64 +1,123 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<div id="top"></div>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<!-- Logo Project -->
+<br />
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="assets/../public/img/logo-gmf-dark.png" alt="Logo" >
+  </a>
 
-## About Laravel
+  <h3 align="center">GMF AeroAsia - Pusat Logistik Berikat</h3>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+  <p align="center">
+    Project Pusat Logistik Berikat
+    <br />
+    <a href="#"><strong>Dokumentasi »</strong></a>
+    <br />
+    <br />
+    <a href="#">View Demo</a>
+    ·
+    <a href="#">Report Bug</a>
+    ·
+    <a href="#">Request Feature</a>
+  </p>
+</div>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<!-- Tentang Project -->
+## Tentang Project
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+[![Product Name Screen Shot][mockup-screenshot]](https://#)
 
-## Learning Laravel
+Sebagai User CSSM, Ada tiga point penting yang saya inginkan
+* Dapat melihat semua data Mutasi pesawat baik itu A/C Delivery maupun A/C Redelivery dalam satu table yang dapat difilter berdasarkan keinginan.
+* Dapat melaporkan kedatangan Aircraft di area hangar untuk melakukan maintenance. Sehingga, Tim Bonded dapat melakukan perhitungan perkiran untuk biaya PLB yang akan dibayarkan ketika Aircraft meninggalkan Area GMF
+* Dapat melporkan Aircraft Redelivery di area hangar yang sudah selesai melakukan maintenance. Sehingga, bisa memonitor aktivitas aircaft dan melakukan Updating Report pada Aircraft Mutation berupa file PDF
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Dibuat Dengan
 
-### Premium Partners
+Pada Project PLB ini ada beberapa framework/library yang digunakan, antara lain :
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+* [Laravel](https://laravel.com)
+* [Laravel UI](https://github.com/laravel/ui)
+* [Vue.js](https://vuejs.org/)
+* [Vue-Router](https://router.vuejs.org/)
+* [Bootstrap](https://getbootstrap.com)
+* [JQuery](https://jquery.com)
+* [SweetAlert2](https://sweetalert2.github.io/)
+* [DataTables](https://datatables.net/)
+* [Font Awesome](https://fontawesome.com/)
 
-## Contributing
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<!-- Mulai Meenggunakan -->
+## Mulai Menggunakan
 
-## Security Vulnerabilities
+Cara Menggunakan Project ini
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Persyaratan
 
-## License
+Persyaratan paket saat ini adalah :
+* [Composser](https://getcomposer.org/download/)
+* [Node.js](https://nodejs.org/en/)
+* Laravel >= 9.x
+* PHP >= 8.0 - 8.1
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Cara Install
+
+_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+
+1. Clone Repository
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   ```
+2. Pergi ke Folder yang sudah di Clone
+   ```sh
+   cd/ (nama diretory/folder)
+   ```
+3. ```js
+   composer install
+   ```
+4. ```js
+   npm install --save-dev
+   ```
+5. Setelah selesai menginstall dependencies, buat .env file. Baca dokumentasi Laravel di: https://laravel.com/docs/9.x/configuration#environment-configuration
+
+6. Selanjutnya, jalankan program key generation dan commands migration
+   ```sh
+   php artisan key:generate 
+   ```
+   ```sh
+   php artisan migrate
+   ```
+7. Jalankan juga, Perintah dibawah ini
+   ```sh
+   php artisan storage:link
+   ```
+   ```sh
+   npm run dev
+   ```
+8. Terakhir, Jalankan webserver
+   ```sh
+   php artisan serve
+9. Setelah menjalankan webserver, buka alamat ini dibrowser kamu:
+   ```sh
+   http://127.0.0.1:8000
+   ```
+<!-- CONTACT -->
+## Contact
+
+Sigit Prayoga - sigit.prayoga@opencloud.id
+Rizky Ibrahim - rizky.ibrahim@opencloud.id
+Alnuria Vanadia Equila - vanadia.equila@opencloud.id
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+[mockup-screenshot]: public/img/Screenshot.png

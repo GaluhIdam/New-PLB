@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aircraft;
 use Illuminate\Http\Request;
+use App\Models\Aircraft;
+// use Illuminate\Support\Facades\Response;
 
 class AircraftController extends Controller
 {
@@ -14,9 +15,17 @@ class AircraftController extends Controller
      */
     public function index()
     {
-       $aircraft = Aircraft::all()->toArray();
-       return array_reverse($aircraft);
+        //Ambil data dari table Aircraft
+        $aircraft = Aircraft::latest()->get();
+
+        //Membuat JSON response
+        return response()->json([
+            'success' => true,
+            'message' => 'List Data Mutation',
+            'data' => $aircraft
+        ], 200);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -42,10 +51,10 @@ class AircraftController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Aircraft  $aircraft
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Aircraft $aircraft)
+    public function show($id)
     {
         //
     }
@@ -53,10 +62,10 @@ class AircraftController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Aircraft  $aircraft
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Aircraft $aircraft)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +74,10 @@ class AircraftController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Aircraft  $aircraft
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Aircraft $aircraft)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +85,10 @@ class AircraftController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Aircraft  $aircraft
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Aircraft $aircraft)
+    public function destroy($id)
     {
         //
     }

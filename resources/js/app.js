@@ -1,20 +1,48 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
-window.Vue = require('vue').default;
 
-import Vue from 'vue'
+window.Vue = require('vue').default;
+import Vue from 'vue';
+
+// VueRouter
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
+// VueAxios
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+Vue.use(VueAxios, axios)
+// VueProgressBar
+// vForm
 
-import routes from './router'
 
-Vue.component('navigation', require('./components/Navigation').default);
-const App = new Vue({
+// Routes
+let routes = [{
+        path: '/mutation',
+        component: require('./components/Aircraft/Mutation.vue').default
+    },
+    {
+        path: '/delivery',
+        component: require('./components/Aircraft/Delivery.vue').default
+    },
+    {
+        path: '/redelivery',
+        component: require('./components/Aircraft/Redelivery.vue').default
+    },
+    {
+        path: '/data-users',
+        component: require('./components/Users/DataUsers.vue').default
+    },
+    {
+        path: '/users-role',
+        component: require('./components/Users/UsersRole.vue').default
+    },
+]
+
+const router = new VueRouter({
+    mode: 'history',
+    routes
+})
+
+const app = new Vue({
     el: '#app',
-    router: new VueRouter(routes),
+    router
 });
