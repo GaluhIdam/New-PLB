@@ -27,95 +27,97 @@
                             </div>
                         </div>
                         <br />
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>A/C Reg</th>
-                                    <th>A/C Type</th>
-                                    <th>Activity</th>
-                                    <th>Operator</th>
-                                    <th>Actual TIme</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>A/C Reg</th>
+                                        <th>A/C Type</th>
+                                        <th>Activity</th>
+                                        <th>Operator</th>
+                                        <th>Actual TIme</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
 
-                            <tbody>
-                                <tr
-                                    v-for="(
-                                        mutation, mutation_index
-                                    ) in mutations.data"
-                                    :key="mutation_index"
-                                >
-                                    <td>
-                                        {{
-                                            mutations.from + mutation_index
-                                        }}
-                                    </td>
-                                    <td>{{ mutation.reg }}</td>
-                                    <td>{{ mutation.type }}</td>
-                                    <td>{{ mutation.activity_type }}</td>
-                                    <td>{{ mutation.operator }}</td>
-                                    <td>{{ mutation.actual_time }}</td>
-                                    <td>
-                                        <ul class="list-inline m-0">
-                                            <!-- <li class="list-inline-item">
-                                                <button
-                                                    class="
-                                                        btn
-                                                        btn-success
-                                                        btn-sm
-                                                        rounded-0
-                                                    "
-                                                    type="button"
-                                                    data-toggle="tooltip"
-                                                    data-placement="top"
-                                                    title="Edit"
-                                                >
-                                                    <i
+                                <tbody>
+                                    <tr
+                                        v-for="(
+                                            mutation, mutation_index
+                                        ) in mutations.data"
+                                        :key="mutation_index"
+                                    >
+                                        <td>
+                                            {{
+                                                mutations.from + mutation_index
+                                            }}
+                                        </td>
+                                        <td>{{ mutation.reg }}</td>
+                                        <td>{{ mutation.type }}</td>
+                                        <td>{{ mutation.activity_type }}</td>
+                                        <td>{{ mutation.operator }}</td>
+                                        <td>{{ mutation.actual_time }}</td>
+                                        <td>
+                                            <ul class="list-inline m-0">
+                                                <!-- <li class="list-inline-item">
+                                                    <button
                                                         class="
-                                                            fa-solid
-                                                            fa-pencil
+                                                            btn
+                                                            btn-success
+                                                            btn-sm
+                                                            rounded-0
                                                         "
-                                                    ></i>
-                                                </button>
-                                            </li> -->
-                                            <li class="list-inline-item">
-                                                <button
-                                                    class="
-                                                        btn
-                                                        btn-warning
-                                                        btn-sm
-                                                        rounded-0
-                                                    "
-                                                    type="button"
-                                                    data-toggle="tooltip"
-                                                    data-placement="top"
-                                                    title="Delete"
-                                                    @click="
-                                                        deleteData(
-                                                            mutation.id
-                                                        )
-                                                    "
-                                                >
-                                                    <i
+                                                        type="button"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top"
+                                                        title="Edit"
+                                                    >
+                                                        <i
+                                                            class="
+                                                                fa-solid
+                                                                fa-pencil
+                                                            "
+                                                        ></i>
+                                                    </button>
+                                                </li> -->
+                                                <li class="list-inline-item">
+                                                    <button
                                                         class="
-                                                            fa-solid
-                                                            fa-trash
+                                                            btn
+                                                            btn-warning
+                                                            btn-sm
+                                                            rounded-0
                                                         "
-                                                    ></i>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr v-if="mutations.data.length < 1">
-                                    <td colspan="15" class="text-center">
-                                        Data not found
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                                        type="button"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top"
+                                                        title="Delete"
+                                                        @click="
+                                                            deleteData(
+                                                                mutation.id
+                                                            )
+                                                        "
+                                                    >
+                                                        <i
+                                                            class="
+                                                                fa-solid
+                                                                fa-trash
+                                                            "
+                                                        ></i>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="mutations.data.length < 1">
+                                        <td colspan="15" class="text-center">
+                                            Data not found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
