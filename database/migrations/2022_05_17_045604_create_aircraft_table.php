@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('reg')->unique();
             $table->string('type')->unique();
             $table->enum('activity_type', ['delivery', 'redelivery']);
-            $table->dateTime('ata')->nullable();
-            $table->dateTime('atd')->nullable();    
+            $table->date('actual_time')->nullable();
             $table->string('fight_route')->nullable();
             $table->string('crews')->nullable();
             $table->string('report')->nullable();

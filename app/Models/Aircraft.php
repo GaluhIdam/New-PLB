@@ -9,6 +9,6 @@ class Aircraft extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'operator','reg','type','activity_type','ata','atd','fight_route','crews','report'  
+        'operator','reg','type','activity_type','actual_time','fight_route','crews','report'  
     ];
 }

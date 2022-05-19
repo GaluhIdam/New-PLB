@@ -17,22 +17,27 @@ Vue.use(VueAxios, axios)
 // Routes
 let routes = [{
         path: '/mutation',
+        name: 'mutation',
         component: require('./components/Aircraft/Mutation.vue').default
     },
     {
         path: '/delivery',
+        name: 'mutation',
         component: require('./components/Aircraft/Delivery.vue').default
     },
     {
         path: '/redelivery',
+        name: 'delivery',
         component: require('./components/Aircraft/Redelivery.vue').default
     },
     {
         path: '/data-users',
+        name: 'data-users',
         component: require('./components/Users/DataUsers.vue').default
     },
     {
         path: '/users-role',
+        name: 'users-role',
         component: require('./components/Users/UsersRole.vue').default
     },
 ]

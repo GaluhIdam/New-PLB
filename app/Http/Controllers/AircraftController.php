@@ -13,17 +13,49 @@ class AircraftController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //Ambil data dari table Aircraft
-        $aircraft = Aircraft::latest()->get();
+        $search = $request->get('search');
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
 
-        //Membuat JSON response
-        return response()->json([
-            'success' => true,
-            'message' => 'List Data Mutation',
-            'data' => $aircraft
-        ], 200);
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'id';
+            $by = 'desc';
+        }
+
+        $mutations = Aircraft::when($search, function ($query) use ($search) {
+                $query->where(function ($sub_query) use ($search) {
+                    $sub_query->where('operator', 'LIKE', "%{$search}%")
+                        ->orWhere('reg', 'LIKE', "%{$search}%")
+                        ->orWhere('type', 'LIKE', "%{$search}%");
+                });
+            })
+            ->when($start_date, function ($query) use ($start_date) {
+                $query->whereDate('actual_time', '>=', $start_date);
+            })
+            ->when($end_date, function ($query) use ($end_date) {
+                $query->whereDate('actual_time', '<=', $end_date);
+            })
+            ->when(($order && $by), function ($query) use ($order, $by) {
+                $query->orderBy($order, $by);
+            })
+            ->paginate(10);
+
+        $query_string = [
+            'search' => $search,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'order' => $order,
+            'by' => $by,
+        ];
+
+        $mutations->appends($query_string);
+
+        return $mutations;
     }
 
 
@@ -43,9 +75,46 @@ class AircraftController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeDelivery(Request $request)
     {
-        //
+        $request->validate([
+            'operator' => 'required',
+            'type' => 'required',
+            'reg' => 'required|unique:aircraft,reg',
+            'actual_time' => 'required',
+        ]);
+
+        $data = $request->all();
+        $data['activity_type'] = 'delivery';
+
+        $delivery = Aircraft::create($data);
+
+        return response()->json(array(
+            "response_code" => 201,
+            "message" => "Delivery created successfully",
+            "data" => $delivery
+        ), 201);
+    }
+
+    public function storeRedelivery(Request $request)
+    {
+        $request->validate([
+            'operator' => 'required',
+            'type' => 'required',
+            'reg' => 'required|unique:aircraft,reg',
+            'actual_time' => 'required',
+        ]);
+
+        $data = $request->all();
+        $data['activity_type'] = 'redelivery';
+
+        $redelivery = Aircraft::create($data);
+
+        return response()->json(array(
+            "response_code" => 201,
+            "message" => "Delivery created successfully",
+            "data" => $redelivery
+        ), 201);
     }
 
     /**
@@ -90,6 +159,7 @@ class AircraftController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $campus = Aircraft::find($id);
+        $campus->delete();
     }
 }
