@@ -16,6 +16,11 @@ Vue.use(VueAxios, axios)
 
 // Routes
 let routes = [{
+        path: '/home',
+        name: 'home',
+        component: require('./components/Home.vue').default
+    },
+    {
         path: '/mutation',
         name: 'mutation',
         component: require('./components/Aircraft/Mutation.vue').default

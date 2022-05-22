@@ -5,4 +5,4 @@
 <title> GMF AeroAsia - Pusat Logistik Berikat</title>
 <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>

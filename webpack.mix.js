@@ -18,21 +18,17 @@ module.exports = {
 };
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .vue()
     .sourceMaps()
+    .vue()
     .options({
         postCss: [require('autoprefixer')]
-    });
-mix.autoload({
-    jquery: ['$', 'window.jQuery', "jQuery", "window.$", "jquery", "window.jquery"],
-    'popper.js/dist/umd/popper.js': ['Popper']
-})
-mix.copy(
-    'node_modules/admin-lte/dist/img',
-    'public/img',
-    'node_modules/@fortawesome/fontawesome-free/webfonts',
-    'public/webfonts',
-);
+    })
+    .copy(
+        'node_modules/admin-lte/dist/img',
+        'public/img',
+        'node_modules/@fortawesome/fontawesome-free/webfonts',
+        'public/webfonts',
+    );
 
 
 /*
