@@ -27,40 +27,47 @@ $plb: #006298 !default;
 $aircraft: #00314c !default;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif: 'Nunito',
+sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // Costumize
-.aircraft{
-    color: $aircraft;
+.aircraft {
+  color: $aircraft;
 }
 
-.bg-plb{
-    background-color: $plb;
+.bg-plb {
+  background-color: $plb;
 }
+
 .navbar-light .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.8)
+  color: rgba(255, 255, 255, 0.8)
 }
 
 [class*="sidebar-dark-"] {
-    background-color: $plb;
-  }
-  
-  [class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link {
-    color: #000;
-  }
+  background-color: $plb;
+}
 
-  .brand-text{
-    text-decoration:none;
-    display: inline-block;
-  }
-  .brand-link .brand-image {
-    float: left;
-    line-height: .8;
-    margin-left: .8rem;
-    margin-right: .5rem;
-  
-    width: auto;
-    height: auto;
-  }
+[class*="sidebar-dark-"] .nav-treeview>.nav-item>.nav-link {
+  color: #000;
+}
+
+.brand-text {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.brand-link .brand-image {
+  float: left;
+  line-height: .8;
+  margin-left: .8rem;
+  margin-right: .5rem;
+
+  width: auto;
+  height: auto;
+}
+
+.small-box .icon>i {
+  font-size: 60px;
+}

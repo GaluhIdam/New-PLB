@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="container-fluid" style="margin-top: 20px">
     <div class="row justify-content-center">
       <div class="col-md-12">
@@ -101,10 +102,99 @@
                 </tbody>
               </table>
             </div>
+=======
+  <div>
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Aircraft Mutation</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/home">Home</a></li>
+              <li class="breadcrumb-item active">Aircraft Mutation</li>
+            </ol>
+>>>>>>> 70ad2c28b05c97c6ab8247fcb54315a8956630a2
           </div>
         </div>
       </div>
     </div>
+<<<<<<< HEAD
+=======
+
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <h1>Aircraft Mutation</h1>
+                <hr />
+                <div class="row">
+                  <div class="col-md-3">
+                    <input class="form-control me-1" type="search" placeholder="Search" v-model="search" />
+                  </div>
+                  <div class="col-md-9 text-right">
+                    <router-link :to="{ name: 'delivery' }" class="btn btn-primary btn-md" role="button"><i class="fa-solid fa-plus"></i> New Craft
+                      Delivery</router-link>
+                  </div>
+                </div>
+                <br />
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>A/C Reg</th>
+                        <th>A/C Type</th>
+                        <th>Activity</th>
+                        <th>Operator</th>
+                        <th>Actual TIme</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr v-for="(mutation, mutation_index) in mutations.data" :key="mutation_index">
+                        <td>
+                          {{mutations.from + mutation_index}}
+                        </td>
+                        <td>{{ mutation.reg }}</td>
+                        <td>{{ mutation.type }}</td>
+                        <td>{{ mutation.activity_type }}</td>
+                        <td>{{ mutation.operator }}</td>
+                        <td>{{ mutation.actual_time }}</td>
+                        <td>
+                          <ul class="list-inline m-0">
+                            <!-- <li class="list-inline-item">
+                                                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                            <i class="fa-solid fa-pencil"></i>
+                                                        </button>
+                                                    </li> -->
+                            <li class="list-inline-item">
+                              <button class="btn btn-warning btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete" @click="deleteData(mutation.id)">
+                                <i class="fa-solid fa-trash"></i>
+                              </button>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr v-if="mutations.data.length < 1">
+                        <td colspan="15" class="text-center">
+                          Data not found
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+>>>>>>> 70ad2c28b05c97c6ab8247fcb54315a8956630a2
   </div>
 </template>
 
