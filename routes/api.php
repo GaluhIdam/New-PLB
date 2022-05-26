@@ -21,3 +21,4 @@ Route::post('/redelivery', [AircraftController::class, 'storeRedelivery']); //Si
 // Route::put('/aircraft/{id}', [AircraftController::class, 'update']); //Update Data
 Route::delete('/aircraft/{id}', [AircraftController::class, 'destroy']); //Menghapus Data
 // Route::resource('/aircraft', AircraftController::class)->except(['create', 'edit']);
+Route::get('/aircraft/data', [AircraftController::class, 'data']);

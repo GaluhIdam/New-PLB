@@ -13,6 +13,9 @@ Vue.use(VueAxios, axios)
 // VueProgressBar
 // vForm
 
+import Multiselect from 'vue-multiselect'
+Vue.component('multiselect', Multiselect)
+import "vue-multiselect/dist/vue-multiselect.min.css"
 
 // Routes
 let routes = [{

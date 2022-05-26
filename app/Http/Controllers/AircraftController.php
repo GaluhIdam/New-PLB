@@ -58,6 +58,19 @@ class AircraftController extends Controller
         return $mutations;
     }
 
+    public function data(Request $request)
+    {
+        $search = $request->get('search');
+
+        $mutations = Aircraft::when($search, function ($query) use ($search) {
+                            $query->where(function ($sub_query) use ($search) {
+                                $sub_query->where('reg', 'LIKE', "%{$search}%");
+                            });
+                        })
+                        ->get();
+
+        return $mutations;
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -80,11 +93,17 @@ class AircraftController extends Controller
         $request->validate([
             'operator' => 'required',
             'type' => 'required',
-            'reg' => 'required|unique:aircraft,reg',
+            'reg' => 'required',
             'actual_time' => 'required',
         ]);
 
         $data = $request->all();
+
+        if ($request->hasFile('rksp')) {
+            $path = $request->file('rksp')->store('uploaded_documents', 'public');
+            $data['rksp'] = $path;
+        }
+        
         $data['activity_type'] = 'delivery';
 
         $delivery = Aircraft::create($data);
@@ -101,7 +120,7 @@ class AircraftController extends Controller
         $request->validate([
             'operator' => 'required',
             'type' => 'required',
-            'reg' => 'required|unique:aircraft,reg',
+            'reg' => 'required',
             'actual_time' => 'required',
         ]);
 
