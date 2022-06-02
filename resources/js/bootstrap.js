@@ -1,10 +1,9 @@
 window._ = require('lodash');
-import Popper from 'popper.js/dist/umd/popper.js';
 try {
     window.$ = window.jQuery = require('jquery');
-    window.Popper = Popper;
-    require('bootstrap');
+    window.Popper = require('popper.js').default;
     require('admin-lte');
+    require('bootstrap');
     require('datatables.net');
 
 } catch (e) {}

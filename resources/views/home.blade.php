@@ -1,23 +1,28 @@
-<!DOCTYPE html>
+@extends('layouts.master')
 
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Dashboard</div>
 
-<head>
-    @include('partials.head')
-</head>
+                <div class="card-body">
+                    @if(session('login-success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('login-success') }}
+                    </div>
+                    @endif
+                    @if(session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
 
-<body class="sidebar-mini" style="height: auto;" cz-shortcut-listen="true">
-    <div class="wrapper" id="app">
-
-        @include('partials.navbar')
-        @include('partials.sidebar')
-
-        <div class="content-wrapper">
-            <router-view></router-view>
+                    You are normal user.
+                </div>
+            </div>
         </div>
-        <!-- @include('partials.footer') -->
     </div>
-    @include('partials.script')
-</body>
-
-</html>
+</div>
+@endsection

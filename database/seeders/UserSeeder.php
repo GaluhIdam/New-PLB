@@ -20,8 +20,10 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'Admin',
+            'username' => 'admin',
             'email' => 'admin@opencloud.id',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('12345678'),
+            'type' => 'admin'
         ]);
     }
 }
