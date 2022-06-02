@@ -80,7 +80,7 @@
                     pageLabel: 'page', // for 'pages' mode
                     allLabel: 'All',}">
                     <template slot="table-row" slot-scope="props">
-                      <span v-if="props.column.field === 'aksi'">
+                      <span v-if="props.column.field === 'action'">
 
                         <button type="button" class="btn btn-warning btn-sm mx-1 rounded-1" data-toggle="tooltip" data-placement="top" title="Ubah"><i class="fa-solid fa-edit"></i></button>
                         <button type="button" @click="hapusPengguna(props.row.id)" class="btn btn-danger btn-sm mx-1 rounded-1" title="Hapus"><i class="fa-solid fa-trash"></i></button>
@@ -236,7 +236,7 @@ export default {
         },
         {
           label: "Aksi",
-          field: "aksi",
+          field: "action",
           tdClass: 'text-center',
           thClass: 'text-center',
         },
@@ -265,11 +265,7 @@ export default {
               'success'
             )
             this.$emit('AfterDo')
-          }).catchSwal.fire(
-            'Berhasil!',
-            'Pengguna berhasil dihapus.',
-            'success'
-          );
+          }).catch((error) => console.log(error));
         }
       })
     },
