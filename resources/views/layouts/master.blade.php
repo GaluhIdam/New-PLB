@@ -30,7 +30,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home" class="nav-link">Dashboard</a>
+                    <a href="/home " class="nav-link">Dashboard</a>
                 </li>
             </ul>
 
@@ -100,12 +100,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <router-link to="/dokumen-pemasukan" class="nav-link">
+                                    <router-link to="/inbound-document" class="nav-link">
                                         <p>Dokumen Pemasukan PLB</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link to="/dokumen-pengeluaran" class="nav-link">
+                                    <router-link to="/outbound-document" class="nav-link">
                                         <p>Dokumen Pengeluaran PLB</p>
                                     </router-link>
                                 </li>
@@ -124,8 +124,18 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <router-link to="/transaksi-outbound" class="nav-link">
-                                        <p>Transaksi Outbound</p>
+                                    <router-link to="/outbound-transcation-1" class="nav-link">
+                                        <p>Transaksi Outbound 1</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link to="/outbound-transcation-2" class="nav-link">
+                                        <p>Transaksi Outbound 2</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link to="/outbound-transcation-3" class="nav-link">
+                                        <p>Transaksi Outbound 3</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
@@ -137,12 +147,12 @@
                         </li>
                         <!-- END: Outbound -->
 
-                        <!-- BEGIN: Mutasi Pesawat -->
+                        <!-- BEGIN: Aircraft Mutation -->
                         <li class="nav-item ">
                             <router-link to="/mutation" class="nav-link">
                                 <i class="nav-icon fa-solid fa-plane-circle-exclamation"></i>
                                 <p>
-                                    Mutasi Pesawat
+                                    Aircraft Mutation
                                     <i class="right fas fa-angle-right"></i>
                                 </p>
                             </router-link>
@@ -159,7 +169,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <!-- END: Mutasi Pesawat -->
+                        <!-- END: Aircraft Mutation -->
 
                         <!-- BEGIN: Allotment -->
                         <li class="nav-item ">
@@ -193,17 +203,17 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <router-link to="/report-mutasi" class="nav-link">
+                                    <router-link to="/report-mutation" class="nav-link">
                                         <p>Report Mutasi</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link to="/mutasi-berkala" class="nav-link">
+                                    <router-link to="/periodic-mutation" class="nav-link">
                                         <p>Report Mutasi Berkala</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link to="/perhitungan-mutasi" class="nav-link">
+                                    <router-link to="/calculation-mutation" class="nav-link">
                                         <p>Report Perhitungan Mutasi</p>
                                     </router-link>
                                 </li>
@@ -221,7 +231,7 @@
 
                         <!-- BEGIN: Masa Timbun -->
                         <li class="nav-item">
-                            <router-link to="/masa-timbun" class="nav-link">
+                            <router-link to="/hoarding-time" class="nav-link">
                                 <i class="nav-icon fa-solid fa-hands-holding-circle"></i>
                                 <p>Masa Timbun</p>
                             </router-link>

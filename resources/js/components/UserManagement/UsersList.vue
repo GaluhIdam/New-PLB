@@ -211,7 +211,7 @@ export default {
         },
         {
           label: 'Role',
-          field: 'type',
+          field: 'role',
           type: 'text',
           tdClass: 'text-center',
           thClass: 'text-center',
@@ -232,9 +232,6 @@ export default {
           thClass: 'text-center',
           formatFn: function (value) {
             return value != null ? moment(value).format('dddd, D-MMMM-YYYY hh:mm:ss') : null
-
-            // return moment(String(value)).format('MM/DD/YYYY hh:mm')
-            // return value != null ? moment(value, 'dddd, D-MMMM-YYYY hh:mm:ss').format('dddd, D-MMMM-YYYY hh:mm:ss') : null
           },
         },
         {
@@ -268,7 +265,11 @@ export default {
               'success'
             )
             this.$emit('AfterDo')
-          }).catch((error) => console.log(error));
+          }).catchSwal.fire(
+            'Berhasil!',
+            'Pengguna berhasil dihapus.',
+            'success'
+          );
         }
       })
     },

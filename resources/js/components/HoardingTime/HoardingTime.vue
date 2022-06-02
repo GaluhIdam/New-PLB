@@ -4,12 +4,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dokumen Pengeluaran PLB</h1>
+            <h1 class="m-0">Masa Timbun</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active"><a href="/dokumen-pengeluaran">Dokumen Pengeluaran PLB</a></li>
+              <li class="breadcrumb-item active"><a href="/hoarding-time">Masa Timbun</a></li>
             </ol>
           </div>
         </div>
@@ -21,10 +21,10 @@
         <div class="row justify-content-center">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">Dokumen Pengeluaran PLB</div>
+              <div class="card-header">Masa Timbun</div>
 
               <div class="card-body">
-                Aku adalah halaman Dokumen Pengeluaran PLB
+                Aku adalah halaman Masa Timbun
               </div>
             </div>
           </div>

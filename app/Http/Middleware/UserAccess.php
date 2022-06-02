@@ -16,10 +16,10 @@ class UserAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->type == $userType){
+        if (auth()->user()->role == $userRole) {
             return $next($request);
         }
-           
+
         return response()->json(['Anda tidak memiliki izin untuk mengakses halaman ini.']);
         /* return response()->view('errors.check-permission'); */
     }

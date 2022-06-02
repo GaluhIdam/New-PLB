@@ -11,20 +11,30 @@ const router = new VueRouter({
 
         // Dokumen Kepabeanan
         {
-            path: '/dokumen-pemasukan',
-            name: 'pemasukan',
-            component: require('./components/DokumenKepabeanan/Pemasukan.vue').default
+            path: '/inbound-document',
+            name: 'inbound-document',
+            component: require('./components/Costums/InboundDocument.vue').default
         },
         {
-            path: '/dokumen-pengeluaran',
-            name: 'pengeluaran',
-            component: require('./components/DokumenKepabeanan/Pengeluaran.vue').default
+            path: '/outbound-document',
+            name: 'outbound-document',
+            component: require('./components/Costums/OutboundDocument.vue').default
         },
         // Outbound
         {
-            path: '/transaksi-outbound',
-            name: 'transaksi',
-            component: require('./components/Outbound/Transaksi.vue').default
+            path: '/outbound-transcation-1',
+            name: 'outbound-transcation-1',
+            component: require('./components/Outbound/Transaction1.vue').default
+        },
+        {
+            path: '/outbound-transcation-2',
+            name: 'outbound-transcation-2',
+            component: require('./components/Outbound/Transaction2.vue').default
+        },
+        {
+            path: '/outbound-transcation-3',
+            name: 'outbound-transcation-3',
+            component: require('./components/Outbound/Transaction3.vue').default
         },
         {
             path: '/summary-outbound',
@@ -50,30 +60,30 @@ const router = new VueRouter({
         // Allotment
         {
             path: '/inventory-allotment',
-            name: 'inventory',
+            name: 'inventory-allotment',
             component: require('./components/Allotment/Inventory.vue').default
         },
         {
             path: '/movement-allotment',
-            name: 'movement',
+            name: 'movement-allotment',
             component: require('./components/Allotment/Movement.vue').default
         },
         // Mutasi
         {
-            path: '/report-mutasi',
-            name: 'report-mutasi',
-            component: require('./components/Mutasi/ReportMutasi.vue').default,
+            path: '/report-mutation',
+            name: 'report-mutation',
+            component: require('./components/Mutation/ReportMutation.vue').default,
             props: true
         },
         {
-            path: '/mutasi-berkala',
-            name: 'mutasi-berkala',
-            component: require('./components/Mutasi/MutasiBerkala.vue').default
+            path: '/periodic-mutation',
+            name: 'periodic-mutation',
+            component: require('./components/Mutation/PeriodicMutation.vue').default
         },
         {
-            path: '/perhitungan-mutasi',
-            name: 'perhitungan-mutasi',
-            component: require('./components/Mutasi/PerhitunganMutasi.vue').default
+            path: '/calculation-mutation',
+            name: 'calculation-mutation',
+            component: require('./components/Mutation/CalculationMutation.vue').default
         },
         // Scrap
         {
@@ -83,9 +93,9 @@ const router = new VueRouter({
         },
         // Masa Timbun
         {
-            path: '/masa-timbun',
-            name: 'masa-timbun',
-            component: require('./components/MasaTimbun/MasaTimbun.vue').default
+            path: '/hoarding-time',
+            name: 'hoarding-time',
+            component: require('./components/HoardingTime/HoardingTime.vue').default
         },
         // User Management
         {

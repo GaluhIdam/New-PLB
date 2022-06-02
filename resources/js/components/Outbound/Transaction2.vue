@@ -4,12 +4,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Movement Allotment</h1>
+            <h1 class="m-0">Transaksi Outbound 2</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-              <li class="breadcrumb-item active"><a href="/movement-allotment">Movement Allotment</a></li>
+              <li class="breadcrumb-item active"><a href="/outbound-transcation-2">Transaksi Outbound 2</a></li>
             </ol>
           </div>
         </div>
@@ -21,10 +21,12 @@
         <div class="row justify-content-center">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">Movement Allotment</div>
+              <div class="card-header">Transaksi Outbound 2</div>
 
               <div class="card-body">
-                Aku adalah halaman Movement Allotment
+                Aku adalah halaman Transaksi Outbound 2
+                <br>
+                Part yang status pesawat sudah diluar PLB GMF
               </div>
             </div>
           </div>
