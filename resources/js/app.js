@@ -2,10 +2,18 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 import Vue from 'vue';
+
+// Gate
+import Gate from './gate';
+Vue.prototype.$gate = new Gate(window.user);
+
 let Fire = new Vue();
 window.Fire = Fire;
 
-
+Vue.component('passport-clients', require('./components/Passport/Clients.vue').default);
+Vue.component('passport-authorized-clients', require('./components/Passport/AuthorizedClients.vue').default);
+Vue.component('passport-personal-access-tokens', require('./components/Passport/PersonalAccessTokens.vue').default);
+Vue.component('not-found', require('./components/NotFound.vue').default);
 // Vue-Router
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
@@ -74,10 +82,6 @@ const toast = swal.mixin({
     timer: 3000,
 })
 window.toast = toast
-
-
-
-
 const app = new Vue({
     el: '#app',
     router: routes

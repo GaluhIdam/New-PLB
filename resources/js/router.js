@@ -4,9 +4,9 @@ Vue.use(VueRouter)
 const router = new VueRouter({
     mode: 'history',
     routes: [{
-            path: '/home',
-            name: 'home',
-            component: require('./components/Home.vue').default
+            path: '/dashboard',
+            name: 'dashboard',
+            component: require('./components/Dashboard.vue').default
         },
 
         // Dokumen Kepabeanan
@@ -99,6 +99,11 @@ const router = new VueRouter({
         },
         // User Management
         {
+            path: '/profile',
+            name: 'profile',
+            component: require('./components/UserManagement/Profile.vue').default,
+        },
+        {
             path: '/users-list',
             name: 'users-list',
             component: require('./components/UserManagement/UsersList.vue').default,
@@ -108,6 +113,11 @@ const router = new VueRouter({
             path: '/users-role',
             name: 'users-role',
             component: require('./components/UserManagement/UsersRole.vue').default
+        },
+        {
+            path: '/developer',
+            name: 'developer',
+            component: require('./components/UserManagement/Developer.vue').default
         },
         // Log
         {
@@ -121,7 +131,13 @@ const router = new VueRouter({
             name: 'activity-history',
             component: require('./components/Log/ActivityHistory.vue').default
         },
+        // Error 404
+        {
+            path: '*',
+            component: require('./components/NotFound.vue').default
+        }
     ]
+
 });
 
 export default router;

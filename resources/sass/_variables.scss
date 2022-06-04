@@ -68,7 +68,6 @@ $line-height-base: 1.6;
   line-height: .8;
   margin-left: .8rem;
   margin-right: .5rem;
-
   width: auto;
   height: auto;
 }
@@ -82,16 +81,28 @@ $line-height-base: 1.6;
 }
 
 [class*="sidebar-dark-"] .nav-treeview>.nav-item>.nav-link {
-  color: #bdbdbd;
+  color: #ededed;
 }
 
-// .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
-// .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
-//   background-color: #517aa2;
-//   color: #ededed;
-// }
+.nav-sidebar>.nav-item>.nav-link.active> {
+  background-color: #517aa2;
+  color: #EDEDED;
+}
 
-.router-link-exact-active {
+[class*="sidebar-dark-"] .nav-sidebar>.nav-item.menu-open>.nav-link,
+[class*="sidebar-dark-"] .nav-sidebar>.nav-item>.nav-link:focus {
+  background-color: #517aa2;
+  color: #EDEDED;
+}
+
+[class*="sidebar-dark-"] .nav-sidebar>.nav-item:hover>.nav-link {
+  background-color: #4b7095;
+  color: #ededed;
+}
+
+
+[class*="sidebar-dark-"] .nav-treeview>.nav-item>.nav-link:hover,
+[class*="sidebar-dark-"] .nav-treeview>.nav-item>.nav-link:focus {
   background-color: #517aa2;
   color: #EDEDED;
 }

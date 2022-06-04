@@ -19,9 +19,4 @@ module.exports = {
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .vue()
-    .copy(
-        // 'node_modules/admin-lte/dist/img',
-        // 'public/img',
-        'node_modules/@fortawesome/fontawesome-free/webfonts',
-        'public/webfonts',
-    );
+    .sourceMaps();

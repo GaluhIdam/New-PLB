@@ -30,7 +30,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home " class="nav-link">Dashboard</a>
+                    <a href="/dashboard " class="nav-link">Dashboard</a>
                 </li>
             </ul>
 
@@ -51,14 +51,13 @@
                         </li>
 
                         <li class="user-footer">
-                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            <router-link to="/profile" class="btn btn-default btn-flat">Profile</router-link>
                             <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                 class="btn btn-default btn-flat float-right"><i
                                     class="fa-solid fa-right-from-bracket"></i> Logout</a>
                         </li>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                            class="d-none">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                     </ul>
@@ -71,8 +70,8 @@
 
             <div class="brand-link d-flex justify-content-between align-items-center">
                 <a href="#" class="brand-link">
-                    <img src="{{ asset('/img/logo-gmf.png') }}" alt="Logo GMF AeroAsia"
-                        class="brand-image" style="opacity: .8">
+                    <img src="{{ asset('/img/logo-gmf.png') }}" alt="Logo GMF AeroAsia" class="brand-image"
+                        style="opacity: .8">
                     <span class="brand-text ">GMF PLB REPORT</span>
                 </a>
             </div>
@@ -82,7 +81,7 @@
                     <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview"
                         role="menu" data-accordion="false">
                         <li class="nav-item">
-                            <router-link to="/home" class="nav-link">
+                            <router-link to="/dashboard" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>Dashboard</p>
                                 </a>
@@ -301,6 +300,7 @@
                         <!-- END: Data Upload -->
 
                         <li class="nav-header">Miscellaneous</li>
+                        @can('isAdminOrPlanner')
                         <!-- BEGIN: User Management -->
                         <li class="nav-item ">
                             <a href="#" class="nav-link">
@@ -308,6 +308,11 @@
                                 <p> User Management<i class="right fas fa-angle-right"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <router-link to="/profile" class="nav-link">
+                                        <p>Profile</p>
+                                    </router-link>
+                                </li>
                                 <li class="nav-item">
                                     <router-link to="/users-list" class="nav-link">
                                         <p>Daftar Pengguna</p>
@@ -318,8 +323,14 @@
                                         <p>Role Pengguna</p>
                                     </router-link>
                                 </li>
+                                <li class="nav-item">
+                                    <router-link to="/developer" class="nav-link">
+                                        <p>Developer</p>
+                                    </router-link>
+                                </li>
                             </ul>
                         </li>
+
                         <!-- END: User Management -->
                         <!-- BEGIN: Log -->
                         <li class="nav-item ">
@@ -344,7 +355,7 @@
                             </ul>
                         </li>
                         <!-- END: Log -->
-
+                        @endcan
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
@@ -352,8 +363,7 @@
                                 <p class="text">Keluar</p>
                             </a>
                         </li>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                            class="d-none">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                     </ul>
@@ -381,7 +391,12 @@
             </div>
         </footer> --}}
     </div>
-</body>
 
+    @auth
+    <script>
+        window.user = @json(auth()->user())
+    </script>
+    @endauth
+</body>
 
 </html>

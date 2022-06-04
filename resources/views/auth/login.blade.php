@@ -4,7 +4,9 @@
 <div class="login-page">
     <div class="login-box">
         <div class="login-logo">
-            <img src="img/gmf-logo.png" alt="" srcset="">
+            <a href="/home">
+                <img alt="GMF AeroAsia" src="img/gmf-logo.png">
+            </a>
             <h3 class="title">GMF PLB REPORT</h3>
         </div>
         <div class="login-card">

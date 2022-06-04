@@ -21,9 +21,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->default('user');
-            $table->mediumText('bio')->nullable();
-            $table->string('avatar')->nullable();
-            // $table->string('avatar')->default('default.png');
+            $table->mediumText('description')->nullable();
+            // $table->string('avatar')->nullable();
+            $table->string('photo')->default('default.png');
             $table->rememberToken();
             $table->timestamps();
         });
