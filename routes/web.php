@@ -3,7 +3,6 @@
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Spatie\Activitylog\Models\Activity;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +15,6 @@ use Spatie\Activitylog\Models\Activity;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 Auth::routes();
-
 Route::get('/{any}', [HomeController::class, 'index'])->where('any', '.*');
-// Route::get('{path}', [HomeController::class, 'index'])->where('path', '([A-z]+)?');

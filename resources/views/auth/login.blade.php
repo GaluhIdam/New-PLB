@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('content')
 <div class="login-page">
@@ -17,12 +17,11 @@
                 <div class="form-group mb-2">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control @error('username') is-invalid @enderror" name="username"
-                        id="username" value="{{ old('username') }}"
-                        placeholder="Masukan Username anda" required autofocus>
+                        id="username" value="{{ old('username') }}" placeholder="Masukan Username anda" autofocus>
                     @error('username')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
                 <!-- END: Username -->
@@ -32,17 +31,16 @@
                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
                         id="password" placeholder="Masukan Password anda" autocomplete="current-password">
                     @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
 
                 <div class="row">
                     <div class="col-8">
                         <div class="icheck-primary">
-                            <input type="checkbox" id="remember" name="remember"
-                                {{ old('remember') ? 'checked' : '' }}>
+                            <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label for="remember">
                                 Ingat Saya
                             </label>

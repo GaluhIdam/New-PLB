@@ -157,7 +157,7 @@
     </div>
     <!-- END: Modal Tambah Pengguna -->
 
-    <div v-if="!$gate.isAdmin()">
+    <div v-if="!$gate.isAdminOrPlanner()">
       <not-found></not-found>
     </div>
   </div>
@@ -301,7 +301,7 @@ export default {
       })
     },
     loadUsers() {
-      if (this.$gate.isAdmin) {
+      if (this.$gate.isAdminOrPlanner) {
         axios.get('api/user').then(response => {
           this.users = response.data.data;
         })

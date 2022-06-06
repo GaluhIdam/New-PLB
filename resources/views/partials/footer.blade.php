@@ -3,9 +3,8 @@
 
         <div class="row text-center">
             <div class="d-none d-sm-inline">
-                Copyright &copy; <script>
-                    document.write(new Date().getFullYear())
-                </script> PT GMF AeroAsia Tbk. All Rights Reserved
+                Copyright &copy;
+                <?php echo date("Y"); ?> PT GMF AeroAsia Tbk. All Rights Reserved
             </div>
         </div>
     </div>

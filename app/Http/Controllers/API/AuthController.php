@@ -20,12 +20,15 @@ class AuthController extends Controller
     //  Register Functions
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required', //
-            'username' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|confirmed',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'username' => 'required',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:8|confirmed',
+            ],
+        );
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
@@ -41,7 +44,7 @@ class AuthController extends Controller
         ]);
 
         return response()->json([
-            'success' => true, //
+            'success' => true,
             'Messages' => 'Pendaftaran Berhasil dilakukan',
             'data' => $user
         ]);
@@ -49,7 +52,6 @@ class AuthController extends Controller
 
     // Login Functions
     public function login(Request $request)
-
     {
         $validator = Validator::make(
             $request->all(),
@@ -57,10 +59,6 @@ class AuthController extends Controller
                 'username' => 'required',
                 'password' => 'required'
             ],
-            [
-                'username.required' => 'Username tidak boleh kosong!',
-                'password.required' => 'Password tidak boleh kosong',
-            ]
         );
 
         if ($validator->fails()) {

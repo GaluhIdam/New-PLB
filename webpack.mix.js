@@ -19,4 +19,18 @@ module.exports = {
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .vue()
-    .sourceMaps();
+    .sourceMaps()
+    .options({
+        postCss: [require('autoprefixer')]
+    });
+
+const path = require('path');
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            '@resources': path.resolve(__dirname, 'resources/'),
+            '@': path.resolve(__dirname, 'resources/js/src/'),
+            '@axios': path.resolve(__dirname, 'resources/js/src/libs/axios')
+        }
+    }
+});

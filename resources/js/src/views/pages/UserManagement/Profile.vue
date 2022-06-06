@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="content-header">
+    <div class="content-header" v-if="$gate.isAdminOrPlanner()">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="content">
+    <div class="content" v-if="$gate.isAdminOrPlanner()">
       <div class="container-fluid">
         <div class="row justify-content-center">
           <div class="col-md-12">
@@ -151,14 +151,16 @@
                       </div>
                     </form>
                   </div>
-
                 </div>
-
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div v-if="!$gate.isAdminOrPlanner()">
+      <not-found></not-found>
     </div>
   </div>
 </template>
@@ -211,9 +213,9 @@ export default {
     },
     updatePhoto(e) {
       let file = e.target.files[0];
-      console.log(file);
       let reader = new FileReader();
-      if (file['size'] < 2097152) {
+
+      if (file['size'] < 2111775) {
         reader.onloadend = (file) => {
           // console.log('RESULT ', reader.result)
           this.form.photo = reader.result;
