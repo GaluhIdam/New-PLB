@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\RouteGroup;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\OutboundController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -21,6 +22,8 @@ Route::apiResource('user', UserController::class);
 Route::get('profile', [UserController::class, 'profile']);
 Route::put('profile', [UserController::class, 'updateProfile']);
 
+
+Route::get('/outbound-transaction-1', [OutboundController::class, 'outbound1']);
 
 Route::get('/aircraft', [AircraftController::class, 'index']);
 Route::post('/aircraft-delivery', [AircraftController::class, 'storeDelivery']);

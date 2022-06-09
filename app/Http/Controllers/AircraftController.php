@@ -15,8 +15,6 @@ class AircraftController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-        $start_date = $request->get('start_date');
-        $end_date = $request->get('end_date');
 
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
@@ -34,12 +32,6 @@ class AircraftController extends Controller
                         ->orWhere('type', 'LIKE', "%{$search}%");
                 });
             })
-            ->when($start_date, function ($query) use ($start_date) {
-                $query->whereDate('actual_time', '>=', $start_date);
-            })
-            ->when($end_date, function ($query) use ($end_date) {
-                $query->whereDate('actual_time', '<=', $end_date);
-            })
             ->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);
             })
@@ -47,8 +39,6 @@ class AircraftController extends Controller
 
         $query_string = [
             'search' => $search,
-            'start_date' => $start_date,
-            'end_date' => $end_date,
             'order' => $order,
             'by' => $by,
         ];
