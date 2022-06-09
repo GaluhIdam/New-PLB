@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Aircraft;
-// use Illuminate\Support\Facades\Response;
 
 class AircraftController extends Controller
 {
@@ -31,6 +30,7 @@ class AircraftController extends Controller
                 $query->where(function ($sub_query) use ($search) {
                     $sub_query->where('operator', 'LIKE', "%{$search}%")
                         ->orWhere('reg', 'LIKE', "%{$search}%")
+                        ->orWhere('operator', 'LIKE', "%{$search}%")
                         ->orWhere('type', 'LIKE', "%{$search}%");
                 });
             })
@@ -63,23 +63,14 @@ class AircraftController extends Controller
         $search = $request->get('search');
 
         $mutations = Aircraft::when($search, function ($query) use ($search) {
-                            $query->where(function ($sub_query) use ($search) {
-                                $sub_query->where('reg', 'LIKE', "%{$search}%");
-                            });
-                        })
-                        ->get();
+                                $query->where(function ($sub_query) use ($search) {
+                                    $sub_query->where('reg', 'LIKE', "%{$search}%");
+                                });
+                            })
+                            ->where('date_out', null)
+                            ->get();
 
         return $mutations;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -93,8 +84,12 @@ class AircraftController extends Controller
         $request->validate([
             'operator' => 'required',
             'type' => 'required',
-            'reg' => 'required',
-            'actual_time' => 'required',
+            'reg' => 'required|unique:aircraft',
+            'date_in' => 'required',
+        ],[
+            'reg.required' => 'Registration field is required.',
+            'reg.unique' => 'The registration has already been taken.',
+            'date_in.required' => 'Actual time arrival field is required.',
         ]);
 
         $data = $request->all();
@@ -104,8 +99,6 @@ class AircraftController extends Controller
             $data['rksp'] = $path;
         }
         
-        $data['activity_type'] = 'delivery';
-
         $delivery = Aircraft::create($data);
 
         return response()->json(array(
