@@ -22,12 +22,8 @@ Route::get('profile', [UserController::class, 'profile']);
 Route::put('profile', [UserController::class, 'updateProfile']);
 
 
-// Routing Controller AirCraft Mutation
-Route::get('/aircraft', [AircraftController::class, 'index']); //Cek Data
-// Route::get('/aircraft/{id}', [AircraftController::class, 'show']); //Tampil Data
-Route::post('/delivery', [AircraftController::class, 'storeDelivery']); //Simpan Data
-Route::post('/redelivery', [AircraftController::class, 'storeRedelivery']); //Simpan Data
-// Route::put('/aircraft/{id}', [AircraftController::class, 'update']); //Update Data
-Route::delete('/aircraft/{id}', [AircraftController::class, 'destroy']); //Menghapus Data
-// Route::resource('/aircraft', AircraftController::class)->except(['<creat></creat>e', 'edit']);
+Route::get('/aircraft', [AircraftController::class, 'index']);
+Route::post('/aircraft-delivery', [AircraftController::class, 'storeDelivery']);
+Route::post('/aircraft-redelivery', [AircraftController::class, 'storeRedelivery']);
+Route::delete('/aircraft/{id}', [AircraftController::class, 'destroy']);
 Route::get('/aircraft/data', [AircraftController::class, 'data']);

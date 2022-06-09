@@ -15,15 +15,15 @@ return new class extends Migration
     {
         Schema::create('aircraft', function (Blueprint $table) {
             $table->id();
+            $table->string('reg')->unique();
             $table->string('operator');
-            $table->string('reg');
             $table->string('type');
-            $table->enum('activity_type', ['delivery', 'redelivery']);
-            $table->datetime('actual_time')->nullable();
+            $table->datetime('date_in');
+            $table->datetime('date_out')->nullable();
+            $table->string('rksp')->nullable();
             $table->string('fight_route')->nullable();
             $table->string('crews')->nullable();
             $table->string('report')->nullable();
-            $table->string('rksp')->nullable();
             $table->timestamps();
         });
     }

@@ -233,14 +233,14 @@ export default {
             by: "desc",
         };
     },
-    // created() {
-    //     this.list();
-    // },
-    // watch: {
-    //     search: debounce(function () {
-    //         this.list();
-    //     }, 300),
-    // },
+    created() {
+        this.list();
+    },
+    watch: {
+        search: debounce(function () {
+            this.list();
+        }, 300),
+    },
     methods: {
         list(paginate) {
             if (paginate) {

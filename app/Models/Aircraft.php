@@ -10,6 +10,24 @@ class Aircraft extends Model
     use HasFactory;
 
     protected $fillable = [
-        'operator', 'reg', 'type', 'activity_type', 'actual_time', 'fight_route', 'crews', 'report', 'rksp' 
+        'reg',
+        'operator',
+        'type',
+        'date_in',
+        'date_out',
+        'rksp',
+        'fight_route',
+        'crews',
+        'report'
+    ];
+
+    protected $dates = [
+        'date_in',
+        'date_out',
+    ];
+
+    protected $casts = [
+        'date_in' => 'datetime:d-m-Y',
+        'date_out' => 'datetime:d-m-Y',
     ];
 }
