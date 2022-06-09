@@ -114,53 +114,27 @@ class AircraftController extends Controller
             'operator' => 'required',
             'type' => 'required',
             'reg' => 'required',
-            'actual_time' => 'required',
+            'date_out' => 'required',
+        ],[
+            'reg.required' => 'Registration field is required.',
+            'date_out.required' => 'Actual time depart field is required.',
         ]);
 
-        $data = $request->all();
-        $data['activity_type'] = 'redelivery';
-
-        $redelivery = Aircraft::create($data);
-
-        return response()->json(array(
-            "response_code" => 201,
-            "message" => "Delivery created successfully",
-            "data" => $redelivery
-        ), 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        if ($redelivery = Aircraft::where('reg', $request->reg)->first()) {
+            $redelivery->date_out = $request->date_out;
+            $redelivery->save();
+            
+            return response()->json(array(
+                "response_code" => 201,
+                "message" => "Delivery created successfully",
+                "data" => $redelivery
+            ), 201);
+        } else {
+            return response()->json(array(
+                "response_code" => 500,
+                "message" => "Error occurred",
+            ), 500);
+        }
     }
 
     /**
