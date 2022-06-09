@@ -44,18 +44,18 @@ export default [
     },
     // Mutasi Pesawat
     {
-        path: '/mutation',
-        name: 'mutation',
+        path: '/aircraft-mutation',
+        name: 'aircraft-mutation',
         component: require('@/views/pages/Aircraft/Mutation.vue').default
     },
     {
-        path: '/delivery',
-        name: 'delivery',
+        path: '/aircraft-delivery',
+        name: 'aircraft-delivery',
         component: require('@/views/pages/Aircraft/Delivery.vue').default
     },
     {
-        path: '/redelivery',
-        name: 'redelivery',
+        path: '/aircraft-redelivery',
+        name: 'aircraft-redelivery',
         component: require('@/views/pages/Aircraft/Redelivery.vue').default
     },
     // Allotment

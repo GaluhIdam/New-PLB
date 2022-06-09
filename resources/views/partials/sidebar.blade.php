@@ -79,22 +79,27 @@
 
                 <!-- BEGIN: Aircraft Mutation -->
                 <li class="nav-item ">
-                    <router-link to="/mutation" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-plane-circle-exclamation"></i>
                         <p>
-                            Aircraft Mutation
+                            Aircraft
                             <i class="right fas fa-angle-right"></i>
                         </p>
-                    </router-link>
+                    </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <router-link to="/delivery" class="nav-link">
-                                <p>Aircraft Delivery</p>
+                            <router-link to="/aircraft-mutation" class="nav-link">
+                                <p>Mutation</p>
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/redelivery" class="nav-link">
-                                <p>Aircraft Redelivery</p>
+                            <router-link to="/aircraft-delivery" class="nav-link">
+                                <p>Delivery</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/aircraft-redelivery" class="nav-link">
+                                <p>Redelivery</p>
                             </router-link>
                         </li>
                     </ul>
