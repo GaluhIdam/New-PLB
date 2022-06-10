@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'username' => 'admin',
             'email' => 'admin@opencloud.id',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('password'),
             'role' => 'admin',
             'created_at' => Carbon::now(),
         ]);
