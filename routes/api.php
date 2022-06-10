@@ -26,6 +26,7 @@ Route::put('profile', [UserController::class, 'updateProfile']);
 Route::get('/outbound-transaction-1', [OutboundController::class, 'outbound1']);
 Route::get('/outbound-transaction-2', [OutboundController::class, 'outbound2']);
 Route::get('/outbound-transaction-3', [OutboundController::class, 'outbound3']);
+Route::get('/outbound-summary', [OutboundController::class, 'summary']);
 
 Route::get('/aircraft', [AircraftController::class, 'index']);
 Route::post('/aircraft-delivery', [AircraftController::class, 'storeDelivery']);
