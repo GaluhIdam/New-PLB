@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomsController;
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
@@ -23,13 +24,15 @@ Route::get('profile', [UserController::class, 'profile']);
 Route::put('profile', [UserController::class, 'updateProfile']);
 
 
-Route::get('/outbound-transaction-1', [OutboundController::class, 'outbound1']);
-Route::get('/outbound-transaction-2', [OutboundController::class, 'outbound2']);
-Route::get('/outbound-transaction-3', [OutboundController::class, 'outbound3']);
-Route::get('/outbound-summary', [OutboundController::class, 'summary']);
+Route::get('/customs/inbound-document', [CustomsController::class, 'inboundDocument']);
+
+Route::get('/outbound/transaction-1', [OutboundController::class, 'outbound1']);
+Route::get('/outbound/transaction-2', [OutboundController::class, 'outbound2']);
+Route::get('/outbound/transaction-3', [OutboundController::class, 'outbound3']);
+Route::get('/outbound/summary', [OutboundController::class, 'summary']);
 
 Route::get('/aircraft', [AircraftController::class, 'index']);
-Route::post('/aircraft-delivery', [AircraftController::class, 'storeDelivery']);
-Route::post('/aircraft-redelivery', [AircraftController::class, 'storeRedelivery']);
+Route::post('/aircraft/delivery', [AircraftController::class, 'delivery']);
+Route::post('/aircraft/redelivery', [AircraftController::class, 'redelivery']);
 Route::delete('/aircraft/{id}', [AircraftController::class, 'destroy']);
 Route::get('/aircraft/data', [AircraftController::class, 'data']);

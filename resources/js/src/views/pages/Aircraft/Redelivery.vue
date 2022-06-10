@@ -189,7 +189,7 @@ export default {
     methods: {
         create() {
             axios
-                .post("/api/aircraft-redelivery", {
+                .post("/api/aircraft/redelivery", {
                     reg: this.reg,
                     operator: this.operator,
                     type: this.type,

@@ -215,7 +215,7 @@ export default {
             formData.append("rksp", this.rksp);
 
             axios
-                .post("/api/aircraft-delivery", formData, {
+                .post("/api/aircraft/delivery", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

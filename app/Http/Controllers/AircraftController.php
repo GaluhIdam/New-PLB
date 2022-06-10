@@ -69,7 +69,7 @@ class AircraftController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeDelivery(Request $request)
+    public function delivery(Request $request)
     {
         $request->validate([
             'operator' => 'required',
@@ -98,7 +98,7 @@ class AircraftController extends Controller
         ), 201);
     }
 
-    public function storeRedelivery(Request $request)
+    public function redelivery(Request $request)
     {
         $request->validate([
             'operator' => 'required',
