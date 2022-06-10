@@ -13,6 +13,11 @@
                                     >Dashboard</router-link
                                 >
                             </li>
+                            <li class="breadcrumb-item">
+                                <router-link :to="{ name: 'aircraft-mutation' }"
+                                    >Aircraft Mutation</router-link
+                                >
+                            </li>
                             <li class="breadcrumb-item active">
                                 Aircraft Redelivery
                             </li>
