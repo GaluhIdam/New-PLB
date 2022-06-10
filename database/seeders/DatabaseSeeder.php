@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // UserSeeder::class,
             // OutboundSeeder::class,
-            CustomsInboundDocumentSeeder::class,
+            // CustomsInboundDocumentSeeder::class,
+            CustomsOutboundDocumentSeeder::class,
         ]);
     }
 }

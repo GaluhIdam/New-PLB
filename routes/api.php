@@ -25,6 +25,7 @@ Route::put('profile', [UserController::class, 'updateProfile']);
 
 
 Route::get('/customs/inbound-document', [CustomsController::class, 'inboundDocument']);
+Route::get('/customs/outbound-document', [CustomsController::class, 'outboundDocument']);
 
 Route::get('/outbound/transaction-1', [OutboundController::class, 'outbound1']);
 Route::get('/outbound/transaction-2', [OutboundController::class, 'outbound2']);
