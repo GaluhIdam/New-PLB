@@ -33,18 +33,6 @@
                                         <div class="form-group row">
                                             <label
                                                 class="col-sm-4 col-form-label"
-                                                >Nomor Pengajuan</label
-                                            >
-                                            <div class="col-sm-8">
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label
-                                                class="col-sm-4 col-form-label"
                                                 >Tanggal Pengajuan</label
                                             >
                                             <div class="col-sm-4">
@@ -56,6 +44,18 @@
                                             <div class="col-sm-4">
                                                 <input
                                                     type="date"
+                                                    class="form-control"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label
+                                                class="col-sm-4 col-form-label"
+                                                >Nomor Pengajuan</label
+                                            >
+                                            <div class="col-sm-8">
+                                                <input
+                                                    type="text"
                                                     class="form-control"
                                                 />
                                             </div>
