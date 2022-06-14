@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\LoginHistory;
 
 class AuthController extends Controller
 {
@@ -74,6 +75,14 @@ class AuthController extends Controller
             ]);
         }
 
+        //Login History
+        LoginHistory::create([
+            'username' => $request->username,
+            'time' => now(),
+            'ip_address' =>  $request->ip(),
+            'user_agent' =>  $request->header('user-agent')
+        ]);
+
         return response()->json([
             'success' => true,
             'message' => 'Login Berhasil!',
@@ -86,7 +95,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $removeToken = $request->user()->tokens()->delete();
-
         if ($removeToken) {
             return response()->json([
                 'success' => true,

@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomsController;
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\OutboundController;
 
 // Authentication routes
@@ -37,3 +38,7 @@ Route::post('/aircraft/delivery', [AircraftController::class, 'delivery']);
 Route::post('/aircraft/redelivery', [AircraftController::class, 'redelivery']);
 Route::delete('/aircraft/{id}', [AircraftController::class, 'destroy']);
 Route::get('/aircraft/data', [AircraftController::class, 'data']);
+
+//Login History
+Route::get('/login-history', [LoginHistoryController::class, 'index']);
+Route::get('/login-history/{id}', [LoginHistoryController::class, 'index']);
