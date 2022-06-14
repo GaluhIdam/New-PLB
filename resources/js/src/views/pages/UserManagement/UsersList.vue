@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="content-header" v-if="$gate.isAdminOrPlanner()">
+    <div class="content-header" v-if="$gate.isAdmin()">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -17,37 +17,44 @@
       </div>
     </div>
 
-    <div class="content" v-if="$gate.isAdminOrPlanner()">
+    <div class="content" v-if="$gate.isAdmin()">
       <div class="container-fluid">
         <div class="row">
           <div class="col">
             <div class="card">
               <div class="card-header">
-                <button type="button" class="btn btn-success btn-sm" @click="newModal">
-                  <i class="fa-solid fa-user-plus"></i> Tambah Pengguna
-                </button>
+                <button type="button" class="btn btn-success btn-sm" @click="newModal"><i class="fa-solid fa-user-plus"></i> Tambah Pengguna</button>
               </div>
               <div class="card-body">
                 <div class="form-group">
-                  <vue-good-table theme="polar-bear" :columns="columns" :rows="users" :fixed-header="true" :search-options="{
-                    enabled: true,
-                    placeholder: 'Cari Pengguna', }" :pagination-options="{
-                    enabled: true,
-                    mode: 'records',
-                    perPage: 10   ,
-                    position: 'bottom',
-                    perPageDropdown: [20, 30, 40,50],
-                    dropdownAllowAll: true,
-                    setCurrentPage: 1,
-                    jumpFirstOrLast : true,
-                    firstLabel : 'First',   
-                    lastLabel : 'Last',
-                    nextLabel: 'Next',
-                    prevLabel: 'Prev',
-                    rowsPerPageLabel: 'Rows per page',
-                    ofLabel: 'dari',
-                    pageLabel: 'page', // for 'pages' mode
-                    allLabel: 'All',}">
+                  <vue-good-table
+                    theme="polar-bear"
+                    :columns="columns"
+                    :rows="users"
+                    :fixed-header="true"
+                    :search-options="{
+                      enabled: true,
+                      placeholder: 'Cari Pengguna'
+                    }"
+                    :pagination-options="{
+                      enabled: true,
+                      mode: 'records',
+                      perPage: 10,
+                      position: 'bottom',
+                      perPageDropdown: [20, 30, 40, 50],
+                      dropdownAllowAll: true,
+                      setCurrentPage: 1,
+                      jumpFirstOrLast: true,
+                      firstLabel: 'First',
+                      lastLabel: 'Last',
+                      nextLabel: 'Next',
+                      prevLabel: 'Prev',
+                      rowsPerPageLabel: 'Rows per page',
+                      ofLabel: 'dari',
+                      pageLabel: 'page', // for 'pages' mode
+                      allLabel: 'All'
+                    }"
+                  >
                     <template slot="table-row" slot-scope="props">
                       <span v-if="props.column.field === 'action'">
                         <button type="button" @click="editModal(props)" class="btn btn-warning btn-sm mx-1 rounded-1" title="Ubah"><i class="fa-solid fa-edit"></i></button>
@@ -60,13 +67,12 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
 
     <!-- BEGIN: Modal Tambah Pengguna -->
-    <div class="modal fade" id="addUsers" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="addUsers" style="display: none" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -84,14 +90,14 @@
                 <div class="col-sm-6">
                   <div class="form-group mb-2">
                     <label for="name" class="form-label">Nama Pengguna</label>
-                    <input id="name" v-model="form.name" type="text" name="name" class="form-control" :class="{'is-invalid' : form.errors.has('name')}" autofocus>
+                    <input id="name" v-model="form.name" type="text" name="name" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }" autofocus />
                     <HasError :form="form" field="name" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group mb-2">
                     <label for="email" class="form-label">Alamat Email</label>
-                    <input id="email" v-model="form.email" type="email" name="email" class="form-control" :class="{'is-invalid' : form.errors.has('email')}">
+                    <input id="email" v-model="form.email" type="email" name="email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }" />
                     <HasError :form="form" field="email" />
                   </div>
                 </div>
@@ -103,14 +109,14 @@
                 <div class="col-sm-6">
                   <div class="form-group mb-2">
                     <label for="username" class="form-label">Username</label>
-                    <input id="username" v-model="form.username" type="text" name="username" class="form-control" :class="{'is-invalid' : form.errors.has('username')}">
+                    <input id="username" v-model="form.username" type="text" name="username" class="form-control" :class="{ 'is-invalid': form.errors.has('username') }" />
                     <HasError :form="form" field="username" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group mb-2">
                     <label for="password" class="form-label">Password</label>
-                    <input id="password" v-model="form.password" type="password" name="password" class="form-control" :class="{'is-invalid' : form.errors.has('password')}" autocomplete="false">
+                    <input id="password" v-model="form.password" type="password" name="password" class="form-control" :class="{ 'is-invalid': form.errors.has('password') }" autocomplete="false" />
                     <HasError :form="form" field="password" />
                   </div>
                 </div>
@@ -122,7 +128,7 @@
                 <div class="col-lg-12">
                   <div class="form-group mb-2">
                     <label for="password" class="form-label">Role Pengguna</label>
-                    <select name="role" v-model="form.role" id="role" class="form-control" :class="{'is-invalid' : form.errors.has('role')}">
+                    <select name="role" v-model="form.role" id="role" class="form-control" :class="{ 'is-invalid': form.errors.has('role') }">
                       <option value="">Pilih Role Pengguna</option>
                       <option value="admin">Admin</option>
                       <option value="user">Standar User</option>
@@ -139,7 +145,7 @@
                 <div class="col-lg-12">
                   <div class="form-group mb-2">
                     <label for="description" class="form-label">Keterangan</label>
-                    <textarea name="description" id="description" v-model="form.description" class="form-control" :class="{'is-invalid' : form.errors.has('description')}" rows="3" placeholder="Masukan Keterangan Pengguna (Optional)"></textarea>
+                    <textarea name="description" id="description" v-model="form.description" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }" rows="3" placeholder="Masukan Keterangan Pengguna (Optional)"></textarea>
                     <HasError :form="form" field="description" />
                   </div>
                 </div>
@@ -157,7 +163,7 @@
     </div>
     <!-- END: Modal Tambah Pengguna -->
 
-    <div v-if="!$gate.isAdminOrPlanner()">
+    <div v-if="!$gate.isAdmin()">
       <not-found></not-found>
     </div>
   </div>
@@ -165,12 +171,12 @@
 <script>
 import Form from 'vform'
 import axios from 'axios'
-import Swal from "sweetalert2";
-import moment from 'moment';
-moment.locale('id');
+import Swal from 'sweetalert2'
+import moment from 'moment'
+moment.locale('id')
 
 export default {
-  name: "users",
+  name: 'users',
   data() {
     return {
       editmode: false,
@@ -184,7 +190,7 @@ export default {
         role: '',
         description: '',
         photo: '',
-        email_verified_at: '',
+        email_verified_at: ''
       }),
       // Columns Vue-GoodTable
       columns: [
@@ -193,21 +199,21 @@ export default {
           field: 'name',
           type: 'text',
           tdClass: 'text-center',
-          thClass: 'text-center',
+          thClass: 'text-center'
         },
         {
           label: 'Username',
           field: 'username',
           type: 'text',
           tdClass: 'text-center',
-          thClass: 'text-center',
+          thClass: 'text-center'
         },
         {
           label: 'Email',
           field: 'email',
           type: 'text',
           tdClass: 'text-center',
-          thClass: 'text-center',
+          thClass: 'text-center'
         },
         {
           label: 'Role',
@@ -232,107 +238,102 @@ export default {
           thClass: 'text-center',
           formatFn: function (value) {
             return value != null ? moment(value).format('dddd, D-MMMM-YYYY hh:mm:ss') : null
-          },
+          }
         },
         {
-          label: "Aksi",
-          field: "action",
+          label: 'Aksi',
+          field: 'action',
           tdClass: 'text-center',
-          thClass: 'text-center',
-        },
-      ],
+          thClass: 'text-center'
+        }
+      ]
     }
   },
 
   methods: {
     newModal() {
-      this.editmode = false;
-      this.form.reset(); //Reset Form Modal AddUsers
+      this.editmode = false
+      this.form.reset() //Reset Form Modal AddUsers
       $('#addUsers').modal('show')
     },
     editModal(users) {
-      this.editmode = true;
-      this.form.reset(); //Reset Form Modal AddUsers
-      $('#addUsers').modal('show');
-      this.form.fill(users.row);
+      this.editmode = true
+      this.form.reset() //Reset Form Modal AddUsers
+      $('#addUsers').modal('show')
+      this.form.fill(users.row)
       console.log(users)
     },
     updateUser() {
       this.$Progress.start()
-      this.form.put('api/user/' + this.form.id)
+      this.form
+        .put('api/user/' + this.form.id)
         .then(() => {
-          $('#addUsers').modal('hide');
+          $('#addUsers').modal('hide')
           toast.fire({
             icon: 'success',
             title: 'Pengguna berhasil diperbarui'
           })
-          this.$Progress.finish();
-          Fire.$emit('RefreshTable');
-
+          this.$Progress.finish()
+          Fire.$emit('RefreshTable')
         })
         .catch(() => {
-          this.$Progress.fail();
-
+          this.$Progress.fail()
         })
     },
 
     deleteUser(id) {
       Swal.fire({
         title: 'Apakah Kamu yakin ingin menghapusnya?',
-        text: "Pengguna tidak dapat dikembalikan",
+        text: 'Pengguna tidak dapat dikembalikan',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Ya, Hapus Pengguna!'
       }).then((result) => {
-
         // Kirim request ke Server
         if (result.value) {
-          axios.delete(`/api/user/${id}`).then(() => {
-            Swal.fire(
-              'Berhasil!',
-              'Pengguna Berhasil dihapus',
-              'success'
-            )
-            Fire.$emit('RefreshTable');
-          }).catch((error) => console.log(error));
+          axios
+            .delete(`/api/user/${id}`)
+            .then(() => {
+              Swal.fire('Berhasil!', 'Pengguna Berhasil dihapus', 'success')
+              Fire.$emit('RefreshTable')
+            })
+            .catch((error) => console.log(error))
         }
       })
     },
     loadUsers() {
-      if (this.$gate.isAdminOrPlanner) {
-        axios.get('api/user').then(response => {
-          this.users = response.data.data;
+      if (this.$gate.isAdmin) {
+        axios.get('api/user').then((response) => {
+          this.users = response.data.data
         })
         // axios.get('api/user').then(({ data }) => (this.user = data.data));
       }
     },
     createUser() {
       this.$Progress.start()
-      this.form.post('api/user')
+      this.form
+        .post('api/user')
         .then(() => {
-          Fire.$emit('RefreshTable');
-          $('#addUsers').modal('hide');
+          Fire.$emit('RefreshTable')
+          $('#addUsers').modal('hide')
           toast.fire({
             icon: 'success',
             title: 'Pendaftaran berhasil dilakukan'
           })
-          this.$Progress.finish();
+          this.$Progress.finish()
         })
-        .catch(() => {
-        })
-    },
+        .catch(() => {})
+    }
   },
 
   created() {
-    this.loadUsers();
+    this.loadUsers()
     Fire.$on('RefreshTable', () => {
-      this.loadUsers();
-    });
+      this.loadUsers()
+    })
     // setInterval(() => this.LoadUsers(), 5000);
-  },
+  }
 }
-
-
 </script>
