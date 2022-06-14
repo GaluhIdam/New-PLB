@@ -19,13 +19,33 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Admin',
-            'username' => 'admin',
-            'email' => 'admin@opencloud.id',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
-            'created_at' => Carbon::now(),
-        ]);
+        DB::table('users')->insert(
+            [
+                [
+                    'name' => 'Admin',
+                    'username' => 'admin',
+                    'email' => 'admin@opencloud.id',
+                    'password' => Hash::make('password'),
+                    'role' => 'admin',
+                    'created_at' => Carbon::now(),
+                ],
+                [
+                    'name' => 'Planner',
+                    'username' => 'planner',
+                    'email' => 'planner@opencloud.id',
+                    'password' => Hash::make('password'),
+                    'role' => 'planner',
+                    'created_at' => Carbon::now(),
+                ],
+                [
+                    'name' => 'User',
+                    'username' => 'user',
+                    'email' => 'user@opencloud.id',
+                    'password' => Hash::make('password'),
+                    'role' => 'user',
+                    'created_at' => Carbon::now(),
+                ]
+            ]
+        );
     }
 }
