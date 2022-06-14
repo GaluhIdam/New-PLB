@@ -24,7 +24,7 @@
               <div class="card-header">Activity Histroy</div>
 
               <div class="card-body">
-                Aku adalah halaman Activity Histroy
+                Tampilkan coba 
               </div>
             </div>
           </div>
