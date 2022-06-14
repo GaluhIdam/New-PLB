@@ -16,13 +16,34 @@ class LoginHistoryController extends Controller
 
         $search = $request->get('search');
         
-        if(!$search) {
-            $loginhistory = LoginHistory::orderBy('id', 'desc')->paginate(10);
+        if($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
         } else {
-            $loginhistory = LoginHistory::where('username', 'LIKE', "%{$search}%")
-            ->orWhere('time', 'LIKE', "%{$search}%")->orWhere('ip_address', 'LIKE', "%{$search}%")->orWhere('user_agent', 'LIKE', "%{$search}%")->paginate(10);
+            $order = 'id';
+            $by = 'desc';
         }
+
+        $loginhistory = LoginHistory::when($search, function ($query) use ($search) {
+                $query->where(function ($sub_query) use ($search) {
+                    $sub_query->where('username', 'LIKE', "%{$search}%")
+                    ->orWhere('time', 'LIKE', "%{$search}%")
+                    ->orWhere('ip_address', 'LIKE', "%{$search}%")
+                    ->orWhere('user_agent', 'LIKE', "%{$search}%");
+                });
+        })->when(($order && $by), function ($query)use ($order, $by) {
+            $query->orderBy($order, $by);
+        })->paginate(10);
+
+        $query_string = [
+            'search' => $search,
+            'order' => $order,
+            'by' => $by,
+        ];
+
+        $loginhistory->appends($query_string);
         return $loginhistory;
+        
     }
 
     /**
