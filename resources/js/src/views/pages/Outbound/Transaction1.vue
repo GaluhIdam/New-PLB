@@ -8,13 +8,13 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                          <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
-                          <li class="breadcrumb-item active">
-                            <a href="outbound-transcation">Transaksi Outbound​</a>
-                          </li>
-                          <li class="breadcrumb-item active">
-                            <span>Transaksi Outbound 1​</span>
-                          </li>
+                            <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+                            <li class="breadcrumb-item active">
+                                <a href="outbound-transcation">Transaksi Outbound​</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <span>Transaksi Outbound 1​</span>
+                            </li>
                         </ol>
                     </div>
                 </div>
@@ -32,115 +32,68 @@
                                     <div class="col-md-3"></div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label
-                                                class="col-sm-4 col-form-label"
-                                                >Tanggal Outbound</label
-                                            >
+                                            <label class="col-sm-4 col-form-label">Tanggal Outbound</label>
                                             <div class="col-sm-4">
-                                                <input
-                                                    type="date"
-                                                    class="form-control"
-                                                />
+                                                <input type="date" class="form-control" />
                                             </div>
                                             <div class="col-sm-4">
-                                                <input
-                                                    type="date"
-                                                    class="form-control"
-                                                />
+                                                <input type="date" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label
-                                                class="col-sm-4 col-form-label"
-                                                >Customer</label
-                                            >
+                                            <label class="col-sm-4 col-form-label">Customer</label>
                                             <div class="col-sm-8">
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                />
+                                                <input type="text" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label
-                                                class="col-sm-4 col-form-label"
-                                                >Plant</label
-                                            >
+                                            <label class="col-sm-4 col-form-label">Plant</label>
                                             <div class="col-sm-8">
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                />
+                                                <input type="text" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                          <label class="col-sm-4 col-form-label">Jenis Dokumen</label>
-                                          <div class="col-sm-2">
-                                            <label class="control-label" style="margin-top: 5px">
-                                              <input
-                                                type="checkbox"
-                                                name="jenis_dokumen[]"
-                                                id="jenis_dokumen"
-                                                checked="checked"
-                                                value="27"
-                                              />
-                                              27
-                                            </label>
-                                          </div>
-                                          <div class="col-sm-2">
-                                            <label class="control-label" style="margin-top: 5px">
-                                              <input
-                                                type="checkbox"
-                                                name="jenis_dokumen[]"
-                                                id="jenis_dokumen"
-                                                checked="checked"
-                                                value="28"
-                                              />
-                                              28
-                                            </label>
-                                          </div>
-                                          <div class="col-sm-2">
-                                            <label class="control-label" style="margin-top: 5px">
-                                              <input
-                                                type="checkbox"
-                                                name="jenis_dokumen[]"
-                                                id="jenis_dokumen"
-                                                checked="checked"
-                                                value="30"
-                                              />
-                                              30
-                                            </label>
-                                          </div>
-                                          <div class="col-sm-2">
-                                            <label class="control-label" style="margin-top: 5px">
-                                              <input
-                                                type="checkbox"
-                                                name="jenis_dokumen[]"
-                                                id="jenis_dokumen"
-                                                checked="checked"
-                                                value="41"
-                                              />
-                                              41
-                                            </label>
-                                          </div>
+                                            <label class="col-sm-4 col-form-label">Jenis Dokumen</label>
+                                            <div class="col-sm-2">
+                                                <label class="control-label" style="margin-top: 5px">
+                                                    <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen"
+                                                        checked="checked" value="27" />
+                                                    27
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label class="control-label" style="margin-top: 5px">
+                                                    <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen"
+                                                        checked="checked" value="28" />
+                                                    28
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label class="control-label" style="margin-top: 5px">
+                                                    <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen"
+                                                        checked="checked" value="30" />
+                                                    30
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label class="control-label" style="margin-top: 5px">
+                                                    <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen"
+                                                        checked="checked" value="41" />
+                                                    41
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label
-                                                class="col-sm-4 col-form-label"
-                                            ></label>
+                                            <label class="col-sm-4 col-form-label"></label>
                                             <div class="col-sm-4">
-                                                <button
-                                                    class="
-                                                        btn btn-primary btn-md
-                                                    "
-                                                >
+                                                <button class="
+                        btn btn-primary btn-md
+                    ">
                                                     Filter
                                                 </button>
-                                                <button
-                                                    class="
-                                                        btn btn-secondary btn-md
-                                                    "
-                                                >
+                                                <button class="
+                        btn btn-secondary btn-md
+                    ">
                                                     Reset
                                                 </button>
                                             </div>
@@ -152,28 +105,19 @@
 
                                 <div class="row mt-4">
                                     <div class="col-md-3">
-                                        <input
-                                            class="form-control"
-                                            type="search"
-                                            placeholder="Search"
-                                            v-model="search"
-                                        />
+                                        <input class="form-control" type="search" placeholder="Search"
+                                            v-model="search" />
                                     </div>
                                 </div>
                                 <div class="table-responsive mt-3">
-                                    <table
-                                        class="
-                                            table table-bordered table-striped
-                                            dataTable
-                                            dtr-inline
-                                        "
-                                    >
+                                    <table class="
+            table table-bordered table-striped
+            dataTable
+            dtr-inline
+        ">
                                         <thead>
                                             <tr>
-                                                <th
-                                                    style="width: 2%"
-                                                    class="text-center"
-                                                >
+                                                <th style="width: 2%" class="text-center">
                                                     No.
                                                 </th>
                                                 <th class="text-center">Part Number</th>
@@ -224,10 +168,7 @@
                                     <nav>
                                         <ul class="pagination">
                                             <li>
-                                                <a
-                                                    href="javascript:void(0)"
-                                                    class="page-link"
-                                                >
+                                                <a href="javascript:void(0)" class="page-link">
                                                     <span> Previous </span>
                                                     <span> Next </span>
                                                 </a>
