@@ -27,5 +27,7 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'created_at' => Carbon::now(),
         ]);
+
+        User::factory()->count(50)->create();
     }
 }

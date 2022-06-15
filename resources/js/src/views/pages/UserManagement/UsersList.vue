@@ -38,23 +38,26 @@
                     }"
                     :pagination-options="{
                       enabled: true,
-                      mode: 'records',
+                      mode: 'pages',
                       perPage: 10,
                       position: 'bottom',
                       perPageDropdown: [20, 30, 40, 50],
                       dropdownAllowAll: true,
                       setCurrentPage: 1,
                       jumpFirstOrLast: true,
-                      firstLabel: 'First',
-                      lastLabel: 'Last',
-                      nextLabel: 'Next',
-                      prevLabel: 'Prev',
                       rowsPerPageLabel: 'Rows per page',
-                      ofLabel: 'dari',
-                      pageLabel: 'page', // for 'pages' mode
+                      ofLabel: 'of',
+                      pageLabel: 'pages', // for 'pages' mode
                       allLabel: 'All'
                     }"
                   >
+                    <div slot="table-actions">
+                      <button class="btn btn-secondary ms-auto rounded-1"><i class="fa-solid fa-copy"></i> Copy</button>
+                      <button class="btn btn-secondary ms-auto rounded-1"><i class="fa-solid fa-print"></i> Print</button>
+                      <button class="btn btn-secondary ms-auto rounded-1"><i class="fa-solid fa-file-csv"></i> CSV</button>
+                      <button class="btn btn-secondary ms-auto rounded-1"><i class="fa-solid fa-file-excel"></i> Excel</button>
+                      <button class="btn btn-secondary ms-auto rounded-1" style="margin-right: 10px"><i class="fa-solid fa-file-pdf"></i>PDF</button>
+                    </div>
                     <template slot="table-row" slot-scope="props">
                       <span v-if="props.column.field === 'action'">
                         <button type="button" @click="editModal(props)" class="btn btn-warning btn-sm mx-1 rounded-1" title="Ubah"><i class="fa-solid fa-edit"></i></button>
@@ -199,21 +202,36 @@ export default {
           field: 'name',
           type: 'text',
           tdClass: 'text-center',
-          thClass: 'text-center'
+          thClass: 'text-center',
+          filterOptions: {
+            enabled: true,
+            customFilter: true,
+            placeholder: 'Cari Nama Pengguna'
+          }
         },
         {
           label: 'Username',
           field: 'username',
           type: 'text',
           tdClass: 'text-center',
-          thClass: 'text-center'
+          thClass: 'text-center',
+          filterOptions: {
+            enabled: true,
+            customFilter: true,
+            placeholder: 'Cari Username'
+          }
         },
         {
           label: 'Email',
           field: 'email',
           type: 'text',
           tdClass: 'text-center',
-          thClass: 'text-center'
+          thClass: 'text-center',
+          filterOptions: {
+            enabled: true,
+            customFilter: true,
+            placeholder: 'Cari Email'
+          }
         },
         {
           label: 'Role',
@@ -224,6 +242,7 @@ export default {
           filterOptions: {
             enabled: true,
             customFilter: true,
+            placeholder: 'Cari Role',
             formatValue: this.upperCase
           },
           formatFn: function (value) {
@@ -237,7 +256,7 @@ export default {
           tdClass: 'text-center',
           thClass: 'text-center',
           formatFn: function (value) {
-            return value != null ? moment(value).format('dddd, D-MMMM-YYYY hh:mm:ss') : null
+            return value != null ? moment(value).format('dddd, D-MMMM-YYYY') : null
           }
         },
         {

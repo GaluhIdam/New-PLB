@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -19,10 +21,12 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'username' => $this->faker->userName,
             'email' => $this->faker->unique()->safeEmail(),
-            'level_id'=> $this->faker->numberBetween(1,2),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'role' =>  $this->faker->randomElement(['admin', 'planner', 'user']),
+            'password' => Hash::make('password'),
+            'email_verified_at' => Carbon::now(),
+            'created_at' => Carbon::now(),
             'remember_token' => Str::random(10),
         ];
     }
