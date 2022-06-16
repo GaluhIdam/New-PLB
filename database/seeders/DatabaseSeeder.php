@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CustomsInboundDocumentSeeder::class,
             CustomsOutboundDocumentSeeder::class,
             LoginHistorySeeder::class,
+            ActivityHistorySeeder::class,
         ]);
     }
 }

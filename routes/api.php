@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\OutboundController;
+use App\Http\Controllers\ActivityHistoryController;
+use App\Http\Traits\ActivityHistoryTrait;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -42,3 +44,6 @@ Route::get('/aircraft/data', [AircraftController::class, 'data']);
 //Login History
 Route::get('/login-history', [LoginHistoryController::class, 'index']);
 Route::get('/login-history/{id}', [LoginHistoryController::class, 'index']);
+
+//Activity History
+Route::get('/activity-history', [ActivityHistoryController::class, 'index']);
