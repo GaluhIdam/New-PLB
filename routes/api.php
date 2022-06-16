@@ -10,7 +10,6 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\OutboundController;
 use App\Http\Controllers\ActivityHistoryController;
-use App\Http\Traits\ActivityHistoryTrait;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
