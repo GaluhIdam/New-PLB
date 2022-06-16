@@ -72,7 +72,7 @@
                             <td>Akses Pemasukan Barang</td>
                           </tr>
                           <tr class="even">
-                            <td class="dtr-control sorting_1" tabindex="0">2</td>
+                            <td class="dtr-control sorting_1" tabindex="0">3</td>
                             <td>tgo_gmf</td>
                             <td>2018-09-17 11:26:11 ​</td>
                             <td>Akses Pengeluaran Barang</td>
