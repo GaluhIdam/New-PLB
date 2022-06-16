@@ -15,7 +15,12 @@ class AircraftController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-
+        $search_reg = $request->get('search_reg');
+        $search_operator = $request->get('search_operator');
+        $search_type = $request->get('search_type');
+        $search_date_in = $request->get('search_date_in');
+        $search_date_out = $request->get('search_date_out');
+        
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
             $by = $request->get('by');
@@ -23,6 +28,13 @@ class AircraftController extends Controller
             $order = 'id';
             $by = 'desc';
         }
+
+        if ($request->get('paginate')) {
+            $paginate = $request->get('paginate');
+        } else {
+            $paginate = 10;
+        }
+        
 
         $mutations = Aircraft::when($search, function ($query) use ($search) {
                 $query->where(function ($sub_query) use ($search) {
@@ -32,10 +44,25 @@ class AircraftController extends Controller
                         ->orWhere('type', 'LIKE', "%{$search}%");
                 });
             })
+            ->when($search_reg, function ($query) use ($search_reg) {
+                $query->where('reg', 'LIKE', "%{$search_reg}%");
+            })
+            ->when($search_operator, function ($query) use ($search_operator) {
+                $query->where('operator', 'LIKE', "%{$search_operator}%");
+            })
+            ->when($search_type, function ($query) use ($search_type) {
+                $query->where('type', 'LIKE', "%{$search_type}%");
+            })
+            ->when($search_date_in, function ($query) use ($search_date_in) {
+                $query->whereDate('date_in', $search_date_in);
+            })
+            ->when($search_date_out, function ($query) use ($search_date_out) {
+                $query->whereDate('date_out', $search_date_out);
+            })
             ->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);
             })
-            ->paginate(10);
+            ->paginate($paginate);
 
         $query_string = [
             'search' => $search,
