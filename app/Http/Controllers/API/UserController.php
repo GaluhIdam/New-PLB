@@ -13,57 +13,21 @@ use Intervention\Image\Facades\Image as Image;
 
 class UserController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    //     $users = DB::table('users')->count();
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+        $users = DB::table('users')->count();
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        return User::orderBy('id')->paginate(0);
-        // if (Gate::allows('isAdmin') || Gate::allows('isPlanner')) {
-        //     return User::orderBy('id')->paginate(0);
-        // }
-        $search = $request->get('search');
-
-        if ($request->get('order') && $request->get('by')) {
-            $order = $request->get('order');
-            $by = $request->get('by');
-        } else {
-            $order = 'id';
-            $by = 'desc';
+        if (Gate::allows('isAdmin') || Gate::allows('isPlanner')) {
+            return User::orderBy('id')->paginate(0);
         }
-
-        $users = User::when($search,  function ($query) use ($search) {
-            $query->where(function ($sub_query) use ($search) {
-                $sub_query->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('username', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('role', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%')
-                    ->orWhere('created_at', 'like', '%' . $search . '%')
-                    ->orWhere('updated_at', 'like', '%' . $search . '%');
-            });
-        })
-            ->when(($order && $by), function ($query) use ($order, $by) {
-                $query->orderBy($order, $by);
-            })
-            ->paginate(10);
-
-        $query_string = [
-            'search' => $search,
-            'order' => $order,
-            'by' => $by,
-        ];
-
-        $users->appends($query_string);
-
-        return $users;
     }
 
     /**
@@ -90,7 +54,7 @@ class UserController extends Controller
                 'username.required' => 'Username tidak boleh kosong!',
                 'email.required'    => 'Alamat Email tidak boleh kosong!',
                 'password.required' => 'Password tidak boleh kosong!',
-                'role.required' => 'Role Pengugna tidak boleh kosong!',
+                'role.required' => 'Role Pengguna tidak boleh kosong!',
             ]
         );
 

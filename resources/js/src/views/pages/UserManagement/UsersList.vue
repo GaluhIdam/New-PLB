@@ -1,23 +1,23 @@
 <template>
   <div>
-    <div class="content-header" v-if="$gate.isAdmin()">
+    <div class="content-header" v-if="$gate.isAdminOrPlanner()">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">User Management</h1>
+            <h1 class="m-0">Daftar Pengguna</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/home">Home</a></li>
               <li class="breadcrumb-item">User Management</li>
-              <li class="breadcrumb-item active"><a href="/users-list">User Management</a></li>
+              <li class="breadcrumb-item active"><a href="/users-list">Daftar Pengguna</a></li>
             </ol>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="content" v-if="$gate.isAdmin()">
+    <div class="content" v-if="$gate.isAdminOrPlanner()">
       <div class="container-fluid">
         <div class="row">
           <div class="col">
@@ -163,7 +163,7 @@
     </div>
     <!-- END: Modal Tambah Pengguna -->
 
-    <div v-if="!$gate.isAdmin()">
+    <div v-if="!$gate.isAdminOrPlanner()">
       <not-found></not-found>
     </div>
   </div>
@@ -304,7 +304,7 @@ export default {
       })
     },
     loadUsers() {
-      if (this.$gate.isAdmin) {
+      if (this.$gate.isAdminOrPlanner) {
         axios.get('api/user').then((response) => {
           this.users = response.data.data
         })
