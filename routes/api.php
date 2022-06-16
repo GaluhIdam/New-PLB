@@ -9,6 +9,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\MutationController;
+use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\OutboundController;
 
 // Authentication routes
@@ -21,7 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::apiResource('user', UserController::class);
-
 
 // Dokumen Kepabeanan
 Route::get('/customs/inbound-document', [CustomsController::class, 'inboundDocument']);
@@ -46,3 +46,7 @@ Route::get('/login-history/{id}', [LoginHistoryController::class, 'index']);
 
 // Mutations
 Route::get('/mutation', [MutationController::class, 'index']);
+
+// Periodic Mutations
+Route::get('/mutation-periodic', [MutationPeriodicController::class, 'index']);
+Route::delete('/mutation-periodic/{id}', [MutationPeriodicController::class, 'destroy']);

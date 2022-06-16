@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             CustomsInboundDocumentSeeder::class,
             CustomsOutboundDocumentSeeder::class,
             LoginHistorySeeder::class,
+            MutationSeeder::class,
+            MutationPeriodicSeeder::class,
         ]);
     }
 }

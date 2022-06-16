@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image as Image;
@@ -12,21 +13,57 @@ use Intervention\Image\Facades\Image as Image;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    //     $users = DB::table('users')->count();
+    // }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (Gate::allows('isAdmin') || Gate::allows('isPlanner')) {
-            return User::orderBy('id')->paginate(0);
+        return User::orderBy('id')->paginate(0);
+        // if (Gate::allows('isAdmin') || Gate::allows('isPlanner')) {
+        //     return User::orderBy('id')->paginate(0);
+        // }
+        $search = $request->get('search');
+
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'id';
+            $by = 'desc';
         }
+
+        $users = User::when($search,  function ($query) use ($search) {
+            $query->where(function ($sub_query) use ($search) {
+                $sub_query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('username', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('role', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->orWhere('created_at', 'like', '%' . $search . '%')
+                    ->orWhere('updated_at', 'like', '%' . $search . '%');
+            });
+        })
+            ->when(($order && $by), function ($query) use ($order, $by) {
+                $query->orderBy($order, $by);
+            })
+            ->paginate(10);
+
+        $query_string = [
+            'search' => $search,
+            'order' => $order,
+            'by' => $by,
+        ];
+
+        $users->appends($query_string);
+
+        return $users;
     }
 
     /**
@@ -67,55 +104,6 @@ class UserController extends Controller
         ]);
     }
 
-    public function profile()
-    {
-        return auth('api')->user();
-    }
-    public function updateProfile(Request $request)
-    {
-        $user = auth('api')->user();
-        $this->validate(
-            $request,
-            [
-                'name' => ['required', 'string', 'max:191'],
-                'username' => ['required', 'string', 'max:191'],
-                'email' => ['required', 'string', 'email', 'max:191', 'unique:users,email,' . $user->id],
-                'password' => ['sometimes', 'required', 'min:8'],
-                'role' => 'required',
-                'description' => ['sometimes', 'max:255'],
-            ],
-            [
-                'name.required'     => 'Nama tidak boleh kosong!',
-                'username.required' => 'Username tidak boleh kosong!',
-                'email.required'    => 'Alamat Email tidak boleh kosong!',
-                'role.required' => 'Role Pengugna tidak boleh kosong!',
-                'password.min' => 'Gunakan Minimal 8 karakter',
-                'password.required' => 'Password tidak boleh kosong',
-            ]
-        );
-        $currentPhoto = $user->photo;
-        if ($request->photo != $currentPhoto) {
-            $name = time() . '.' . explode('/', explode(':', substr($request->photo, 0, strpos(
-                $request->photo,
-                ';'
-            )))[1])[1];
-            Image::make($request->photo)->save(public_path('img/profile/') . $name);
-            $request->merge(['photo' => $name]);
-
-            $userPhoto = public_path('img/profile/') . $currentPhoto;
-            if (file_exists($userPhoto)) {
-                @unlink($userPhoto);
-            }
-        }
-
-        if (!empty($request->password)) {
-            $request->merge(['password' => Hash::make($request->password)]);
-        }
-
-        $user->$request->all();
-        return ['message'  => 'Berhasil'];
-    }
-
     public function show($id)
     {
         $user = User::find($id);
@@ -150,11 +138,11 @@ class UserController extends Controller
                 'name.required'     => 'Nama tidak boleh kosong!',
                 'username.required' => 'Username tidak boleh kosong!',
                 'email.required'    => 'Alamat Email tidak boleh kosong!',
-                'role.required' => 'Role Pengugna tidak boleh kosong!',
+                'role.required' => 'Role Pengguna tidak boleh kosong!',
             ]
         );
         $user->update($request->all());
-        return ['message' => 'Berhasil memperbarui Pengguna'];
+        return ['message' => 'Successfully updated'];
     }
 
     /**
@@ -170,6 +158,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return ['message' => 'Pengguna berhasil dihapus'];
+        return ['message' => 'Successfully deleted'];
     }
 }
