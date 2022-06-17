@@ -367,9 +367,6 @@ export default {
     },
     methods: {
         list(paginate) {
-            if (paginate) {
-                let url = new URL(paginate);
-            }
             this.showLoading();
             paginate = paginate || `/api/aircraft`;
             axios
