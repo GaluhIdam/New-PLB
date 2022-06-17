@@ -45,8 +45,14 @@ Vue.component("multiselect", Multiselect);
 import "vue-multiselect/dist/vue-multiselect.min.css";
 
 // Vue-Moment
-// import moment from 'moment';
-// moment.locale('id');
+import moment from "moment";
+
+Vue.filter("formatDate", function (value) {
+    if (value) {
+        return moment(String(value)).format("MM/DD/YYYY");
+    }
+});
+
 
 // Filter
 Vue.filter("upText", function (text) {
