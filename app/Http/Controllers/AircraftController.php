@@ -34,7 +34,6 @@ class AircraftController extends Controller
         } else {
             $paginate = 10;
         }
-        
 
         $mutations = Aircraft::when($search, function ($query) use ($search) {
                 $query->where(function ($sub_query) use ($search) {

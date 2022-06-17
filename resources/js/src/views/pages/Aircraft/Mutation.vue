@@ -31,8 +31,8 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header ui-sortable-handle" style="cursor: move">
-                                <h5 class="card-title" style="margin-bottom: unset; margin-top: 3px">
+                            <div class="card-header ui-sortable-handle">
+                                <h5 class="card-title card_title_margin">
                                     <i class="fas fa-plane-circle-exclamation mr-1"></i>
                                     Aircraft Mutation
                                 </h5>
@@ -48,15 +48,13 @@
                                         <div class="vgt-inner-wrap">
                                             <div class="vgt-global-search vgt-clearfix">
                                                 <div class="vgt-global-search__input vgt-pull-left">
-                                                    <form role="search">
-                                                        <label for="vgt-search-1285228384255">
-                                                            <span aria-hidden="true" class="input__icon">
-                                                                <div class="magnifying-glass"></div>
-                                                            </span>
-                                                            <span class="sr-only"> Search </span>
-                                                        </label>
-                                                        <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left" v-model="search" />
-                                                    </form>
+                                                    <label>
+                                                        <span aria-hidden="true" class="input__icon">
+                                                            <div class="magnifying-glass"></div>
+                                                        </span>
+                                                        <span class="sr-only"> Search </span>
+                                                    </label>
+                                                    <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left" v-model="search" />
                                                 </div>
                                                 <div class="vgt-global-search__actions vgt-pull-right">
                                                     <div>
@@ -91,108 +89,108 @@
                                                         <tr>
                                                             <!--  -->
                                                             <th v-if="order == 'reg' && by == 'asc'" @click="sort('reg', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">A/C Reg</span>
+                                                                <span class="table_header">A/C Reg</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <th v-else-if="order == 'reg' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">A/C Reg</span>
+                                                                <span class="table_header">A/C Reg</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <th v-else @click="sort('reg', 'asc')" class="text-center sortable">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">A/C Reg</span>
+                                                                <span class="table_header">A/C Reg</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <!--  -->
                                                             <th v-if="order == 'operator' && by == 'asc'" @click="sort('operator', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">Operator</span>
+                                                                <span class="table_header">Operator</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <th v-else-if="order == 'operator' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">Operator</span>
+                                                                <span class="table_header">Operator</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <th v-else @click="sort('operator', 'asc')" class="text-center sortable">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">Operator</span>
+                                                                <span class="table_header">Operator</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <!--  -->
                                                             <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">A/C Type</span>
+                                                                <span class="table_header">A/C Type</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">A/C Type</span>
+                                                                <span class="table_header">A/C Type</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <th v-else @click="sort('type', 'asc')" class="text-center sortable">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">A/C Type</span>
+                                                                <span class="table_header">A/C Type</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <!--  -->
                                                             <th v-if="order == 'date_in' && by == 'asc'" @click="sort('date_in', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">Date In</span>
+                                                                <span class="table_header">Date In</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <th v-else-if="order == 'date_in' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">Date In</span>
+                                                                <span class="table_header">Date In</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <th v-else @click="sort('date_in', 'asc')" class="text-center sortable">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">Date In</span>
+                                                                <span class="table_header">Date In</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <!--  -->
                                                             <th v-if="order == 'date_out' && by == 'asc'" @click="sort('date_out', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">Date Out</span>
+                                                                <span class="table_header">Date Out</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <th v-else-if="order == 'date_out' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">Date Out</span>
+                                                                <span class="table_header">Date Out</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <th v-else @click="sort('date_out', 'asc')" class="text-center sortable">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">Date Out</span>
+                                                                <span class="table_header">Date Out</span>
                                                                 <button>
                                                                     <span class="sr-only"></span>
                                                                 </button>
                                                             </th>
                                                             <!--  -->
                                                             <th class="text-center">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">RKSP</span>
+                                                                <span class="table_header">RKSP</span>
                                                             </th>
                                                             <th class="text-center">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">RKSP</span>
+                                                                <span class="table_header">RKSP</span>
                                                             </th>
                                                             <th class="text-center">
-                                                                <span style="color: rgb(102, 123, 148); font-size: 15px; font-weight: 500">Action</span>
+                                                                <span class="table_header">Action</span>
                                                             </th>
                                                         </tr>
                                                         <tr>
@@ -228,24 +226,26 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr v-for="(mutation, mutation_index) in mutations.data" :key="mutation_index">
-                                                            <td>{{ mutation.reg }}</td>
-                                                            <td>{{ mutation.operator }}</td>
-                                                            <td>{{ mutation.type }}</td>
-                                                            <td class="text-center">{{ mutation.date_in | formatDate }}</td>
-                                                            <td class="text-center">{{ mutation.date_out | formatDate }}</td>
+                                                            <td class="table_content">{{ mutation.reg }}</td>
+                                                            <td class="table_content">{{ mutation.operator }}</td>
+                                                            <td class="table_content">{{ mutation.type }}</td>
+                                                            <td class="text-center table_content">{{ mutation.date_in | formatDate }}</td>
+                                                            <td class="text-center table_content">{{ mutation.date_out | formatDate }}</td>
                                                             <td class="text-center">
-                                                                <a v-if="mutation.rksp != null" :href="`/storage/${mutation.rksp}`" target="_blank" rel="noopener noreferrer"> RKSP </a>
+                                                                <a v-if="mutation.rksp != null" :href="`/storage/${mutation.rksp}`" target="_blank"
+                                                                    ><h4><i class="fa-solid fa-file-pdf"></i></h4
+                                                                ></a>
                                                             </td>
-                                                            <td>
+                                                            <td class="table_content">
                                                                 <span v-if="mutation.date_out"> Keluar PLB GMF​ </span>
-                                                                <span v-else> DI dalam PLB GMF​ </span>
+                                                                <span v-else> Di dalam PLB GMF​ </span>
                                                             </td>
                                                             <td class="text-center">
                                                                 <ul class="list-inline m-0">
                                                                     <li class="list-inline-item">
-                                                                        <button class="btn btn-warning btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete" @click="deleteData(mutation.id)">
-                                                                            <i class="fa-solid fa-trash"></i>
-                                                                        </button>
+                                                                        <a @click="deleteData(mutation.id)" class="text-danger"
+                                                                            ><h5><i class="fa-solid fa-trash"></i></h5
+                                                                        ></a>
                                                                     </li>
                                                                 </ul>
                                                             </td>
@@ -260,8 +260,8 @@
                                             </div>
                                             <div class="vgt-wrap__footer vgt-clearfix">
                                                 <div class="footer__row-count vgt-pull-left">
-                                                    <label class="footer__row-count__label" style="font-size: 15px; font-weight: 500; margin-bottom: 3px"> Rows per page: </label>
-                                                    <select autocomplete="off" class="footer__row-count__select" v-model="paginate" @change="list()" style="border: unset; background: rgb(247, 250, 252) none repeat scroll 0% 0%; box-shadow: unset; font-size: 15px; font-weight: 500; margin-left: 0px">
+                                                    <label class="footer__row-count__label row_per_page_label"> Rows per page: </label>
+                                                    <select class="footer__row-count__select row_per_page_option" v-model="paginate" @change="list()">
                                                         <option value="10">10</option>
                                                         <option value="25">25</option>
                                                         <option value="50">50</option>
@@ -279,13 +279,13 @@
                                                         style="margin-right: 0px"
                                                     >
                                                         <span aria-hidden="true" class="chevron left"></span>
-                                                        <span style="font-size: 15px; font-weight: 500">Prev</span>
+                                                        <span class="paginate_text">Prev</span>
                                                     </button>
                                                     <div class="footer__navigation__page-info" style="color: #99a0b2">
                                                         <label class="page-info__label" style="margin-bottom: -5px">
-                                                            <span style="font-size: 15px; font-weight: 500">page</span>
+                                                            <span class="paginate_text">page</span>
                                                             <input type="text" class="footer__navigation__page-info__current-entry vgt-input" v-model="current_page" @keypress="directPage" style="width: 60px" />
-                                                            <span style="font-size: 15px; font-weight: 500">
+                                                            <span class="paginate_text">
                                                                 of
                                                                 {{ mutations.last_page }}
                                                             </span>
@@ -360,10 +360,10 @@ export default {
         }, 500),
         search_date_in: debounce(function () {
             this.list();
-        }, 500),
+        }, 0),
         search_date_out: debounce(function () {
             this.list();
-        }, 500),
+        }, 0),
     },
     methods: {
         list(paginate) {
