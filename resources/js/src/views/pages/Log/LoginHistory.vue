@@ -21,96 +21,189 @@
         <div class="row justify-content-center">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">Login History</div>
-              <tr>
-                <div class="row d-flex align-items-center mt-2 mb-2">
-                  <div class="col-sm-12 ml-3 col-md-6">
-                    <div class="dt-buttons btn-group flex-wrap">
-                      <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Copy</span></button>
-                      <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>CSV</span></button>
-                      <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Excel</span></button>
-                      <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>PDF</span></button>
-                      <button class="btn btn-secondary buttons-print" tabindex="0" aria-controls="example1" type="button"><span>Print</span></button>
-                      <div class="btn-group">
-                        <button class="btn btn-secondary buttons-collection dropdown-toggle buttons-colvis" tabindex="0" aria-controls="example1" type="button" aria-haspopup="true">
-                          <span>Column visibility</span><span class="dt-down-arrow"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col d-flex justify-content-end">
-                    <input type="text" class="form-control-sm mt-0 mr-3" placeholder="Search:.." aria-label="Recipient's username" aria-describedby="button-addon2" />
-                  </div>
+              <div class="card-header ui-sortable-handle">
+                <h5 class="card-title card_title_margin">
+                  <i class="fas fa-plane-circle-exclamation mr-1"></i>
+                  Aircraft Mutation
+                </h5>
+                <div class="card-tools">
+                  <ul class="nav nav-pills ml-auto">
+                    <li class="nav-item"></li>
+                  </ul>
                 </div>
-              </tr>
-
+              </div>
               <div class="card-body">
-                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                  <div class="row"></div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
-                        <thead>
-                          <tr>
-                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="number: activate to sort column descending">No</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Username: activate to sort column ascending">Username</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Time: activate to sort column ascending">Time</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Ip.Address: activate to sort column ascending">Ip.Address</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="User Agent: activate to sort column ascending">User Agent</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="odd">
-                            <td class="dtr-control sorting_1" tabindex="0">1</td>
-                            <td>lina</td>
-                            <td>2018-09-17 02:18:35​</td>
-                            <td>172.16.141.73</td>
-                            <td>Unknown Windows OS-Chrome 69.0.3497.92​</td>
-                          </tr>
-                          <tr class="even">
-                            <td class="dtr-control sorting_1" tabindex="0">2</td>
-                            <td>lina</td>
-                            <td>2018-09-17 02:18:35​</td>
-                            <td>172.16.141.73</td>
-                            <td>Unknown Windows OS-Chrome 69.0.3497.92​</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="d-flex flex-row bd-highlight">
-                      <div class="col ml-0">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-info">10</button>
-                          <button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                          </div>
-                          <div class="d-flex align-items-center" style="width: fit-content">
-                            <div>Tampilkan entries</div>
+                <div class="form-group">
+                  <div class="vgt-wrap polar-bear">
+                    <div class="vgt-inner-wrap">
+                      <div class="vgt-global-search vgt-clearfix">
+                        <div class="vgt-global-search__input vgt-pull-left">
+                          <label>
+                            <span aria-hidden="true" class="input__icon">
+                              <div class="magnifying-glass"></div>
+                            </span>
+                            <span class="sr-only"> Search </span>
+                          </label>
+                          <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left" v-model="search" />
+                        </div>
+                        <div class="vgt-global-search__actions vgt-pull-right">
+                          <div>
+                            <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-csv"></i>
+                              CSV
+                            </button>
+                            <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-excel"></i>
+                              Excel
+                            </button>
+                            <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-pdf"></i>
+                              PDF
+                            </button>
+                            <router-link
+                              :to="{
+                                name: 'aircraft-delivery'
+                              }"
+                              class="btn btn-primary btn-md"
+                              style="margin-right: 10px"
+                            >
+                              <i class="fa-solid fa-plus"></i>
+                              New Delivery
+                            </router-link>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col d-flex justify-content-end col-ml-12">
-                      <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                        <ul class="pagination">
-                          <li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                          <li class="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                          <li class="paginate_button page-item"><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                          <li class="paginate_button page-item"><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                          <li class="paginate_button page-item"><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                          <li class="paginate_button page-item"><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                          <li class="paginate_button page-item"><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                          <li class="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                        </ul>
+                      <div class="vgt-responsive">
+                        <table id="vgt-table" class="vgt-table bordered polar-bear">
+                          <thead>
+                            <tr>
+                              <!--  -->
+                              <th v-if="order == 'reg' && by == 'asc'" @click="sort('reg', 'desc')" class="text-center sortable sorting sorting-asc">
+                                <span class="table_header">No</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else-if="order == 'reg' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">No</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else @click="sort('reg', 'asc')" class="text-center sortable">
+                                <span class="table_header">No</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!--  -->
+                              <th v-if="order == 'operator' && by == 'asc'" @click="sort('operator', 'desc')" class="text-center sortable sorting sorting-asc">
+                                <span class="table_header">Username</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else-if="order == 'operator' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">Username</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else @click="sort('operator', 'asc')" class="text-center sortable">
+                                <span class="table_header">Username</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+
+                              <!--  -->
+                              <th class="text-center">
+                                <span class="table_header">IP.Address</span>
+                              </th>
+                              <th class="text-center">
+                                <span class="table_header">User Agent</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(mutation, mutation_index) in mutations.data" :key="mutation_index">
+                              <td class="table_content">{{ mutation.reg }}</td>
+                              <td class="table_content">{{ mutation.operator }}</td>
+                              <td class="table_content">{{ mutation.type }}</td>
+                              <td class="text-center table_content">{{ mutation.date_in | formatDate }}</td>
+                              <td class="text-center table_content">{{ mutation.date_out | formatDate }}</td>
+                              <td class="text-center">
+                                <a v-if="mutation.rksp != null" :href="`/storage/${mutation.rksp}`" target="_blank"
+                                  ><h4><i class="fa-solid fa-file-pdf"></i></h4
+                                ></a>
+                              </td>
+                              <td class="table_content">
+                                <span v-if="mutation.date_out"> Keluar PLB GMF​ </span>
+                                <span v-else> Di dalam PLB GMF​ </span>
+                              </td>
+                              <td class="text-center">
+                                <ul class="list-inline m-0">
+                                  <li class="list-inline-item">
+                                    <a @click="deleteData(mutation.id)" class="text-danger"
+                                      ><h5><i class="fa-solid fa-trash"></i></h5
+                                    ></a>
+                                  </li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr v-if="mutations.data.length < 1">
+                              <td colspan="8">
+                                <div class="vgt-center-align vgt-text-disabled">Data not found</div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="vgt-wrap__footer vgt-clearfix">
+                        <div class="footer__row-count vgt-pull-left">
+                          <label class="footer__row-count__label row_per_page_label"> Rows per page: </label>
+                          <select class="footer__row-count__select row_per_page_option" v-model="paginate" @change="list()">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                          </select>
+                        </div>
+                        <div class="footer__navigation vgt-pull-right">
+                          <button
+                            type="button"
+                            class="footer__navigation__page-btn"
+                            :class="{
+                              disabled: !mutations.prev_page_url
+                            }"
+                            @click="mutations.prev_page_url && list(mutations.prev_page_url)"
+                            style="margin-right: 0px"
+                          >
+                            <span aria-hidden="true" class="chevron left"></span>
+                            <span class="paginate_text">Prev</span>
+                          </button>
+                          <div class="footer__navigation__page-info" style="color: #99a0b2">
+                            <label class="page-info__label" style="margin-bottom: -5px">
+                              <span class="paginate_text">page</span>
+                              <input type="text" class="footer__navigation__page-info__current-entry vgt-input" v-model="current_page" @keypress="directPage" style="width: 60px" />
+                              <span class="paginate_text">
+                                of
+                                {{ mutations.last_page }}
+                              </span>
+                            </label>
+                          </div>
+                          <button
+                            type="button"
+                            class="footer__navigation__page-btn"
+                            :class="{
+                              disabled: !mutations.next_page_url
+                            }"
+                            @click="mutations.next_page_url && list(mutations.next_page_url)"
+                          >
+                            <span style="font-weight: 500">Next</span>
+                            <span aria-hidden="true" class="chevron right"></span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -125,9 +218,131 @@
 </template>
 
 <script>
+import axios from 'axios'
+import debounce from 'lodash/debounce'
+import Swal from 'sweetalert2'
+
 export default {
-  mounted() {
-    console.log('Component mounted.')
+  data() {
+    return {
+      mutations: {
+        data: [],
+        links: []
+      },
+      search: null,
+      search_reg: null,
+      search_operator: null,
+      search_type: null,
+      search_date_in: null,
+      search_date_out: null,
+      start_date: null,
+      end_date: null,
+      order: 'id',
+      by: 'desc',
+      paginate: '10',
+      current_page: null
+    }
+  },
+  created() {
+    this.list()
+  },
+  watch: {
+    search: debounce(function () {
+      this.list()
+    }, 500),
+    search_reg: debounce(function () {
+      this.list()
+    }, 500),
+    search_operator: debounce(function () {
+      this.list()
+    }, 500),
+    search_type: debounce(function () {
+      this.list()
+    }, 500),
+    search_date_in: debounce(function () {
+      this.list()
+    }, 0),
+    search_date_out: debounce(function () {
+      this.list()
+    }, 0)
+  },
+  methods: {
+    list(paginate) {
+      this.showLoading()
+      paginate = paginate || `/api/aircraft`
+      axios
+        .get(paginate, {
+          params: {
+            search: this.search,
+            search_reg: this.search_reg,
+            search_operator: this.search_operator,
+            search_type: this.search_type,
+            search_date_in: this.search_date_in,
+            search_date_out: this.search_date_out,
+            start_date: this.start_date,
+            end_date: this.end_date,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate
+          }
+        })
+        .then((response) => {
+          this.mutations = response.data
+          this.current_page = this.mutations.current_page
+          Swal.close()
+        })
+        .catch((error) => console.log(error))
+    },
+    directPage: debounce(function () {
+      if (this.current_page < 1) {
+        this.current_page = 1
+      } else if (this.current_page > this.mutations.last_page) {
+        this.current_page = this.mutations.last_page
+      }
+
+      let url = new URL(this.mutations.first_page_url)
+      let search_params = url.searchParams
+      search_params.set('page', this.current_page)
+      url.search = search_params.toString()
+      let new_url = url.toString()
+      this.list(new_url)
+    }, 500),
+    sort(order, by) {
+      this.order = order
+      this.by = by
+      this.list()
+    },
+    showLoading() {
+      Swal.fire({
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        background: 'transparent',
+        allowOutsideClick: false
+      })
+    },
+    deleteData(id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#17816d',
+        cancelButtonColor: '#f04040',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.showLoading()
+          axios
+            .delete(`/api/aircraft/${id}`)
+            .then((response) => {
+              this.list()
+              Swal.close()
+            })
+            .catch((error) => console.log(error))
+        }
+      })
+    }
   }
 }
 </script>
