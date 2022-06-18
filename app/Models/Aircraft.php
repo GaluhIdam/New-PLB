@@ -21,13 +21,13 @@ class Aircraft extends Model
         'report'
     ];
 
-    protected $dates = [
-        'date_in',
-        'date_out',
-    ];
+    // protected $dates = [
+    //     'date_in',
+    //     'date_out',
+    // ];
 
-    protected $casts = [
-        'date_in' => 'datetime:d-m-Y',
-        'date_out' => 'datetime:d-m-Y',
-    ];
+    // protected $casts = [
+    //     'date_in' => 'datetime:m/d/Y',
+    //     'date_out' => 'datetime:m/d/Y',
+    // ];
 }
