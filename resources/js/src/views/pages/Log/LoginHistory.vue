@@ -23,8 +23,8 @@
             <div class="card">
               <div class="card-header ui-sortable-handle">
                 <h5 class="card-title card_title_margin">
-                  <i class="fas fa-plane-circle-exclamation mr-1"></i>
-                  Aircraft Mutation
+                  <i class="nav-icon fa-solid fa-server"></i>
+                  Login History
                 </h5>
                 <div class="card-tools">
                   <ul class="nav nav-pills ml-auto">
@@ -46,112 +46,141 @@
                           </label>
                           <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left" v-model="search" />
                         </div>
-                        <div class="vgt-global-search__actions vgt-pull-right">
-                          <div>
-                            <button class="btn btn-secondary ms-auto rounded-1">
-                              <i class="fa-solid fa-file-csv"></i>
-                              CSV
-                            </button>
-                            <button class="btn btn-secondary ms-auto rounded-1">
-                              <i class="fa-solid fa-file-excel"></i>
-                              Excel
-                            </button>
-                            <button class="btn btn-secondary ms-auto rounded-1">
-                              <i class="fa-solid fa-file-pdf"></i>
-                              PDF
-                            </button>
-                            <router-link
-                              :to="{
-                                name: 'aircraft-delivery'
-                              }"
-                              class="btn btn-primary btn-md"
-                              style="margin-right: 10px"
-                            >
-                              <i class="fa-solid fa-plus"></i>
-                              New Delivery
-                            </router-link>
-                          </div>
-                        </div>
                       </div>
                       <div class="vgt-responsive">
                         <table id="vgt-table" class="vgt-table bordered polar-bear">
                           <thead>
                             <tr>
                               <!--  -->
-                              <th v-if="order == 'reg' && by == 'asc'" @click="sort('reg', 'desc')" class="text-center sortable sorting sorting-asc">
-                                <span class="table_header">No</span>
+                              <th v-if="order == 'id' && by == 'asc'" @click="sort('id', 'desc')" class="text-center sortable sorting sorting-asc">
+                                <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'reg' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                <span class="table_header">No</span>
+                              <th v-else-if="order == 'id' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('reg', 'asc')" class="text-center sortable">
-                                <span class="table_header">No</span>
+                              <th v-else @click="sort('id', 'asc')" class="text-center sortable">
+                                <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  -->
-                              <th v-if="order == 'operator' && by == 'asc'" @click="sort('operator', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'username' && by == 'asc'" @click="sort('username', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Username</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'operator' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'username' && by == 'desc'" @click="sort('username', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Username</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('operator', 'asc')" class="text-center sortable">
+                              <th v-else @click="sort('username', 'asc')" class="text-center sortable">
                                 <span class="table_header">Username</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-
                               <!--  -->
-                              <th class="text-center">
-                                <span class="table_header">IP.Address</span>
+                              <th v-if="order == 'time' && by == 'asc'" @click="sort('time', 'desc')" class="text-center sortable sorting sorting-asc">
+                                <span class="table_header">Time</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
                               </th>
-                              <th class="text-center">
+                              <th v-else-if="order == 'time' && by == 'desc'" @click="sort('time', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">Time</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else @click="sort('time', 'asc')" class="text-center sortable">
+                                <span class="table_header">Time</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!--  -->
+                              <th v-if="order == 'ip_address' && by == 'asc'" @click="sort('ip_address', 'desc')" class="text-center sortable sorting sorting-asc">
+                                <span class="table_header">IP Address</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else-if="order == 'ip_address' && by == 'desc'" @click="sort('ip_address', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">IP Address</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else @click="sort('ip_address', 'asc')" class="text-center sortable">
+                                <span class="table_header">IP Address</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!--  -->
+                              <th v-if="order == 'user_agent' && by == 'asc'" @click="sort('user_agent', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">User Agent</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else-if="order == 'user_agent' && by == 'desc'" @click="sort('user_agent', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">User Agent</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else @click="sort('user_agent', 'asc')" class="text-center sortable">
+                                <span class="table_header">User Agent</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!--  -->
+                            </tr>
+                            <tr>
+                              <th class="filter-th"></th>
+                              <th class="filter-th">
+                                <div>
+                                  <input type="text" class="vgt-input" placeholder="Filter Username" v-model="search_username" />
+                                </div>
+                              </th>
+                              <th class="filter-th">
+                                <div>
+                                  <input type="date" class="vgt-input" v-model="search_time" />
+                                </div>
+                              </th>
+                              <th class="filter-th">
+                                <div>
+                                  <input type="text" class="vgt-input" placeholder="Filter IP Address" v-model="search_ip_address" />
+                                </div>
+                              </th>
+                              <th class="filter-th">
+                                <div>
+                                  <input type="text" class="vgt-input" placeholder="Filter User Agent" v-model="search_user_agent" />
+                                </div>
                               </th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr v-for="(mutation, mutation_index) in mutations.data" :key="mutation_index">
-                              <td class="table_content">{{ mutation.reg }}</td>
-                              <td class="table_content">{{ mutation.operator }}</td>
-                              <td class="table_content">{{ mutation.type }}</td>
-                              <td class="text-center table_content">{{ mutation.date_in | formatDate }}</td>
-                              <td class="text-center table_content">{{ mutation.date_out | formatDate }}</td>
-                              <td class="text-center">
-                                <a v-if="mutation.rksp != null" :href="`/storage/${mutation.rksp}`" target="_blank"
-                                  ><h4><i class="fa-solid fa-file-pdf"></i></h4
-                                ></a>
-                              </td>
-                              <td class="table_content">
-                                <span v-if="mutation.date_out"> Keluar PLB GMF​ </span>
-                                <span v-else> Di dalam PLB GMF​ </span>
-                              </td>
-                              <td class="text-center">
-                                <ul class="list-inline m-0">
-                                  <li class="list-inline-item">
-                                    <a @click="deleteData(mutation.id)" class="text-danger"
-                                      ><h5><i class="fa-solid fa-trash"></i></h5
-                                    ></a>
-                                  </li>
-                                </ul>
-                              </td>
+                            <tr v-for="(login, login_index) in login_history.data" :key="login_index">
+                              <td class="table_content">{{ login.id }}</td>
+                              <td class="table_content">{{ login.username }}</td>
+                              <td class="table_content">{{ login.time }}</td>
+                              <td class="text-center table_content">{{ login.ip_address }}</td>
+                              <td class="text-center table_content">{{ login.user_agent }}</td>
                             </tr>
-                            <tr v-if="mutations.data.length < 1">
+                            <tr v-if="login_history.data.length < 1">
                               <td colspan="8">
                                 <div class="vgt-center-align vgt-text-disabled">Data not found</div>
                               </td>
@@ -174,9 +203,9 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !mutations.prev_page_url
+                              disabled: !login_history.prev_page_url
                             }"
-                            @click="mutations.prev_page_url && list(mutations.prev_page_url)"
+                            @click="login_history.prev_page_url && list(login_history.prev_page_url)"
                             style="margin-right: 0px"
                           >
                             <span aria-hidden="true" class="chevron left"></span>
@@ -188,7 +217,7 @@
                               <input type="text" class="footer__navigation__page-info__current-entry vgt-input" v-model="current_page" @keypress="directPage" style="width: 60px" />
                               <span class="paginate_text">
                                 of
-                                {{ mutations.last_page }}
+                                {{ login_history.last_page }}
                               </span>
                             </label>
                           </div>
@@ -196,9 +225,9 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !mutations.next_page_url
+                              disabled: !login_history.next_page_url
                             }"
-                            @click="mutations.next_page_url && list(mutations.next_page_url)"
+                            @click="login_history.next_page_url && list(login_history.next_page_url)"
                           >
                             <span style="font-weight: 500">Next</span>
                             <span aria-hidden="true" class="chevron right"></span>
@@ -225,18 +254,15 @@ import Swal from 'sweetalert2'
 export default {
   data() {
     return {
-      mutations: {
+      login_history: {
         data: [],
         links: []
       },
       search: null,
-      search_reg: null,
-      search_operator: null,
-      search_type: null,
-      search_date_in: null,
-      search_date_out: null,
-      start_date: null,
-      end_date: null,
+      search_username: null,
+      search_time: null,
+      search_ip_address: null,
+      search_user_agent: null,
       order: 'id',
       by: 'desc',
       paginate: '10',
@@ -250,45 +276,39 @@ export default {
     search: debounce(function () {
       this.list()
     }, 500),
-    search_reg: debounce(function () {
+    search_username: debounce(function () {
       this.list()
     }, 500),
-    search_operator: debounce(function () {
+    search_time: debounce(function () {
       this.list()
     }, 500),
-    search_type: debounce(function () {
+    search_ip_address: debounce(function () {
       this.list()
     }, 500),
-    search_date_in: debounce(function () {
+    search_user_agent: debounce(function () {
       this.list()
-    }, 0),
-    search_date_out: debounce(function () {
-      this.list()
-    }, 0)
+    }, 500)
   },
   methods: {
     list(paginate) {
       this.showLoading()
-      paginate = paginate || `/api/aircraft`
+      paginate = paginate || `/api/login-history`
       axios
         .get(paginate, {
           params: {
             search: this.search,
-            search_reg: this.search_reg,
-            search_operator: this.search_operator,
-            search_type: this.search_type,
-            search_date_in: this.search_date_in,
-            search_date_out: this.search_date_out,
-            start_date: this.start_date,
-            end_date: this.end_date,
+            search_username: this.search_username,
+            search_time: this.search_time,
+            search_ip_adress: this.search_ip_address,
+            start_user_agent: this.search_user_agent,
             order: this.order,
             by: this.by,
             paginate: this.paginate
           }
         })
         .then((response) => {
-          this.mutations = response.data
-          this.current_page = this.mutations.current_page
+          this.login_history = response.data
+          this.current_page = this.login_history.current_page
           Swal.close()
         })
         .catch((error) => console.log(error))
@@ -296,11 +316,11 @@ export default {
     directPage: debounce(function () {
       if (this.current_page < 1) {
         this.current_page = 1
-      } else if (this.current_page > this.mutations.last_page) {
-        this.current_page = this.mutations.last_page
+      } else if (this.current_page > this.login_history.last_page) {
+        this.current_page = this.login_history.last_page
       }
 
-      let url = new URL(this.mutations.first_page_url)
+      let url = new URL(this.login_history.first_page_url)
       let search_params = url.searchParams
       search_params.set('page', this.current_page)
       url.search = search_params.toString()
@@ -319,28 +339,6 @@ export default {
         },
         background: 'transparent',
         allowOutsideClick: false
-      })
-    },
-    deleteData(id) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#17816d',
-        cancelButtonColor: '#f04040',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.showLoading()
-          axios
-            .delete(`/api/aircraft/${id}`)
-            .then((response) => {
-              this.list()
-              Swal.close()
-            })
-            .catch((error) => console.log(error))
-        }
       })
     }
   }
