@@ -47,10 +47,7 @@ class UserSeeder extends Seeder
                 ]
             ]
         );
-<<<<<<< HEAD
-=======
 
         User::factory()->count(50)->create();
->>>>>>> PLB-76-fe-membuat-ui-untuk-daftar-pengguna
     }
 }
