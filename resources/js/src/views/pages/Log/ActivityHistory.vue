@@ -35,7 +35,6 @@
                 </div>
               </div>
               <div class="card-body">
-<<<<<<< HEAD
                 <div class="form-group">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
@@ -352,9 +351,6 @@
                     </div>
                   </div>
                 </div>
-=======
-                Tampilkan coba 
->>>>>>> 3faa9dbe2c7e15a4c652f3e8e63e6f2fed6457e1
               </div>
             </div>
           </div>
