@@ -1,4 +1,10 @@
+<<<<<<< HEAD
+<!-- Tentang Project -->
+
+## Tentang Aplikasi PLB (Pusat Logistik Berikat)
+=======
 # Tentang Aplikasi PLB (Pusat Logistik Berikat)
+>>>>>>> PLB-76-fe-membuat-ui-untuk-daftar-pengguna
 
 Sebagai User CSSM, Ada tiga point penting yang saya inginkan
 
@@ -6,24 +12,39 @@ Sebagai User CSSM, Ada tiga point penting yang saya inginkan
 - Dapat melaporkan kedatangan Aircraft di area hangar untuk melakukan maintenance. Sehingga, Tim Bonded dapat melakukan perhitungan perkiran untuk biaya PLB yang akan dibayarkan ketika Aircraft meninggalkan Area GMF
 - Dapat melporkan Aircraft Redelivery di area hangar yang sudah selesai melakukan maintenance. Sehingga, bisa memonitor aktivitas aircaft dan melakukan Updating Report pada Aircraft Mutation berupa file PDF
 
+<<<<<<< HEAD
+### Requirements
+=======
 ## Requirements
+>>>>>>> PLB-76-fe-membuat-ui-untuk-daftar-pengguna
 
 - [Composser](https://getcomposer.org/download/)
 - [Node.js](https://nodejs.org/en/)
 - Laravel >= 9.x
 - PHP >= 8.0 - 8.1
 
+<<<<<<< HEAD
+### Installation
+
+_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+
+1. Clone Repository` git clone -b dev https://bitbucket.gmf-aeroasia.co.id/scm/gdo/new-plb.git`
+=======
 ## Installation
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
 1. Clone Repository`git clone -b dev https://bitbucket.gmf-aeroasia.co.id/scm/gdo/new-plb.git`
+>>>>>>> PLB-76-fe-membuat-ui-untuk-daftar-pengguna
 2. go to project folder. `cd new-plb`
 3. Save as the. `env.example` to `.env` and set your database.
 4. `composer install`
 5. `npm install --save-dev`
 6. Next, run the program key generation and commands migration
+<<<<<<< HEAD
+=======
 
+>>>>>>> PLB-76-fe-membuat-ui-untuk-daftar-pengguna
    ```sh
    php artisan migrate:refresh --seed
    php artisan passport:install
@@ -32,7 +53,10 @@ _Below is an example of how you can instruct your audience on installing and set
    php artisan storage:link
    npm run dev
    ```
+<<<<<<< HEAD
+=======
 
+>>>>>>> PLB-76-fe-membuat-ui-untuk-daftar-pengguna
 7. Run the web server
    `php artisan serve`
 8. After running the web server, open this address in your browser:
@@ -41,7 +65,11 @@ _Below is an example of how you can instruct your audience on installing and set
 ## Contact
 
 Sigit Prayoga - sigit.prayoga@opencloud.id \
+<<<<<<< HEAD
+Fatur Ridlwan - fatur.ridlwan@opencloud.id
+=======
 Fatur Ridlwan - fatur.ridlwan@opencloud.id\
+>>>>>>> PLB-76-fe-membuat-ui-untuk-daftar-pengguna
 Rizky Ibrahim - rizky.ibrahim@opencloud.id \
 Alnuria Vanadia Equila - vanadia.equila@opencloud.id\
 Galuh Idam Danutirto - galuh.danutirto@opencloud.id\

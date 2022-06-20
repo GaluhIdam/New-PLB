@@ -23,10 +23,108 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (Gate::allows('isAdmin') || Gate::allows('isPlanner')) {
-            return User::orderBy('id')->paginate(0);
+
+        if (Gate::allows('isAdmin')) {
+            $search = $request->get('search');
+            $search_id = $request->get('search_id');
+            $search_username = $request->get('search_username');
+            $search_email = $request->get('search_email');
+            $search_role = $request->get('search_role');
+            $search_created_at = $request->get('search_created_at');
+            $search_updated_at = $request->get('search_updated_at');
+            $search_description = $request->get('search_description');
+
+            if ($request->get('order') && $request->get('by')) {
+                $order = $request->get('order');
+                $by = $request->get('by');
+            } else {
+                $order = 'id';
+                $by = 'asc';
+            }
+            if ($request->get('paginate')) {
+                $paginate = $request->get('paginate');
+            } else {
+                $paginate = 10;
+            }
+
+            $users = User::when($search, function ($query) use ($search) {
+                $query->where(function ($sub_query) use ($search) {
+                    $sub_query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('username', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('role', 'like', '%' . $search . '%')
+                        ->orWhere('created_at', 'like', '%' . $search . '%')
+                        ->orWhere('updated_at', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%');
+                });
+            })
+                ->when(
+                    $search_id,
+                    function ($query) use ($search_id) {
+                        $query->where('id', 'like', '%' . $search_id . '%');
+                    },
+                )
+                ->when(
+                    $search_username,
+                    function ($query) use ($search_username) {
+                        $query->where('username', 'like', '%' . $search_username . '%');
+                    },
+                )
+                ->when(
+                    $search_email,
+                    function ($query) use ($search_email) {
+                        $query->where('email', 'like', '%' . $search_email . '%');
+                    },
+                )
+                ->when(
+                    $search_role,
+                    function ($query) use ($search_role) {
+                        $query->where('role', 'like', '%' . $search_role . '%');
+                    },
+                )
+                ->when(
+                    $search_created_at,
+                    function ($query) use ($search_created_at) {
+                        $query->where('created_at', 'like', '%' . $search_created_at . '%');
+                    },
+                )
+                ->when(
+                    $search_updated_at,
+                    function ($query) use ($search_updated_at) {
+                        $query->where('updated_at', 'like', '%' . $search_updated_at . '%');
+                    },
+                )
+                ->when(
+                    $search_description,
+                    function ($query) use ($search_description) {
+                        $query->where('description', 'like', '%' . $search_description . '%');
+                    },
+                )
+                ->when(($order && $by),
+                    function ($query) use ($order, $by) {
+                        $query->orderBy($order, $by);
+                    },
+                )
+                ->paginate($paginate);
+
+            $query_string = [
+                'search' => $search,
+                'search_id' => $search_id,
+                'search_username' => $search_username,
+                'search_email' => $search_email,
+                'search_role' => $search_role,
+                'search_created_at' => $search_created_at,
+                'search_updated_at' => $search_updated_at,
+                'search_description' => $search_description,
+                'order' => $order,
+                'by' => $by,
+                'paginate' => $paginate,
+            ];
+
+            $users->appends($query_string);
+            return $users;
         }
     }
 
@@ -105,7 +203,14 @@ class UserController extends Controller
                 'role.required' => 'Role Pengguna tidak boleh kosong!',
             ]
         );
-        $user->update($request->all());
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'role' => $request->role,
+            'description' => $request->description,
+            'password' => Hash::make($request->password),
+        ]);
         return ['message' => 'Successfully updated'];
     }
 
