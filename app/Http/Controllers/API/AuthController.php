@@ -76,7 +76,7 @@ class AuthController extends Controller
         }
 
         //Login History
-        LoginHistory::create([
+        loginHistory::create([
             'username' => $request->username,
             'time' => now(),
             'ip_address' =>  $request->ip(),
