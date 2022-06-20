@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomsController;
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\HoardingTimeController;
 use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\MutationController;
 use App\Http\Controllers\MutationPeriodicController;
@@ -44,9 +45,12 @@ Route::get('/aircraft/data', [AircraftController::class, 'data']);
 Route::get('/login-history', [LoginHistoryController::class, 'index']);
 Route::get('/login-history/{id}', [LoginHistoryController::class, 'index']);
 
-// Mutations
+// Mutations (Laporan Mutasi)
 Route::get('/mutation', [MutationController::class, 'index']);
 
-// Periodic Mutations
+// Periodic Mutations (Laporan Mutasi Berkala)
 Route::get('/mutation-periodic', [MutationPeriodicController::class, 'index']);
 Route::delete('/mutation-periodic/{id}', [MutationPeriodicController::class, 'destroy']);
+
+// Hoarding Time (Masa Timbun)
+Route::get('/hoarding-time', [HoardingTimeController::class, 'index']);

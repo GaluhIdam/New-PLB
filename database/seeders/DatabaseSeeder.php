@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CustomsInboundDocumentSeeder::class,
             CustomsOutboundDocumentSeeder::class,
+            HoardingTimeSeeder::class,
             LoginHistorySeeder::class,
             MutationPeriodicSeeder::class,
             MutationSeeder::class,
