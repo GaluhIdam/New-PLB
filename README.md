@@ -23,6 +23,7 @@ _Below is an example of how you can instruct your audience on installing and set
 4. `composer install`
 5. `npm install --save-dev`
 6. Next, run the program key generation and commands migration
+
    ```sh
    php artisan migrate:refresh --seed
    php artisan passport:install
@@ -31,6 +32,7 @@ _Below is an example of how you can instruct your audience on installing and set
    php artisan storage:link
    npm run dev
    ```
+
 7. Run the web server
    `php artisan serve`
 8. After running the web server, open this address in your browser:
