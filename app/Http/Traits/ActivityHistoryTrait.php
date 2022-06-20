@@ -1,13 +1,16 @@
 <?php
+
 namespace App\Http\Traits;
+
 use App\Models\ActivityHistory;
 use Illuminate\Http\Request;
+
 /**
  * 
  */
 trait ActivityHistoryTrait
 {
-    public function RecordActivity(Request $request)
+    public function recordActivity(Request $request)
     {
         $data = ActivityHistory::create([
             'username' => $request->username,

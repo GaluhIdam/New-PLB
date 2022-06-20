@@ -19,28 +19,45 @@ class ActivityHistoryController extends Controller
     public function index(Request $request)
     {
         // $request Parameternya
-        // $request->username = 'Admin';
-        // $request->activity = 'Akses Pembukuan';
+        $request->username = 'Admin';
+        $request->activity = 'Akses Pembukuan';
         $class = new ActivityHistoryController();
         $class->RecordActivity($request);
 
-        $search = $request->keyword;
-        if ($request->order && $request->by) {
-            $order = $request->order;
-            $by = $request->by;
+        $search  = $request->get('search');
+        $search_username = $request->get('search_username');
+        $search_time = $request->get('search_time');
+        $search_activity = $request->get('search_activity');
+
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
         } else {
             $order = 'id';
             $by = 'desc';
         }
+
+        if ($request->get('paginate')) {
+            $paginate = $request->get('paginate');
+        } else {
+            $paginate = 10;
+        }
+
         $activityHistory = ActivityHistory::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('username', 'LIKE', "%{$search}%")
                     ->orWhere('time', 'LIKE', "%{$search}%")
                     ->orWhere('activity', 'LIKE', "%{$search}%");
             });
+        })->when($search_username, function ($query) use ($search_username) {
+            $query->where('username', 'LIKE', "%{$search_username}%");
+        })->when($search_time, function ($query) use ($search_time) {
+            $query->where('time', 'LIKE', "%{$search_time}%");
+        })->when($search_activity, function ($query) use ($search_activity) {
+            $query->where('activity', 'LIKE', "%{$search_activity}%");
         })->when(($order && $by), function ($query) use ($order, $by) {
             $query->orderBy($order, $by);
-        })->paginate(10);
+        })->paginate($paginate);
 
         $query_string = [
             'search' => $search,

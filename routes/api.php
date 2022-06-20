@@ -3,12 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
+use App\Http\Traits\ActivityHistoryTrait;
 use App\Http\Controllers\CustomsController;
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\OutboundController;
+use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\ActivityHistoryController;
 
 // Authentication routes
@@ -46,3 +47,4 @@ Route::get('/login-history/{id}', [LoginHistoryController::class, 'index']);
 
 //Activity History
 Route::get('/activity-history', [ActivityHistoryController::class, 'index']);
+Route::post('/activity-history', [ActivityHistoryTrait::class, 'recordActivity']);
