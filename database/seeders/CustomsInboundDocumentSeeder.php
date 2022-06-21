@@ -52,14 +52,14 @@ class CustomsInboundDocumentSeeder extends Seeder
         ]);
 
         CustomsInboundDocument::create([
-            'document_type' => '41',
-            'no_aju' => '09876100558620210822018786',
-            'date_aju' => '2021-08-22',
+            'document_type' => '16',
+            'no_aju' => '09876778832222090900',
+            'date_aju' => '2021-09-22',
             'no_register' => '000643',
-            'date_register' => '2021-08-22',
-            'date_inbound' => '2021-08-22',
-            'sender' => 'MEDIKA',
-            'owner' => 'MEDIKA',
+            'date_register' => '2021-09-22',
+            'date_inbound' => '2021-09-22',
+            'sender' => 'VANA',
+            'owner' => 'VANA',
             'item_code' => 'BC9234',
             'hs_code' => 'NA43124',
             'item_name' => 'FIRST AID KIT',

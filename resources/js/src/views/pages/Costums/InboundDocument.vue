@@ -496,7 +496,7 @@
                                                             </th>
                                                             <th class="filter-th">
                                                                 <div>
-                                                                    <input type="text" class="vgt-input"
+                                                                    <input type="date" class="vgt-input"
                                                                         placeholder="Filter Tanggal AJU"
                                                                         v-model="search_date_aju" />
                                                                 </div>
@@ -608,7 +608,7 @@
 
                                                         </tr>
                                                         <tr v-if="inbounds.data.length < 1">
-                                                            <td colspan="8">
+                                                            <td colspan="15">
                                                                 <div class="vgt-center-align vgt-text-disabled">Data not
                                                                     found</div>
                                                             </td>
@@ -714,6 +714,46 @@ export default {
         search_document_type: debounce(function () {
             this.list();
         }, 500),
+        search_no_aju: debounce(function () {
+            this.list();
+        }, 500),
+        search_date_aju: debounce(function () {
+            this.list();
+        }, 500),
+        search_no_register: debounce(function () {
+            this.list();
+        }, 500),
+        search_date_register: debounce(function () {
+            this.list();
+        }, 500),
+        search_date_inbound: debounce(function () {
+            this.list();
+        }, 500),
+        search_sender: debounce(function () {
+            this.list();
+        }, 500),
+        search_owner: debounce(function () {
+            this.list();
+        }, 500),
+        search_item_code: debounce(function () {
+            this.list();
+        }, 500),
+        search_hs_code: debounce(function () {
+            this.list();
+        }, 500),
+        search_item_name: debounce(function () {
+            this.list();
+        }, 500),
+        search_quantity: debounce(function () {
+            this.list();
+        }, 500),
+        search_unit: debounce(function () {
+            this.list();
+        }, 500),
+        search_item_value: debounce(function () {
+            this.list();
+        }, 500),
+
     },
     methods: {
         list(paginate) {
