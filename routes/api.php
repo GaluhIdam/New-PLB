@@ -54,7 +54,7 @@ Route::get('/mutation', [MutationController::class, 'index']);
 
 // Mutasi -> Periodic Mutations (Report Mutasi Berkala)
 Route::get('/mutation-periodic', [MutationPeriodicController::class, 'index']);
-Route::delete('/mutation-periodic/{id}', [MutationPeriodicController::class, 'destroy']);
+Route::post('/mutation-periodic-report', [MutationPeriodicController::class, 'searchDate']);
 
 // Masa Timbun (Hoarding Time)
 Route::get('/hoarding-time', [HoardingTimeController::class, 'index']);
