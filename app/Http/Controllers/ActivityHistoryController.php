@@ -10,19 +10,16 @@ use App\Http\Traits\ActivityHistoryTrait;
 
 class ActivityHistoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     use ActivityHistoryTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
-        // $request Parameternya
-        // $request->username = 'Admin';
-        // $request->activity = 'Akses Pembukuan';
-        $class = new ActivityHistoryController();
-        $class->RecordActivity($request);
+        $this->recordActivity('tes');
 
         $search = $request->keyword;
         if ($request->order && $request->by) {
