@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             MutationSeeder::class,
             OutboundSeeder::class,
             UserSeeder::class,
+            InventoryAllotmentSeeder::class
         ]);
     }
 }

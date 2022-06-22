@@ -12,6 +12,7 @@ use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\OutboundController;
 use App\Http\Controllers\ActivityHistoryController;
 use App\Http\Controllers\HoardingTimeController;
+use App\Http\Controllers\InventoryAllotmentController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -58,3 +59,6 @@ Route::post('/mutation-periodic-report', [MutationPeriodicController::class, 'se
 
 // Masa Timbun (Hoarding Time)
 Route::get('/hoarding-time', [HoardingTimeController::class, 'index']);
+
+// Invetory Allotment
+Route::get('inventory-allotment', [InventoryAllotmentController::class, 'index']);
