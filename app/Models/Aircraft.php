@@ -20,14 +20,4 @@ class Aircraft extends Model
         'crews',
         'report'
     ];
-
-    protected $dates = [
-        'date_in',
-        'date_out',
-    ];
-
-    protected $casts = [
-        'date_in' => 'datetime:d-m-Y',
-        'date_out' => 'datetime:d-m-Y',
-    ];
 }
