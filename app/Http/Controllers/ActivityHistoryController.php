@@ -4,16 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\ActivityHistory;
 use Illuminate\Http\Request;
-use App\Http\Traits\ActivityHistoryTrait;
 
 class ActivityHistoryController extends Controller
 {
+    use \App\Http\Traits\ActivityHistoryTrait;
     public function __construct()
     {
         $this->middleware('auth:api');
     }
 
-    use ActivityHistoryTrait;
 
     public function index(Request $request)
     {
