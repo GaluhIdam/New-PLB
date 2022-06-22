@@ -1,77 +1,276 @@
 <template>
   <div>
-    <div class="content-header" v-if="$gate.isAdminOrPlanner()">
+    <!-- BEGIN: Judul User Management -->
+    <div class="content-header" v-if="$gate.isAdmin()">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Daftar Pengguna</h1>
+            <h1 class="m-0">User Management</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/home">Home</a></li>
-              <li class="breadcrumb-item">User Management</li>
-              <li class="breadcrumb-item active"><a href="/users-list">Daftar Pengguna</a></li>
+              <li class="breadcrumb-item"><router-link to="/dashboard">Home</router-link></li>
+              <li class="breadcrumb-item active"><router-link to="/users-list">User Management</router-link></li>
             </ol>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="content" v-if="$gate.isAdminOrPlanner()">
+    <!-- END: Judul User Management -->
+    <!-- BEGIN: Content User Management -->
+    <div class="content" v-if="$gate.isAdmin()">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col">
+        <div class="row justify-content-center">
+          <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
-                <button type="button" class="btn btn-success btn-sm" @click="newModal"><i class="fa-solid fa-user-plus"></i> Tambah Pengguna</button>
-              </div>
-              <div class="card-body">
-                <div class="form-group">
-                  <vue-good-table
-                    theme="polar-bear"
-                    :columns="columns"
-                    :rows="users"
-                    :fixed-header="true"
-                    :search-options="{
-                      enabled: true,
-                      placeholder: 'Cari Pengguna'
-                    }"
-                    :pagination-options="{
-                      enabled: true,
-                      mode: 'records',
-                      perPage: 10,
-                      position: 'bottom',
-                      perPageDropdown: [20, 30, 40, 50],
-                      dropdownAllowAll: true,
-                      setCurrentPage: 1,
-                      jumpFirstOrLast: true,
-                      firstLabel: 'First',
-                      lastLabel: 'Last',
-                      nextLabel: 'Next',
-                      prevLabel: 'Prev',
-                      rowsPerPageLabel: 'Rows per page',
-                      ofLabel: 'dari',
-                      pageLabel: 'page', // for 'pages' mode
-                      allLabel: 'All'
-                    }"
-                  >
-                    <template slot="table-row" slot-scope="props">
-                      <span v-if="props.column.field === 'action'">
-                        <button type="button" @click="editModal(props)" class="btn btn-warning btn-sm mx-1 rounded-1" title="Ubah"><i class="fa-solid fa-edit"></i></button>
-                        <button type="button" @click="deleteUser(props.row.id)" class="btn btn-danger btn-sm mx-1 rounded-1" title="Hapus"><i class="fa-solid fa-trash"></i></button>
-                      </span>
-                      <span v-else> {{ props.formattedRow[props.column.field] }} </span>
-                    </template>
-                  </vue-good-table>
+              <!-- BEGIN: Card Header -->
+              <div class="card-header ui-sortable-handle">
+                <h5 class="card-title card_title_margin">
+                  <i class="fas fa-user-cog mr-1"></i>
+                  User Management
+                </h5>
+                <div class="card-tools">
+                  <ul class="nav nav-pills ml-auto">
+                    <li class="nav-item">
+                      <button type="button" class="btn btn-primary btn-sm" @click="newModal"><i class="fa-solid fa-user-plus"></i> Add User</button>
+                    </li>
+                  </ul>
                 </div>
               </div>
+              <!-- END: Card Header -->
+
+              <!-- BEGIN: Card Body -->
+              <div class="card-body">
+                <div class="form-group">
+                  <div class="vgt-inner-wrap">
+                    <!-- BEGIN: Global Search Button -->
+                    <div class="vgt-global-search vgt-clearfix">
+                      <!-- BEGIN: Button Left (Search) -->
+                      <div class="vgt-global-search__input vgt-pull-left">
+                        <label>
+                          <span aria-hidden="true" class="input__icon">
+                            <div class="magnifying-glass"></div>
+                          </span>
+                          <span class="sr-only"> Search </span>
+                        </label>
+                        <input type="text" placeholder="Search User" class="vgt-input vgt-pull-left" v-model="search" />
+                      </div>
+                      <!-- END: Button Left (Search)-->
+                    </div>
+                    <!-- END Global Search Button -->
+                    <div class="vgt-responsive">
+                      <table id="vgt-table" class="vgt-table bordered polar-bear">
+                        <thead>
+                          <tr>
+                            <!-- BEGIN: Number by ID (Table Header) -->
+                            <th v-if="order == 'id' && by == 'asc'" @click="sort('id', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <span class="table_header">No.</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <th v-else-if="order == 'id' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <span class="table_header">No.</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <th v-else @click="sort('id', 'asc')" class="text-center sortable">
+                              <span class="table_header">No.</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+
+                            <!-- END: Number by ID (Table Header) -->
+                            <!-- BEGIN: Username (Table Header) -->
+                            <th v-if="order == 'username' && by == 'asc'" @click="sort('username', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <span class="table_header">Username</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <th v-else-if="order == 'username' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <span class="table_header">Username</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <th v-else @click="sort('username', 'asc')" class="text-center sortable">
+                              <span class="table_header">Username</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <!-- END: Username (Table Header) -->
+                            <!-- BEGIN: Role (Table Header) -->
+                            <th v-if="order == 'role' && by == 'asc'" @click="sort('role', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <span class="table_header">Role</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <th v-else-if="order == 'role' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <span class="table_header">Role</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <th v-else @click="sort('role', 'asc')" class="text-center sortable">
+                              <span class="table_header">Role</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <!-- END: Role (Table Header) -->
+                            <!-- BEGIN: Email (Table Header) -->
+                            <th v-if="order == 'email' && by == 'asc'" @click="sort('email', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <span class="table_header">Email</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <th v-else-if="order == 'email' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <span class="table_header">Email</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <th v-else @click="sort('email', 'asc')" class="text-center sortable">
+                              <span class="table_header">Email</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <!-- END: Email (Table Header) -->
+                            <!-- BEGIN: Date Created (Table Header) -->
+                            <th v-if="order == 'created_at' && by == 'asc'" @click="sort('created_at', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <span class="table_header">Date Created</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <th v-else-if="order == 'created_at' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <span class="table_header">Date Created</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <th v-else @click="sort('created_at', 'asc')" class="text-center sortable">
+                              <span class="table_header">Date Created</span>
+                              <button>
+                                <span class="sr-only"></span>
+                              </button>
+                            </th>
+                            <!-- END: Date Created (Table Header) -->
+                            <!-- BEGIN: Action (Table Header) -->
+                            <th class="text-center">
+                              <span class="table_header">Action</span>
+                            </th>
+                            <!-- END: Action (Table Header) -->
+                          </tr>
+                          <tr>
+                            <th class="filter-th"></th>
+                            <th class="filter-th">
+                              <div>
+                                <input type="text" class="vgt-input" placeholder="Filter Username" v-model="search_username" />
+                              </div>
+                            </th>
+                            <th class="filter-th">
+                              <div>
+                                <input type="text" class="vgt-input" placeholder="Filter Role" v-model="search_role" />
+                              </div>
+                            </th>
+                            <th class="filter-th">
+                              <div>
+                                <input type="text" class="vgt-input" placeholder="Filter Email" v-model="search_email" />
+                              </div>
+                            </th>
+                            <th class="filter-th">
+                              <div>
+                                <input type="date" class="vgt-input text-center" v-model="created_at" />
+                              </div>
+                            </th>
+                            <th class="filter-th"></th>
+                          </tr>
+                        </thead>
+                        <!-- END: Table Head -->
+
+                        <!-- BEGIN: Table Body -->
+
+                        <tbody>
+                          <tr v-for="(user, user_index) in users.data" :key="user_index">
+                            <td class="text-center table-content">{{ user.id }}</td>
+                            <td class="text-center table-content">{{ user.username }}</td>
+                            <td class="text-center table-content">{{ user.role | upperCase }}</td>
+                            <td class="text-center table-content">{{ user.email }}</td>
+                            <td class="text-center table-content">{{ user.created_at | formatDate }}</td>
+                            <td class="text-center table-content">
+                              <button class="btn btn-warning btn-sm rounded-1 mx-1" title="Edit" @click="editModal(user)"><i class="fa-solid fa-edit"></i> Edit</button>
+                              <button class="btn btn-danger btn-sm rounded-1" @click="deleteUser(user.id)"><i class="fa-solid fa-trash"></i> Delete</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="vgt-wrap__footer vgt-clearfix">
+                      <div class="footer__row-count vgt-pull-left">
+                        <label class="footer__row-count__label row_per_page_label"> Rows per page: </label>
+                        <select class="footer__row-count__select row_per_page_option" v-model="paginate" @change="list()">
+                          <option value="10">10</option>
+                          <option value="25">25</option>
+                          <option value="50">50</option>
+                          <option value="100">100</option>
+                        </select>
+                      </div>
+                      <div class="footer__navigation vgt-pull-right">
+                        <button
+                          type="button"
+                          class="footer__navigation__page-btn"
+                          :class="{
+                            disabled: !users.prev_page_url
+                          }"
+                          @click="users.prev_page_url && list(users.prev_page_url)"
+                          style="margin-right: 0px"
+                        >
+                          <span aria-hidden="true" class="chevron left"></span>
+                          <span class="paginate_text">Prev</span>
+                        </button>
+                        <div class="footer__navigation__page-info" style="color: #99a0b2">
+                          <label class="page-info__label" style="margin-bottom: -5px">
+                            <span class="paginate_text">page</span>
+                            <input type="text" class="footer__navigation__page-info__current-entry vgt-input" v-model="current_page" @keypress="directPage" style="width: 60px" />
+                            <span class="paginate_text">
+                              of
+                              {{ users.last_page }}
+                            </span>
+                          </label>
+                        </div>
+                        <button
+                          type="button"
+                          class="footer__navigation__page-btn"
+                          :class="{
+                            disabled: !users.next_page_url
+                          }"
+                          @click="users.next_page_url && list(users.next_page_url)"
+                        >
+                          <span style="font-weight: 500">Next</span>
+                          <span aria-hidden="true" class="chevron right"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- END: Card Body -->
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- END: Content User Management -->
 
-    <!-- BEGIN: Modal Tambah Pengguna -->
+    <!-- BEGIN : Modal Add / Edit User  -->
     <div class="modal fade" id="addUsers" style="display: none" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -161,26 +360,42 @@
         </div>
       </div>
     </div>
-    <!-- END: Modal Tambah Pengguna -->
+    <!-- END: Modal Add / Edit User -->
 
-    <div v-if="!$gate.isAdminOrPlanner()">
+    <!-- Handle Error if !Admin -->
+    <div v-if="!$gate.isAdmin()">
       <not-found></not-found>
     </div>
   </div>
 </template>
+
 <script>
 import Form from 'vform'
 import axios from 'axios'
+import debounce from 'lodash/debounce'
 import Swal from 'sweetalert2'
 import moment from 'moment'
 moment.locale('id')
 
 export default {
-  name: 'users',
   data() {
     return {
       editmode: false,
-      users: [],
+      users: {
+        data: []
+      },
+      search: '',
+      search_id: '',
+      search_username: '',
+      search_email: '',
+      search_role: '',
+      search_created_at: '',
+      search_updated_at: '',
+      search_description: '',
+      order: 'id',
+      by: 'asc',
+      current_page: null,
+      paginate: '10',
       form: new Form({
         id: '',
         name: '',
@@ -189,98 +404,92 @@ export default {
         password: '',
         role: '',
         description: '',
-        photo: '',
-        email_verified_at: ''
-      }),
-      // Columns Vue-GoodTable
-      columns: [
-        {
-          label: 'Nama Pengguna',
-          field: 'name',
-          type: 'text',
-          tdClass: 'text-center',
-          thClass: 'text-center'
-        },
-        {
-          label: 'Username',
-          field: 'username',
-          type: 'text',
-          tdClass: 'text-center',
-          thClass: 'text-center'
-        },
-        {
-          label: 'Email',
-          field: 'email',
-          type: 'text',
-          tdClass: 'text-center',
-          thClass: 'text-center'
-        },
-        {
-          label: 'Role',
-          field: 'role',
-          type: 'text',
-          tdClass: 'text-center',
-          thClass: 'text-center',
-          filterOptions: {
-            enabled: true,
-            customFilter: true,
-            formatValue: this.upperCase
-          },
-          formatFn: function (value) {
-            return value.charAt(0).toUpperCase() + value.slice(1)
-          }
-        },
-        {
-          label: 'Tanggal dibuat',
-          field: 'created_at',
-          type: 'date',
-          tdClass: 'text-center',
-          thClass: 'text-center',
-          formatFn: function (value) {
-            return value != null ? moment(value).format('dddd, D-MMMM-YYYY hh:mm:ss') : null
-          }
-        },
-        {
-          label: 'Aksi',
-          field: 'action',
-          tdClass: 'text-center',
-          thClass: 'text-center'
-        }
-      ]
+        created_at: '',
+        updated_at: ''
+      })
     }
+  },
+  created() {
+    this.list()
+    Fire.$on('RefreshTable', () => {
+      this.list()
+    })
+  },
+  watch: {
+    search: debounce(function () {
+      this.list()
+    }, 500),
+    search_id: debounce(function () {
+      this.list()
+    }, 500),
+    search_username: debounce(function () {
+      this.list()
+    }, 500),
+    search_email: debounce(function () {
+      this.list()
+    }, 500),
+    search_role: debounce(function () {
+      this.list()
+    }, 500),
+    search_created_at: debounce(function () {
+      this.list()
+    }, 500),
+    search_updated_at: debounce(function () {
+      this.list()
+    }, 500),
+    search_description: debounce(function () {
+      this.list()
+    }, 500)
   },
 
   methods: {
-    newModal() {
-      this.editmode = false
-      this.form.reset() //Reset Form Modal AddUsers
-      $('#addUsers').modal('show')
-    },
-    editModal(users) {
-      this.editmode = true
-      this.form.reset() //Reset Form Modal AddUsers
-      $('#addUsers').modal('show')
-      this.form.fill(users.row)
-      console.log(users)
-    },
-    updateUser() {
+    list(paginate) {
       this.$Progress.start()
-      this.form
-        .put('api/user/' + this.form.id)
-        .then(() => {
-          $('#addUsers').modal('hide')
-          toast.fire({
-            icon: 'success',
-            title: 'Pengguna berhasil diperbarui'
-          })
-          this.$Progress.finish()
-          Fire.$emit('RefreshTable')
+      paginate = paginate || `/api/user`
+      axios
+        .get(paginate, {
+          params: {
+            search: this.search,
+            search_id: this.search_id,
+            search_username: this.search_username,
+            search_email: this.search_email,
+            search_role: this.search_role,
+            search_created_at: this.search_created_at,
+            search_updated_at: this.search_updated_at,
+            search_description: this.search_description,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate
+          }
         })
-        .catch(() => {
+        .then((response) => {
+          this.users = response.data
+          this.current_page = this.users.current_page
+          this.$Progress.finish()
+        })
+        .catch((error) => {
           this.$Progress.fail()
+          console.log(error)
         })
     },
-
+    directPage: debounce(function () {
+      if (this.current_page < 1) {
+        this.current_page = 1
+      } else if (this.current_page > this.paginate.last_page) {
+        this.current_page = this.paginate.last_page
+      }
+      let url = new URL(this.users.first_page_url)
+      let search_params = new URLSearchParams(url.search)
+      search_params.set('page', this.current_page)
+      url.search = search_params.toString()
+      let new_url = url.toString()
+      this.list(new_url)
+    }, 500),
+    sort(order, by) {
+      this.order = order
+      this.by = by
+      this.list()
+    },
     deleteUser(id) {
       Swal.fire({
         title: 'Apakah Kamu yakin ingin menghapusnya?',
@@ -299,17 +508,12 @@ export default {
               Swal.fire('Berhasil!', 'Pengguna Berhasil dihapus', 'success')
               Fire.$emit('RefreshTable')
             })
-            .catch((error) => console.log(error))
+            .catch((error) => {
+              this.$Progress.fail()
+              console.log(error)
+            })
         }
       })
-    },
-    loadUsers() {
-      if (this.$gate.isAdminOrPlanner) {
-        axios.get('api/user').then((response) => {
-          this.users = response.data.data
-        })
-        // axios.get('api/user').then(({ data }) => (this.user = data.data));
-      }
     },
     createUser() {
       this.$Progress.start()
@@ -324,16 +528,47 @@ export default {
           })
           this.$Progress.finish()
         })
-        .catch(() => {})
+        .catch((error) => {
+          this.$Progress.fail()
+          console.log(error)
+        })
+    },
+    newModal() {
+      this.editmode = false
+      this.form.reset() //Reset Form Modal AddUsers
+      $('#addUsers').modal('show')
+    },
+    editModal(users) {
+      this.editmode = true
+      this.form.reset() //Reset Form Modal AddUsers
+      $('#addUsers').modal('show')
+      this.form.id = users.id
+      this.form.name = users.name
+      this.form.email = users.email
+      this.form.username = users.username
+      this.form.password = users.password
+      this.form.role = users.role
+      this.form.description = users.description
+      console.log(users)
+    },
+    updateUser(form) {
+      this.$Progress.start()
+      this.form
+        .put('api/user/' + this.form.id)
+        .then(() => {
+          Fire.$emit('RefreshTable')
+          $('#addUsers').modal('hide')
+          toast.fire({
+            icon: 'success',
+            title: 'Data Pengguna berhasil diperbarui'
+          })
+          this.$Progress.finish()
+        })
+        .catch((error) => {
+          this.$Progress.fail()
+          console.log(error)
+        })
     }
-  },
-
-  created() {
-    this.loadUsers()
-    Fire.$on('RefreshTable', () => {
-      this.loadUsers()
-    })
-    // setInterval(() => this.LoadUsers(), 5000);
   }
 }
 </script>

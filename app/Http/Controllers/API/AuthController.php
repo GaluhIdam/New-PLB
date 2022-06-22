@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+
+namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -76,7 +77,7 @@ class AuthController extends Controller
         }
 
         //Login History
-        LoginHistory::create([
+        loginHistory::create([
             'username' => $request->username,
             'time' => now(),
             'ip_address' =>  $request->ip(),
