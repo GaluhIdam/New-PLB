@@ -13,6 +13,7 @@ use App\Http\Controllers\OutboundController;
 use App\Http\Controllers\ActivityHistoryController;
 use App\Http\Controllers\HoardingTimeController;
 use App\Http\Controllers\InventoryAllotmentController;
+use App\Http\Controllers\MovementAllotmentController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -62,3 +63,6 @@ Route::get('/hoarding-time', [HoardingTimeController::class, 'index']);
 
 // Invetory Allotment
 Route::get('inventory-allotment', [InventoryAllotmentController::class, 'index']);
+
+//Movement Allotment
+Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
