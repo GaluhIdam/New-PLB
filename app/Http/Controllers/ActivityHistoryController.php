@@ -3,26 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActivityHistory;
-use App\Http\Requests\StoreActivityHistoryRequest;
-use App\Http\Requests\UpdateActivityHistoryRequest;
 use Illuminate\Http\Request;
-use App\Http\Traits\ActivityHistoryTrait;
 
 class ActivityHistoryController extends Controller
 {
-    use ActivityHistoryTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use \App\Http\Traits\ActivityHistoryTrait;
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+
     public function index(Request $request)
     {
-        // $request Parameternya
-        $request->username = 'Admin';
-        $request->activity = 'Akses Pembukuan';
-        $class = new ActivityHistoryController();
-        $class->RecordActivity($request);
+        $this->recordActivity('tes');
 
         $search  = $request->get('search');
         $search_username = $request->get('search_username');
@@ -75,64 +69,4 @@ class ActivityHistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreActivityHistoryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreActivityHistoryRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ActivityHistory  $activityHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ActivityHistory $activityHistory)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ActivityHistory  $activityHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ActivityHistory $activityHistory)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateActivityHistoryRequest  $request
-     * @param  \App\Models\ActivityHistory  $activityHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateActivityHistoryRequest $request, ActivityHistory $activityHistory)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ActivityHistory  $activityHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ActivityHistory $activityHistory)
-    {
-        //
-    }
 }
