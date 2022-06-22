@@ -7,7 +7,7 @@ use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\LoginHistoryController;
-use App\Http\Controllers\MutationController;
+use App\Http\Controllers\MutationReportController;
 use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\OutboundController;
 use App\Http\Controllers\ActivityHistoryController;
@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Routing User 
+// Routing User
 Route::apiResource('user', UserController::class);
 
 // Dokumen Kepabeanan
@@ -50,7 +50,7 @@ Route::get('/login-history/{id}', [LoginHistoryController::class, 'index']);
 Route::get('/activity-history', [ActivityHistoryController::class, 'index']);
 
 // Mutasi - > (Report Mutasi)
-Route::get('/mutation', [MutationController::class, 'index']);
+Route::get('/mutation-report', [MutationReportController::class, 'index']);
 
 // Mutasi -> Periodic Mutations (Report Mutasi Berkala)
 Route::get('/mutation-periodic', [MutationPeriodicController::class, 'index']);

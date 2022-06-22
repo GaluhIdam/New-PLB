@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             LoginHistorySeeder::class,
             ActivityHistorySeeder::class,
             MutationPeriodicSeeder::class,
-            MutationSeeder::class,
+            MutationReportSeeder::class,
             OutboundSeeder::class,
             UserSeeder::class,
         ]);
