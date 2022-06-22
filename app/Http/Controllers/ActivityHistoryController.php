@@ -86,44 +86,7 @@ class ActivityHistoryController extends Controller
      * @param  \App\Http\Requests\StoreActivityHistoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreActivityHistoryRequest $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ActivityHistory  $activityHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ActivityHistory $activityHistory)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ActivityHistory  $activityHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ActivityHistory $activityHistory)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateActivityHistoryRequest  $request
-     * @param  \App\Models\ActivityHistory  $activityHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateActivityHistoryRequest $request, ActivityHistory $activityHistory)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

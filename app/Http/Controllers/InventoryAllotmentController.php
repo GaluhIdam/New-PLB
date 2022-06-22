@@ -29,7 +29,7 @@ class InventoryAllotmentController extends Controller
             $paginate = 10;
         }
 
-        $inventoryallotment = InventoryAllotment::when($search, function ($query) use ($search) {
+        $inventory_allotment = InventoryAllotment::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('part_number', 'LIKE', "%{$search}%")
                     ->orWhere('from_plant', 'LIKE', "%{$search}%")
@@ -54,8 +54,8 @@ class InventoryAllotmentController extends Controller
             'by' => $by,
         ];
 
-        $inventoryallotment->appends($query_string);
+        $inventory_allotment->appends($query_string);
 
-        return $inventoryallotment;
+        return $inventory_allotment;
     }
 }
