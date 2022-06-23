@@ -47,13 +47,13 @@ import "vue-multiselect/dist/vue-multiselect.min.css";
 // Vue-Moment
 import moment from "moment";
 // Filter Moment
-Vue.filter("formatDate", function (value) {
+Vue.filter("formatDate", function(value) {
     if (value) {
         return moment(String(value)).format("MM/DD/YYYY");
     }
 });
 
-Vue.filter("upperCase", function (text) {
+Vue.filter("upperCase", function(text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
 });
 
@@ -83,3 +83,6 @@ const toast = swal.mixin({
     timer: 3000,
 });
 window.toast = toast;
+
+import Datepicker from 'vuejs-datepicker';
+Vue.component('datepicker', Datepicker);
