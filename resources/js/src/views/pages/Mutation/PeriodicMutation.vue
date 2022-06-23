@@ -47,16 +47,16 @@
                     <datepicker
                       input-class="form-control"
                       placeholder="To Date"
-                      format="MM/DD/YYYY"
+                      format="MM/dd/yyyy"
+                      v-model="start_date"
                     />
                   </div>
                   <div class="col-sm-3">
-                    <input type="date" class="form-control" v-model="end_date" />
-
                     <datepicker
                       input-class="form-control"
                       placeholder="Form date"
-                      format="MM/DD/YYYY"
+                      format="MM/dd/yyyy"
+                      v-model="end_date"
                     />
                   </div>
                   <div class="offset-sm-5 col-sm-10 mt-4">
@@ -851,18 +851,6 @@ export default {
       this.list();
     }, 500),
   },
-  // computed: {
-  //   filterDate() {
-  //     if (this.date_selected) {
-  //       return {
-  //         start_date: this.start_date,
-  //         end_date: this.end_date,
-  //       };
-  //     } else {
-  //       return {};
-  //     }
-  //   },
-  // },
   methods: {
     filterDate() {
       this.list();
