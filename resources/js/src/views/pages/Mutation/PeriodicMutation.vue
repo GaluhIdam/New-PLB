@@ -39,43 +39,40 @@
               </div>
 
               <div class="card-body">
-                <form class="form-horizontal">
-                  <div class="form-group row justify-content-center align-items-center">
-                    <label for="part_number" class="col-form-label">Tanggal Mutasi</label>
-                    <div class="col-sm-3">
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="part_number"
-                        name="part_number"
-                        autofocus
-                      />
-                    </div>
-                    <div class="col-sm-3">
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="part_number"
-                        name="part_number"
-                        autofocus
-                      />
-                    </div>
+                <div
+                  class="form-group row justify-content-center align-items-center mt-4"
+                >
+                  <label for="part_number" class="col-form-label">Tanggal Mutasi</label>
+                  <div class="col-sm-3">
+                    <datepicker
+                      input-class="form-control"
+                      placeholder="To Date"
+                      format="MM/DD/YYYY"
+                    />
                   </div>
-                  <div class="form-group row justify-content-center align-items-center">
-                    <div class="offset-sm-5 col-sm-10">
-                      <button class="btn btn-primary">
-                        <i class="fa-solid fa-magnifying-glass"></i> Search
-                      </button>
-                      <button class="btn btn-secondary">
-                        <i class="fa-solid fa-rotate"></i> Reset
-                      </button>
-                    </div>
+                  <div class="col-sm-3">
+                    <input type="date" class="form-control" v-model="end_date" />
+
+                    <datepicker
+                      input-class="form-control"
+                      placeholder="Form date"
+                      format="MM/DD/YYYY"
+                    />
                   </div>
-                </form>
+                  <div class="offset-sm-5 col-sm-10 mt-4">
+                    <button class="btn btn-primary" @click="filterDate">
+                      <i class="fa-solid fa-magnifying-glass"></i> Filter
+                    </button>
+                    <button class="btn btn-secondary">
+                      <i class="fa-solid fa-rotate"></i> Reset
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
+            <hr />
 
-            <div class="card">
+            <div class="card" v-if="date_selected">
               <div class="card-body">
                 <div class="form-group">
                   <div class="vgt-wrap polar-bear"></div>
@@ -756,10 +753,8 @@
 </template>
 
 <script>
-import Form from "vform";
 import axios from "axios";
 import debounce from "lodash/debounce";
-import Swal from "sweetalert2";
 import moment from "moment";
 moment.locale("id");
 
@@ -772,88 +767,107 @@ export default {
       search: "",
       search_item_code: "",
       search_item_name: "",
-      $search_unit: "",
-      $search_beginning_balance: "",
-      $search_code_bc_16_in: "",
-      $search_code_bc_40_in: "",
-      $search_code_bc_27_in: "",
-      $search_code_bc_28_out: "",
-      $search_code_bc_41_out: "",
-      $search_code_bc_27_out: "",
-      $search_adjustment: "",
-      $search_book_balance: "",
-      $search_inventory_taking: "",
-      $search_difference: "",
-      $search_submission_date: "",
-      $search_submission_number: "",
+      search_unit: "",
+      search_beginning_balance: "",
+      search_code_bc_16_in: "",
+      search_code_bc_40_in: "",
+      search_code_bc_27_in: "",
+      search_code_bc_28_out: "",
+      search_code_bc_41_out: "",
+      search_code_bc_27_out: "",
+      search_adjustment: "",
+      search_book_balance: "",
+      search_inventory_taking: "",
+      search_difference: "",
+      search_submission_date: "",
+      search_submission_number: "",
       order: "id",
       by: "desc",
       paginate: "10",
       current_page: null,
+      start_date: null,
+      end_date: null,
+      date_selected: false,
     };
   },
-  created() {
-    this.list();
-    Fire.$on("RefreshTable", () => {
-      this.list();
-    });
-  },
+  // created() {
+  //   this.list();
+  //   Fire.$on("RefreshTable", () => {
+  //     this.list();
+  //   });
+  // },
   watch: {
-    search: debounce(function () {
-      this.list();
-    }, 500),
+    // search: debounce(function () {
+    //   this.list();
+    // }, 500),
     search_item_code: debounce(function () {
       this.list();
     }, 500),
     search_item_name: debounce(function () {
       this.list();
     }, 500),
-    $search_unit: debounce(function () {
+    search_unit: debounce(function () {
       this.list();
     }, 500),
-    $search_beginning_balance: debounce(function () {
+    search_beginning_balance: debounce(function () {
       this.list();
     }, 500),
-    $search_code_bc_16_in: debounce(function () {
+    search_code_bc_16_in: debounce(function () {
       this.list();
     }, 500),
-    $search_code_bc_40_in: debounce(function () {
+    search_code_bc_40_in: debounce(function () {
       this.list();
     }, 500),
-    $search_code_bc_27_in: debounce(function () {
+    search_code_bc_27_in: debounce(function () {
       this.list();
     }, 500),
-    $search_code_bc_28_out: debounce(function () {
+    search_code_bc_28_out: debounce(function () {
       this.list();
     }, 500),
-    $search_code_bc_41_out: debounce(function () {
+    search_code_bc_41_out: debounce(function () {
       this.list();
     }, 500),
-    $search_code_bc_27_out: debounce(function () {
+    search_code_bc_27_out: debounce(function () {
       this.list();
     }, 500),
-    $search_adjustment: debounce(function () {
+    search_adjustment: debounce(function () {
       this.list();
     }, 500),
-    $search_book_balance: debounce(function () {
-      this.list();
-    }, 500),
-
-    $search_inventory_taking: debounce(function () {
-      this.list();
-    }, 500),
-    $search_difference: debounce(function () {
+    search_book_balance: debounce(function () {
       this.list();
     }, 500),
 
-    $search_submission_date: debounce(function () {
+    search_inventory_taking: debounce(function () {
       this.list();
     }, 500),
-    $search_submission_number: debounce(function () {
+    search_difference: debounce(function () {
+      this.list();
+    }, 500),
+
+    search_submission_date: debounce(function () {
+      this.list();
+    }, 500),
+    search_submission_number: debounce(function () {
       this.list();
     }, 500),
   },
+  // computed: {
+  //   filterDate() {
+  //     if (this.date_selected) {
+  //       return {
+  //         start_date: this.start_date,
+  //         end_date: this.end_date,
+  //       };
+  //     } else {
+  //       return {};
+  //     }
+  //   },
+  // },
   methods: {
+    filterDate() {
+      this.list();
+      this.date_selected = true;
+    },
     list(paginate) {
       this.$Progress.start();
       paginate = paginate || "/api/mutation-periodic";
@@ -863,20 +877,22 @@ export default {
             search: this.search,
             search_item_code: this.search_item_code,
             search_item_name: this.search_item_name,
-            $search_unit: this.$search_unit,
-            $search_beginning_balance: this.$search_beginning_balance,
-            $search_code_bc_16_in: this.$search_code_bc_16_in,
-            $search_code_bc_40_in: this.$search_code_bc_40_in,
-            $search_code_bc_27_in: this.$search_code_bc_27_in,
-            $search_code_bc_28_out: this.$search_code_bc_28_out,
-            $search_code_bc_41_out: this.$search_code_bc_41_out,
-            $search_code_bc_27_out: this.$search_code_bc_27_out,
-            $search_adjustment: this.$search_adjustment,
-            $search_book_balance: this.$search_book_balance,
-            $search_inventory_taking: this.$search_inventory_taking,
-            $search_difference: this.$search_difference,
-            $search_submission_date: this.$search_submission_date,
-            $search_submission_number: this.$search_submission_number,
+            search_unit: this.$search_unit,
+            search_beginning_balance: this.$search_beginning_balance,
+            search_code_bc_16_in: this.$search_code_bc_16_in,
+            search_code_bc_40_in: this.$search_code_bc_40_in,
+            search_code_bc_27_in: this.$search_code_bc_27_in,
+            search_code_bc_28_out: this.$search_code_bc_28_out,
+            search_code_bc_41_out: this.$search_code_bc_41_out,
+            search_code_bc_27_out: this.$search_code_bc_27_out,
+            search_adjustment: this.$search_adjustment,
+            search_book_balance: this.$search_book_balance,
+            search_inventory_taking: this.$search_inventory_taking,
+            search_difference: this.$search_difference,
+            search_submission_date: this.$search_submission_date,
+            search_submission_number: this.$search_submission_number,
+            start_date: this.start_date,
+            end_date: this.end_date,
             order: this.order,
             by: this.by,
             paginate: this.paginate,

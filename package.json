@@ -38,6 +38,7 @@
         "vue-apexcharts": "^1.6.2",
         "vue-good-table": "^2.21.11",
         "vue-multiselect": "^2.1.6",
-        "vue-progressbar": "^0.7.5"
+        "vue-progressbar": "^0.7.5",
+        "vuejs-datepicker": "^1.6.2"
     }
 }
