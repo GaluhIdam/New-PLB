@@ -46,156 +46,84 @@
                             </span>
                             <span class="sr-only"> Search </span>
                           </label>
-                          <input
-                            type="text"
-                            placeholder="Search Data"
-                            class="vgt-input vgt-pull-left"
-                            v-model="search"
-                          />
+                          <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left" v-model="search" />
                         </div>
                       </div>
                       <div class="vgt-responsive">
-                        <table
-                          id="vgt-table"
-                          class="vgt-table bordered polar-bear"
-                        >
+                        <table id="vgt-table" class="vgt-table bordered polar-bear">
                           <thead>
                             <tr>
                               <!--  -->
-                              <th
-                                v-if="order == 'id' && by == 'asc'"
-                                @click="sort('id', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'id' && by == 'asc'" @click="sort('id', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'id' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="
-                                  text-center
-                                  sortable
-                                  sorting sorting-desc
-                                "
-                              >
+                              <th v-else-if="order == 'id' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('id', 'asc')" class="text-center sortable">
                                 <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  -->
-                              <th
-                                v-if="order == 'username' && by == 'asc'"
-                                @click="sort('username', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'username' && by == 'asc'" @click="sort('username', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Username</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'username' && by == 'desc'"
-                                @click="sort('username', 'asc')"
-                                class="
-                                  text-center
-                                  sortable
-                                  sorting sorting-desc
-                                "
-                              >
+                              <th v-else-if="order == 'username' && by == 'desc'" @click="sort('username', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Username</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('username', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('username', 'asc')" class="text-center sortable">
                                 <span class="table_header">Username</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  -->
-                              <th
-                                v-if="order == 'time' && by == 'asc'"
-                                @click="sort('time', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'time' && by == 'asc'" @click="sort('time', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Time</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'time' && by == 'desc'"
-                                @click="sort('time', 'asc')"
-                                class="
-                                  text-center
-                                  sortable
-                                  sorting sorting-desc
-                                "
-                              >
+                              <th v-else-if="order == 'time' && by == 'desc'" @click="sort('time', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Time</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('time', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('time', 'asc')" class="text-center sortable">
                                 <span class="table_header">Time</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  -->
-                              <th
-                                v-if="order == 'activity' && by == 'asc'"
-                                @click="sort('activity', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'activity' && by == 'asc'" @click="sort('activity', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Activity</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'activity' && by == 'desc'"
-                                @click="sort('activity', 'asc')"
-                                class="
-                                  text-center
-                                  sortable
-                                  sorting sorting-desc
-                                "
-                              >
+                              <th v-else-if="order == 'activity' && by == 'desc'" @click="sort('activity', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Activity</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('activity', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('activity', 'asc')" class="text-center sortable">
                                 <span class="table_header">Activity</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -207,42 +135,23 @@
                               <th class="filter-th"></th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Username"
-                                    v-model="search_username"
-                                  />
+                                  <input type="text" class="vgt-input" placeholder="Filter Username" v-model="search_username" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="date"
-                                    class="vgt-input"
-                                    v-model="search_time"
-                                  />
+                                  <input type="date" class="vgt-input" v-model="search_time" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Activity"
-                                    v-model="search_activity"
-                                  />
+                                  <input type="text" class="vgt-input" placeholder="Filter Activity" v-model="search_activity" />
                                 </div>
                               </th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr
-                              v-for="(
-                                activity, activity_index
-                              ) in activities.data"
-                              :key="activity_index"
-                            >
+                            <tr v-for="(activity, activity_index) in activities.data" :key="activity_index">
                               <td class="table_content">{{ activity.id }}</td>
                               <td class="table_content">
                                 {{ activity.username }}
@@ -256,9 +165,7 @@
                             </tr>
                             <tr v-if="activities.data.length < 1">
                               <td colspan="8">
-                                <div class="vgt-center-align vgt-text-disabled">
-                                  Data not found
-                                </div>
+                                <div class="vgt-center-align vgt-text-disabled">Data not found</div>
                               </td>
                             </tr>
                           </tbody>
@@ -266,19 +173,8 @@
                       </div>
                       <div class="vgt-wrap__footer vgt-clearfix">
                         <div class="footer__row-count vgt-pull-left">
-                          <label
-                            class="footer__row-count__label row_per_page_label"
-                          >
-                            Rows per page:
-                          </label>
-                          <select
-                            class="
-                              footer__row-count__select
-                              row_per_page_option
-                            "
-                            v-model="paginate"
-                            @change="list()"
-                          >
+                          <label class="footer__row-count__label row_per_page_label"> Rows per page: </label>
+                          <select class="footer__row-count__select row_per_page_option" v-model="paginate" @change="list()">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -290,39 +186,18 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !activities.prev_page_url,
+                              disabled: !activities.prev_page_url
                             }"
-                            @click="
-                              activities.prev_page_url &&
-                                list(activities.prev_page_url)
-                            "
+                            @click="activities.prev_page_url && list(activities.prev_page_url)"
                             style="margin-right: 0px"
                           >
-                            <span
-                              aria-hidden="true"
-                              class="chevron left"
-                            ></span>
+                            <span aria-hidden="true" class="chevron left"></span>
                             <span class="paginate_text">Prev</span>
                           </button>
-                          <div
-                            class="footer__navigation__page-info"
-                            style="color: #99a0b2"
-                          >
-                            <label
-                              class="page-info__label"
-                              style="margin-bottom: -5px"
-                            >
+                          <div class="footer__navigation__page-info" style="color: #99a0b2">
+                            <label class="page-info__label" style="margin-bottom: -5px">
                               <span class="paginate_text">page</span>
-                              <input
-                                type="text"
-                                class="
-                                  footer__navigation__page-info__current-entry
-                                  vgt-input
-                                "
-                                v-model="current_page"
-                                @keypress="directPage"
-                                style="width: 60px"
-                              />
+                              <input type="text" class="footer__navigation__page-info__current-entry vgt-input" v-model="current_page" @keypress="directPage" style="width: 60px" />
                               <span class="paginate_text">
                                 of
                                 {{ activities.last_page }}
@@ -333,18 +208,12 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !activities.next_page_url,
+                              disabled: !activities.next_page_url
                             }"
-                            @click="
-                              activities.next_page_url &&
-                                list(activities.next_page_url)
-                            "
+                            @click="activities.next_page_url && list(activities.next_page_url)"
                           >
                             <span style="font-weight: 500">Next</span>
-                            <span
-                              aria-hidden="true"
-                              class="chevron right"
-                            ></span>
+                            <span aria-hidden="true" class="chevron right"></span>
                           </button>
                         </div>
                       </div>
@@ -361,51 +230,51 @@
 </template>
 
 <script>
-import axios from "axios";
-import debounce from "lodash/debounce";
-import Swal from "sweetalert2";
+import axios from 'axios'
+import debounce from 'lodash/debounce'
+import Swal from 'sweetalert2'
 
 export default {
   data() {
     return {
       activities: {
         data: [],
-        links: [],
+        links: []
       },
       search: null,
       search_username: null,
       search_time: null,
       search_activity: null,
-      order: "id",
-      by: "desc",
-      paginate: "10",
-      current_page: null,
-    };
+      order: 'id',
+      by: 'desc',
+      paginate: '10',
+      current_page: null
+    }
   },
   created() {
-    this.list();
+    this.list()
   },
   watch: {
     search: debounce(function () {
-      this.list();
+      this.list()
     }, 500),
     search_id: debounce(function () {
-      this.list();
+      this.list()
     }, 500),
     search_username: debounce(function () {
-      this.list();
+      this.list()
     }, 500),
     search_activity: debounce(function () {
-      this.list();
+      this.list()
     }, 500),
     search_time: debounce(function () {
-      this.list();
-    }, 0),
+      this.list()
+    }, 0)
   },
   methods: {
     list(paginate) {
-      this.showLoading();
-      paginate = paginate || `/api/activity-history`;
+      this.showLoading()
+      paginate = paginate || `/api/activity-history`
       axios
         .get(paginate, {
           params: {
@@ -415,44 +284,44 @@ export default {
             search_activity: this.search_activity,
             order: this.order,
             by: this.by,
-            paginate: this.paginate,
-          },
+            paginate: this.paginate
+          }
         })
         .then((response) => {
-          this.activities = response.data;
-          this.current_page = this.activities.current_page;
-          Swal.close();
+          this.activities = response.data
+          this.current_page = this.activities.current_page
+          Swal.close()
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
-        this.current_page = 1;
+        this.current_page = 1
       } else if (this.current_page > this.activities.last_page) {
-        this.current_page = this.activities.last_page;
+        this.current_page = this.activities.last_page
       }
 
-      let url = new URL(this.activities.first_page_url);
-      let search_params = url.searchParams;
-      search_params.set("page", this.current_page);
-      url.search = search_params.toString();
-      let new_url = url.toString();
-      this.list(new_url);
+      let url = new URL(this.activities.first_page_url)
+      let search_params = url.searchParams
+      search_params.set('page', this.current_page)
+      url.search = search_params.toString()
+      let new_url = url.toString()
+      this.list(new_url)
     }, 500),
     sort(order, by) {
-      this.order = order;
-      this.by = by;
-      this.list();
+      this.order = order
+      this.by = by
+      this.list()
     },
     showLoading() {
       Swal.fire({
         didOpen: () => {
-          Swal.showLoading();
+          Swal.showLoading()
         },
-        background: "transparent",
-        allowOutsideClick: false,
-      });
-    },
-  },
-};
+        background: 'transparent',
+        allowOutsideClick: false
+      })
+    }
+  }
+}
 </script>
