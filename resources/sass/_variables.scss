@@ -274,3 +274,38 @@ $line-height-base: 1.6;
   letter-spacing: 1px;
   opacity: 0.5;
 }
+
+.row_per_page_option {
+    border: unset !important;
+    background: rgb(247, 250, 252) none repeat scroll 0% 0% !important;
+    box-shadow: unset !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    margin-left: 0px !important;
+}
+
+.row_per_page_label {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    margin-bottom: 3px !important;
+}
+
+.paginate_text {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+}
+
+.table_header {
+    color: rgb(102, 123, 148);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.table_content {
+    font-size: 15px !important;
+}
+
+.card_title_margin {
+    margin-bottom: unset !important; 
+    margin-top: 3px !important;
+}

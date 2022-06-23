@@ -1,16 +1,15 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
     <div class="brand-link d-flex justify-content-between align-items-center">
-        <a href="#" class="brand-link">
-            <img src="{{ asset('/img/logo-gmf.png') }}" alt="Logo GMF AeroAsia" class="brand-image" style="opacity: .8">
-            <span class="brand-text ">GMF PLB REPORT</span>
+        <a href="/dashboard" class="brand-link logo-switch">
+            <img src="{{ asset('/img/logo-xs.png') }}" alt="Logo PLB Report XS" class="brand-image-xl logo-xs">
+            <img src="{{ asset('/img/logo-xl.png') }}" alt="Logo PLB Report XL" class="brand-image-xs logo-xl">
         </a>
     </div>
 
     <div class="sidebar">
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu"
-                data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <router-link to="/dashboard" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
@@ -78,15 +77,39 @@
                 <!-- END: Outbound -->
 
                 <!-- BEGIN: Aircraft Mutation -->
+                @can('isUser')
                 <li class="nav-item ">
-                    <router-link to="/aircraft-mutation" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-plane-circle-exclamation"></i>
                         <p>
-                            Aircraft Mutation
+                            Aircraft
                             <i class="right fas fa-angle-right"></i>
                         </p>
-                    </router-link>
+                    </a>
                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <router-link to="/aircraft-mutation" class="nav-link">
+                                <p>Mutation</p>
+                            </router-link>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
+                @can('isAdminOrPlanner')
+                <li class="nav-item ">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa-solid fa-plane-circle-exclamation"></i>
+                        <p>
+                            Aircraft
+                            <i class="right fas fa-angle-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <router-link to="/aircraft-mutation" class="nav-link">
+                                <p>Mutation</p>
+                            </router-link>
+                        </li>
                         <li class="nav-item">
                             <router-link to="/aircraft-delivery" class="nav-link">
                                 <p>Delivery</p>
@@ -99,6 +122,7 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
                 <!-- END: Aircraft Mutation -->
 
                 <!-- BEGIN: Allotment -->
@@ -167,99 +191,15 @@
                     </router-link>
                 </li>
                 <!-- END: Masa Timbun -->
-                <!-- <li class="nav-header">Master Data</li> -->
-                <!-- BEGIN: Data Upload -->
-                <!-- <li class="nav-item ">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa-solid fa-cloud-arrow-up"></i>
-                        <p>Data Upload<i class="right fas fa-angle-right"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <router-link to="#" class="nav-link">
-                                <p>Data Mutasi</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="#" class="nav-link">
-                                <p>Data Barang BC 3.0</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="#" class="nav-link">
-                                <p>Data Header BC 3.0</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="#" class="nav-link">
-                                <p>Data Dokumen BC 3.0</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="#" class="nav-link">
-                                <p>Data Scan Dokumen</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="#" class="nav-link">
-                                <p>Data Stok Opname</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="#" class="nav-link">
-                                <p>Data Movement OSA</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="#" class="nav-link">
-                                <p>Install/Consume OSA</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="#" class="nav-link">
-                                <p>List Movement to OSA</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="#" class="nav-link">
-                                <p>List Install/Consume OSA
-                                </p>
-                            </router-link>
-                        </li>
-                    </ul>
-                </li> -->
-                <!-- END: Data Upload -->
 
                 <li class="nav-header">Miscellaneous</li>
-                @can('isAdminOrPlanner')
+                @can('isAdmin')
                 <!-- BEGIN: User Management -->
                 <li class="nav-item ">
-                    <a href="#" class="nav-link">
+                    <router-link to="/users-list" class="nav-link">
                         <i class="nav-icon fa-solid fa-user-gear"></i>
-                        <p> User Management<i class="right fas fa-angle-right"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <router-link to="/profile" class="nav-link">
-                                <p>Profile</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/users-list" class="nav-link">
-                                <p>Daftar Pengguna</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/users-role" class="nav-link">
-                                <p>Role Pengguna</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/developer" class="nav-link">
-                                <p>Developer</p>
-                            </router-link>
-                        </li>
-                    </ul>
+                        <p> User Management</p>
+                    </router-link>
                 </li>
 
                 <!-- END: User Management -->

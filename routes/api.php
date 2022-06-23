@@ -1,27 +1,31 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomsController;
 use App\Http\Controllers\AircraftController;
-use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\LoginHistoryController;
-use App\Http\Controllers\MutationController;
+use App\Http\Controllers\MutationReportController;
+use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\OutboundController;
+use App\Http\Controllers\ActivityHistoryController;
+use App\Http\Controllers\HoardingTimeController;
+use App\Http\Controllers\InventoryAllotmentController;
+use App\Http\Controllers\MovementAllotmentController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
 
-// Routing User 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::apiResource('user', UserController::class);
 
+// Routing User
+Route::apiResource('user', UserController::class);
 
 // Dokumen Kepabeanan
 Route::get('/customs/inbound-document', [CustomsController::class, 'inboundDocument']);
@@ -33,16 +37,32 @@ Route::get('/outbound/transaction-2', [OutboundController::class, 'outbound2']);
 Route::get('/outbound/transaction-3', [OutboundController::class, 'outbound3']);
 Route::get('/outbound/summary', [OutboundController::class, 'summary']);
 
-// Mutasi Pesawat
+// Aircraft Mutation (Mutasi Pesawat)
 Route::get('/aircraft', [AircraftController::class, 'index']);
 Route::post('/aircraft/delivery', [AircraftController::class, 'delivery']);
 Route::post('/aircraft/redelivery', [AircraftController::class, 'redelivery']);
 Route::delete('/aircraft/{id}', [AircraftController::class, 'destroy']);
 Route::get('/aircraft/data', [AircraftController::class, 'data']);
 
-//Login History
+// Log -> Login History
 Route::get('/login-history', [LoginHistoryController::class, 'index']);
 Route::get('/login-history/{id}', [LoginHistoryController::class, 'index']);
 
-// Mutations
-Route::get('/mutation', [MutationController::class, 'index']);
+//Log - > Activity History
+Route::get('/activity-history', [ActivityHistoryController::class, 'index']);
+
+// Mutasi - > (Report Mutasi)
+Route::get('/mutation-report', [MutationReportController::class, 'index']);
+
+// Mutasi -> Periodic Mutations (Report Mutasi Berkala)
+Route::get('/mutation-periodic', [MutationPeriodicController::class, 'index']);
+Route::post('/mutation-periodic-report', [MutationPeriodicController::class, 'searchDate']);
+
+// Masa Timbun (Hoarding Time)
+Route::get('/hoarding-time', [HoardingTimeController::class, 'index']);
+
+// Invetory Allotment
+Route::get('inventory-allotment', [InventoryAllotmentController::class, 'index']);
+
+//Movement Allotment
+Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
