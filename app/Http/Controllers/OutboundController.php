@@ -15,7 +15,6 @@ class OutboundController extends Controller
     public function outbound1(Request $request)
     {
         $search = $request->get('search');
-
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
             $by = $request->get('by');
@@ -53,7 +52,6 @@ class OutboundController extends Controller
     public function outbound2(Request $request)
     {
         $search = $request->get('search');
-
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
             $by = $request->get('by');
@@ -91,7 +89,6 @@ class OutboundController extends Controller
     public function outbound3(Request $request)
     {
         $search = $request->get('search');
-
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
             $by = $request->get('by');
@@ -129,7 +126,6 @@ class OutboundController extends Controller
     public function summary(Request $request)
     {
         $search = $request->get('search');
-
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
             $by = $request->get('by');
