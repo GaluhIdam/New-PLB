@@ -49,10 +49,6 @@ class OutboundController extends Controller
 
         return $outbounds;
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
     public function outbound2(Request $request)
     {
         $search = $request->get('search');
@@ -108,7 +104,6 @@ class OutboundController extends Controller
                     ->orWhere('quantity', 'LIKE', "%{$search}%")
                     ->orWhere('unit_code', 'LIKE', "%{$search}%")
                     ->orWhere('register_ac', 'LIKE', "%{$search}%")
-<<<<<<< HEAD
                     ->orWhere('customer', 'LIKE', "%{$search}%")
                     ->orWhere('date_install', 'LIKE', "%{$search}%")
                     ->orWhere('date_ac_in', 'LIKE', "%{$search}%")
@@ -121,9 +116,6 @@ class OutboundController extends Controller
                     ->orWhere('bm_paid', 'LIKE', "%{$search}%")
                     ->orWhere('ppn_paid', 'LIKE', "%{$search}%")
                     ->orWhere('pph_paid', 'LIKE', "%{$search}%");
-=======
-                    ->orWhere('customer', 'LIKE', "%{$search}%");
->>>>>>> dev
             });
         })
             ->when(($order && $by), function ($query) use ($order, $by) {
