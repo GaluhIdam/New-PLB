@@ -24,7 +24,7 @@
               <div class="card-header ui-sortable-handle">
                 <h5 class="card-title card_title_margin">
                   <i class="nav-icon fa-solid fa-warehouse"></i>
-                  Inventory Allotment
+                  Movement Allotment
                 </h5>
                 <div class="card-tools">
                   <ul class="nav nav-pills ml-auto">
@@ -45,7 +45,7 @@
                     </div>
                   </div>
                   <div class="form-group row justify-content-center align-items-center">
-                    <div class="offset-sm-5 col-sm-10">
+                    <div class="offset-sm-5 col-sm-6">
                       <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                       <button class="btn btn-secondary"><i class="fa-solid fa-rotate"></i> Reset</button>
                     </div>
