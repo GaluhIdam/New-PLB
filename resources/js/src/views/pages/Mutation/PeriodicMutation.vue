@@ -39,35 +39,37 @@
               </div>
 
               <div class="card-body">
-                <div
-                  class="form-group row justify-content-center align-items-center mt-4"
-                >
-                  <label for="part_number" class="col-form-label">Tanggal Mutasi</label>
-                  <div class="col-sm-3">
-                    <datepicker
-                      input-class="form-control"
-                      placeholder="To Date"
-                      format="MM/dd/yyyy"
-                      v-model="start_date"
-                    />
+                <form @submit.prevent class="form-horizontal">
+                  <div
+                    class="form-group row justify-content-center align-items-center mt-4"
+                  >
+                    <label for="part_number" class="col-form-label">Tanggal Mutasi</label>
+                    <div class="col-sm-3">
+                      <datepicker
+                        input-class="form-control"
+                        placeholder="To Date"
+                        format="MM/dd/yyyy"
+                        v-model="start_date"
+                      />
+                    </div>
+                    <div class="col-sm-3">
+                      <datepicker
+                        input-class="form-control"
+                        placeholder="Form date"
+                        format="MM/dd/yyyy"
+                        v-model="end_date"
+                      />
+                    </div>
+                    <div class="offset-sm-5 col-sm-10 mt-4">
+                      <button class="btn btn-primary" @click="filterDate">
+                        <i class="fa-solid fa-magnifying-glass"></i> Filter
+                      </button>
+                      <button class="btn btn-secondary" @click="clearForm">
+                        <i class="fa-solid fa-rotate"></i> Reset
+                      </button>
+                    </div>
                   </div>
-                  <div class="col-sm-3">
-                    <datepicker
-                      input-class="form-control"
-                      placeholder="Form date"
-                      format="MM/dd/yyyy"
-                      v-model="end_date"
-                    />
-                  </div>
-                  <div class="offset-sm-5 col-sm-10 mt-4">
-                    <button class="btn btn-primary" @click="filterDate">
-                      <i class="fa-solid fa-magnifying-glass"></i> Filter
-                    </button>
-                    <button class="btn btn-secondary">
-                      <i class="fa-solid fa-rotate"></i> Reset
-                    </button>
-                  </div>
-                </div>
+                </form>
               </div>
             </div>
             <hr />
@@ -855,6 +857,10 @@ export default {
     filterDate() {
       this.list();
       this.date_selected = true;
+    },
+    clearForm() {
+      this.start_date = null;
+      this.end_date = null;
     },
     list(paginate) {
       this.$Progress.start();
