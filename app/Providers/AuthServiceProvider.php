@@ -35,12 +35,17 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isPlanner', function ($user) {
             return $user->role === 'planner';
         });
+        Gate::define('isUser', function ($user) {
+            return $user->role === 'user';
+        });
         Gate::define('isAdminOrPlanner', function ($user) {
             return $user->role === 'admin' || $user->role === 'planner';
         });
-
-        Gate::define('isUser', function ($user) {
-            return $user->role === 'user';
+        Gate::define('isAdminOrUser', function ($user) {
+            return $user->role === 'admin' || $user->role === 'user';
+        });
+        Gate::define('isPlannerOrUser', function ($user) {
+            return $user->role === 'planner' || $user->role === 'user';
         });
 
         Passport::routes(); //Passport routes
