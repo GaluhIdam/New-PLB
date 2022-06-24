@@ -35,17 +35,16 @@
 
               <div class="card-body">
                 <form class="form-horizontal">
-                  <div class="form-group row justify-content-center align-items-center">
-                    <label for="date" class="col-form-label">Tanggal Mutasi</label>
+                  <div class="form-group row justify-content-center align-items-center mt-4">
+                    <label for="part_number" class="col-form-label">Tanggal Mutasi</label>
                     <div class="col-sm-3">
-                      <input type="date" class="form-control" id="date" name="date" autofocus />
+                      <input type="date" class="form-control" v-model="to_plant" autofocus />
                     </div>
                     <div class="col-sm-3">
-                      <input type="date" class="form-control" id="date" name="date" autofocus />
+                      <input type="date" class="form-control" v-model="to_plant" autofocus />
                     </div>
-                  </div>
-                  <div class="form-group row justify-content-center align-items-center">
-                    <div class="offset-sm-5 col-sm-0">
+
+                    <div class="offset-sm-5 col-sm-10 mt-4">
                       <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                       <button class="btn btn-secondary"><i class="fa-solid fa-rotate"></i> Reset</button>
                     </div>
@@ -70,38 +69,38 @@
                           <thead>
                             <tr>
                               <!-- BEGIN: Number by ID (Table Header) -->
-                              <th v-if="order == 'osa' && by == 'asc'" @click="sort('osa', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'osa' && by == 'asc'" @click="sort('osa', 'desc')" class="text-center sortable sorting sorting-asc" rowspan="2">
                                 <span class="table_header">OSA.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'osa' && by == 'desc'" @click="sort('osa', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'osa' && by == 'desc'" @click="sort('osa', 'asc')" class="text-center sortable sorting sorting-desc" rowspan="2">
                                 <span class="table_header">OSA.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('osa', 'asc')" class="text-center sortable">
+                              <th v-else @click="sort('osa', 'asc')" class="text-center sortable" rowspan="2">
                                 <span class="table_header">OSA.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!-- END: Number by ID (Table Header) -->
-                              <th v-if="order == 'first_balance' && by == 'asc'" @click="sort('first_balance', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'first_balance' && by == 'asc'" @click="sort('first_balance', 'desc')" class="text-center sortable sorting sorting-asc" rowspan="2">
                                 <span class="table_header">Saldo Awal</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'first_balance' && by == 'desc'" @click="sort('first_balance', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'first_balance' && by == 'desc'" @click="sort('first_balance', 'asc')" class="text-center sortable sorting sorting-desc" rowspan="2">
                                 <span class="table_header">Saldo Awal</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('first_balance', 'asc')" class="text-center sortable">
+                              <th v-else @click="sort('first_balance', 'asc')" class="text-center sortable" rowspan="2">
                                 <span class="table_header">Saldo Awal</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -217,38 +216,38 @@
                                 </button>
                               </th>
                               <!--  -->
-                              <th v-if="order == 'consumption_install' && by == 'asc'" @click="sort('consumption_install', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'consumption_install' && by == 'asc'" @click="sort('consumption_install', 'desc')" class="text-center sortable sorting sorting-asc" rowspan="2">
                                 <span class="table_header">Consumption/​Install</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'consumption_install' && by == 'desc'" @click="sort('consumption_install', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'consumption_install' && by == 'desc'" @click="sort('consumption_install', 'asc')" class="text-center sortable sorting sorting-desc" rowspan="2">
                                 <span class="table_header">Consumption/​Install</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('consumption_install', 'asc')" class="text-center sortable">
+                              <th v-else @click="sort('consumption_install', 'asc')" class="text-center sortable" rowspan="2">
                                 <span class="table_header">Consumption/​Install</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  -->
-                              <th v-if="order == 'return_to_plb_gmf' && by == 'asc'" @click="sort('return_to_plb_gmf', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'return_to_plb_gmf' && by == 'asc'" @click="sort('return_to_plb_gmf', 'desc')" class="text-center sortable sorting sorting-asc" rowspan="2">
                                 <span class="table_header">Return to PLB GMF</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'return_to_plb_gmf' && by == 'desc'" @click="sort('return_to_plb_gmf', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'return_to_plb_gmf' && by == 'desc'" @click="sort('return_to_plb_gmf', 'asc')" class="text-center sortable sorting sorting-desc" rowspan="2">
                                 <span class="table_header">Return to PLB GMF</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('return_to_plb_gmf', 'asc')" class="text-center sortable">
+                              <th v-else @click="sort('return_to_plb_gmf', 'asc')" class="text-center sortable" rowspan="2">
                                 <span class="table_header">Return to PLB GMF</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -256,19 +255,19 @@
                               </th>
 
                               <!--  -->
-                              <th v-if="order == 'last_balance' && by == 'asc'" @click="sort('last_balance', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'last_balance' && by == 'asc'" @click="sort('last_balance', 'desc')" class="text-center sortable sorting sorting-asc" rowspan="2">
                                 <span class="table_header">Saldo Akhir</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'last_balance' && by == 'desc'" @click="sort('last_balance', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'last_balance' && by == 'desc'" @click="sort('last_balance', 'asc')" class="text-center sortable sorting sorting-desc" rowspan="2">
                                 <span class="table_header">Saldo Akhir</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('last_balance', 'asc')" class="text-center sortable">
+                              <th v-else @click="sort('last_balance', 'asc')" class="text-center sortable" rowspan="2">
                                 <span class="table_header">Saldo Akhir</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -277,12 +276,6 @@
                               <!--  -->
                             </tr>
                             <tr>
-                              <th class="filter-th"></th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="search_first_balance" v-model="search_first_balance" />
-                                </div>
-                              </th>
                               <th class="filter-th text-center">+</th>
                               <th class="filter-th text-center">-</th>
                               <th class="filter-th text-center">+</th>
@@ -295,22 +288,6 @@
                               <th class="filter-th text-center">-</th>
                               <th class="filter-th text-center">+</th>
                               <th class="filter-th text-center">-</th>
-
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="search_consumption_install" v-model="search_consumption_install" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="search_return_to_plb_gmf" v-model="search_return_to_plb_gmf" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="search_last_balance" v-model="search_last_balance" />
-                                </div>
-                              </th>
                             </tr>
                           </thead>
                           <tbody>
