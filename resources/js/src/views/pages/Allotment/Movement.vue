@@ -36,247 +36,305 @@
               <div class="card-body">
                 <form class="form-horizontal">
                   <div class="form-group row justify-content-center align-items-center">
-                    <label for="part_number" class="col-form-label">Tanggal Mutasi</label>
+                    <label for="date" class="col-form-label">Tanggal Mutasi</label>
                     <div class="col-sm-3">
-                      <input type="date" class="form-control" id="part_number" name="part_number" autofocus />
+                      <input type="date" class="form-control" id="date" name="date" autofocus />
                     </div>
                     <div class="col-sm-3">
-                      <input type="date" class="form-control" id="part_number" name="part_number" autofocus />
+                      <input type="date" class="form-control" id="date" name="date" autofocus />
                     </div>
                   </div>
                   <div class="form-group row justify-content-center align-items-center">
-                    <div class="offset-sm-5 col-sm-6">
+                    <div class="offset-sm-5 col-sm-0">
                       <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                       <button class="btn btn-secondary"><i class="fa-solid fa-rotate"></i> Reset</button>
                     </div>
                   </div>
                 </form>
-
                 <div class="form-group">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
+                      <div class="vgt-global-search vgt-clearfix">
+                        <div class="vgt-global-search__input vgt-pull-left">
+                          <label>
+                            <span aria-hidden="true" class="input__icon">
+                              <div class="magnifying-glass"></div>
+                            </span>
+                            <span class="sr-only"> Search </span>
+                          </label>
+                          <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left" v-model="search_movement_allotments" />
+                        </div>
+                      </div>
                       <div class="vgt-responsive">
                         <table id="vgt-table" class="vgt-table bordered polar-bear">
                           <thead>
                             <tr>
-                              <!--  -->
-                              <th v-if="order == 'reg' && by == 'asc'" @click="sort('reg', 'desc')" class="text-center sortable sorting sorting-asc">
-                                <span class="table_header">OSA</span>
+                              <!-- BEGIN: Number by ID (Table Header) -->
+                              <th v-if="order == 'osa' && by == 'asc'" @click="sort('osa', 'desc')" class="text-center sortable sorting sorting-asc">
+                                <span class="table_header">OSA.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'reg' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                <span class="table_header">OSA</span>
+                              <th v-else-if="order == 'osa' && by == 'desc'" @click="sort('osa', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">OSA.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('reg', 'asc')" class="text-center sortable">
-                                <span class="table_header">OSA</span>
+                              <th v-else @click="sort('osa', 'asc')" class="text-center sortable">
+                                <span class="table_header">OSA.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
-                              <th v-if="order == 'operator' && by == 'asc'" @click="sort('operator', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <!-- END: Number by ID (Table Header) -->
+                              <th v-if="order == 'first_balance' && by == 'asc'" @click="sort('first_balance', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Saldo Awal</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'operator' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'first_balance' && by == 'desc'" @click="sort('first_balance', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Saldo Awal</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('operator', 'asc')" class="text-center sortable">
+                              <th v-else @click="sort('first_balance', 'asc')" class="text-center sortable">
                                 <span class="table_header">Saldo Awal</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  -->
-                              <th colspan="2" v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th colspan="2" v-if="order == 'kno_plus' && by == 'asc'" @click="sort('kno_plus', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">KNO</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th colspan="2" v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th colspan="2" v-else-if="order == 'kno_plus' && by == 'desc'" @click="sort('kno_plus', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">KNO</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th colspan="2" v-else @click="sort('type', 'asc')" class="text-center sortable">
+                              <th colspan="2" v-else @click="sort('kno_plus', 'asc')" class="text-center sortable">
                                 <span class="table_header">KNO</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
-                              <th colspan="2" v-if="order == 'date_in' && by == 'asc'" @click="sort('date_in', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th colspan="2" v-if="order == 'upg_plus' && by == 'asc'" @click="sort('upg_plus', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">UPG</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th colspan="2" v-else-if="order == 'date_in' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th colspan="2" v-else-if="order == 'upg_plus' && by == 'desc'" @click="sort('upg_plus', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">UPG</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th colspan="2" v-else @click="sort('date_in', 'asc')" class="text-center sortable">
+                              <th colspan="2" v-else @click="sort('upg_plus', 'asc')" class="text-center sortable">
                                 <span class="table_header">UPG</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
-                              <th colspan="2" v-if="order == 'date_out' && by == 'asc'" @click="sort('date_out', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th colspan="2" v-if="order == 'sub_plus' && by == 'asc'" @click="sort('sub_plus', 'desc')" class="text-center sortable sorting sorting-asc">
+                                <span class="table_header">SUB</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th colspan="2" v-else-if="order == 'sub_plus' && by == 'desc'" @click="sort('sub_plus', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">SUB</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th colspan="2" v-else @click="sort('sub_plus', 'asc')" class="text-center sortable">
+                                <span class="table_header">SUB</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th colspan="2" v-if="order == 'bpn_plus' && by == 'asc'" @click="sort('bpn_plus', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">BPN</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th colspan="2" v-else-if="order == 'date_out' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th colspan="2" v-else-if="order == 'bpn_plus' && by == 'desc'" @click="sort('bpn_plus', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">BPN</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th colspan="2" v-else @click="sort('date_out', 'asc')" class="text-center sortable">
+                              <th colspan="2" v-else @click="sort('bpn_plus', 'asc')" class="text-center sortable">
                                 <span class="table_header">BPN</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
-                              <th colspan="2" class="text-center">
+                              <th colspan="2" v-if="order == 'dps_plus' && by == 'asc'" @click="sort('dps_plus', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">DPS</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
                               </th>
-                              <th colspan="2" class="text-center">
+                              <th colspan="2" v-else-if="order == 'dps_plus' && by == 'desc'" @click="sort('dps_plus', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">DPS</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th colspan="2" v-else @click="sort('dps_plus', 'asc')" class="text-center sortable">
+                                <span class="table_header">DPS</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th colspan="2" v-if="order == 'cgk_plus' && by == 'asc'" @click="sort('cgk_plus', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">CGK</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
                               </th>
-                              <th class="text-center">
-                                <span class="table_header">Consumption/​ Install</span>
+                              <th colspan="2" v-else-if="order == 'cgk_plus' && by == 'desc'" @click="sort('cgk_plus', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">CGK</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
                               </th>
-                              <th class="text-center">
+                              <th colspan="2" v-else @click="sort('cgk_plus', 'asc')" class="text-center sortable">
+                                <span class="table_header">CGK</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!--  -->
+                              <th v-if="order == 'consumption_install' && by == 'asc'" @click="sort('consumption_install', 'desc')" class="text-center sortable sorting sorting-asc">
+                                <span class="table_header">Consumption/​Install</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else-if="order == 'consumption_install' && by == 'desc'" @click="sort('consumption_install', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">Consumption/​Install</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else @click="sort('consumption_install', 'asc')" class="text-center sortable">
+                                <span class="table_header">Consumption/​Install</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!--  -->
+                              <th v-if="order == 'return_to_plb_gmf' && by == 'asc'" @click="sort('return_to_plb_gmf', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Return to PLB GMF</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
                               </th>
-                              <th class="text-center">
+                              <th v-else-if="order == 'return_to_plb_gmf' && by == 'desc'" @click="sort('return_to_plb_gmf', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">Return to PLB GMF</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else @click="sort('return_to_plb_gmf', 'asc')" class="text-center sortable">
+                                <span class="table_header">Return to PLB GMF</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+
+                              <!--  -->
+                              <th v-if="order == 'last_balance' && by == 'asc'" @click="sort('last_balance', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Saldo Akhir</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
                               </th>
+                              <th v-else-if="order == 'last_balance' && by == 'desc'" @click="sort('last_balance', 'asc')" class="text-center sortable sorting sorting-desc">
+                                <span class="table_header">Saldo Akhir</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th v-else @click="sort('last_balance', 'asc')" class="text-center sortable">
+                                <span class="table_header">Saldo Akhir</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!--  -->
                             </tr>
                             <tr>
+                              <th class="filter-th"></th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Reg" v-model="search_reg" />
+                                  <input type="text" class="vgt-input" placeholder="search_first_balance" v-model="search_first_balance" />
+                                </div>
+                              </th>
+                              <th class="filter-th text-center">+</th>
+                              <th class="filter-th text-center">-</th>
+                              <th class="filter-th text-center">+</th>
+                              <th class="filter-th text-center">-</th>
+                              <th class="filter-th text-center">+</th>
+                              <th class="filter-th text-center">-</th>
+                              <th class="filter-th text-center">+</th>
+                              <th class="filter-th text-center">-</th>
+                              <th class="filter-th text-center">+</th>
+                              <th class="filter-th text-center">-</th>
+                              <th class="filter-th text-center">+</th>
+                              <th class="filter-th text-center">-</th>
+
+                              <th class="filter-th">
+                                <div>
+                                  <input type="text" class="vgt-input" placeholder="search_consumption_install" v-model="search_consumption_install" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter Operator" v-model="search_operator" />
+                                  <input type="text" class="vgt-input" placeholder="search_return_to_plb_gmf" v-model="search_return_to_plb_gmf" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter kno" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter A/C Type" v-model="search_type" />
+                                  <input type="text" class="vgt-input" placeholder="search_last_balance" v-model="search_last_balance" />
                                 </div>
                               </th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr v-for="(mutation, mutation_index) in mutations.data" :key="mutation_index">
-                              <td class="table_content">{{ mutation.reg }}</td>
-                              <td class="table_content">{{ mutation.operator }}</td>
-                              <td class="table_content">{{ mutation.type }}</td>
-                              <td class="text-center table_content">{{ mutation.date_in | formatDate }}</td>
-                              <td class="text-center table_content">{{ mutation.date_out | formatDate }}</td>
-                              <td class="text-center">
-                                <a v-if="mutation.rksp != null" :href="`/storage/${mutation.rksp}`" target="_blank"
-                                  ><h4><i class="fa-solid fa-file-pdf"></i></h4
-                                ></a>
-                              </td>
-                              <td class="table_content">
-                                <span v-if="mutation.date_out"> Keluar PLB GMF​ </span>
-                                <span v-else> Di dalam PLB GMF​ </span>
-                              </td>
-                              <td class="text-center">
-                                <ul class="list-inline m-0">
-                                  <li class="list-inline-item">
-                                    <a @click="deleteData(mutation.id)" class="text-danger"
-                                      ><h5><i class="fa-solid fa-trash"></i></h5
-                                    ></a>
-                                  </li>
-                                </ul>
-                              </td>
+                            <tr v-for="(movement, movement_index) in movement_allotment.data" :key="movement_index">
+                              <td class="table_content">{{ movement.osa }}</td>
+                              <td class="table_content">{{ movement.first_balance }}</td>
+                              <td class="text-center table_content">{{ movement.kno_plus }}</td>
+                              <td class="text-center table_content">{{ movement.kno_min }}</td>
+                              <td class="text-center table_content">{{ movement.upg_plus }}</td>
+                              <td class="text-center table_content">{{ movement.upg_min }}</td>
+                              <td class="text-center table_content">{{ movement.sub_plus }}</td>
+                              <td class="text-center table_content">{{ movement.sub_min }}</td>
+                              <td class="text-center table_content">{{ movement.bpn_plus }}</td>
+                              <td class="text-center table_content">{{ movement.bpn_min }}</td>
+                              <td class="text-center table_content">{{ movement.dps_plus }}</td>
+                              <td class="text-center table_content">{{ movement.dps_min }}</td>
+                              <td class="text-center table_content">{{ movement.cgk_plus }}</td>
+                              <td class="text-center table_content">{{ movement.cgk_min }}</td>
+                              <td class="text-center table_content">{{ movement.consumption_install }}</td>
+                              <td class="text-center table_content">{{ movement.return_to_plb_gmf }}</td>
+                              <td class="text-center table_content">{{ movement.last_balance }}</td>
                             </tr>
-                            <tr v-if="mutations.data.length < 1">
-                              <td colspan="15">
+                            <tr v-if="movement_allotment.length < 1">
+                              <td colspan="8">
                                 <div class="vgt-center-align vgt-text-disabled">Data not found</div>
                               </td>
                             </tr>
@@ -298,9 +356,9 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !mutations.prev_page_url
+                              disabled: !movement_allotment.prev_page_url
                             }"
-                            @click="mutations.prev_page_url && list(mutations.prev_page_url)"
+                            @click="movement_allotment.prev_page_url && list(movement_allotment.prev_page_url)"
                             style="margin-right: 0px"
                           >
                             <span aria-hidden="true" class="chevron left"></span>
@@ -312,7 +370,7 @@
                               <input type="text" class="footer__navigation__page-info__current-entry vgt-input" v-model="current_page" @keypress="directPage" style="width: 60px" />
                               <span class="paginate_text">
                                 of
-                                {{ mutations.last_page }}
+                                {{ movement_allotment.last_page }}
                               </span>
                             </label>
                           </div>
@@ -320,9 +378,9 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !mutations.next_page_url
+                              disabled: !movement_allotment.next_page_url
                             }"
-                            @click="mutations.next_page_url && list(mutations.next_page_url)"
+                            @click="movement_allotment.next_page_url && list(movement_allotment.next_page_url)"
                           >
                             <span style="font-weight: 500">Next</span>
                             <span aria-hidden="true" class="chevron right"></span>
@@ -350,18 +408,16 @@ import Swal from 'sweetalert2'
 export default {
   data() {
     return {
-      mutations: {
+      movement_allotment: {
         data: [],
         links: []
       },
       search: null,
-      search_reg: null,
-      search_operator: null,
-      search_type: null,
-      search_date_in: null,
-      search_date_out: null,
-      start_date: null,
-      end_date: null,
+      search_first_balance: null,
+
+      search_consumption_install: null,
+      search_return_to_plb_gmf: null,
+      search_last_balance: null,
       order: 'id',
       by: 'desc',
       paginate: '10',
@@ -375,45 +431,41 @@ export default {
     search: debounce(function () {
       this.list()
     }, 500),
-    search_reg: debounce(function () {
+    search_first_balance: debounce(function () {
       this.list()
     }, 500),
-    search_operator: debounce(function () {
+    search_consumption_install: debounce(function () {
       this.list()
     }, 500),
-    search_type: debounce(function () {
+    search_return_to_plb_gmf: debounce(function () {
       this.list()
     }, 500),
-    search_date_in: debounce(function () {
+    search_last_balance: debounce(function () {
       this.list()
-    }, 0),
-    search_date_out: debounce(function () {
-      this.list()
-    }, 0)
+    }, 500)
   },
   methods: {
     list(paginate) {
       this.showLoading()
-      paginate = paginate || `/api/aircraft`
+      paginate = paginate || `/api/movement-allotment`
       axios
         .get(paginate, {
           params: {
             search: this.search,
-            search_reg: this.search_reg,
-            search_operator: this.search_operator,
-            search_type: this.search_type,
-            search_date_in: this.search_date_in,
-            search_date_out: this.search_date_out,
-            start_date: this.start_date,
-            end_date: this.end_date,
+            search_first_balance: this.search_first_balance,
+
+            search_consumption_install: this.search_consumption_install,
+            start_return_to_plb_gmf: this.search_return_to_plb_gmf,
+            start_last_balance: this.search_last_balance,
             order: this.order,
             by: this.by,
             paginate: this.paginate
           }
         })
         .then((response) => {
-          this.mutations = response.data
-          this.current_page = this.mutations.current_page
+          this.movement_allotment = response.data
+          this.current_page = this.movement_allotment.current_page
+          console.log(this.movement_allotment)
           Swal.close()
         })
         .catch((error) => console.log(error))
@@ -421,11 +473,11 @@ export default {
     directPage: debounce(function () {
       if (this.current_page < 1) {
         this.current_page = 1
-      } else if (this.current_page > this.mutations.last_page) {
-        this.current_page = this.mutations.last_page
+      } else if (this.current_page > this.movement_allotment.last_page) {
+        this.current_page = this.movement_allotment.last_page
       }
 
-      let url = new URL(this.mutations.first_page_url)
+      let url = new URL(this.movement_allotment.first_page_url)
       let search_params = url.searchParams
       search_params.set('page', this.current_page)
       url.search = search_params.toString()
@@ -444,28 +496,6 @@ export default {
         },
         background: 'transparent',
         allowOutsideClick: false
-      })
-    },
-    deleteData(id) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#17816d',
-        cancelButtonColor: '#f04040',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.showLoading()
-          axios
-            .delete(`/api/aircraft/${id}`)
-            .then((response) => {
-              this.list()
-              Swal.close()
-            })
-            .catch((error) => console.log(error))
-        }
       })
     }
   }

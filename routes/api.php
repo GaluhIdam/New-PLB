@@ -7,11 +7,13 @@ use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\LoginHistoryController;
-use App\Http\Controllers\MutationController;
+use App\Http\Controllers\MutationReportController;
 use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\OutboundController;
 use App\Http\Controllers\ActivityHistoryController;
 use App\Http\Controllers\HoardingTimeController;
+use App\Http\Controllers\InventoryAllotmentController;
+use App\Http\Controllers\MovementAllotmentController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -22,7 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Routing User 
+// Routing User
 Route::apiResource('user', UserController::class);
 
 // Dokumen Kepabeanan
@@ -50,7 +52,7 @@ Route::get('/login-history/{id}', [LoginHistoryController::class, 'index']);
 Route::get('/activity-history', [ActivityHistoryController::class, 'index']);
 
 // Mutasi - > (Report Mutasi)
-Route::get('/mutation', [MutationController::class, 'index']);
+Route::get('/mutation-report', [MutationReportController::class, 'index']);
 
 // Mutasi -> Periodic Mutations (Report Mutasi Berkala)
 Route::get('/mutation-periodic', [MutationPeriodicController::class, 'index']);
@@ -58,3 +60,9 @@ Route::post('/mutation-periodic-report', [MutationPeriodicController::class, 'se
 
 // Masa Timbun (Hoarding Time)
 Route::get('/hoarding-time', [HoardingTimeController::class, 'index']);
+
+// Invetory Allotment
+Route::get('inventory-allotment', [InventoryAllotmentController::class, 'index']);
+
+//Movement Allotment
+Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);

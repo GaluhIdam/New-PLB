@@ -2,20 +2,21 @@
 
 namespace App\Http\Traits;
 
+use Carbon\Carbon;
 use App\Models\ActivityHistory;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * 
  */
 trait ActivityHistoryTrait
 {
-    public function recordActivity(Request $request)
+    public function recordActivity($activity)
     {
         $data = ActivityHistory::create([
-            'username' => $request->username,
-            'time' => date('Y-m-d H:i:s'),
-            'activity' => $request->activity,
+            'username' => Auth::user()->username,
+            'time' => Carbon::now(),
+            'activity' => $activity,
         ]);
 
         return $data;
