@@ -31,7 +31,18 @@ class OutboundController extends Controller
                     ->orWhere('quantity', 'LIKE', "%{$search}%")
                     ->orWhere('unit_code', 'LIKE', "%{$search}%")
                     ->orWhere('register_ac', 'LIKE', "%{$search}%")
-                    ->orWhere('customer', 'LIKE', "%{$search}%");
+                    ->orWhere('customer', 'LIKE', "%{$search}%")
+                    ->orWhere('date_install', 'LIKE', "%{$search}%")
+                    ->orWhere('date_ac_in', 'LIKE', "%{$search}%")
+                    ->orWhere('date_ac_out', 'LIKE', "%{$search}%")
+                    ->orWhere('type_bc_out', 'LIKE', "%{$search}%")
+                    ->orWhere('no_aju', 'LIKE', "%{$search}%")
+                    ->orWhere('date_bc_out', 'LIKE', "%{$search}%")
+                    ->orWhere('cif_idr', 'LIKE', "%{$search}%")
+                    ->orWhere('date_bc_out', 'LIKE', "%{$search}%")
+                    ->orWhere('bm_paid', 'LIKE', "%{$search}%")
+                    ->orWhere('ppn_paid', 'LIKE', "%{$search}%")
+                    ->orWhere('pph_paid', 'LIKE', "%{$search}%");
             });
         })
             ->when(($order && $by), function ($query) use ($order, $by) {
