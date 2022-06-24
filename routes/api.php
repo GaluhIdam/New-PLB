@@ -14,6 +14,7 @@ use App\Http\Controllers\ActivityHistoryController;
 use App\Http\Controllers\HoardingTimeController;
 use App\Http\Controllers\InventoryAllotmentController;
 use App\Http\Controllers\MovementAllotmentController;
+use App\Http\Controllers\MutationCalculationController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -66,3 +67,6 @@ Route::get('inventory-allotment', [InventoryAllotmentController::class, 'index']
 
 //Movement Allotment
 Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
+
+//Mutation Calculation
+Route::get('mutation-calculations', [MutationCalculationController::class, 'index']);
