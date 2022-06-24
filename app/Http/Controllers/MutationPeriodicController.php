@@ -32,6 +32,8 @@ class MutationPeriodicController extends Controller
         $search_difference =  $request->get('search_difference');
         $search_submission_date =  $request->get('search_submission_date');
         $search_submission_number =  $request->get('search_submission_number');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
 
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
@@ -135,13 +137,10 @@ class MutationPeriodicController extends Controller
                 return $query->where('difference', 'like', '%' . $search_difference . '%');
             }
         )->when(
-            $search_submission_date,
-            function ($query) use ($search_submission_date) {
-                return $query->where('submission_date', 'like', '%' . $search_submission_date . '%');
+            function ($query) use ($start_date, $end_date) {
+                return $query->whereBetween('submission_date', [$start_date, $end_date])->get();
             }
-        )->when($search_submission_number, function ($query) use ($search_submission_number) {
-            return $query->where('submission_number', 'like', '%' . $search_submission_number . '%');
-        })
+        )
             ->paginate($paginate);
 
         $query_string = [
@@ -153,19 +152,5 @@ class MutationPeriodicController extends Controller
         $mutation_periodics->appends($query_string);
 
         return $mutation_periodics;
-    }
-
-    public function searchDate(Request $request)
-
-    {
-        $formDate = $request->input('formDate');
-        $toDate = $request->input('toDate');
-
-        $query = DB::table('mutation_periodics')->select()
-            ->where('submission_date', '>=', $formDate)
-            ->where('submission_date', '<=', $toDate)
-            ->get();
-
-        return $query;
     }
 }
