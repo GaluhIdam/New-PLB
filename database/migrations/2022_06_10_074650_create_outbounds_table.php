@@ -22,14 +22,14 @@ return new class extends Migration
             $table->string('unit_code')->nullable();
             $table->string('register_ac')->nullable();
             $table->string('customer')->nullable();
-            $table->string('date_install')->nullable();
-            $table->string('date_ac_in')->nullable();
-            $table->string('date_ac_out')->nullable();
+            $table->date('date_install')->nullable();
+            $table->date('date_ac_in')->nullable();
+            $table->date('date_ac_out')->nullable();
             $table->string('type_bc_out')->nullable();
             $table->string('no_aju')->nullable();
             $table->string('no_register')->nullable();
             $table->string('cif_idr')->nullable();
-            $table->string('date_bc_out')->nullable();
+            $table->date('date_bc_out')->nullable();
             $table->string('bm_paid')->nullable();
             $table->string('ppn_paid')->nullable();
             $table->string('pph_paid')->nullable();
