@@ -43,7 +43,7 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Customer</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control" />
+                        <input type="text" class="vgt-input" placeholder="customer" ref="customer" v-model="search_customer_filter" />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -82,8 +82,8 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label"></label>
                       <div class="col-sm-4">
-                        <button class="btn btn-primary btn-md">Filter</button>
-                        <button class="btn btn-secondary btn-md">Reset</button>
+                        <button type="submit" class="btn btn-primary btn-md">Filter</button>
+                        <button @click="resetInput" class="btn btn-secondary btn-md">Reset</button>
                       </div>
                     </div>
                   </div>
@@ -450,6 +450,9 @@ export default {
     search_register_ac: debounce(function () {
       this.list()
     }, 500),
+    search_customer: debounce(function () {
+      this.list()
+    }, 500),
     search_date_install: debounce(function () {
       this.list()
     }, 500),
@@ -458,6 +461,26 @@ export default {
     }, 500)
   },
   methods: {
+    searchForm() {
+      this.showLoading()
+      paginate = paginate || `/api/outbound/transaction-1`
+      axios
+        .get(paginate, {
+          params: {
+            customer: this.search_customer_filter,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate
+          }
+        })
+        .then((response) => {
+          this.transactions = response.data
+          this.current_page = this.transactions.current_page
+          // console.log(this.transactions);
+          Swal.close()
+        })
+        .catch((error) => console.log(error))
+    },
     list(paginate) {
       this.showLoading()
       paginate = paginate || `/api/outbound/transaction-1`
@@ -470,6 +493,8 @@ export default {
             quantity: this.search_quantity,
             unit_code: this.search_unit_code,
             register_ac: this.search_register_ac,
+            customer: this.search_customer,
+            customer: this.search_customer_filter,
             date_install: this.search_date_install,
             date_ac_in: this.search_date_ac_in,
             start_date: this.start_date,
@@ -514,6 +539,9 @@ export default {
         background: 'transparent',
         allowOutsideClick: false
       })
+    },
+    resetInput() {
+      this.$refs['customer'].value = ''
     }
   }
 }

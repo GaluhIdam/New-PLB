@@ -29,70 +29,70 @@
               <div class="card-header">Part (Status Pesawat Masih Diluar PLB GMF)​</div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-1"></div>
+                  <div class="col-md-3"></div>
                   <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Tanggal Outbound</label>
-                      <div class="col-sm-4">
-                        <input type="date" class="form-control" />
+                    <form v-on:submit.prevent="">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Tanggal Outbound</label>
+                        <div class="col-sm-4">
+                          <input type="date" class="form-control" v-model="from_date" />
+                        </div>
+                        <div class="col-sm-4">
+                          <input type="date" class="form-control" v-model="to_date" />
+                        </div>
                       </div>
-                      <div class="col-sm-4">
-                        <input type="date" class="form-control" />
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Customer</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" v-model="search_customer" />
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Customer</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" />
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Plant</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" v-model="search_plant" />
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Plant</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" />
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Nomor AJU</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" v-model="search_no_aju" />
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Jenis Dokumen</label>
-                      <div class="col-sm-2">
-                        <label class="control-label" style="margin-top: 5px">
-                          <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked" value="27" />
-                          27
-                        </label>
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Tanggal AJU</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" v-model="search_date_aju" />
+                        </div>
                       </div>
-                      <div class="col-sm-2">
-                        <label class="control-label" style="margin-top: 5px">
-                          <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked" value="28" />
-                          28
-                        </label>
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Jenis Dokumen</label>
+                        <div class="col-sm-2">
+                          <label class="control-label" style="margin-top: 5px">
+                            <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked" value="27" />
+                            27
+                          </label>
+                        </div>
+                        <div class="col-sm-2">
+                          <label class="control-label" style="margin-top: 5px">
+                            <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked" value="28" />
+                            28
+                          </label>
+                        </div>
+                        <div class="col-sm-2">
+                          <label class="control-label" style="margin-top: 5px">
+                            <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked" value="30" />
+                            30
+                          </label>
+                        </div>
+                        <div class="col-sm-2">
+                          <label class="control-label" style="margin-top: 5px">
+                            <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked" value="41" />
+                            41
+                          </label>
+                        </div>
                       </div>
-                      <div class="col-sm-2">
-                        <label class="control-label" style="margin-top: 5px">
-                          <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked" value="30" />
-                          30
-                        </label>
-                      </div>
-                      <div class="col-sm-2">
-                        <label class="control-label" style="margin-top: 5px">
-                          <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked" value="41" />
-                          41
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Nomor AJU</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Tanggal AJU</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" />
-                      </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
                 <div class="row">
@@ -101,8 +101,8 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label"></label>
                       <div class="col-sm-4">
-                        <button class="btn btn-primary btn-md">Filter</button>
-                        <button class="btn btn-secondary btn-md">Reset</button>
+                        <button type="submit" class="btn btn-primary btn-md" @click="filterPart">Filter</button>
+                        <button type="button" class="btn btn-secondary" @click="clearForm">Reset</button>
                       </div>
                     </div>
                   </div>
@@ -634,6 +634,7 @@ export default {
       search_quantity: null,
       search_unit_code: null,
       search_register_ac: null,
+      search_customerH: null,
       search_customer: null,
       search_date_install: null,
       search_date_ac_in: null,
@@ -675,6 +676,9 @@ export default {
     search_register_ac: debounce(function () {
       this.list()
     }, 500),
+    //   search_customer: debounce(function () {
+    //     this.list()
+    //   }, 500),
     search_date_install: debounce(function () {
       this.list()
     }, 500),
@@ -719,6 +723,8 @@ export default {
             quantity: this.search_quantity,
             unit_code: this.search_unit_code,
             register_ac: this.search_register_ac,
+            customerH: this.search_customerH,
+            customer: this.search_customer,
             date_install: this.search_date_install,
             date_ac_in: this.search_date_ac_in,
             date_ac_out: this.search_date_ac_out,
@@ -743,6 +749,18 @@ export default {
           Swal.close()
         })
         .catch((error) => console.log(error))
+    },
+    clearForm() {
+      this.search_customer = null
+      //this.type = null
+      //this.reg = null
+      //this.date_in = null
+      this.rksp = ''
+      this.errors = []
+    },
+    filterPart() {
+      this.list()
+      this.search_customer = null
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
