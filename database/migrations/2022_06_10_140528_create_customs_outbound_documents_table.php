@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('document_type')->nullable();
             $table->string('no_aju')->nullable();
-            $table->string('date_aju')->nullable();
+            $table->date('date_aju')->nullable();
             $table->string('no_register')->nullable();
-            $table->string('date_register')->nullable();
-            $table->string('date_outbound')->nullable();
+            $table->date('date_register')->nullable();
+            $table->date('date_outbound')->nullable();
             $table->string('owner')->nullable();
             $table->string('item_code')->nullable();
             $table->string('hs_code')->nullable();
