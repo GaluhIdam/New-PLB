@@ -30,6 +30,11 @@ class CustomsController extends Controller
         $search_quantity = $request->get('search_quantity');
         $search_unit = $request->get('search_unit');
         $search_item_value = $request->get('search_item_value');
+
+        $filter_start_date = $request->get('filter_start_date');
+        $filter_end_date = $request->get('filter_end_date');
+        $filter_no_aju = $request->get('filter_no_aju');
+        $filter_document_type = $request->get('filter_document_type');
         
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
@@ -105,6 +110,18 @@ class CustomsController extends Controller
             ->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);
             })
+            ->when($filter_start_date, function ($query) use ($filter_start_date) {
+                $query->whereDate('date_aju', '>=', $filter_start_date);
+            })
+            ->when($filter_end_date, function ($query) use ($filter_end_date) {
+                $query->whereDate('date_aju', '<=', $filter_end_date);
+            })
+            ->when($filter_no_aju, function ($query) use ($filter_no_aju) {
+                $query->where('no_aju', 'LIKE', "%{$filter_no_aju}%");
+            })
+            ->when($filter_document_type, function ($query) use ($filter_document_type) {
+                $query->whereIn('document_type', $filter_document_type);
+            })
             ->paginate($paginate);
 
         $query_string = [
@@ -134,6 +151,11 @@ class CustomsController extends Controller
         $search_quantity = $request->get('search_quantity');
         $search_unit = $request->get('search_unit');
         $search_item_value = $request->get('search_item_value');
+
+        $filter_start_date = $request->get('filter_start_date');
+        $filter_end_date = $request->get('filter_end_date');
+        $filter_no_aju = $request->get('filter_no_aju');
+        $filter_document_type = $request->get('filter_document_type');
         
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
@@ -202,7 +224,18 @@ class CustomsController extends Controller
             ->when($search_item_value, function ($query) use ($search_item_value) {
                 $query->where('item_value', 'LIKE', "%{$search_item_value}%");
             })
-            
+            ->when($filter_start_date, function ($query) use ($filter_start_date) {
+                $query->whereDate('date_aju', '>=', $filter_start_date);
+            })
+            ->when($filter_end_date, function ($query) use ($filter_end_date) {
+                $query->whereDate('date_aju', '<=', $filter_end_date);
+            })
+            ->when($filter_no_aju, function ($query) use ($filter_no_aju) {
+                $query->where('no_aju', 'LIKE', "%{$filter_no_aju}%");
+            })
+            ->when($filter_document_type, function ($query) use ($filter_document_type) {
+                $query->whereIn('document_type', $filter_document_type);
+            })
             ->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);
             })
