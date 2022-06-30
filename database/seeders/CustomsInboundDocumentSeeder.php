@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\CustomsInboundDocument;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CustomsInboundDocumentSeeder extends Seeder
@@ -18,10 +19,10 @@ class CustomsInboundDocumentSeeder extends Seeder
         CustomsInboundDocument::create([
             'document_type' => '41',
             'no_aju' => '05014100558620210822018786',
-            'date_aju' => '2021-08-22',
+            'date_aju' => Carbon::now(),
             'no_register' => '000643',
-            'date_register' => '2021-08-22',
-            'date_inbound' => '2021-08-22',
+            'date_register' => Carbon::now(),
+            'date_inbound' => Carbon::now(),
             'sender' => 'GARUDA',
             'owner' => 'GARUDA',
             'item_code' => 'BC9234',
@@ -36,10 +37,10 @@ class CustomsInboundDocumentSeeder extends Seeder
         CustomsInboundDocument::create([
             'document_type' => '41',
             'no_aju' => '07864100558620210822018786',
-            'date_aju' => '2021-08-22',
+            'date_aju' => Carbon::now()->addDays(1),
             'no_register' => '000643',
-            'date_register' => '2021-08-22',
-            'date_inbound' => '2021-08-22',
+            'date_register' => Carbon::now()->addDays(1),
+            'date_inbound' => Carbon::now()->addDays(1),
             'sender' => 'SENTRA',
             'owner' => 'SENTRA',
             'item_code' => 'BC9234',
@@ -52,14 +53,14 @@ class CustomsInboundDocumentSeeder extends Seeder
         ]);
 
         CustomsInboundDocument::create([
-            'document_type' => '41',
-            'no_aju' => '09876100558620210822018786',
-            'date_aju' => '2021-08-22',
+            'document_type' => '16',
+            'no_aju' => '09876778832222090900',
+            'date_aju' => Carbon::now()->addDays(2),
             'no_register' => '000643',
-            'date_register' => '2021-08-22',
-            'date_inbound' => '2021-08-22',
-            'sender' => 'MEDIKA',
-            'owner' => 'MEDIKA',
+            'date_register' => Carbon::now()->addDays(2),
+            'date_inbound' => Carbon::now()->addDays(2),
+            'sender' => 'VANA',
+            'owner' => 'VANA',
             'item_code' => 'BC9234',
             'hs_code' => 'NA43124',
             'item_name' => 'FIRST AID KIT',
