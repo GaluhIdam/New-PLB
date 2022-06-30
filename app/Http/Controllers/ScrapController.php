@@ -54,47 +54,33 @@ class ScrapController extends Controller
                     ->orWhere('registration_number', 'LIKE', "%{$search}%")
                     ->orWhere('recepient', 'LIKE', "%{$search}%");
             });
-        })
-            ->when($search_material_document, function ($query) use ($search_material_document) {
-                $query->where('material_document', 'LIKE', "%{$search_material_document}%");
-            })
-            ->when($search_material_item, function ($query) use ($search_material_item) {
-                $query->where('material_item', 'LIKE', "%{$search_material_item}%");
-            })
-            ->when($search_material_code, function ($query) use ($search_material_code) {
-                $query->where('material_code', 'LIKE', "%{$search_material_code}%");
-            })
-            ->when($search_material_description, function ($query) use ($search_material_description) {
-                $query->where('material_description', 'LIKE', "%{$search_material_description}%");
-            })
-            ->when($search_batch_number, function ($query) use ($search_batch_number) {
-                $query->where('batch_number', 'LIKE', "%{$search_batch_number}%");
-            })
-            ->when($search_plant_code, function ($query) use ($search_plant_code) {
-                $query->where('plant_code', 'LIKE', "%{$search_plant_code}%");
-            })
-            ->when($search_storage_location, function ($query) use ($search_storage_location) {
-                $query->where('storage_location', 'LIKE', "%{$search_storage_location}%");
-            })
-            ->when($search_submission_number, function ($query) use ($search_submission_number) {
-                $query->where('submission_number', 'LIKE', "%{$search_submission_number}%");
-            })
-            ->when($search_submission_date, function ($query) use ($search_submission_date) {
-                $query->where('submission_date', 'LIKE', "%{$search_submission_date}%");
-            })
-            ->when($search_registration_date, function ($query) use ($search_registration_date) {
-                $query->where('registration_date', 'LIKE', "%{$search_registration_date}%");
-            })
-            ->when($search_registration_number, function ($query) use ($search_registration_number) {
-                $query->where('registration_number', 'LIKE', "%{$search_registration_number}%");
-            })
-            ->when($search_recepient, function ($query) use ($search_recepient) {
-                $query->where('recepient', 'LIKE', "%{$search_recepient}%");
-            })
-            ->when(($order && $by), function ($query) use ($order, $by) {
-                $query->orderBy($order, $by);
-            })
-            ->paginate($paginate);
+        })->when($search_material_document, function ($query) use ($search_material_document) {
+            $query->where('material_document', 'LIKE', "%{$search_material_document}%");
+        })->when($search_material_item, function ($query) use ($search_material_item) {
+            $query->where('material_item', 'LIKE', "%{$search_material_item}%");
+        })->when($search_material_code, function ($query) use ($search_material_code) {
+            $query->where('material_code', 'LIKE', "%{$search_material_code}%");
+        })->when($search_material_description, function ($query) use ($search_material_description) {
+            $query->where('material_description', 'LIKE', "%{$search_material_description}%");
+        })->when($search_batch_number, function ($query) use ($search_batch_number) {
+            $query->where('batch_number', 'LIKE', "%{$search_batch_number}%");
+        })->when($search_plant_code, function ($query) use ($search_plant_code) {
+            $query->where('plant_code', 'LIKE', "%{$search_plant_code}%");
+        })->when($search_storage_location, function ($query) use ($search_storage_location) {
+            $query->where('storage_location', 'LIKE', "%{$search_storage_location}%");
+        })->when($search_submission_number, function ($query) use ($search_submission_number) {
+            $query->where('submission_number', 'LIKE', "%{$search_submission_number}%");
+        })->when($search_submission_date, function ($query) use ($search_submission_date) {
+            $query->where('submission_date', 'LIKE', "%{$search_submission_date}%");
+        })->when($search_registration_date, function ($query) use ($search_registration_date) {
+            $query->where('registration_date', 'LIKE', "%{$search_registration_date}%");
+        })->when($search_registration_number, function ($query) use ($search_registration_number) {
+            $query->where('registration_number', 'LIKE', "%{$search_registration_number}%");
+        })->when($search_recepient, function ($query) use ($search_recepient) {
+            $query->where('recepient', 'LIKE', "%{$search_recepient}%");
+        })->when(($order && $by), function ($query) use ($order, $by) {
+            $query->orderBy($order, $by);
+        })->paginate($paginate);
 
         $query_string = [
             'search' => $search,

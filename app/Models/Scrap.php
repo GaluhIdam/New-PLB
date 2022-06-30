@@ -89,7 +89,7 @@ class Scrap extends Model
         'currency', // Mata Uang
         'created_date', // Tanggal Pembuatan
         'created_time', // Jam Pembuatan
-        'type_bc', ['BC28', 'BC30', 'EX27'], // Jenis BC
+        'type_bc', // Tipe BC
         'download_form', // Form Download
         'delivery', // Delivery
         'submission_number', // Nomor Aju
