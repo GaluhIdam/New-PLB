@@ -14,6 +14,9 @@ class InventoryAllotmentController extends Controller
         $from_plant =  $request->get('from_plant');
         $to_plant =  $request->get('to_plant');
         $unit_code =  $request->get('unit_code');
+        //filter
+        $filter_from_plant =  $request->get('filter_from_plant');
+        
 
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
@@ -44,6 +47,8 @@ class InventoryAllotmentController extends Controller
             $query->where('to_plant', 'LIKE', "%{$to_plant}%");
         })->when($unit_code, function ($query) use ($unit_code) {
             $query->where('unit_code', 'LIKE', "%{$unit_code}%");
+        })->when($filter_from_plant, function ($query) use ($filter_from_plant) {
+            $query->where('from_plant', 'LIKE', "%{$filter_from_plant}%");
         })->when(($order && $by), function ($query) use ($order, $by) {
             $query->orderBy($order, $by);
         })->paginate($paginate);
