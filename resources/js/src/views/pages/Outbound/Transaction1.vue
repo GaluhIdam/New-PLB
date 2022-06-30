@@ -34,22 +34,22 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Tanggal Outbound</label>
                       <div class="col-sm-4">
-                        <input type="date" class="form-control" />
+                        <input type="date" v-model="start_date" class="form-control" />
                       </div>
                       <div class="col-sm-4">
-                        <input type="date" class="form-control" />
+                        <input type="date" v-model="end_date" class="form-control" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Customer</label>
                       <div class="col-sm-8">
-                        <input type="text" class="vgt-input" placeholder="customer" ref="customer" v-model="search_customer_filter" />
+                        <input type="text" v-model="form_customer" class="form-control" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Plant</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control" />
+                        <input type="text" v-model="form_part_number" class="form-control" />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -82,15 +82,19 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label"></label>
                       <div class="col-sm-4">
-                        <button type="submit" class="btn btn-primary btn-md">Filter</button>
-                        <button @click="resetInput" class="btn btn-secondary btn-md">Reset</button>
+                        <button @click="filter" class="btn btn-primary btn-md">Filter</button>
+                        <button @click="clearForm" class="btn btn-secondary btn-md">Reset</button>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <hr />
-
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
                 <div class="form-group">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
@@ -324,14 +328,30 @@
                           </thead>
                           <tbody>
                             <tr v-for="(transaction, transaction_index) in transactions.data" :key="transaction_index">
-                              <td class="table_content">{{ transaction.part_number }}</td>
-                              <td class="table_content">{{ transaction.description }}</td>
-                              <td class="table_content">{{ transaction.quantity }}</td>
-                              <td class="table_content">{{ transaction.unit_code }}</td>
-                              <td class="text-center table_content">{{ transaction.register_ac }}</td>
-                              <td class="table_content">{{ transaction.customer }}</td>
-                              <td class="table_content">{{ transaction.date_install | formatDate }}</td>
-                              <td class="table_content">{{ transaction.date_ac_in | formatDate }}</td>
+                              <td class="table_content">
+                                {{ transaction.part_number }}
+                              </td>
+                              <td class="table_content">
+                                {{ transaction.description }}
+                              </td>
+                              <td class="table_content">
+                                {{ transaction.quantity }}
+                              </td>
+                              <td class="table_content">
+                                {{ transaction.unit_code }}
+                              </td>
+                              <td class="text-center table_content">
+                                {{ transaction.register_ac }}
+                              </td>
+                              <td class="table_content">
+                                {{ transaction.customer }}
+                              </td>
+                              <td class="table_content">
+                                {{ transaction.date_install | formatDate }}
+                              </td>
+                              <td class="table_content">
+                                {{ transaction.date_ac_in | formatDate }}
+                              </td>
                             </tr>
                             <tr v-if="transactions.data.length < 1">
                               <td colspan="15">
@@ -425,7 +445,10 @@ export default {
       order: 'id',
       by: 'desc',
       paginate: '10',
-      current_page: null
+      current_page: null,
+      // Search By Form
+      form_customer: null,
+      form_part_number: null
     }
   },
   created() {
@@ -450,36 +473,19 @@ export default {
     search_register_ac: debounce(function () {
       this.list()
     }, 500),
-    search_customer: debounce(function () {
-      this.list()
-    }, 500),
     search_date_install: debounce(function () {
       this.list()
     }, 500),
     search_date_ac_in: debounce(function () {
       this.list()
+    }, 500),
+    search_customer: debounce(function () {
+      this.list()
     }, 500)
   },
   methods: {
-    searchForm() {
-      this.showLoading()
-      paginate = paginate || `/api/outbound/transaction-1`
-      axios
-        .get(paginate, {
-          params: {
-            customer: this.search_customer_filter,
-            order: this.order,
-            by: this.by,
-            paginate: this.paginate
-          }
-        })
-        .then((response) => {
-          this.transactions = response.data
-          this.current_page = this.transactions.current_page
-          // console.log(this.transactions);
-          Swal.close()
-        })
-        .catch((error) => console.log(error))
+    filter() {
+      this.list()
     },
     list(paginate) {
       this.showLoading()
@@ -488,20 +494,22 @@ export default {
         .get(paginate, {
           params: {
             search: this.search,
-            part_number: this.search_part_number,
+            part_number: this.search_part_number || this.form_part_number,
             description: this.search_description,
             quantity: this.search_quantity,
             unit_code: this.search_unit_code,
             register_ac: this.search_register_ac,
-            customer: this.search_customer,
-            customer: this.search_customer_filter,
             date_install: this.search_date_install,
             date_ac_in: this.search_date_ac_in,
             start_date: this.start_date,
             end_date: this.end_date,
+            form_customer: this.form_customer,
+            form_part_number: this.form_part_number,
+            end_date: this.end_date,
             order: this.order,
             by: this.by,
-            paginate: this.paginate
+            paginate: this.paginate,
+            customer: this.search_customer || this.form_customer
           }
         })
         .then((response) => {
@@ -540,8 +548,21 @@ export default {
         allowOutsideClick: false
       })
     },
-    resetInput() {
-      this.$refs['customer'].value = ''
+    clearForm() {
+      this.start_date = ''
+      this.end_date = ''
+      this.form_customer = ''
+      this.form_part_number = ''
+      this.search = ''
+      this.search_part_number = ''
+      this.search_description = ''
+      this.search_quantity = ''
+      this.search_unit_code = ''
+      this.search_register_ac = ''
+      this.search_customer = ''
+      this.search_date_install = ''
+      this.search_date_ac_in = ''
+      this.list()
     }
   }
 }

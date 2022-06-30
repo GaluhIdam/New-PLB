@@ -44,7 +44,7 @@
                       <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Customer</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" v-model="search_customer" />
+                          <input type="text" class="form-control" v-model="filter_customer" />
                         </div>
                       </div>
                       <div class="form-group row">
@@ -56,7 +56,7 @@
                       <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Nomor AJU</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" v-model="search_no_aju" />
+                          <input type="text" class="form-control" v-model="filter_no_aju" />
                         </div>
                       </div>
                       <div class="form-group row">
@@ -101,8 +101,8 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label"></label>
                       <div class="col-sm-4">
-                        <button type="submit" class="btn btn-primary btn-md" @click="filterPart">Filter</button>
-                        <button type="button" class="btn btn-secondary" @click="clearForm">Reset</button>
+                        <button type="submit" class="btn btn-primary btn-md" @click="filter">Filter</button>
+                        <button type="button" class="btn btn-secondary" @click="reset">Reset</button>
                       </div>
                     </div>
                   </div>
@@ -551,7 +551,7 @@
                               <td class="table_content">{{ transaction.pph_paid }}</td>
                             </tr>
                             <tr v-if="transactions.data.length < 1">
-                              <td colspan="15">
+                              <td colspan="16">
                                 <div class="vgt-center-align vgt-text-disabled">Data not found</div>
                               </td>
                             </tr>
@@ -634,7 +634,6 @@ export default {
       search_quantity: null,
       search_unit_code: null,
       search_register_ac: null,
-      search_customerH: null,
       search_customer: null,
       search_date_install: null,
       search_date_ac_in: null,
@@ -648,6 +647,10 @@ export default {
       search_pph_paid: null,
       start_date: null,
       end_date: null,
+
+      filter_customer: null,
+      filter_no_aju: null,
+
       order: 'id',
       by: 'desc',
       paginate: '10',
@@ -676,9 +679,9 @@ export default {
     search_register_ac: debounce(function () {
       this.list()
     }, 500),
-    //   search_customer: debounce(function () {
-    //     this.list()
-    //   }, 500),
+    search_customer: debounce(function () {
+      this.list()
+    }, 500),
     search_date_install: debounce(function () {
       this.list()
     }, 500),
@@ -691,7 +694,7 @@ export default {
     search_type_bc_out: debounce(function () {
       this.list()
     }, 500),
-    earch_no_aju: debounce(function () {
+    search_no_aju: debounce(function () {
       this.list()
     }, 500),
     search_date_bc_out: debounce(function () {
@@ -717,13 +720,14 @@ export default {
       axios
         .get(paginate, {
           params: {
+            filter_customer: this.filter_customer,
+            filter_no_aju: this.filter_no_aju,
             search: this.search,
             part_number: this.search_part_number,
             description: this.search_description,
             quantity: this.search_quantity,
             unit_code: this.search_unit_code,
             register_ac: this.search_register_ac,
-            customerH: this.search_customerH,
             customer: this.search_customer,
             date_install: this.search_date_install,
             date_ac_in: this.search_date_ac_in,
@@ -750,17 +754,14 @@ export default {
         })
         .catch((error) => console.log(error))
     },
-    clearForm() {
-      this.search_customer = null
-      //this.type = null
-      //this.reg = null
-      //this.date_in = null
-      this.rksp = ''
-      this.errors = []
-    },
-    filterPart() {
+
+    filter() {
       this.list()
-      this.search_customer = null
+    },
+    reset() {
+      this.filter_customer = null
+      this.filter_no_aju = null
+      this.list()
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
