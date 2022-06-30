@@ -222,13 +222,13 @@
                               </button>
                             </th>
                             <!-- END: Deskripsi Barang (Table Header) -->
-                            <!-- BEGIN: Satuan (Table Header) -->
+                            <!-- BEGIN: Kode Satuan (Table Header) -->
                             <th
                               v-if="order == 'unit' && by == 'asc'"
                               @click="sort('unit', 'desc')"
                               class="text-center sortable sorting sorting-asc"
                             >
-                              <span class="table_header">Satuan</span>
+                              <span class="table_header">Kode Satuan</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
@@ -238,7 +238,7 @@
                               @click="sort('id', 'asc')"
                               class="text-center sortable sorting sorting-desc"
                             >
-                              <span class="table_header">Satuan</span>
+                              <span class="table_header">Kode Satuan</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
@@ -248,19 +248,19 @@
                               @click="sort('unit', 'asc')"
                               class="text-center sortable"
                             >
-                              <span class="table_header">Satuan</span>
+                              <span class="table_header">Kode Satuan</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <!-- END: Satuan (Table Header) -->
-                            <!-- BEGIN:Total (Table Header) -->
+                            <!-- END: Kode Satuan (Table Header) -->
+                            <!-- BEGIN: Jumlah (Table Header) -->
                             <th
                               v-if="order == 'total' && by == 'asc'"
                               @click="sort('total', 'desc')"
                               class="text-center sortable sorting sorting-asc"
                             >
-                              <span class="table_header">Total</span>
+                              <span class="table_header">Jumlah</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
@@ -270,7 +270,7 @@
                               @click="sort('id', 'asc')"
                               class="text-center sortable sorting sorting-desc"
                             >
-                              <span class="table_header">Total</span>
+                              <span class="table_header">Jumlah</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
@@ -280,12 +280,12 @@
                               @click="sort('total', 'asc')"
                               class="text-center sortable"
                             >
-                              <span class="table_header">Total</span>
+                              <span class="table_header">Jumlah</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <!-- END: Total  (Table Header) -->
+                            <!-- END: Jumlah (Table Header) -->
                             <!-- BEGIN: Status (Table Header) -->
                             <th
                               v-if="order == 'status' && by == 'asc'"
@@ -317,7 +317,7 @@
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <!-- END: Status  (Table Header) -->
+                            <!-- END: Status (Table Header) -->
                           </tr>
                           <tr>
                             <th class="filter-th"></th>
@@ -407,7 +407,7 @@
                               {{ hoarding_times.bc_16_code }}
                             </td>
                             <td class="text-center table-content">
-                              {{ hoarding_times.registration_date }}
+                              {{ hoarding_times.registration_date | formatDate }}
                             </td>
                             <td class="text-center table-content">
                               {{ hoarding_times.item_code }}
@@ -514,62 +514,59 @@ export default {
       hoarding_times: {
         data: [],
       },
-      search: "",
-      search_bc_16_code: "",
-      search_registration_date: "",
-      search_registration_number: "",
-      search_submission_number: "",
-      search_date_of_filing: "",
-      search_item_code: "",
-      search_item_name: "",
-      search_unit: "",
-      search_total: "",
-      search_status: "",
+      search: null,
+      search_bc_16_code: null,
+      search_registration_date: null,
+      search_registration_number: null,
+      search_submission_number: null,
+      search_date_of_filing: null,
+      search_item_code: null,
+      search_item_name: null,
+      search_unit: null,
+      search_total: null,
+      search_status: null,
       order: "id",
-      by: "desc",
+      by: "asc",
       paginate: "10",
       current_page: null,
     };
   },
   created() {
     this.list();
-    Fire.$on("SyncTable", () => {
-      this.list();
-    });
   },
 
   watch: {
-    search: debounce(function (val) {
+    search: debounce(function () {
       this.list();
     }, 500),
-    search_bc_16_code: debounce(function (val) {
+    search_bc_16_code: debounce(function () {
       this.list();
     }, 500),
-    search_registration_date: debounce(function (val) {
+    search_registration_date: debounce(function () {
       this.list();
     }, 500),
-    search_registration_number: debounce(function (val) {
+    search_registration_number: debounce(function () {
       this.list();
     }, 500),
-    search_submission_number: debounce(function (val) {
+    search_submission_number: debounce(function () {
       this.list();
     }, 500),
-    search_date_of_filing: debounce(function (val) {
+    search_date_of_filing: debounce(function () {
       this.list();
     }, 500),
-    search_item_code: debounce(function (val) {
+    search_item_code: debounce(function () {
       this.list();
     }, 500),
-    search_item_name: debounce(function (val) {
+    search_item_name: debounce(function () {
       this.list();
     }, 500),
-    search_unit: debounce(function (val) {
+    search_unit: debounce(function () {
       this.list();
     }, 500),
-    search_total: debounce(function (val) {
+    search_total: debounce(function () {
       this.list();
     }, 500),
-    search_status: debounce(function (val) {
+    search_status: debounce(function () {
       this.list();
     }, 500),
   },
@@ -612,12 +609,10 @@ export default {
         this.current_page = 1;
       } else if (this.current_page > this.hoarding_times.last_page) {
         this.current_page = this.hoarding_times.last_page;
-      } else {
-        this.list(`api/hoarding-time?page=${this.current_page}`);
       }
 
       let url = new URL(this.hoarding_times.first_page_url);
-      let search_params = new URLSearchParams(url.search);
+      let search_params = url.searchParams;
       search_params.set("page", this.current_page);
       url.search = search_params.toString();
       let new_url = url.toString();
