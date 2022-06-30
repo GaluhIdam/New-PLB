@@ -25,7 +25,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">Dokumen Pengeluaran PLB</div>
+                            <div class="card-header"><i class="nav-icon fa-solid fa-file-lines"></i> Dokumen Pengeluaran PLB</div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-3"></div>
@@ -489,6 +489,12 @@
                                                         <option value="25">25</option>
                                                         <option value="50">50</option>
                                                         <option value="100">100</option>
+                                                        <option value="100">150</option>
+                                                        <option value="100">200</option>
+                                                        <option value="100">250</option>
+                                                        <option value="100">300</option>
+                                                        <option value="100">350</option>
+                                                        <option value="100">400</option>
                                                     </select>
                                                 </div>
                                                 <div class="footer__navigation vgt-pull-right">
