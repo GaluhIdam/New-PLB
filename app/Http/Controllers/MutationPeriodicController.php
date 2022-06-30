@@ -66,82 +66,39 @@ class MutationPeriodicController extends Controller
                 ->orWhere('difference', 'like', '%' . $search . '%')
                 ->orWhere('submission_number', 'like', '%' . $search . '%')
                 ->orWhere('submission_date', 'like', '%' . $search . '%');
-        })->when(
-            $search_item_code,
-            function ($query) use ($search_item_code) {
-                return $query->where('item_code', 'like', '%' . $search_item_code . '%');
-            }
-        )->when(
-            $search_item_name,
-            function ($query) use ($search_item_name) {
-                return $query->where('item_name', 'like', '%' . $search_item_name . '%');
-            }
-        )->when(
-            $search_unit,
-            function ($query) use ($search_unit) {
-                return $query->where('unit', 'like', '%' . $search_unit . '%');
-            }
-        )->when(
-            $search_beginning_balance,
-            function ($query) use ($search_beginning_balance) {
-                return $query->where('beginning_balance', 'like', '%' . $search_beginning_balance . '%');
-            }
-        )->when(
-            $search_code_bc_16_in,
-            function ($query) use ($search_code_bc_16_in) {
-                return $query->where('code_bc_16_in', 'like', '%' . $search_code_bc_16_in . '%');
-            }
-        )->when(
-            $search_code_bc_40_in,
-            function ($query) use ($search_code_bc_40_in) {
-                return $query->where('code_bc_40_in', 'like', '%' . $search_code_bc_40_in . '%');
-            }
-        )->when(
-            $search_code_bc_27_in,
-            function ($query) use ($search_code_bc_27_in) {
-                return $query->where('code_bc_27_in', 'like', '%' . $search_code_bc_27_in . '%');
-            }
-        )->when(
-            $search_code_bc_28_out,
-            function ($query) use ($search_code_bc_28_out) {
-                return $query->where('code_bc_28_out', 'like', '%' . $search_code_bc_28_out . '%');
-            }
-        )->when(
-            $search_code_bc_41_out,
-            function ($query) use ($search_code_bc_41_out) {
-                return $query->where('code_bc_41_out', 'like', '%' . $search_code_bc_41_out . '%');
-            }
-        )->when(
-            $search_code_bc_27_out,
-            function ($query) use ($search_code_bc_27_out) {
-                return $query->where('code_bc_27_out', 'like', '%' . $search_code_bc_27_out . '%');
-            }
-        )->when(
-            $search_adjustment,
-            function ($query) use ($search_adjustment) {
-                return $query->where('adjustment', 'like', '%' . $search_adjustment . '%');
-            }
-        )->when(
-            $search_book_balance,
-            function ($query) use ($search_book_balance) {
-                return $query->where('book_balance', 'like', '%' . $search_book_balance . '%');
-            }
-        )->when(
-            $search_inventory_taking,
-            function ($query) use ($search_inventory_taking) {
-                return $query->where('inventory_taking', 'like', '%' . $search_inventory_taking . '%');
-            }
-        )->when(
-            $search_difference,
-            function ($query) use ($search_difference) {
-                return $query->where('difference', 'like', '%' . $search_difference . '%');
-            }
-        )->when(
-            function ($query) use ($start_date, $end_date) {
-                return $query->whereBetween('submission_date', [$start_date, $end_date])->get();
-            }
-        )
-            ->paginate($paginate);
+        })->when($search_item_code, function ($query) use ($search_item_code) {
+            return $query->where('item_code', 'like', '%' . $search_item_code . '%');
+        })->when($search_item_name, function ($query) use ($search_item_name) {
+            return $query->where('item_name', 'like', '%' . $search_item_name . '%');
+        })->when($search_unit, function ($query) use ($search_unit) {
+            return $query->where('unit', 'like', '%' . $search_unit . '%');
+        })->when($search_beginning_balance, function ($query) use ($search_beginning_balance) {
+            return $query->where('beginning_balance', 'like', '%' . $search_beginning_balance . '%');
+        })->when($search_code_bc_16_in, function ($query) use ($search_code_bc_16_in) {
+            return $query->where('code_bc_16_in', 'like', '%' . $search_code_bc_16_in . '%');
+        })->when($search_code_bc_40_in, function ($query) use ($search_code_bc_40_in) {
+            return $query->where('code_bc_40_in', 'like', '%' . $search_code_bc_40_in . '%');
+        })->when($search_code_bc_27_in, function ($query) use ($search_code_bc_27_in) {
+            return $query->where('code_bc_27_in', 'like', '%' . $search_code_bc_27_in . '%');
+        })->when($search_code_bc_28_out, function ($query) use ($search_code_bc_28_out) {
+            return $query->where('code_bc_28_out', 'like', '%' . $search_code_bc_28_out . '%');
+        })->when($search_code_bc_41_out, function ($query) use ($search_code_bc_41_out) {
+            return $query->where('code_bc_41_out', 'like', '%' . $search_code_bc_41_out . '%');
+        })->when($search_code_bc_27_out, function ($query) use ($search_code_bc_27_out) {
+            return $query->where('code_bc_27_out', 'like', '%' . $search_code_bc_27_out . '%');
+        })->when($search_adjustment, function ($query) use ($search_adjustment) {
+            return $query->where('adjustment', 'like', '%' . $search_adjustment . '%');
+        })->when($search_book_balance, function ($query) use ($search_book_balance) {
+            return $query->where('book_balance', 'like', '%' . $search_book_balance . '%');
+        })->when($search_inventory_taking, function ($query) use ($search_inventory_taking) {
+            return $query->where('inventory_taking', 'like', '%' . $search_inventory_taking . '%');
+        })->when($search_difference, function ($query) use ($search_difference) {
+            return $query->where('difference', 'like', '%' . $search_difference . '%');
+        })->when(function ($query) use ($start_date, $end_date) {
+            return $query->whereBetween('submission_date', [$start_date, $end_date])->get();
+        })->when(($order && $by), function ($query) use ($order, $by) {
+            $query->orderBy($order, $by);
+        })->paginate($paginate);
 
         $query_string = [
             'search' => $search,

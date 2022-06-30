@@ -28,7 +28,7 @@ class MutationCalculationFactory extends Factory
             'book_balance' => $this->faker->randomFloat(1, 20, 30),
             'stock_opname' => $this->faker->randomFloat(2, 0, 100),
             'difference' => $this->faker->randomFloat(2, 0, 100),
-            'date' => $this->faker->date('Y_m_d'),
+            'date' => $this->faker->unique()->dateTimeBetween('-4 years', 'now'),
         ];
     }
 }

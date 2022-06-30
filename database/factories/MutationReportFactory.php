@@ -18,10 +18,10 @@ class MutationReportFactory extends Factory
     public function definition()
     {
         return [
-            'registration_date' => $this->faker->date('Y_m_d'),
+            'registration_date' => $this->faker->unique()->dateTimeBetween('-4 years', 'now'),
             'registration_number' => $this->faker->randomNumber(6, true),
             'submission_number' => $this->faker->numerify('03900#####'),
-            'submission_date' => $this->faker->date('Y_m_d'),
+            'submission_date' => $this->faker->unique()->dateTimeBetween('-4 years', 'now'),
             'item_code' => $this->faker->numerify('##-###-##', '00-###-####', '00-####', ' 0-#-######### '),
             'item_name' => $this->faker->randomElement(['CAP', 'TOP KIT', 'SETSCREW', 'BUSH', 'FITTING SWIVEL', 'SHIM', 'TOW BAR', 'CIRCUIT', 'MAIN BATTERY', 'SEAL', 'FAN', 'PACKING', 'ARINC', 'FUEL FILTER']),
             'unit' => $this->faker->randomElement(['EA', 'SET',]),
