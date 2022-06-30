@@ -15,6 +15,7 @@ use App\Http\Controllers\HoardingTimeController;
 use App\Http\Controllers\InventoryAllotmentController;
 use App\Http\Controllers\MovementAllotmentController;
 use App\Http\Controllers\MutationCalculationController;
+use App\Http\Controllers\ScrapController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -70,3 +71,5 @@ Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
 
 //Mutation Calculation
 Route::get('mutation-calculations', [MutationCalculationController::class, 'index']);
+
+Route::get('/scrap', [ScrapController::class, 'index']);
