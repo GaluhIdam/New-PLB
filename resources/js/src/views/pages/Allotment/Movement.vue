@@ -37,14 +37,14 @@
                 <form class="form-horizontal">
                   <div class="form-group row justify-content-center align-items-center mt-4">
                     <label for="part_number" class="col-form-label">Tanggal Mutasi</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                       <input type="date" class="form-control" v-model="to_plant" autofocus />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                       <input type="date" class="form-control" v-model="to_plant" autofocus />
                     </div>
 
-                    <div class="offset-sm-5 col-sm-10 mt-4">
+                    <div class="offset-sm-9 col-sm-11 mt-4">
                       <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                       <button class="btn btn-secondary"><i class="fa-solid fa-rotate"></i> Reset</button>
                     </div>
