@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             InventoryAllotmentSeeder::class,
             MovementAllotmentSedder::class,
             MutationCalculationSeeder::class,
+            ScrapSeeder::class,
         ]);
     }
 }
