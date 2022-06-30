@@ -25,8 +25,8 @@
               <div class="card-header">Part ​Yang sudah menjadi Dokumen Clearance</div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-5">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Tanggal Outbound</label>
                       <div class="col-sm-4">
@@ -39,19 +39,32 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Nomor AJU</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control" />
+                        <input type="text" class="form-control" v-model="filter_no_aju" />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-md-4 col-form-label">Tanggal AJU</label>
+                      <div class="col-sm-4">
+                        <input type="date" class="form-control" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Nomor Daftar</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control" />
+                        <input type="text" class="form-control" v-model="filter_no_register" />
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-md-4 col-form-label">Tanggal Daftar</label>
+                      <div class="col-sm-4">
+                        <input type="date" class="form-control" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Customer</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control" />
+                        <input type="text" class="form-control" v-model="filter_customer" />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -88,24 +101,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-5">
-                    <div class="form-group row">
-                      <div class="col-md-4"></div>
-                    </div>
 
-                    <div class="form-group row">
-                      <label class="col-md-4 col-form-label">Tanggal AJU</label>
-                      <div class="col-sm-4">
-                        <input type="date" class="form-control" />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-md-4 col-form-label">Tanggal Daftar</label>
-                      <div class="col-sm-4">
-                        <input type="date" class="form-control" />
-                      </div>
-                    </div>
-                  </div>
                   <div class="col-md-1"></div>
                 </div>
                 <div class="row">
@@ -114,8 +110,8 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label"></label>
                       <div class="col-sm-4">
-                        <button class="btn btn-primary btn-md">Filter</button>
-                        <button class="btn btn-secondary btn-md">Reset</button>
+                        <button class="btn btn-primary btn-md" @click="filter">Filter</button>
+                        <button class="btn btn-secondary btn-md" @click="reset">Reset</button>
                       </div>
                     </div>
                   </div>
@@ -660,6 +656,10 @@ export default {
       search_pph_paid: null,
       start_date: null,
       end_date: null,
+
+      filter_no_register: null,
+      filter_no_aju: null,
+      filter_customer: null,
       order: 'id',
       by: 'desc',
       paginate: '10',
@@ -726,6 +726,9 @@ export default {
       axios
         .get(paginate, {
           params: {
+            filter_no_register: this.filter_no_register,
+            filter_no_aju: this.filter_no_aju,
+            filter_customer: this.filter_customer,
             search: this.search,
             part_number: this.search_part_number,
             description: this.search_description,
@@ -756,6 +759,16 @@ export default {
           Swal.close()
         })
         .catch((error) => console.log(error))
+    },
+
+    filter() {
+      this.list()
+    },
+    reset() {
+      this.filter_no_register = null
+      this.filter_no_aju = null
+      this.filter_customer = null
+      this.list()
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {

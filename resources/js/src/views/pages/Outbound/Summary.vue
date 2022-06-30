@@ -24,12 +24,12 @@
               <div class="card-header">Summary Outbound</div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-5">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">Part Number</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control" />
+                        <input type="text" class="form-control" v-model="filter_part_number" />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -51,8 +51,8 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label"></label>
                       <div class="col-sm-4">
-                        <button class="btn btn-primary btn-md">Filter</button>
-                        <button class="btn btn-secondary btn-md">Reset</button>
+                        <button type="submit" class="btn btn-primary btn-md" @click="filter">Filter</button>
+                        <button type="button" class="btn btn-secondary" @click="reset">Reset</button>
                       </div>
                     </div>
                   </div>
@@ -415,6 +415,8 @@ export default {
       search_pph_not_paid: null,
       start_date: null,
       end_date: null,
+
+      filter_part_number: null,
       order: 'id',
       by: 'desc',
       paginate: '10',
@@ -459,10 +461,11 @@ export default {
   methods: {
     list(paginate) {
       this.showLoading()
-      paginate = paginate || `/api/outbound/transaction-2`
+      paginate = paginate || `/api/outbound/summary`
       axios
         .get(paginate, {
           params: {
+            filter_part_number: this.filter_part_number,
             search: this.search,
             part_number: this.search_part_number,
             description: this.search_description,
@@ -493,6 +496,14 @@ export default {
           Swal.close()
         })
         .catch((error) => console.log(error))
+    },
+    filter() {
+      this.list()
+    },
+    reset() {
+      this.filter_part_number = null
+
+      this.list()
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
