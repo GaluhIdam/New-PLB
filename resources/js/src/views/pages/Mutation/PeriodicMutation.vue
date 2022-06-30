@@ -47,7 +47,7 @@
                     <div class="col-sm-3">
                       <datepicker
                         input-class="form-control"
-                        placeholder="To Date"
+                        placeholder="Dari Tanggal"
                         format="MM/dd/yyyy"
                         v-model="start_date"
                       />
@@ -55,7 +55,7 @@
                     <div class="col-sm-3">
                       <datepicker
                         input-class="form-control"
-                        placeholder="Form date"
+                        placeholder="Sampai Tanggal"
                         format="MM/dd/yyyy"
                         v-model="end_date"
                       />
@@ -766,23 +766,23 @@ export default {
       mutation_periodics: {
         data: [],
       },
-      search: "",
-      search_item_code: "",
-      search_item_name: "",
-      search_unit: "",
-      search_beginning_balance: "",
-      search_code_bc_16_in: "",
-      search_code_bc_40_in: "",
-      search_code_bc_27_in: "",
-      search_code_bc_28_out: "",
-      search_code_bc_41_out: "",
-      search_code_bc_27_out: "",
-      search_adjustment: "",
-      search_book_balance: "",
-      search_inventory_taking: "",
-      search_difference: "",
-      search_submission_date: "",
-      search_submission_number: "",
+      search: null,
+      search_item_code: null,
+      search_item_name: null,
+      search_unit: null,
+      search_beginning_balance: null,
+      search_code_bc_16_in: null,
+      search_code_bc_40_in: null,
+      search_code_bc_27_in: null,
+      search_code_bc_28_out: null,
+      search_code_bc_41_out: null,
+      search_code_bc_27_out: null,
+      search_adjustment: null,
+      search_book_balance: null,
+      search_inventory_taking: null,
+      search_difference: null,
+      search_submission_date: null,
+      search_submission_number: null,
       order: "id",
       by: "desc",
       paginate: "10",
@@ -855,8 +855,8 @@ export default {
   },
   methods: {
     filterDate() {
-      this.list();
       this.date_selected = true;
+      this.list();
     },
     clearForm() {
       this.start_date = null;
@@ -925,3 +925,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.vgt-global-search__input .input__icon .magnifying-glass {
+  margin-top: -3px;
+}
+</style>
