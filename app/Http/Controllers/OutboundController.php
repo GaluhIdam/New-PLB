@@ -33,6 +33,10 @@ class OutboundController extends Controller
         $bm_paid = $request->get('bm_paid');
         $ppn_paid = $request->get('ppn_paid');
         $pph_paid = $request->get('pph_paid');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        $form_customer = $request->input('form_customer');
+        $form_part_number = $request->input('form_part_number');
 
 
         if ($request->get('order') && $request->get('by')) {
@@ -100,6 +104,12 @@ class OutboundController extends Controller
             $query->where('ppn_paid', 'LIKE', "%{$ppn_paid}%");
         })->when($pph_paid, function ($query) use ($pph_paid) {
             $query->where('pph_paid', 'LIKE', "%{$pph_paid}%");
+        })->when($start_date && $end_date,  function ($query) use ($start_date, $end_date) {
+            $query->whereBetween('date_install', [$start_date, $end_date]);
+        })->when($start_date,  function ($query) use ($start_date) {
+            $query->whereDate('date_install', '>=', $start_date);
+        })->when($end_date,  function ($query) use ($end_date) {
+            $query->whereDate('date_install', '<=', $end_date);
         })->when(($order && $by), function ($query) use ($order, $by) {
             $query->orderBy($order, $by);
         })->paginate($paginate);
