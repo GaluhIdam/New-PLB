@@ -6,14 +6,15 @@ use App\Http\Controllers\CustomsController;
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\OutboundController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HoardingTimeController;
 use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\MutationReportController;
-use App\Http\Controllers\MutationPeriodicController;
-use App\Http\Controllers\OutboundController;
 use App\Http\Controllers\ActivityHistoryController;
-use App\Http\Controllers\HoardingTimeController;
-use App\Http\Controllers\InventoryAllotmentController;
+use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\MovementAllotmentController;
+use App\Http\Controllers\InventoryAllotmentController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -66,3 +67,10 @@ Route::get('inventory-allotment', [InventoryAllotmentController::class, 'index']
 
 //Movement Allotment
 Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
+
+//Dashboard
+Route::get('dashboard/one', [DashboardController::class, 'dashboardSatu']);
+Route::get('dashboard/two', [DashboardController::class, 'dashboardDua']);
+Route::get('dashboard/three', [DashboardController::class, 'dashboardTiga']);
+Route::get('dashboard/empat', [DashboardController::class, 'dashboardEmpat']);
+Route::get('dashboard/lima', [DashboardController::class, 'dashboardLima']);
