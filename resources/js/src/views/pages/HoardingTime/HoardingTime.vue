@@ -32,11 +32,47 @@
                   Masa Timbun
                 </h5>
                 <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item"></li>
-                  </ul>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
                 </div>
               </div>
+              <div class="card-body">
+                <form @submit.prevent class="form-horizontal">
+                  <div
+                    class="form-group row justify-content-center align-items-center mt-4"
+                  >
+                    <label for="part_number" class="col-sm-2 col-form-label"
+                      >Tahun Pelaporan</label
+                    >
+                    <div class="col-sm-4">
+                      <datepicker
+                        input-class="form-control"
+                        :format="DatePickerFormat"
+                        minimum-view="year"
+                        placeholder="Pilih tahun"
+                        type="year"
+                        v-model="search_reporting_year"
+                        autofocus
+                      />
+                    </div>
+                    <div class="offset-sm-8 col-sm-10 mt-4">
+                      <button class="btn btn-primary" @click="filterYear">
+                        <i class="fa-solid fa-magnifying-glass"></i> Filter
+                      </button>
+                      <button class="btn btn-secondary" @click="clearForm">
+                        <i class="fa-solid fa-rotate"></i> Reset
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="card" v-if="year_selected">
               <div class="card-body">
                 <div class="form-group">
                   <div class="vgt-inner-wrap">
@@ -507,6 +543,8 @@
 <script>
 import axios from "axios";
 import debounce from "lodash/debounce";
+import moment from "moment";
+moment.locale("id");
 
 export default {
   data() {
@@ -514,6 +552,8 @@ export default {
       hoarding_times: {
         data: [],
       },
+      DatePickerFormat: "yyyy",
+
       search: null,
       search_bc_16_code: null,
       search_registration_date: null,
@@ -525,15 +565,17 @@ export default {
       search_unit: null,
       search_total: null,
       search_status: null,
+      search_reporting_year: null,
+      year_selected: false,
       order: "id",
       by: "asc",
       paginate: "10",
       current_page: null,
     };
   },
-  created() {
-    this.list();
-  },
+  // created() {
+  //   this.list();
+  // },
 
   watch: {
     search: debounce(function () {
@@ -572,6 +614,13 @@ export default {
   },
 
   methods: {
+    filterYear() {
+      this.list();
+      this.year_selected = true;
+    },
+    clearForm() {
+      this.search_reporting_year = null;
+    },
     list(paginate) {
       this.$Progress.start();
       paginate = paginate || `api/hoarding-time`;
@@ -589,6 +638,7 @@ export default {
             search_unit: this.search_unit,
             search_total: this.search_total,
             search_status: this.search_status,
+            search_reporting_year: this.search_reporting_year,
             order: this.order,
             by: this.by,
             paginate: this.paginate,
