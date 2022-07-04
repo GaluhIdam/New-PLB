@@ -8,7 +8,7 @@ use App\Models\MovementAllotment;
 use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class MovementAllotmentSedder extends Seeder
+class MovementAllotmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
