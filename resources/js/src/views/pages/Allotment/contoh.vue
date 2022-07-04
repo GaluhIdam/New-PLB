@@ -33,18 +33,20 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="form-group row justify-content-center align-items-center">
-                  <label for="part_number" class="col-form-label">Plant</label>
-                  <div class="col-sm-3">
-                    <input type="search" class="form-control" v-model="filter_from_plant" />
+                <form class="form-horizontal">
+                  <div class="form-group row justify-content-center align-items-center">
+                    <label for="part_number" class="col-form-label">Plant</label>
+                    <div class="col-sm-3">
+                      <input type="search" class="form-control" v-model="to_plant" autofocus />
+                    </div>
                   </div>
-                </div>
-                <div class="form-group row justify-content-center align-items-center">
-                  <div class="offset-sm-5 col-sm-7">
-                    <button type="button" class="btn btn-primary btn-md" @click="filter">search</button>
-                    <button type="button" class="btn btn-secondary" @click="reset">Reset</button>
+                  <div class="form-group row justify-content-center align-items-center">
+                    <div class="offset-sm-5 col-sm-7">
+                      <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                      <button class="btn btn-secondary"><i class="fa-solid fa-rotate"></i> Reset</button>
+                    </div>
                   </div>
-                </div>
+                </form>
                 <div class="form-group">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
@@ -219,7 +221,7 @@
                               <td class="text-center table_content">{{ inventory.quantity }}</td>
                               <td class="text-center table_content">{{ inventory.unit_code }}</td>
                             </tr>
-                            <tr v-if="inventory_allotment.data.length < 1">
+                            <tr v-if="inventory_allotment.length < 1">
                               <td colspan="8">
                                 <div class="vgt-center-align vgt-text-disabled">Data not found</div>
                               </td>
@@ -303,8 +305,6 @@ export default {
       search_to_plant: null,
       search_quantity: null,
       search_unit_code: null,
-
-      filter_from_plant: null,
       order: 'id',
       by: 'desc',
       paginate: '10',
@@ -341,7 +341,6 @@ export default {
       axios
         .get(paginate, {
           params: {
-            filter_from_plant: this.filter_from_plant,
             search: this.search,
             search_part_number: this.search_part_number,
             search_from_plant: this.search_from_plant,
@@ -356,17 +355,10 @@ export default {
         .then((response) => {
           this.inventory_allotment = response.data
           this.current_page = this.inventory_allotment.current_page
-          //console.log(this.inventory_allotment)
+          console.log(this.inventory_allotment)
           Swal.close()
         })
         .catch((error) => console.log(error))
-    },
-    filter() {
-      this.list()
-    },
-    reset() {
-      this.filter_from_plant = null
-      this.list()
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
@@ -387,7 +379,6 @@ export default {
       this.by = by
       this.list()
     },
-
     showLoading() {
       Swal.fire({
         didOpen: () => {

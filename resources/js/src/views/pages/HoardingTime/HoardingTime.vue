@@ -32,11 +32,47 @@
                   Masa Timbun
                 </h5>
                 <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item"></li>
-                  </ul>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
                 </div>
               </div>
+              <div class="card-body">
+                <form @submit.prevent class="form-horizontal">
+                  <div
+                    class="form-group row justify-content-center align-items-center mt-4"
+                  >
+                    <label for="part_number" class="col-sm-2 col-form-label"
+                      >Tahun Pelaporan</label
+                    >
+                    <div class="col-sm-4">
+                      <datepicker
+                        input-class="form-control"
+                        :format="DatePickerFormat"
+                        minimum-view="year"
+                        placeholder="Pilih tahun"
+                        type="year"
+                        v-model="search_reporting_year"
+                        autofocus
+                      />
+                    </div>
+                    <div class="offset-sm-8 col-sm-10 mt-4">
+                      <button class="btn btn-primary" @click="filterYear">
+                        <i class="fa-solid fa-magnifying-glass"></i> Filter
+                      </button>
+                      <button class="btn btn-secondary" @click="clearForm">
+                        <i class="fa-solid fa-rotate"></i> Reset
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="card" v-if="year_selected">
               <div class="card-body">
                 <div class="form-group">
                   <div class="vgt-inner-wrap">
@@ -222,13 +258,13 @@
                               </button>
                             </th>
                             <!-- END: Deskripsi Barang (Table Header) -->
-                            <!-- BEGIN: Satuan (Table Header) -->
+                            <!-- BEGIN: Kode Satuan (Table Header) -->
                             <th
                               v-if="order == 'unit' && by == 'asc'"
                               @click="sort('unit', 'desc')"
                               class="text-center sortable sorting sorting-asc"
                             >
-                              <span class="table_header">Satuan</span>
+                              <span class="table_header">Kode Satuan</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
@@ -238,7 +274,7 @@
                               @click="sort('id', 'asc')"
                               class="text-center sortable sorting sorting-desc"
                             >
-                              <span class="table_header">Satuan</span>
+                              <span class="table_header">Kode Satuan</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
@@ -248,19 +284,19 @@
                               @click="sort('unit', 'asc')"
                               class="text-center sortable"
                             >
-                              <span class="table_header">Satuan</span>
+                              <span class="table_header">Kode Satuan</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <!-- END: Satuan (Table Header) -->
-                            <!-- BEGIN:Total (Table Header) -->
+                            <!-- END: Kode Satuan (Table Header) -->
+                            <!-- BEGIN: Jumlah (Table Header) -->
                             <th
                               v-if="order == 'total' && by == 'asc'"
                               @click="sort('total', 'desc')"
                               class="text-center sortable sorting sorting-asc"
                             >
-                              <span class="table_header">Total</span>
+                              <span class="table_header">Jumlah</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
@@ -270,7 +306,7 @@
                               @click="sort('id', 'asc')"
                               class="text-center sortable sorting sorting-desc"
                             >
-                              <span class="table_header">Total</span>
+                              <span class="table_header">Jumlah</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
@@ -280,12 +316,12 @@
                               @click="sort('total', 'asc')"
                               class="text-center sortable"
                             >
-                              <span class="table_header">Total</span>
+                              <span class="table_header">Jumlah</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <!-- END: Total  (Table Header) -->
+                            <!-- END: Jumlah (Table Header) -->
                             <!-- BEGIN: Status (Table Header) -->
                             <th
                               v-if="order == 'status' && by == 'asc'"
@@ -317,7 +353,7 @@
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <!-- END: Status  (Table Header) -->
+                            <!-- END: Status (Table Header) -->
                           </tr>
                           <tr>
                             <th class="filter-th"></th>
@@ -407,7 +443,7 @@
                               {{ hoarding_times.bc_16_code }}
                             </td>
                             <td class="text-center table-content">
-                              {{ hoarding_times.registration_date }}
+                              {{ hoarding_times.registration_date | formatDate }}
                             </td>
                             <td class="text-center table-content">
                               {{ hoarding_times.item_code }}
@@ -507,6 +543,8 @@
 <script>
 import axios from "axios";
 import debounce from "lodash/debounce";
+import moment from "moment";
+moment.locale("id");
 
 export default {
   data() {
@@ -514,67 +552,75 @@ export default {
       hoarding_times: {
         data: [],
       },
-      search: "",
-      search_bc_16_code: "",
-      search_registration_date: "",
-      search_registration_number: "",
-      search_submission_number: "",
-      search_date_of_filing: "",
-      search_item_code: "",
-      search_item_name: "",
-      search_unit: "",
-      search_total: "",
-      search_status: "",
+      DatePickerFormat: "yyyy",
+
+      search: null,
+      search_bc_16_code: null,
+      search_registration_date: null,
+      search_registration_number: null,
+      search_submission_number: null,
+      search_date_of_filing: null,
+      search_item_code: null,
+      search_item_name: null,
+      search_unit: null,
+      search_total: null,
+      search_status: null,
+      search_reporting_year: null,
+      year_selected: false,
       order: "id",
-      by: "desc",
+      by: "asc",
       paginate: "10",
       current_page: null,
     };
   },
-  created() {
-    this.list();
-    Fire.$on("SyncTable", () => {
-      this.list();
-    });
-  },
+  // created() {
+  //   this.list();
+  // },
 
   watch: {
-    search: debounce(function (val) {
+    search: debounce(function () {
       this.list();
     }, 500),
-    search_bc_16_code: debounce(function (val) {
+    search_bc_16_code: debounce(function () {
       this.list();
     }, 500),
-    search_registration_date: debounce(function (val) {
+    search_registration_date: debounce(function () {
       this.list();
     }, 500),
-    search_registration_number: debounce(function (val) {
+    search_registration_number: debounce(function () {
       this.list();
     }, 500),
-    search_submission_number: debounce(function (val) {
+    search_submission_number: debounce(function () {
       this.list();
     }, 500),
-    search_date_of_filing: debounce(function (val) {
+    search_date_of_filing: debounce(function () {
       this.list();
     }, 500),
-    search_item_code: debounce(function (val) {
+    search_item_code: debounce(function () {
       this.list();
     }, 500),
-    search_item_name: debounce(function (val) {
+    search_item_name: debounce(function () {
       this.list();
     }, 500),
-    search_unit: debounce(function (val) {
+    search_unit: debounce(function () {
       this.list();
     }, 500),
-    search_total: debounce(function (val) {
+    search_total: debounce(function () {
       this.list();
     }, 500),
-    search_status: debounce(function (val) {
+    search_status: debounce(function () {
       this.list();
     }, 500),
   },
 
   methods: {
+    filterYear() {
+      this.list();
+      this.year_selected = true;
+    },
+    clearForm() {
+      this.search_reporting_year = null;
+    },
     list(paginate) {
       this.$Progress.start();
       paginate = paginate || `api/hoarding-time`;
@@ -592,6 +638,7 @@ export default {
             search_unit: this.search_unit,
             search_total: this.search_total,
             search_status: this.search_status,
+            search_reporting_year: this.search_reporting_year,
             order: this.order,
             by: this.by,
             paginate: this.paginate,
@@ -612,12 +659,10 @@ export default {
         this.current_page = 1;
       } else if (this.current_page > this.hoarding_times.last_page) {
         this.current_page = this.hoarding_times.last_page;
-      } else {
-        this.list(`api/hoarding-time?page=${this.current_page}`);
       }
 
       let url = new URL(this.hoarding_times.first_page_url);
-      let search_params = new URLSearchParams(url.search);
+      let search_params = url.searchParams;
       search_params.set("page", this.current_page);
       url.search = search_params.toString();
       let new_url = url.toString();

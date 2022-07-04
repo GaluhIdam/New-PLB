@@ -3,7 +3,6 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/bootstrap";
-
 // Body
 $body-bg: #f8fafc;
 // COLORS
@@ -20,259 +19,240 @@ $purple: #605ca8 !default;
 $maroon: #d81b60 !default;
 $black: #111 !default;
 $gray-x-light: #d2d6de !default;
-$plb: #2A3F54 !default;
-$navbar : #EDEDED;
+$plb: #2a3f54 !default;
+$navbar: #ededed;
 $aircraft: #00314c !default;
-
 // Typography
-$font-family-sans-serif: 'Nunito',
+$font-family-sans-serif: "Nunito",
 sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
-
 // Costumize
 .aircraft {
-  color: $aircraft;
+    color: $aircraft;
 }
 
 .bg-plb {
-  background-color: $plb;
+    background-color: $plb;
 }
 
 .bg-navbar {
-  background-color: $navbar;
+    background-color: $navbar;
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.8)
+    color: rgba(255, 255, 255, 0.8);
 }
 
 [class*="sidebar-dark-"] {
-  background-color: $plb;
+    background-color: $plb;
 }
 
 [class*="sidebar-dark-"] .nav-treeview>.nav-item>.nav-link {
-  color: #000;
+    color: #000;
 }
 
 .brand-text {
-  text-decoration: none;
-  display: inline-block;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .brand-link .brand-image {
-  float: left;
-  line-height: .8;
-  margin-left: .8rem;
-  margin-right: .5rem;
-  width: auto;
-  height: auto;
+    float: left;
+    line-height: 0.8;
+    margin-left: 0.8rem;
+    margin-right: 0.5rem;
+    width: auto;
+    height: auto;
 }
 
 .small-box .icon>i {
-  font-size: 60px;
+    font-size: 60px;
 }
 
 [class*="sidebar-dark-"] .sidebar a {
-  color: #EDEDED;
+    color: #ededed;
 }
 
 [class*="sidebar-dark-"] .nav-treeview>.nav-item>.nav-link {
-  color: #ededed;
+    color: #ededed;
 }
 
 .nav-sidebar>.nav-item>.nav-link.active> {
-  background-color: #517aa2;
-  color: #EDEDED;
+    background-color: #517aa2;
+    color: #ededed;
 }
 
 [class*="sidebar-dark-"] .nav-sidebar>.nav-item.menu-open>.nav-link,
 [class*="sidebar-dark-"] .nav-sidebar>.nav-item>.nav-link:focus {
-  background-color: #517aa2;
-  color: #EDEDED;
+    background-color: #517aa2;
+    color: #ededed;
 }
 
 [class*="sidebar-dark-"] .nav-sidebar>.nav-item:hover>.nav-link {
-  background-color: #4b7095;
-  color: #ededed;
+    background-color: #4b7095;
+    color: #ededed;
 }
-
 
 [class*="sidebar-dark-"] .nav-treeview>.nav-item>.nav-link:hover,
 [class*="sidebar-dark-"] .nav-treeview>.nav-item>.nav-link:focus {
-  background-color: #517aa2;
-  color: #EDEDED;
+    background-color: #517aa2;
+    color: #ededed;
 }
 
 // Navbar User Menu
-
 .navbar-nav>.user-menu {
-  >.nav-link:after {
-    content: none;
-  }
-
-  >.dropdown-menu {
-    @include border-top-radius(0);
-    padding: 0;
-    border-top-width: 0;
-    width: 280px;
-
-    &,
-    >.user-body {
-      @include border-bottom-radius(4px);
+    >.nav-link:after {
+        content: none;
     }
-
-    // Header menu
-    >li.user-header {
-      height: 175px;
-      padding: 10px;
-      text-align: center;
-
-      // User image
-      >img {
-        z-index: 5;
-        height: 90px;
-        width: 90px;
-        border: 3px solid;
-        border-color: transparent;
-        border-color: rgba(255, 255, 255, 0.2);
-      }
-
-      >p {
-        z-index: 5;
-        color: #fff;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 17px;
-        //text-shadow: 2px 2px 3px #333333;
-        margin-top: 10px;
-
-        >small {
-          display: block;
-          font-size: 12px;
+    >.dropdown-menu {
+        @include border-top-radius(0);
+        padding: 0;
+        border-top-width: 0;
+        width: 280px;
+        &,
+        >.user-body {
+            @include border-bottom-radius(4px);
         }
-      }
-    }
-
-    // Menu Body
-    >.user-body {
-      padding: 15px;
-      border-bottom: 1px solid #f4f4f4;
-      border-top: 1px solid #dddddd;
-      @include clearfix();
-
-      a {
-        color: #444 !important;
-
-        @include media-breakpoint-up(sm) {
-          background: #fff !important;
-          color: #444 !important;
+        // Header menu
+        >li.user-header {
+            height: 175px;
+            padding: 10px;
+            text-align: center;
+            // User image
+            >img {
+                z-index: 5;
+                height: 90px;
+                width: 90px;
+                border: 3px solid;
+                border-color: transparent;
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+            >p {
+                z-index: 5;
+                color: #fff;
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 17px;
+                //text-shadow: 2px 2px 3px #333333;
+                margin-top: 10px;
+                >small {
+                    display: block;
+                    font-size: 12px;
+                }
+            }
         }
-      }
-    }
-
-    // Menu Footer
-    >.user-footer {
-      background-color: #f9f9f9;
-      padding: 10px;
-      @include clearfix();
-
-      .btn-default {
-        color: #666666;
-
-        &:hover {
-          @include media-breakpoint-up(sm) {
+        // Menu Body
+        >.user-body {
+            padding: 15px;
+            border-bottom: 1px solid #f4f4f4;
+            border-top: 1px solid #dddddd;
+            @include clearfix();
+            a {
+                color: #444 !important;
+                @include media-breakpoint-up(sm) {
+                    background: #fff !important;
+                    color: #444 !important;
+                }
+            }
+        }
+        // Menu Footer
+        >.user-footer {
             background-color: #f9f9f9;
-          }
+            padding: 10px;
+            @include clearfix();
+            .btn-default {
+                color: #666666;
+                &:hover {
+                    @include media-breakpoint-up(sm) {
+                        background-color: #f9f9f9;
+                    }
+                }
+            }
         }
-      }
     }
-  }
-
-  .user-image {
-    float: left;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-top: -2px;
-
-    @include media-breakpoint-up(sm) {
-      float: none;
-      margin-right: 0;
-      margin-top: -8px;
-      line-height: 10px;
+    .user-image {
+        float: left;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 10px;
+        margin-top: -2px;
+        @include media-breakpoint-up(sm) {
+            float: none;
+            margin-right: 0;
+            margin-top: -8px;
+            line-height: 10px;
+        }
     }
-  }
 }
 
 // Login
-
 .login-logo .title {
-  color: #fff;
-  text-align: center;
-  font-size: 30px;
-  letter-spacing: 1px;
-  margin-top: 20px;
-  font-weight: 500;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    font-weight: 500;
 }
 
 .register-logo .title {
-  color: #fff;
-  text-align: center;
-  font-size: 30px;
-  letter-spacing: 1px;
-  margin-top: 20px;
-  font-weight: 500;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    font-weight: 500;
 }
 
 .login-page,
 .register-page {
-  background: url('../../public/img/bg.jpg') center no-repeat;
-  background-size: cover;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
+    background: url("../../public/img/bg.jpg") center no-repeat;
+    background-size: cover;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
 }
 
 .login-box-msg,
 .register-box-msg {
-  font-size: 20px;
-  font-weight: bold;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .login-card,
 .register-card {
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: 30px;
-  border-radius: 6px;
-  margin: 40px 0 20px;
-  width: 450px;
-  box-shadow: 0 5px 15px 20px rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 30px;
+    border-radius: 6px;
+    margin: 40px 0 20px;
+    width: 450px;
+    box-shadow: 0 5px 15px 20px rgba(0, 0, 0, 0.3);
 }
 
 .login-box,
 .register-box {
-  width: auto;
+    width: auto;
 }
 
 .login-footer {
-  color: #fff;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 1px;
-  opacity: 0.5;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 1px;
+    opacity: 0.5;
 }
 
 .register-footer {
-  color: #fff;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 1px;
-  opacity: 0.5;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 1px;
+    opacity: 0.5;
 }
 
 .row_per_page_option {
@@ -306,6 +286,14 @@ $line-height-base: 1.6;
 }
 
 .card_title_margin {
-    margin-bottom: unset !important; 
+    margin-bottom: unset !important;
     margin-top: 3px !important;
+}
+
+.vgt-table.polar-bear thead th {
+    vertical-align: middle;
+}
+
+.vgt-global-search__input .input__icon .magnifying-glass {
+    margin-top: -3px;
 }
