@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('dashboard_empats', function (Blueprint $table) {
             $table->id();
             $table->string('status_bc_16')->nullable();
-            $table->string('jumlah_bc_16')->nullable();
+            $table->integer('jumlah_bc_16')->nullable();
             $table->timestamps();
         });
     }

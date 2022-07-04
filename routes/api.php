@@ -72,5 +72,5 @@ Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
 Route::get('dashboard/one', [DashboardController::class, 'dashboardSatu']);
 Route::get('dashboard/two', [DashboardController::class, 'dashboardDua']);
 Route::get('dashboard/three', [DashboardController::class, 'dashboardTiga']);
-Route::get('dashboard/empat', [DashboardController::class, 'dashboardEmpat']);
-Route::get('dashboard/lima', [DashboardController::class, 'dashboardLima']);
+Route::get('dashboard/four', [DashboardController::class, 'dashboardEmpat']);
+Route::get('dashboard/five', [DashboardController::class, 'dashboardLima']);

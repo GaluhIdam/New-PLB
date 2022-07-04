@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('dashboard_tigas', function (Blueprint $table) {
             $table->id();
-            $table->string('bulan')->nullable();
+            $table->date('bulan')->nullable();
             $table->integer('total_bc28')->nullable();
             $table->bigInteger('payment_value_bc28')->nullable();
             $table->timestamps();

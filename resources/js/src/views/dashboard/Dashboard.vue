@@ -18,42 +18,59 @@
 
     <div class="content" id="chart">
       <div class="container-fluid">
-        <div class="row">
-          <!-- START: Report Inbound -->
-          <!-- DASHBOARD one -->
-          <div class="col">
-            <dashboard-one
+        <div class="row mb-5 mt-5 d-flex justify-content-center">
+          <!-- Pie three -->
+          <div class="col-md-6 mt-4">
+            <pie-three
               type="pie"
-              :options="pie_one.chartOptions"
-              :series="pie_one.series"
-            ></dashboard-one>
+              ref="pie_three"
+              :options="pie_three.chartOptions"
+              :series="pie_three.series"
+            ></pie-three>
           </div>
-          <!-- DASHBOARD one -->
-          <!-- DASHBOARD two -->
-          <div class="col">
-            <dashboard-two
+          <!-- Pie three -->
+          <!-- Pie two -->
+          <div class="col-md-6 mt-4">
+            <pie-two
               type="pie"
+              ref="pie_two"
               :options="pie_two.chartOptions"
               :series="pie_two.series"
-            ></dashboard-two>
+            ></pie-two>
           </div>
-          <!-- DASHBOARD two -->
+          <!-- Pie two -->
         </div>
-        <div class="row">
-          <!-- START: Report Inbound -->
-          <!-- DASHBOARD three -->
-          <div class="col">
-            <dashboard-three
+        <div class="row mt-5 mb-5 d-flex justify-content-center">
+          <!-- Column One -->
+          <div class="col-md-6 mt-4">
+            <column-two
+              type="bar"
+              ref="column_two"
+              :options="column_two.chartOptions"
+              :series="column_two.series"
+            ></column-two>
+          </div>
+          <!-- Column One -->
+          <!-- Column Two -->
+          <div class="col-md-6 mt-4">
+            <column-one
               type="line"
-              height="350"
+              ref="column_one"
               :options="column_one.chartOptions"
               :series="column_one.series"
-            ></dashboard-three>
+            ></column-one>
           </div>
-          <!-- DASHBOARD three -->
-          <!-- DASHBOARD four -->
-          <div class="col"></div>
-          <!-- DASHBOARD four -->
+          <!-- Column Two -->
+          <!-- Pie one -->
+          <div class="col-md-6 mt-4">
+            <pie-one
+              type="pie"
+              ref="pie_one"
+              :options="pie_one.chartOptions"
+              :series="pie_one.series"
+            ></pie-one>
+          </div>
+          <!-- Pie one -->
         </div>
       </div>
     </div>
@@ -64,9 +81,11 @@
 import VueApexCharts from "vue-apexcharts";
 import axios from "axios";
 
-Vue.component("dashboard-one", VueApexCharts);
-Vue.component("dashboard-two", VueApexCharts);
-Vue.component("dashboard-three", VueApexCharts);
+Vue.component("pie-one", VueApexCharts);
+Vue.component("pie-two", VueApexCharts);
+Vue.component("pie-three", VueApexCharts);
+Vue.component("column-one", VueApexCharts);
+Vue.component("column-two", VueApexCharts);
 
 Vue.use(VueApexCharts);
 
@@ -77,13 +96,17 @@ export default {
         series: [],
         chartOptions: {
           chart: {
-            width: "100%",
             type: "pie",
+          },
+          legend: {
+            show: true,
+          },
+          legend: {
+            position: "bottom",
           },
           title: {
             text: "Status Part Consume Install Tahun 2022",
           },
-          // labels: ["a", "b", "c", "d"],
           labels: [],
           theme: {
             palette: "palette4", // upto palette10
@@ -108,18 +131,23 @@ export default {
           },
         },
       },
+
       pie_two: {
         series: [],
         chartOptions: {
           chart: {
-            width: "100%",
             type: "pie",
+          },
+          legend: {
+            show: true,
+          },
+          legend: {
+            position: "bottom",
           },
           title: {
             text: "Jumlah Pesawat yang ada di Hangar PT GMF Aeroasia",
           },
-          labels: ["a", "b", "c", "d"],
-          // labels: [],
+          labels: [],
           theme: {
             palette: "palette6", // upto palette10
           },
@@ -143,17 +171,58 @@ export default {
           },
         },
       },
+
+      pie_three: {
+        series: [],
+        chartOptions: {
+          chart: {
+            type: "pie",
+          },
+          legend: {
+            show: true,
+          },
+          legend: {
+            position: "bottom",
+          },
+          title: {
+            text: "Status Masa Timbun",
+          },
+          labels: [],
+          theme: {
+            palette: "palette6", // upto palette10
+          },
+          plotOptions: {
+            pie: {
+              dataLabels: {
+                offset: -5,
+              },
+            },
+          },
+          dataLabels: {
+            enabled: true,
+            style: {
+              colors: ["#111"],
+            },
+            background: {
+              enabled: true,
+              foreColor: "#fff",
+              borderWidth: 0,
+            },
+          },
+        },
+      },
+
       column_one: {
         series: [
           {
-            name: "Website Blog",
+            name: "Nilai Pembayaran BC 28",
             type: "column",
-            data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160],
+            data: [],
           },
           {
-            name: "Social Media",
+            name: "Jumlah BC",
             type: "line",
-            data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16],
+            data: [],
           },
         ],
         chartOptions: {
@@ -165,7 +234,7 @@ export default {
             width: [0, 4],
           },
           title: {
-            text: "Traffic Sources",
+            text: "Status BC 28 Tahun 2022",
           },
           dataLabels: {
             enabled: true,
@@ -178,16 +247,50 @@ export default {
           yaxis: [
             {
               title: {
-                text: "Website Blog",
+                text: "Nilai Pembayaran BC 28",
               },
             },
             {
               opposite: true,
               title: {
-                text: "Social Media",
+                text: "Jumlah BC",
               },
             },
           ],
+        },
+      },
+      column_two: {
+        series: [
+          {
+            name: "Nilai Pembayaran BC 28",
+            type: "column",
+            data: [],
+          },
+        ],
+        chartOptions: {
+          chart: {
+            height: 350,
+            type: "line",
+          },
+          stroke: {
+            width: [0, 4],
+          },
+          title: {
+            text: "Total Quantity",
+          },
+          dataLabels: {
+            enabled: true,
+
+            offsetY: -20,
+            style: {
+              fontSize: "12px",
+              colors: ["#304758"],
+            },
+          },
+          labels: [],
+          xaxis: {
+            type: "date",
+          },
         },
       },
     };
@@ -195,9 +298,12 @@ export default {
   created() {
     this.dataOne();
     this.dataTwo();
+    this.dataThree();
+    this.dataFour();
+    this.dataFive();
   },
   methods: {
-    //Pie One
+    //Status Part Consume Install Tahun 2022
     dataOne() {
       const series_one = [];
       const label_one = [];
@@ -208,16 +314,14 @@ export default {
             series_one.push(item.item);
             label_one.push(item.status_bc_28);
           });
-          console.log(series_one);
-          console.log(label_one);
           this.pie_one.series = series_one;
-          this.pie_one.chartOptions.labels = label_one;
+          this.$refs.pie_one.updateOptions({ labels: label_one });
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    //Pie Two
+    //Jumlah Pesawat Yang Ada di Hangar
     dataTwo() {
       const series_two = [];
       const label_two = [];
@@ -228,30 +332,65 @@ export default {
             series_two.push(item.total);
             label_two.push(item.customer);
           });
-          console.log(series_two);
-          console.log(label_two);
           this.pie_two.series = series_two;
-          // this.pie_two.chartOptions.labels = label_two;
+          this.$refs.pie_two.updateOptions({ labels: label_two });
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    //Column trhee
+    //Masa Timbun
+    dataFour() {
+      const series_four = [];
+      const label_four = [];
+      axios
+        .get("api/dashboard/four")
+        .then((response) => {
+          response.data.map((item) => {
+            series_four.push(item.jumlah_bc_16);
+            label_four.push(item.status_bc_16);
+          });
+          this.pie_three.series = series_four;
+          this.$refs.pie_three.updateOptions({ labels: label_four });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    //Status BC 28 Tahun 2022
     dataThree() {
-      const series_three = [];
+      const series_three_one = [];
+      const series_three_two = [];
       const label_three = [];
       axios
         .get("api/dashboard/three")
         .then((response) => {
           response.data.map((item) => {
-            series_three.push(item.total_bc28);
-            label_three.push(item.payment_value_bc28);
+            series_three_one.push(item.total_bc28);
+            series_three_two.push(item.payment_value_bc28);
+            label_three.push(item.bulan);
           });
-          console.log(series_three);
-          console.log(label_three);
-          // this.pie_two.series = series_three;
-          // this.pie_two.chartOptions.labels = label_three;
+          this.column_one.series[0].data = series_three_two;
+          this.column_one.series[1].data = series_three_one;
+          this.$refs.column_one.updateOptions({ labels: label_three });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    //Total QTY
+    dataFive() {
+      const series_five = [];
+      const label_five = [];
+      axios
+        .get("api/dashboard/five")
+        .then((response) => {
+          response.data.map((item) => {
+            series_five.push(item.quantity);
+            label_five.push(item.plant);
+          });
+          this.column_two.series[0].data = series_five;
+          this.$refs.column_two.updateOptions({ labels: label_five });
         })
         .catch((error) => {
           console.log(error);
