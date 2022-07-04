@@ -15,7 +15,7 @@ use Database\Seeders\DashboardEmpatSeeder;
 use Database\Seeders\MutationReportSeeder;
 use Database\Seeders\ActivityHistorySeeder;
 use Database\Seeders\MutationPeriodicSeeder;
-use Database\Seeders\MovementAllotmentSedder;
+use Database\Seeders\MovementAllotmentSeeder;
 use Database\Seeders\InventoryAllotmentSeeder;
 use Database\Seeders\CustomsInboundDocumentSeeder;
 use Database\Seeders\CustomsOutboundDocumentSeeder;
@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             OutboundSeeder::class,
             UserSeeder::class,
             InventoryAllotmentSeeder::class,
-            MovementAllotmentSedder::class,
+            MovementAllotmentSeeder::class,
             DashboardSatuSeeder::class,
             DashboardDuaSeeder::class,
             DashboardTigaSeeder::class,
