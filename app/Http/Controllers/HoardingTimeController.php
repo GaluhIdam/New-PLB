@@ -21,6 +21,7 @@ class HoardingTimeController extends Controller
         $search_unit = $request->get('search_unit');
         $search_total = $request->get('search_total');
         $search_status = $request->get('search_status');
+        $search_reporting_year = $request->input('search_reporting_year');
 
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
@@ -47,7 +48,8 @@ class HoardingTimeController extends Controller
                     ->orWhere('item_name', 'LIKE', "%{$search}%")
                     ->orWhere('unit', 'LIKE', "%{$search}%")
                     ->orWhere('total', 'LIKE', "%{$search}%")
-                    ->orWhere('status', 'LIKE', "%{$search}%");
+                    ->orWhere('status', 'LIKE', "%{$search}%")
+                    ->orWhere('reporting_year', 'LIKE', "%{$search}%");
             });
         })
             ->when($search_bc_16_code, function ($query) use ($search_bc_16_code) {
@@ -79,6 +81,9 @@ class HoardingTimeController extends Controller
             })
             ->when($search_status, function ($query) use ($search_status) {
                 $query->where('status', 'like', "%{$search_status}%");
+            })
+            ->when(function ($query) use ($search_reporting_year) {
+                return $query->whereYear('registration_date', $search_reporting_year)->get();
             })
             ->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);

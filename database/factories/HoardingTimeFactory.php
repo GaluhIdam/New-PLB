@@ -17,7 +17,7 @@ class HoardingTimeFactory extends Factory
     {
         return [
             'bc_16_code' => $this->faker->numerify('001###'),
-            'registration_date' => $this->faker->date('Y_m_d'),
+            'registration_date' => $this->faker->unique()->dateTimeBetween('-4 years', 'now'),
             'registration_number' => $this->faker->randomNumber(6, true),
             'submission_number' => $this->faker->numerify('03900#####'),
             'date_of_filing' => $this->faker->date('Y_m_d'),
