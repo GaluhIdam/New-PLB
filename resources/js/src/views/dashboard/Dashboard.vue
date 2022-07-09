@@ -15,62 +15,153 @@
         </div>
       </div>
     </div>
-
     <div class="content" id="chart">
       <div class="container-fluid">
-        <div class="row mb-5 mt-5 d-flex justify-content-center">
-          <!-- Pie three -->
-          <div class="col-md-6 mt-4">
-            <pie-three
-              type="pie"
-              ref="pie_three"
-              :options="pie_three.chartOptions"
-              :series="pie_three.series"
-            ></pie-three>
+        <div class="row">
+          <!-- BEGIN: Status Outbound -->
+          <div class="col-md-7">
+            <div class="card card-dashboard">
+              <div class="card-header ui-sortable-handle">
+                <h5 class="card-title card_title_margin">Status Outbound</h5>
+                <div class="card-tools">
+                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="align-items-center d-flex justify-content-center">
+                  <pie-one
+                    type="pie"
+                    ref="pie_one"
+                    width="615"
+                    :options="pie_one.chartOptions"
+                    :series="pie_one.series"
+                  ></pie-one>
+                </div>
+              </div>
+              <div class="card-footer text-center p-1">
+                <h5>Status Part Consume Install Tahun 2022</h5>
+              </div>
+            </div>
           </div>
-          <!-- Pie three -->
-          <!-- Pie two -->
-          <div class="col-md-6 mt-4">
-            <pie-two
-              type="pie"
-              ref="pie_two"
-              :options="pie_two.chartOptions"
-              :series="pie_two.series"
-            ></pie-two>
+          <!-- END: Status Outbound -->
+
+          <!-- BEGIN: Status Pesawat di GMF -->
+          <div class="col-md-5">
+            <div class="card card-dashboard">
+              <div class="card-header border-0 ui-sortable-handle">
+                <h5 class="card-title card_title_margin">Status Pesawat di GMF</h5>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="align-items-center d-flex justify-content-center">
+                  <pie-two
+                    type="pie"
+                    ref="pie_two"
+                    width="350"
+                    :options="pie_two.chartOptions"
+                    :series="pie_two.series"
+                  ></pie-two>
+                </div>
+              </div>
+              <div class="card-footer text-center p-1">
+                <h5>Jumlah Pesawat yang ada di Hangar</h5>
+              </div>
+            </div>
           </div>
-          <!-- Pie two -->
         </div>
-        <div class="row mt-5 mb-5 d-flex justify-content-center">
-          <!-- Column One -->
-          <div class="col-md-6 mt-4">
-            <column-two
-              type="bar"
-              ref="column_two"
-              :options="column_two.chartOptions"
-              :series="column_two.series"
-            ></column-two>
+        <!-- END: Status Pesawat di GMF -->
+
+        <!-- BEGIN: Status BC28 -->
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card card-dashboard">
+              <div class="card-header ui-sortable-handle">
+                <h5 class="card-title card_title_margin">Status BC28</h5>
+                <div class="card-tools">
+                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="align-items-center d-flex justify-content-center">
+                  <column-one
+                    type="line"
+                    ref="column_one"
+                    :options="column_one.chartOptions"
+                    :series="column_one.series"
+                  ></column-one>
+                </div>
+              </div>
+              <div class="card-footer text-center p-1">
+                <h5>Status BC 28 Tahun 2022</h5>
+              </div>
+            </div>
           </div>
-          <!-- Column One -->
-          <!-- Column Two -->
-          <div class="col-md-6 mt-4">
-            <column-one
-              type="line"
-              ref="column_one"
-              :options="column_one.chartOptions"
-              :series="column_one.series"
-            ></column-one>
+          <!-- END: Status BC28 -->
+
+          <!-- BEGIN: Saldo Akhir Allotment -->
+          <div class="col-md-4">
+            <div class="card card-dashboard">
+              <div class="card-header ui-sortable-handle">
+                <h5 class="card-title card_title_margin">Saldo Akhir Allotment</h5>
+                <div class="card-tools">
+                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="align-items-center d-flex justify-content-center">
+                  <column-two
+                    type="bar"
+                    ref="column_two"
+                    :options="column_two.chartOptions"
+                    :series="column_two.series"
+                  ></column-two>
+                </div>
+              </div>
+              <div class="card-footer text-center p-1">
+                <h5>Total Quantity</h5>
+              </div>
+            </div>
           </div>
-          <!-- Column Two -->
-          <!-- Pie one -->
-          <div class="col-md-6 mt-4">
-            <pie-one
-              type="pie"
-              ref="pie_one"
-              :options="pie_one.chartOptions"
-              :series="pie_one.series"
-            ></pie-one>
+          <!-- END: Saldo Akhir Allotment -->
+
+          <!-- BEGIN: Status Masa Timbun -->
+          <div class="col-md-4">
+            <div class="card card-dashboard">
+              <div class="card-header ui-sortable-handle">
+                <h5 class="card-title card_title_margin">Status Masa Timbun</h5>
+                <div class="card-tools">
+                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="align-items-center d-flex justify-content-center">
+                  <pie-three
+                    type="pie"
+                    ref="pie_three"
+                    width="325"
+                    :options="pie_three.chartOptions"
+                    :series="pie_three.series"
+                  ></pie-three>
+                </div>
+              </div>
+              <div class="card-footer text-center p-1">
+                <h5>Status Masa Timbun BC 16</h5>
+              </div>
+            </div>
           </div>
-          <!-- Pie one -->
+          <!-- END: Status Masa Timbun -->
         </div>
       </div>
     </div>
@@ -96,21 +187,19 @@ export default {
         series: [],
         chartOptions: {
           chart: {
+            width: 615,
             type: "pie",
           },
+          colors: ["#70AD47", "#5B9BD5", "#FFC000", "#43682B"],
           legend: {
             show: true,
+            position: "right",
+            floating: false,
+            fontSize: "14px",
+            fontFamily: "Helvetica, Arial",
           },
-          legend: {
-            position: "bottom",
-          },
-          title: {
-            text: "Status Part Consume Install Tahun 2022",
-          },
+
           labels: [],
-          theme: {
-            palette: "palette4", // upto palette10
-          },
           plotOptions: {
             pie: {
               dataLabels: {
@@ -136,21 +225,19 @@ export default {
         series: [],
         chartOptions: {
           chart: {
+            width: 350,
             type: "pie",
           },
+          colors: ["#ED7D31", "#A5A5A5", "#FFC000", "#5B9BD5"],
           legend: {
             show: true,
-          },
-          legend: {
             position: "bottom",
-          },
-          title: {
-            text: "Jumlah Pesawat yang ada di Hangar PT GMF Aeroasia",
+            horizontalAlign: "center",
+            floating: false,
+            fontSize: "14px",
+            fontFamily: "Helvetica, Arial",
           },
           labels: [],
-          theme: {
-            palette: "palette6", // upto palette10
-          },
           plotOptions: {
             pie: {
               dataLabels: {
@@ -176,23 +263,21 @@ export default {
         series: [],
         chartOptions: {
           chart: {
+            width: 325,
+
             type: "pie",
           },
+          colors: ["#4472C4", "#ED7D31"],
           legend: {
             show: true,
           },
           legend: {
             position: "bottom",
           },
-          title: {
-            text: "Status Masa Timbun",
-          },
           labels: [],
-          theme: {
-            palette: "palette6", // upto palette10
-          },
           plotOptions: {
             pie: {
+              size: 50,
               dataLabels: {
                 offset: -5,
               },
@@ -229,34 +314,28 @@ export default {
           chart: {
             height: 350,
             type: "line",
+            zoom: {
+              enabled: false,
+            },
           },
           stroke: {
             width: [0, 4],
           },
-          title: {
-            text: "Status BC 28 Tahun 2022",
-          },
           dataLabels: {
             enabled: true,
             enabledOnSeries: [1],
+            style: {
+              colors: ["#4472C4", "#4472C4"],
+            },
           },
           labels: [],
           xaxis: {
             type: "datetime",
           },
-          yaxis: [
-            {
-              title: {
-                text: "Nilai Pembayaran BC 28",
-              },
-            },
-            {
-              opposite: true,
-              title: {
-                text: "Jumlah BC",
-              },
-            },
-          ],
+          fill: {
+            colors: ["#ED7D31"],
+          },
+          colors: ["#ED7D31", "#4472C4"],
         },
       },
       column_two: {
@@ -275,21 +354,19 @@ export default {
           stroke: {
             width: [0, 4],
           },
-          title: {
-            text: "Total Quantity",
-          },
           dataLabels: {
             enabled: true,
-
-            offsetY: -20,
             style: {
               fontSize: "12px",
-              colors: ["#304758"],
+              colors: ["#fff"],
             },
           },
           labels: [],
           xaxis: {
             type: "date",
+          },
+          fill: {
+            colors: ["#4472C4"],
           },
         },
       },

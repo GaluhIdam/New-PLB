@@ -20,11 +20,11 @@ class DashboardSatuSeeder extends Seeder
             'item' => '587',
         ]);
         DashboardSatu::create([
-            'status_bc_28' => 'Outbound <=14 Hari sejak Pesawat Keluar',
+            'status_bc_28' => 'Outbound <= 14 Hari sejak Pesawat Keluar',
             'item' => '778',
         ]);
         DashboardSatu::create([
-            'status_bc_28' => 'Outbound> 14 Hari sejak pesawat Keluar',
+            'status_bc_28' => 'Outbound > 14 Hari sejak Pesawat Keluar',
             'item' => '100',
         ]);
         DashboardSatu::create([
