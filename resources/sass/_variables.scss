@@ -95,6 +95,19 @@ $line-height-base: 1.6;
 
 [class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link:hover,
 [class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link:focus {
+	background-color: #446587;
+	color: #ededed;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+	background-color: #517aa2;
+	color: #ededed;
+}
+
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active,
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:hover,
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:focus {
 	background-color: #517aa2;
 	color: #ededed;
 }
