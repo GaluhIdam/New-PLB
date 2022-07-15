@@ -8,7 +8,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
               <li class="breadcrumb-item active"><a href="/inventory-allotment">Inventory Allotment</a></li>
             </ol>
           </div>
@@ -39,12 +39,21 @@
                     <input type="search" class="form-control" v-model="filter_from_plant" />
                   </div>
                 </div>
-                <div class="form-group row justify-content-center align-items-center">
-                  <div class="offset-sm-5 col-sm-7">
-                    <button type="button" class="btn btn-primary btn-md" @click="filter">search</button>
-                    <button type="button" class="btn btn-secondary" @click="reset">Reset</button>
+
+                <div class="row">
+                  <div class="col-md-3 col-sm-6"></div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label"></label>
+                      <div class="col-sm-4">
+                        <button class="btn btn-primary btn-md" @click="filter">Filter</button>
+                        <button class="btn btn-secondary btn-md" @click="reset">Reset</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                <hr />
                 <div class="form-group">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
@@ -56,7 +65,8 @@
                             </span>
                             <span class="sr-only"> Search </span>
                           </label>
-                          <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left" v-model="search" />
+                          <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left"
+                            v-model="search" />
                         </div>
                       </div>
                       <div class="vgt-responsive">
@@ -64,13 +74,15 @@
                           <thead>
                             <tr>
                               <!-- BEGIN: Number by ID (Table Header) -->
-                              <th v-if="order == 'id' && by == 'asc'" @click="sort('id', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'id' && by == 'asc'" @click="sort('id', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'id' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'id' && by == 'desc'" @click="sort('id', 'asc')"
+                                class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -84,13 +96,15 @@
                               </th>
 
                               <!-- END: Number by ID (Table Header) -->
-                              <th v-if="order == 'part_number' && by == 'asc'" @click="sort('part_number', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'part_number' && by == 'asc'" @click="sort('part_number', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Part Number</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'part_number' && by == 'desc'" @click="sort('part_number', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'part_number' && by == 'desc'" @click="sort('part_number', 'asc')"
+                                class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Part Number</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -103,13 +117,15 @@
                                 </button>
                               </th>
                               <!--  -->
-                              <th v-if="order == 'from_plant' && by == 'asc'" @click="sort('from_plant', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'from_plant' && by == 'asc'" @click="sort('from_plant', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Plant Asal</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'from_plant' && by == 'desc'" @click="sort('from_plant', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'from_plant' && by == 'desc'" @click="sort('from_plant', 'asc')"
+                                class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Plant Asal</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -122,13 +138,15 @@
                                 </button>
                               </th>
                               <!--  -->
-                              <th v-if="order == 'to_plant' && by == 'asc'" @click="sort('to_plant', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'to_plant' && by == 'asc'" @click="sort('to_plant', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Plant Tujuan</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'to_plant' && by == 'desc'" @click="sort('to_plant', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'to_plant' && by == 'desc'" @click="sort('to_plant', 'asc')"
+                                class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Plant Tujuan</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -141,13 +159,15 @@
                                 </button>
                               </th>
                               <!--  -->
-                              <th v-if="order == 'quantity' && by == 'asc'" @click="sort('quantity', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'quantity' && by == 'asc'" @click="sort('quantity', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'quantity' && by == 'desc'" @click="sort('quantity', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'quantity' && by == 'desc'" @click="sort('quantity', 'asc')"
+                                class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -161,13 +181,15 @@
                               </th>
 
                               <!--  -->
-                              <th v-if="order == 'unit_code' && by == 'asc'" @click="sort('unit_code', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'unit_code' && by == 'asc'" @click="sort('unit_code', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Kode Satuan</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'unit_code' && by == 'desc'" @click="sort('unit_code', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'unit_code' && by == 'desc'" @click="sort('unit_code', 'asc')"
+                                class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Kode Satuan</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -185,27 +207,32 @@
                               <th class="filter-th"></th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter part_number" v-model="search_part_number" />
+                                  <input type="text" class="vgt-input" placeholder="Filter part_number"
+                                    v-model="search_part_number" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter IP Address" v-model="search_from_plant" />
+                                  <input type="text" class="vgt-input" placeholder="Filter IP Address"
+                                    v-model="search_from_plant" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter IP Address" v-model="search_to_plant" />
+                                  <input type="text" class="vgt-input" placeholder="Filter IP Address"
+                                    v-model="search_to_plant" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter User Agent" v-model="search_quantity" />
+                                  <input type="text" class="vgt-input" placeholder="Filter User Agent"
+                                    v-model="search_quantity" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter IP Address" v-model="search_unit_code" />
+                                  <input type="text" class="vgt-input" placeholder="Filter IP Address"
+                                    v-model="search_unit_code" />
                                 </div>
                               </th>
                             </tr>
@@ -230,7 +257,8 @@
                       <div class="vgt-wrap__footer vgt-clearfix">
                         <div class="footer__row-count vgt-pull-left">
                           <label class="footer__row-count__label row_per_page_label"> Rows per page: </label>
-                          <select class="footer__row-count__select row_per_page_option" v-model="paginate" @change="list()">
+                          <select class="footer__row-count__select row_per_page_option" v-model="paginate"
+                            @change="list()">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -238,36 +266,29 @@
                           </select>
                         </div>
                         <div class="footer__navigation vgt-pull-right">
-                          <button
-                            type="button"
-                            class="footer__navigation__page-btn"
-                            :class="{
-                              disabled: !inventory_allotment.prev_page_url
-                            }"
+                          <button type="button" class="footer__navigation__page-btn" :class="{
+                            disabled: !inventory_allotment.prev_page_url,
+                          }"
                             @click="inventory_allotment.prev_page_url && list(inventory_allotment.prev_page_url)"
-                            style="margin-right: 0px"
-                          >
+                            style="margin-right: 0px">
                             <span aria-hidden="true" class="chevron left"></span>
                             <span class="paginate_text">Prev</span>
                           </button>
                           <div class="footer__navigation__page-info" style="color: #99a0b2">
                             <label class="page-info__label" style="margin-bottom: -5px">
                               <span class="paginate_text">page</span>
-                              <input type="text" class="footer__navigation__page-info__current-entry vgt-input" v-model="current_page" @keypress="directPage" style="width: 60px" />
+                              <input type="text" class="footer__navigation__page-info__current-entry vgt-input"
+                                v-model="current_page" @keypress="directPage" style="width: 60px" />
                               <span class="paginate_text">
                                 of
                                 {{ inventory_allotment.last_page }}
                               </span>
                             </label>
                           </div>
-                          <button
-                            type="button"
-                            class="footer__navigation__page-btn"
-                            :class="{
-                              disabled: !inventory_allotment.next_page_url
-                            }"
-                            @click="inventory_allotment.next_page_url && list(inventory_allotment.next_page_url)"
-                          >
+                          <button type="button" class="footer__navigation__page-btn" :class="{
+                            disabled: !inventory_allotment.next_page_url,
+                          }"
+                            @click="inventory_allotment.next_page_url && list(inventory_allotment.next_page_url)">
                             <span style="font-weight: 500">Next</span>
                             <span aria-hidden="true" class="chevron right"></span>
                           </button>
@@ -286,16 +307,16 @@
 </template>
 
 <script>
-import axios from 'axios'
-import debounce from 'lodash/debounce'
-import Swal from 'sweetalert2'
+import axios from "axios";
+import debounce from "lodash/debounce";
+import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
       inventory_allotment: {
         data: [],
-        links: []
+        links: [],
       },
       search: null,
       search_part_number: null,
@@ -305,39 +326,39 @@ export default {
       search_unit_code: null,
 
       filter_from_plant: null,
-      order: 'id',
-      by: 'desc',
-      paginate: '10',
-      current_page: null
-    }
+      order: "id",
+      by: "desc",
+      paginate: "10",
+      current_page: null,
+    };
   },
   created() {
-    this.list()
+    this.list();
   },
   watch: {
     search: debounce(function () {
-      this.list()
+      this.list();
     }, 500),
     search_part_number: debounce(function () {
-      this.list()
+      this.list();
     }, 500),
     search_form_plant: debounce(function () {
-      this.list()
+      this.list();
     }, 500),
     search_to_plant: debounce(function () {
-      this.list()
+      this.list();
     }, 500),
     search_quantity: debounce(function () {
-      this.list()
+      this.list();
     }, 500),
     search_unit_code: debounce(function () {
-      this.list()
-    }, 500)
+      this.list();
+    }, 500),
   },
   methods: {
     list(paginate) {
-      this.showLoading()
-      paginate = paginate || `/api/inventory-allotment`
+      this.showLoading();
+      paginate = paginate || `/api/inventory-allotment`;
       axios
         .get(paginate, {
           params: {
@@ -350,53 +371,53 @@ export default {
             start_unit_code: this.search_unit_code,
             order: this.order,
             by: this.by,
-            paginate: this.paginate
-          }
+            paginate: this.paginate,
+          },
         })
         .then((response) => {
-          this.inventory_allotment = response.data
-          this.current_page = this.inventory_allotment.current_page
+          this.inventory_allotment = response.data;
+          this.current_page = this.inventory_allotment.current_page;
           //console.log(this.inventory_allotment)
-          Swal.close()
+          Swal.close();
         })
-        .catch((error) => console.log(error))
+        .catch((error) => console.log(error));
     },
     filter() {
-      this.list()
+      this.list();
     },
     reset() {
-      this.filter_from_plant = null
-      this.list()
+      this.filter_from_plant = null;
+      this.list();
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
-        this.current_page = 1
+        this.current_page = 1;
       } else if (this.current_page > this.inventory_allotment.last_page) {
-        this.current_page = this.inventory_allotment.last_page
+        this.current_page = this.inventory_allotment.last_page;
       }
 
-      let url = new URL(this.inventory_allotment.first_page_url)
-      let search_params = url.searchParams
-      search_params.set('page', this.current_page)
-      url.search = search_params.toString()
-      let new_url = url.toString()
-      this.list(new_url)
+      let url = new URL(this.inventory_allotment.first_page_url);
+      let search_params = url.searchParams;
+      search_params.set("page", this.current_page);
+      url.search = search_params.toString();
+      let new_url = url.toString();
+      this.list(new_url);
     }, 500),
     sort(order, by) {
-      this.order = order
-      this.by = by
-      this.list()
+      this.order = order;
+      this.by = by;
+      this.list();
     },
 
     showLoading() {
       Swal.fire({
         didOpen: () => {
-          Swal.showLoading()
+          Swal.showLoading();
         },
-        background: 'transparent',
-        allowOutsideClick: false
-      })
-    }
-  }
-}
+        background: "transparent",
+        allowOutsideClick: false,
+      });
+    },
+  },
+};
 </script>
