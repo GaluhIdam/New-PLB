@@ -33,8 +33,8 @@
                 <div class="align-items-center d-flex justify-content-center">
                   <pie-one
                     type="pie"
+                    width="715"
                     ref="pie_one"
-                    width="615"
                     :options="pie_one.chartOptions"
                     :series="pie_one.series"
                   ></pie-one>
@@ -62,8 +62,8 @@
                 <div class="align-items-center d-flex justify-content-center">
                   <pie-two
                     type="pie"
+                    width="467"
                     ref="pie_two"
-                    width="350"
                     :options="pie_two.chartOptions"
                     :series="pie_two.series"
                   ></pie-two>
@@ -94,6 +94,7 @@
                   <column-one
                     type="line"
                     ref="column_one"
+                    height="350"
                     :options="column_one.chartOptions"
                     :series="column_one.series"
                   ></column-one>
@@ -122,6 +123,7 @@
                   <column-two
                     type="bar"
                     ref="column_two"
+                    height="350"
                     :options="column_two.chartOptions"
                     :series="column_two.series"
                   ></column-two>
@@ -150,7 +152,8 @@
                   <pie-three
                     type="pie"
                     ref="pie_three"
-                    width="325"
+                    width="400"
+                    height="400"
                     :options="pie_three.chartOptions"
                     :series="pie_three.series"
                   ></pie-three>
@@ -187,7 +190,7 @@ export default {
         series: [],
         chartOptions: {
           chart: {
-            width: 615,
+            width: 715,
             type: "pie",
           },
           colors: ["#70AD47", "#5B9BD5", "#FFC000", "#43682B"],
@@ -225,14 +228,13 @@ export default {
         series: [],
         chartOptions: {
           chart: {
-            width: 350,
             type: "pie",
+            width: 467,
           },
           colors: ["#ED7D31", "#A5A5A5", "#FFC000", "#5B9BD5"],
           legend: {
             show: true,
             position: "bottom",
-            horizontalAlign: "center",
             floating: false,
             fontSize: "14px",
             fontFamily: "Helvetica, Arial",
@@ -263,26 +265,26 @@ export default {
         series: [],
         chartOptions: {
           chart: {
-            width: 325,
-
+            width: 400,
+            height: 400,
             type: "pie",
           },
-          colors: ["#4472C4", "#ED7D31"],
-          legend: {
-            show: true,
-          },
-          legend: {
-            position: "bottom",
-          },
-          labels: [],
           plotOptions: {
             pie: {
-              size: 50,
               dataLabels: {
                 offset: -5,
               },
             },
           },
+          colors: ["#4472C4", "#ED7D31"],
+          legend: {
+            show: true,
+            position: "bottom",
+            floating: false,
+            fontSize: "12px",
+            fontFamily: "Helvetica, Arial",
+          },
+          labels: [],
           dataLabels: {
             enabled: true,
             style: {
