@@ -9,7 +9,8 @@
 
     <div class="sidebar">
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 <li class="nav-item">
                     <router-link to="/dashboard" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
@@ -78,50 +79,50 @@
 
                 <!-- BEGIN: Aircraft Mutation -->
                 @can('isUser')
-                <li class="nav-item ">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa-solid fa-plane-circle-exclamation"></i>
-                        <p>
-                            Aircraft
-                            <i class="right fas fa-angle-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <router-link to="/aircraft-mutation" class="nav-link">
-                                <p>Mutation</p>
-                            </router-link>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="nav-item ">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-plane-circle-exclamation"></i>
+                            <p>
+                                Aircraft
+                                <i class="right fas fa-angle-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link to="/aircraft-mutation" class="nav-link">
+                                    <p>Mutation</p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
                 @endcan
                 @can('isAdminOrPlanner')
-                <li class="nav-item ">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa-solid fa-plane-circle-exclamation"></i>
-                        <p>
-                            Aircraft
-                            <i class="right fas fa-angle-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <router-link to="/aircraft-mutation" class="nav-link">
-                                <p>Mutation</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/aircraft-delivery" class="nav-link">
-                                <p>Delivery</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/aircraft-redelivery" class="nav-link">
-                                <p>Redelivery</p>
-                            </router-link>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="nav-item ">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-plane-circle-exclamation"></i>
+                            <p>
+                                Aircraft
+                                <i class="right fas fa-angle-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link to="/aircraft-mutation" class="nav-link">
+                                    <p>Mutation</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/aircraft-delivery" class="nav-link">
+                                    <p>Delivery</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/aircraft-redelivery" class="nav-link">
+                                    <p>Redelivery</p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
                 @endcan
                 <!-- END: Aircraft Mutation -->
 
@@ -150,7 +151,7 @@
                 <!-- END: Allotment -->
 
                 <!-- BEGIN: Mutasi -->
-                <li class="nav-item ">
+                {{-- <li class="nav-item ">
                     <a href="#" class=" nav-link">
                         <i class="nav-icon fa-solid fa-file-circle-exclamation"></i>
                         <p>Mutasi<i class="right fas fa-angle-right"></i></p>
@@ -172,7 +173,16 @@
                             </router-link>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
+
+                @can('isAdminOrPlanner')
+                    <li class="nav-item">
+                        <router-link to="/periodic-mutation" class="nav-link">
+                            <i class="nav-icon fa-solid fa-oil-well"></i>
+                            <p>Scrap</p>
+                        </router-link>
+                    </li>
+                @endcan
                 <!-- END: Mutasi -->
                 <!-- BEGIN: Scrap -->
                 <li class="nav-item">
@@ -194,41 +204,42 @@
 
                 <li class="nav-header">Miscellaneous</li>
                 @can('isAdmin')
-                <!-- BEGIN: User Management -->
-                <li class="nav-item ">
-                    <router-link to="/users-list" class="nav-link">
-                        <i class="nav-icon fa-solid fa-user-gear"></i>
-                        <p> User Management</p>
-                    </router-link>
-                </li>
+                    <!-- BEGIN: User Management -->
+                    <li class="nav-item ">
+                        <router-link to="/users-list" class="nav-link">
+                            <i class="nav-icon fa-solid fa-user-gear"></i>
+                            <p> User Management</p>
+                        </router-link>
+                    </li>
 
-                <!-- END: User Management -->
-                <!-- BEGIN: Log -->
-                <li class="nav-item ">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa-solid fa-server"></i>
-                        <p>
-                            Log
-                            <i class="right fas fa-angle-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <router-link to="/login-history" class="nav-link">
-                                <p>Login History</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/activity-history" class="nav-link">
-                                <p>Activity History</p>
-                            </router-link>
-                        </li>
-                    </ul>
-                </li>
-                <!-- END: Log -->
+                    <!-- END: User Management -->
+                    <!-- BEGIN: Log -->
+                    <li class="nav-item ">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-server"></i>
+                            <p>
+                                Log
+                                <i class="right fas fa-angle-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link to="/login-history" class="nav-link">
+                                    <p>Login History</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/activity-history" class="nav-link">
+                                    <p>Activity History</p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END: Log -->
                 @endcan
                 <li class="nav-item">
-                    <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
+                    <a href="{{ route('logout') }}" class="nav-link"
+                        onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
                         <i class="nav-icon fa-solid fa-right-from-bracket"></i>
                         <p class="text">Keluar</p>
