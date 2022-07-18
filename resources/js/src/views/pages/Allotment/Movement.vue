@@ -9,7 +9,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                            <li class="breadcrumb-item active"><a href="/movement-allotment">Movement Allotment</a></li>
+                            <li class="breadcrumb-item active"><span>Movement Allotment</span></li>
                         </ol>
                     </div>
                 </div>
@@ -34,21 +34,31 @@
                             </div>
 
                             <div class="card-body">
-                                <form class="form-horizontal">
-                                    <div class="form-group row justify-content-center align-items-center mt-4">
-                                        <label for="part_number" class="col-form-label">Tanggal Mutasi</label>
-                                        <div class="col-sm-2">
-                                            <input type="date" class="form-control" v-model="to_plant" autofocus />
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Tanggal Mutasi</label>
+                                            <div class="col-sm-4">
+                                                <input type="date" class="form-control" />
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input type="date" class="form-control" />
+                                            </div>
                                         </div>
-                                        <div class="col-sm-2">
-                                            <input type="date" class="form-control" v-model="to_plant" autofocus />
-                                        </div>
-                                        <div class="col-sm-11 mt-4 text-center">
-                                            <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-                                            <button class="btn btn-secondary"><i class="fa-solid fa-rotate"></i> Reset</button>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label"></label>
+                                            <div class="col-sm-4">
+                                                <button class="btn btn-primary btn-md" @click="filter"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+                                                <button class="btn btn-secondary btn-md" @click="reset"><i class="fa-solid fa-rotate"></i>Reset</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
+
+                                <hr />
+
                                 <div class="form-group">
                                     <div class="vgt-wrap polar-bear">
                                         <div class="vgt-inner-wrap">
@@ -472,6 +482,12 @@ export default {
                 background: "transparent",
                 allowOutsideClick: false,
             });
+        },
+        filter() {
+            this.list();
+        },
+        reset() {
+            this.list();
         },
     },
 };
