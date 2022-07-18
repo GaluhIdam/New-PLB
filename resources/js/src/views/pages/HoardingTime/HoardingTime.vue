@@ -8,13 +8,8 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <router-link :to="{ name: 'dashboard' }">Dashboard</router-link>
-                            </li>
-
-                            <li class="breadcrumb-item active">
-                                <span>Masa Timbun</span>
-                            </li>
+                            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active"><span>Masa Timbun</span></li>
                         </ol>
                     </div>
                 </div>
@@ -32,327 +27,333 @@
                                     Masa Timbun
                                 </h5>
                                 <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                    </button>
+                                    <ul class="nav nav-pills ml-auto">
+                                        <li class="nav-item"></li>
+                                    </ul>
                                 </div>
                             </div>
+
                             <div class="card-body">
-                                <form @submit.prevent class="form-horizontal">
-                                    <div class="form-group row justify-content-center align-items-center mt-4">
-                                        <label for="part_number" class="col-sm-2 col-form-label">Tahun Pelaporan</label>
-                                        <div class="col-sm-4">
-                                            <datepicker input-class="form-control" :format="DatePickerFormat" minimum-view="year" placeholder="Pilih tahun" type="year" v-model="search_reporting_year" autofocus />
-                                        </div>
-                                        <div class="col-sm-10 mt-4 text-center">
-                                            <button class="btn btn-primary" @click="filterYear"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
-                                            <button class="btn btn-secondary" @click="clearForm"><i class="fa-solid fa-rotate"></i> Reset</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div class="card" v-if="year_selected">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <div class="vgt-inner-wrap">
-                                        <div class="vgt-global-search vgt-clearfix">
-                                            <div class="vgt-global-search__input vgt-pull-left">
-                                                <label>
-                                                    <span aria-hidden="true" class="input__icon">
-                                                        <div class="magnifying-glass"></div>
-                                                    </span>
-                                                    <span class="sr-only"> Search </span>
-                                                </label>
-                                                <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left" v-model="search" />
-                                            </div>
-                                        </div>
-
-                                        <div class="vgt-responsive">
-                                            <!-- BEGIN: Table -->
-                                            <table id="vgt-table" class="vgt-table bordered polar-bear">
-                                                <thead>
-                                                    <tr>
-                                                        <!-- BEGIN: Number by ID (Table Header) -->
-                                                        <th v-if="order == 'id' && by == 'asc'" @click="sort('id', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                            <span class="table_header">No.</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else-if="order == 'id' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                            <span class="table_header">No.</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else @click="sort('id', 'asc')" class="text-center sortable">
-                                                            <span class="table_header">No.</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <!-- END: Number by ID (Table Header) -->
-                                                        <!-- BEGIN: Kode BC 1.6 (Table Header) -->
-                                                        <th v-if="order == 'bc_16_code' && by == 'asc'" @click="sort('bc_16_code', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                            <span class="table_header">Kode BC 1.6</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else-if="order == 'bc_16_code' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                            <span class="table_header">Kode BC 1.6</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else @click="sort('bc_16_code', 'asc')" class="text-center sortable">
-                                                            <span class="table_header">Kode BC 1.6</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <!-- END: Kode BC 1.6 (Table Header) -->
-                                                        <!-- BEGIN: Tanggal Daftar (Table Header) -->
-                                                        <th v-if="order == 'registration_date' && by == 'asc'" @click="sort('registration_date', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                            <span class="table_header">Tanggal Daftar</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else-if="order == 'registration_date' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                            <span class="table_header">Tanggal Daftar</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else @click="sort('registration_date', 'asc')" class="text-center sortable">
-                                                            <span class="table_header">Tanggal Daftar</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <!-- END: Tanggal Daftar (Table Header) -->
-                                                        <!-- BEGIN: Part Number (Table Header) -->
-                                                        <th v-if="order == 'item_code' && by == 'asc'" @click="sort('item_code', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                            <span class="table_header">Part Number</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else-if="order == 'item_code' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                            <span class="table_header">Part Number</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else @click="sort('item_code', 'asc')" class="text-center sortable">
-                                                            <span class="table_header">Part Number</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <!-- END: Part Number (Table Header) -->
-                                                        <!-- BEGIN: Deskripsi Barang (Table Header) -->
-                                                        <th v-if="order == 'item_name' && by == 'asc'" @click="sort('item_name', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                            <span class="table_header">Deskripsi Barang</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else-if="order == 'item_name' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                            <span class="table_header">Deskripsi Barang</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else @click="sort('item_name', 'asc')" class="text-center sortable">
-                                                            <span class="table_header">Deskripsi Barang</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <!-- END: Deskripsi Barang (Table Header) -->
-                                                        <!-- BEGIN: Kode Satuan (Table Header) -->
-                                                        <th v-if="order == 'unit' && by == 'asc'" @click="sort('unit', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                            <span class="table_header">Kode Satuan</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else-if="order == 'unit' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                            <span class="table_header">Kode Satuan</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else @click="sort('unit', 'asc')" class="text-center sortable">
-                                                            <span class="table_header">Kode Satuan</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <!-- END: Kode Satuan (Table Header) -->
-                                                        <!-- BEGIN: Jumlah (Table Header) -->
-                                                        <th v-if="order == 'total' && by == 'asc'" @click="sort('total', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                            <span class="table_header">Jumlah</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else-if="order == 'total' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                            <span class="table_header">Jumlah</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else @click="sort('total', 'asc')" class="text-center sortable">
-                                                            <span class="table_header">Jumlah</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <!-- END: Jumlah (Table Header) -->
-                                                        <!-- BEGIN: Status (Table Header) -->
-                                                        <th v-if="order == 'status' && by == 'asc'" @click="sort('status', 'desc')" class="text-center sortable sorting sorting-asc">
-                                                            <span class="table_header">Status</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else-if="order == 'status' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
-                                                            <span class="table_header">Status</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <th v-else @click="sort('status', 'asc')" class="text-center sortable">
-                                                            <span class="table_header">Status</span>
-                                                            <button>
-                                                                <span class="sr-only"></span>
-                                                            </button>
-                                                        </th>
-                                                        <!-- END: Status (Table Header) -->
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="filter-th"></th>
-                                                        <th class="filter-th">
-                                                            <div>
-                                                                <input type="text" class="vgt-input text-center" placeholder="Kode BC 1.6" v-model="search_bc_16_code" />
-                                                            </div>
-                                                        </th>
-                                                        <th class="filter-th">
-                                                            <div>
-                                                                <input type="date" class="vgt-input text-center" v-model="search_registration_date" />
-                                                            </div>
-                                                        </th>
-                                                        <th class="filter-th">
-                                                            <div>
-                                                                <input type="text" class="vgt-input text-center" placeholder="Part Number" v-model="search_item_code" />
-                                                            </div>
-                                                        </th>
-                                                        <th class="filter-th">
-                                                            <div>
-                                                                <input type="text" class="vgt-input text-center" placeholder="Deskripsi Barang" v-model="search_item_name" />
-                                                            </div>
-                                                        </th>
-                                                        <th class="filter-th">
-                                                            <div>
-                                                                <input type="text" class="vgt-input text-center" placeholder="Satuan" v-model="search_unit" />
-                                                            </div>
-                                                        </th>
-                                                        <th class="filter-th">
-                                                            <div>
-                                                                <input type="text" class="vgt-input text-center" placeholder="Total" v-model="search_total" />
-                                                            </div>
-                                                        </th>
-                                                        <th class="filter-th">
-                                                            <div>
-                                                                <input type="text" class="vgt-input text-center" placeholder="Status" v-model="search_status" />
-                                                            </div>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    <tr v-for="(hoarding_times, hoarding_times_index) in hoarding_times.data" :key="hoarding_times_index">
-                                                        <td class="text-center table-content">
-                                                            {{ hoarding_times.id }}
-                                                        </td>
-                                                        <td class="text-center table-content">
-                                                            {{ hoarding_times.bc_16_code }}
-                                                        </td>
-                                                        <td class="text-center table-content">
-                                                            {{ hoarding_times.registration_date | formatDate }}
-                                                        </td>
-                                                        <td class="text-center table-content">
-                                                            {{ hoarding_times.item_code }}
-                                                        </td>
-                                                        <td class="text-center table-content">
-                                                            {{ hoarding_times.item_name }}
-                                                        </td>
-                                                        <td class="text-center table-content">
-                                                            {{ hoarding_times.unit }}
-                                                        </td>
-                                                        <td class="text-center table-content">
-                                                            {{ hoarding_times.total }}
-                                                        </td>
-                                                        <td class="text-center table-content">
-                                                            {{ hoarding_times.status }}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <!-- END: Table -->
-                                        </div>
-                                        <div class="vgt-wrap__footer vgt-clearfix">
-                                            <div class="footer__row-count vgt-pull-left">
-                                                <label class="footer__row-count__label row_per_page_label"> Rows per page: </label>
-                                                <select class="footer__row-count__select row_per_page_option" v-model="paginate" @change="list()">
-                                                    <option value="10">10</option>
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                </select>
-                                            </div>
-                                            <div class="footer__navigation vgt-pull-right">
-                                                <button
-                                                    type="button"
-                                                    class="footer__navigation__page-btn"
-                                                    :class="{
-                                                        disabled: !hoarding_times.prev_page_url,
-                                                    }"
-                                                    @click="hoarding_times.prev_page_url && list(hoarding_times.prev_page_url)"
-                                                    style="margin-right: 0px"
-                                                >
-                                                    <span aria-hidden="true" class="chevron left"></span>
-                                                    <span class="paginate_text">Prev</span>
-                                                </button>
-                                                <div class="footer__navigation__page-info" style="color: #99a0b2">
-                                                    <label class="page-info__label" style="margin-bottom: -5px">
-                                                        <span class="paginate_text">page</span>
-                                                        <input type="text" class="footer__navigation__page-info__current-entry vgt-input" v-model="current_page" @keypress="directPage" style="width: 60px" />
-                                                        <span class="paginate_text">
-                                                            of
-                                                            {{ hoarding_times.last_page }}
-                                                        </span>
-                                                    </label>
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6">
+                                        <form @submit.prevent class="form-horizontal">
+                                            <div class="form-group row">
+                                                <label for="part_number" class="col-4 col-form-label">Tahun Pelaporan</label>
+                                                <div class="col-sm-4">
+                                                    <datepicker input-class="form-control" :format="DatePickerFormat" minimum-view="year" placeholder="Pilih tahun" type="year" v-model="search_reporting_year" autofocus />
                                                 </div>
-                                                <button
-                                                    type="button"
-                                                    class="footer__navigation__page-btn"
-                                                    :class="{
-                                                        disabled: !hoarding_times.next_page_url,
-                                                    }"
-                                                    @click="hoarding_times.next_page_url && list(hoarding_times.next_page_url)"
-                                                >
-                                                    <span style="font-weight: 500">Next</span>
-                                                    <span aria-hidden="true" class="chevron right"></span>
-                                                </button>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label"></label>
+                                                <div class="col-sm-4">
+                                                    <button class="btn btn-primary" @click="filterYear"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
+                                                    <button class="btn btn-secondary" @click="clearForm"><i class="fa-solid fa-rotate"></i> Reset</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                <div class="card" v-if="year_selected">
+                                    <div class="form-group">
+                                        <div class="vgt-inner-wrap">
+                                            <div class="vgt-global-search vgt-clearfix">
+                                                <div class="vgt-global-search__input vgt-pull-left">
+                                                    <label>
+                                                        <span aria-hidden="true" class="input__icon">
+                                                            <div class="magnifying-glass"></div>
+                                                        </span>
+                                                        <span class="sr-only"> Search </span>
+                                                    </label>
+                                                    <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left" v-model="search" />
+                                                </div>
+                                            </div>
+
+                                            <div class="vgt-responsive">
+                                                <!-- BEGIN: Table -->
+                                                <table id="vgt-table" class="vgt-table bordered polar-bear">
+                                                    <thead>
+                                                        <tr>
+                                                            <!-- BEGIN: Number by ID (Table Header) -->
+                                                            <th v-if="order == 'id' && by == 'asc'" @click="sort('id', 'desc')" class="text-center sortable sorting sorting-asc">
+                                                                <span class="table_header">No.</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else-if="order == 'id' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                                                <span class="table_header">No.</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else @click="sort('id', 'asc')" class="text-center sortable">
+                                                                <span class="table_header">No.</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <!-- END: Number by ID (Table Header) -->
+                                                            <!-- BEGIN: Kode BC 1.6 (Table Header) -->
+                                                            <th v-if="order == 'bc_16_code' && by == 'asc'" @click="sort('bc_16_code', 'desc')" class="text-center sortable sorting sorting-asc">
+                                                                <span class="table_header">Kode BC 1.6</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else-if="order == 'bc_16_code' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                                                <span class="table_header">Kode BC 1.6</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else @click="sort('bc_16_code', 'asc')" class="text-center sortable">
+                                                                <span class="table_header">Kode BC 1.6</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <!-- END: Kode BC 1.6 (Table Header) -->
+                                                            <!-- BEGIN: Tanggal Daftar (Table Header) -->
+                                                            <th v-if="order == 'registration_date' && by == 'asc'" @click="sort('registration_date', 'desc')" class="text-center sortable sorting sorting-asc">
+                                                                <span class="table_header">Tanggal Daftar</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else-if="order == 'registration_date' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                                                <span class="table_header">Tanggal Daftar</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else @click="sort('registration_date', 'asc')" class="text-center sortable">
+                                                                <span class="table_header">Tanggal Daftar</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <!-- END: Tanggal Daftar (Table Header) -->
+                                                            <!-- BEGIN: Part Number (Table Header) -->
+                                                            <th v-if="order == 'item_code' && by == 'asc'" @click="sort('item_code', 'desc')" class="text-center sortable sorting sorting-asc">
+                                                                <span class="table_header">Part Number</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else-if="order == 'item_code' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                                                <span class="table_header">Part Number</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else @click="sort('item_code', 'asc')" class="text-center sortable">
+                                                                <span class="table_header">Part Number</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <!-- END: Part Number (Table Header) -->
+                                                            <!-- BEGIN: Deskripsi Barang (Table Header) -->
+                                                            <th v-if="order == 'item_name' && by == 'asc'" @click="sort('item_name', 'desc')" class="text-center sortable sorting sorting-asc">
+                                                                <span class="table_header">Deskripsi Barang</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else-if="order == 'item_name' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                                                <span class="table_header">Deskripsi Barang</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else @click="sort('item_name', 'asc')" class="text-center sortable">
+                                                                <span class="table_header">Deskripsi Barang</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <!-- END: Deskripsi Barang (Table Header) -->
+                                                            <!-- BEGIN: Kode Satuan (Table Header) -->
+                                                            <th v-if="order == 'unit' && by == 'asc'" @click="sort('unit', 'desc')" class="text-center sortable sorting sorting-asc">
+                                                                <span class="table_header">Kode Satuan</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else-if="order == 'unit' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                                                <span class="table_header">Kode Satuan</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else @click="sort('unit', 'asc')" class="text-center sortable">
+                                                                <span class="table_header">Kode Satuan</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <!-- END: Kode Satuan (Table Header) -->
+                                                            <!-- BEGIN: Jumlah (Table Header) -->
+                                                            <th v-if="order == 'total' && by == 'asc'" @click="sort('total', 'desc')" class="text-center sortable sorting sorting-asc">
+                                                                <span class="table_header">Jumlah</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else-if="order == 'total' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                                                <span class="table_header">Jumlah</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else @click="sort('total', 'asc')" class="text-center sortable">
+                                                                <span class="table_header">Jumlah</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <!-- END: Jumlah (Table Header) -->
+                                                            <!-- BEGIN: Status (Table Header) -->
+                                                            <th v-if="order == 'status' && by == 'asc'" @click="sort('status', 'desc')" class="text-center sortable sorting sorting-asc">
+                                                                <span class="table_header">Status</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else-if="order == 'status' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                                                                <span class="table_header">Status</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th v-else @click="sort('status', 'asc')" class="text-center sortable">
+                                                                <span class="table_header">Status</span>
+                                                                <button>
+                                                                    <span class="sr-only"></span>
+                                                                </button>
+                                                            </th>
+                                                            <!-- END: Status (Table Header) -->
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="filter-th"></th>
+                                                            <th class="filter-th">
+                                                                <div>
+                                                                    <input type="text" class="vgt-input text-center" placeholder="Kode BC 1.6" v-model="search_bc_16_code" />
+                                                                </div>
+                                                            </th>
+                                                            <th class="filter-th">
+                                                                <div>
+                                                                    <input type="date" class="vgt-input text-center" v-model="search_registration_date" />
+                                                                </div>
+                                                            </th>
+                                                            <th class="filter-th">
+                                                                <div>
+                                                                    <input type="text" class="vgt-input text-center" placeholder="Part Number" v-model="search_item_code" />
+                                                                </div>
+                                                            </th>
+                                                            <th class="filter-th">
+                                                                <div>
+                                                                    <input type="text" class="vgt-input text-center" placeholder="Deskripsi Barang" v-model="search_item_name" />
+                                                                </div>
+                                                            </th>
+                                                            <th class="filter-th">
+                                                                <div>
+                                                                    <input type="text" class="vgt-input text-center" placeholder="Satuan" v-model="search_unit" />
+                                                                </div>
+                                                            </th>
+                                                            <th class="filter-th">
+                                                                <div>
+                                                                    <input type="text" class="vgt-input text-center" placeholder="Total" v-model="search_total" />
+                                                                </div>
+                                                            </th>
+                                                            <th class="filter-th">
+                                                                <div>
+                                                                    <input type="text" class="vgt-input text-center" placeholder="Status" v-model="search_status" />
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr v-for="(hoarding_times, hoarding_times_index) in hoarding_times.data" :key="hoarding_times_index">
+                                                            <td class="text-center table-content">
+                                                                {{ hoarding_times.id }}
+                                                            </td>
+                                                            <td class="text-center table-content">
+                                                                {{ hoarding_times.bc_16_code }}
+                                                            </td>
+                                                            <td class="text-center table-content">
+                                                                {{ hoarding_times.registration_date | formatDate }}
+                                                            </td>
+                                                            <td class="text-center table-content">
+                                                                {{ hoarding_times.item_code }}
+                                                            </td>
+                                                            <td class="text-center table-content">
+                                                                {{ hoarding_times.item_name }}
+                                                            </td>
+                                                            <td class="text-center table-content">
+                                                                {{ hoarding_times.unit }}
+                                                            </td>
+                                                            <td class="text-center table-content">
+                                                                {{ hoarding_times.total }}
+                                                            </td>
+                                                            <td class="text-center table-content">
+                                                                {{ hoarding_times.status }}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <!-- END: Table -->
+                                            </div>
+                                            <div class="vgt-wrap__footer vgt-clearfix">
+                                                <div class="footer__row-count vgt-pull-left">
+                                                    <label class="footer__row-count__label row_per_page_label"> Rows per page: </label>
+                                                    <select class="footer__row-count__select row_per_page_option" v-model="paginate" @change="list()">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                </div>
+                                                <div class="footer__navigation vgt-pull-right">
+                                                    <button
+                                                        type="button"
+                                                        class="footer__navigation__page-btn"
+                                                        :class="{
+                                                            disabled: !hoarding_times.prev_page_url,
+                                                        }"
+                                                        @click="hoarding_times.prev_page_url && list(hoarding_times.prev_page_url)"
+                                                        style="margin-right: 0px"
+                                                    >
+                                                        <span aria-hidden="true" class="chevron left"></span>
+                                                        <span class="paginate_text">Prev</span>
+                                                    </button>
+                                                    <div class="footer__navigation__page-info" style="color: #99a0b2">
+                                                        <label class="page-info__label" style="margin-bottom: -5px">
+                                                            <span class="paginate_text">page</span>
+                                                            <input type="text" class="footer__navigation__page-info__current-entry vgt-input" v-model="current_page" @keypress="directPage" style="width: 60px" />
+                                                            <span class="paginate_text">
+                                                                of
+                                                                {{ hoarding_times.last_page }}
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <button
+                                                        type="button"
+                                                        class="footer__navigation__page-btn"
+                                                        :class="{
+                                                            disabled: !hoarding_times.next_page_url,
+                                                        }"
+                                                        @click="hoarding_times.next_page_url && list(hoarding_times.next_page_url)"
+                                                    >
+                                                        <span style="font-weight: 500">Next</span>
+                                                        <span aria-hidden="true" class="chevron right"></span>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
