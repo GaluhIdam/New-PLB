@@ -101,7 +101,7 @@
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
                             </button>
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            <button v-if="$gate.isAdminOrPlanner()" class="btn btn-secondary ms-auto rounded-1">
                               <i class="fa-solid fa-file-pdf"></i>
                               PDF
                             </button>
@@ -380,19 +380,19 @@
                                 </button>
                               </th>
                               <!-- Lampiran -->
-                              <th v-if="order == 'attachment' && by == 'asc'" @click="sort('attachment', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th v-if="order == 'attachment' && by == 'asc' && $gate.isAdminOrPlanner()" @click="sort('attachment', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Lampiran</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'attachment' && by == 'desc'" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
+                              <th v-else-if="order == 'attachment' && by == 'desc' && $gate.isAdminOrPlanner()" @click="sort('id', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Lampiran</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('attachment', 'asc')" class="text-center sortable">
+                              <th v-else-if="order != 'attachment' && by == 'desc' && $gate.isAdminOrPlanner()" @click="sort('attachment', 'asc')" class="text-center sortable">
                                 <span class="table_header">Lampiran</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -470,7 +470,7 @@
                                   <input type="text" class="vgt-input" placeholder="Filter Nilai Barang" v-model="search_item_value" />
                                 </div>
                               </th>
-                              <th class="filter-th"></th>
+                              <th v-if="$gate.isAdminOrPlanner()" class="filter-th"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -489,7 +489,7 @@
                               <td class="table_content">{{ inbound.quantity }}</td>
                               <td class="table_content">{{ inbound.unit }}</td>
                               <td class="table_content">{{ inbound.item_value }}</td>
-                              <td class="table_content">{{ inbound.attachment }}</td>
+                              <td v-if="$gate.isAdminOrPlanner()" class="table_content">{{ inbound.attachment }}</td>
                             </tr>
                             <tr v-if="inbounds.data.length < 1">
                               <td colspan="15">
