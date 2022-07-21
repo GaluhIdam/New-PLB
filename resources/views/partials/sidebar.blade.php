@@ -151,7 +151,7 @@
                 <!-- END: Allotment -->
 
                 <!-- BEGIN: Mutasi -->
-                <li class="nav-item ">
+                {{-- <li class="nav-item ">
                     <a href="#" class=" nav-link">
                         <i class="nav-icon fa-solid fa-file-circle-exclamation"></i>
                         <p>Mutasi<i class="right fas fa-angle-right"></i></p>
@@ -173,7 +173,16 @@
                             </router-link>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
+
+                @can('isAdminOrPlanner')
+                    <li class="nav-item">
+                        <router-link to="/periodic-mutation" class="nav-link">
+                            <i class="nav-icon fa-solid fa-oil-well"></i>
+                            <p>Scrap</p>
+                        </router-link>
+                    </li>
+                @endcan
                 <!-- END: Mutasi -->
 
                 <!-- BEGIN: Scrap
