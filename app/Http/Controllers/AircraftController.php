@@ -12,15 +12,23 @@ class AircraftController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    use \App\Http\Traits\ActivityHistoryTrait;
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function index(Request $request)
     {
+        $this->recordActivity('Accessed Aircraft');
+
         $search = $request->get('search');
         $search_reg = $request->get('search_reg');
         $search_operator = $request->get('search_operator');
         $search_type = $request->get('search_type');
         $search_date_in = $request->get('search_date_in');
         $search_date_out = $request->get('search_date_out');
-        
+
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
             $by = $request->get('by');
@@ -36,13 +44,13 @@ class AircraftController extends Controller
         }
 
         $mutations = Aircraft::when($search, function ($query) use ($search) {
-                $query->where(function ($sub_query) use ($search) {
-                    $sub_query->where('operator', 'LIKE', "%{$search}%")
-                        ->orWhere('reg', 'LIKE', "%{$search}%")
-                        ->orWhere('operator', 'LIKE', "%{$search}%")
-                        ->orWhere('type', 'LIKE', "%{$search}%");
-                });
-            })
+            $query->where(function ($sub_query) use ($search) {
+                $sub_query->where('operator', 'LIKE', "%{$search}%")
+                    ->orWhere('reg', 'LIKE', "%{$search}%")
+                    ->orWhere('operator', 'LIKE', "%{$search}%")
+                    ->orWhere('type', 'LIKE', "%{$search}%");
+            });
+        })
             ->when($search_reg, function ($query) use ($search_reg) {
                 $query->where('reg', 'LIKE', "%{$search_reg}%");
             })
@@ -79,12 +87,12 @@ class AircraftController extends Controller
         $search = $request->get('search');
 
         $mutations = Aircraft::when($search, function ($query) use ($search) {
-                                $query->where(function ($sub_query) use ($search) {
-                                    $sub_query->where('reg', 'LIKE', "%{$search}%");
-                                });
-                            })
-                            ->where('date_out', null)
-                            ->get();
+            $query->where(function ($sub_query) use ($search) {
+                $sub_query->where('reg', 'LIKE', "%{$search}%");
+            });
+        })
+            ->where('date_out', null)
+            ->get();
 
         return $mutations;
     }
@@ -102,7 +110,7 @@ class AircraftController extends Controller
             'type' => 'required',
             'reg' => 'required|unique:aircraft',
             'date_in' => 'required',
-        ],[
+        ], [
             'reg.required' => 'Registration field is required.',
             'reg.unique' => 'The registration has already been taken.',
             'date_in.required' => 'Actual time arrival field is required.',
@@ -114,7 +122,7 @@ class AircraftController extends Controller
             $path = $request->file('rksp')->store('uploaded_documents', 'public');
             $data['rksp'] = $path;
         }
-        
+
         $delivery = Aircraft::create($data);
 
         return response()->json(array(
@@ -131,7 +139,7 @@ class AircraftController extends Controller
             'type' => 'required',
             'reg' => 'required',
             'date_out' => 'required',
-        ],[
+        ], [
             'reg.required' => 'Registration field is required.',
             'date_out.required' => 'Actual time depart field is required.',
         ]);
@@ -139,7 +147,7 @@ class AircraftController extends Controller
         if ($redelivery = Aircraft::where('reg', $request->reg)->first()) {
             $redelivery->date_out = $request->date_out;
             $redelivery->save();
-            
+
             return response()->json(array(
                 "response_code" => 201,
                 "message" => "Delivery created successfully",

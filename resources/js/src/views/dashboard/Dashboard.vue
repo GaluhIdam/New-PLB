@@ -20,11 +20,15 @@
         <div class="row">
           <!-- BEGIN: Status Outbound -->
           <div class="col-md-7">
-            <div class="card card-dashboard">
+            <div class="card card-plb">
               <div class="card-header ui-sortable-handle">
                 <h5 class="card-title card_title_margin">Status Outbound</h5>
                 <div class="card-tools">
-                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
+                  <button
+                    type="button"
+                    data-card-widget="collapse"
+                    class="btn btn-tool"
+                  >
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
@@ -49,11 +53,17 @@
 
           <!-- BEGIN: Status Pesawat di GMF -->
           <div class="col-md-5">
-            <div class="card card-dashboard">
+            <div class="card card-plb">
               <div class="card-header border-0 ui-sortable-handle">
-                <h5 class="card-title card_title_margin">Status Pesawat di GMF</h5>
+                <h5 class="card-title card_title_margin">
+                  Status Pesawat di GMF
+                </h5>
                 <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <button
+                    type="button"
+                    class="btn btn-tool"
+                    data-card-widget="collapse"
+                  >
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
@@ -80,11 +90,15 @@
         <!-- BEGIN: Status BC28 -->
         <div class="row">
           <div class="col-md-4">
-            <div class="card card-dashboard">
+            <div class="card card-plb">
               <div class="card-header ui-sortable-handle">
                 <h5 class="card-title card_title_margin">Status BC28</h5>
                 <div class="card-tools">
-                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
+                  <button
+                    type="button"
+                    data-card-widget="collapse"
+                    class="btn btn-tool"
+                  >
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
@@ -95,6 +109,7 @@
                     type="line"
                     ref="column_one"
                     height="350"
+                    width="400"
                     :options="column_one.chartOptions"
                     :series="column_one.series"
                   ></column-one>
@@ -109,11 +124,17 @@
 
           <!-- BEGIN: Saldo Akhir Allotment -->
           <div class="col-md-4">
-            <div class="card card-dashboard">
+            <div class="card card-plb">
               <div class="card-header ui-sortable-handle">
-                <h5 class="card-title card_title_margin">Saldo Akhir Allotment</h5>
+                <h5 class="card-title card_title_margin">
+                  Saldo Akhir Allotment
+                </h5>
                 <div class="card-tools">
-                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
+                  <button
+                    type="button"
+                    data-card-widget="collapse"
+                    class="btn btn-tool"
+                  >
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
@@ -124,6 +145,7 @@
                     type="bar"
                     ref="column_two"
                     height="350"
+                    width="400"
                     :options="column_two.chartOptions"
                     :series="column_two.series"
                   ></column-two>
@@ -138,11 +160,15 @@
 
           <!-- BEGIN: Status Masa Timbun -->
           <div class="col-md-4">
-            <div class="card card-dashboard">
+            <div class="card card-plb">
               <div class="card-header ui-sortable-handle">
                 <h5 class="card-title card_title_margin">Status Masa Timbun</h5>
                 <div class="card-tools">
-                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
+                  <button
+                    type="button"
+                    data-card-widget="collapse"
+                    class="btn btn-tool"
+                  >
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
@@ -152,8 +178,8 @@
                   <pie-three
                     type="pie"
                     ref="pie_three"
-                    width="400"
-                    height="400"
+                    width="450"
+                    height="397"
                     :options="pie_three.chartOptions"
                     :series="pie_three.series"
                   ></pie-three>
@@ -265,8 +291,8 @@ export default {
         series: [],
         chartOptions: {
           chart: {
-            width: 400,
-            height: 400,
+            width: 450,
+            height: 397,
             type: "pie",
           },
           plotOptions: {
@@ -315,6 +341,7 @@ export default {
         chartOptions: {
           chart: {
             height: 350,
+            width: 400,
             type: "line",
             zoom: {
               enabled: false,
@@ -351,6 +378,7 @@ export default {
         chartOptions: {
           chart: {
             height: 350,
+            width: 400,
             type: "line",
           },
           stroke: {
