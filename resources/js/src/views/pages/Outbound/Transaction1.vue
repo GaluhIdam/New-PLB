@@ -8,9 +8,17 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-              <li class="breadcrumb-item active"><a href="/outbound-transcation">Transaksi Outbound </a></li>
-              <li class="breadcrumb-item active"><span>Transaksi Outbound 1</span></li>
+              <li class="breadcrumb-item">
+                <router-link to="/dashboard">Dashboard</router-link>
+              </li>
+              <li class="breadcrumb-item active">
+                <router-link to="/outbound-transcation"
+                  >Outbound Transaction</router-link
+                >
+              </li>
+              <li class="breadcrumb-item active">
+                <span>Transaction 1</span>
+              </li>
             </ol>
           </div>
         </div>
@@ -21,83 +29,146 @@
       <div class="container-fluid">
         <div class="row justify-content-center">
           <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">​ Part yang status pesawat masih didalam PLB GMF</div>
+            <div class="card card-plb">
+              <div class="card-header ui-sortable-handle">
+                <h5 class="card-title card_title_margin">
+                  <i class="nav-icon fa-solid fa-money-bill-transfer"></i>
+                  Outbound Transaction 1
+                </h5>
+                <div class="card-tools">
+                  <button
+                    type="button"
+                    data-card-widget="collapse"
+                    class="btn btn-tool"
+                  >
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- BEGIN: Card Body -->
               <div class="card-body">
-                <div class="row">
-                  <div class="col-md-3"></div>
+                <!-- BEGIN: Cari Data -->
+                <div class="row justify-content-center">
                   <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Tanggal Outbound</label>
-                      <div class="col-sm-4">
-                        <input type="date" v-model="start_date" class="form-control" />
+                    <form @submit.prevent class="form-horizontal">
+                      <div class="form-group row mt-4">
+                        <label class="col-sm-4 col-form-label"
+                          >Tanggal Outbound</label
+                        >
+                        <div class="col-sm-4">
+                          <datepicker
+                            input-class="form-control"
+                            placeholder="Dari Tanggal"
+                            format="MM/dd/yyyy"
+                            v-model="start_date"
+                            autofocus
+                          />
+                        </div>
+                        <div class="col-sm-4">
+                          <datepicker
+                            input-class="form-control"
+                            placeholder="Sampai Tanggal"
+                            format="MM/dd/yyyy"
+                            v-model="end_date"
+                          />
+                        </div>
                       </div>
-                      <div class="col-sm-4">
-                        <input type="date" v-model="end_date" class="form-control" />
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Customer</label>
+                        <div class="col-sm-8">
+                          <input
+                            type="text"
+                            v-model="customer"
+                            class="form-control"
+                            placeholder="Masukkan Customer"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Customer</label>
-                      <div class="col-sm-8">
-                        <input type="text" v-model="form_customer" class="form-control" />
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Plant</label>
+                        <div class="col-sm-8">
+                          <input
+                            type="text"
+                            v-model="part_number"
+                            class="form-control"
+                            placeholder="Masukkan Part Number"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Plant</label>
-                      <div class="col-sm-8">
-                        <input type="text" v-model="form_part_number" class="form-control" />
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label"
+                          >Jenis Dokumen</label
+                        >
+                        <div class="col-sm-2">
+                          <label class="control-label" style="margin-top: 5px">
+                            <input
+                              type="checkbox"
+                              name="jenis_dokumen[]"
+                              id="jenis_dokumen"
+                              checked="checked"
+                              value="27"
+                            />
+                            27
+                          </label>
+                        </div>
+                        <div class="col-sm-2">
+                          <label class="control-label" style="margin-top: 5px">
+                            <input
+                              type="checkbox"
+                              name="jenis_dokumen[]"
+                              id="jenis_dokumen"
+                              checked="checked"
+                              value="28"
+                            />
+                            28
+                          </label>
+                        </div>
+                        <div class="col-sm-2">
+                          <label class="control-label" style="margin-top: 5px">
+                            <input
+                              type="checkbox"
+                              name="jenis_dokumen[]"
+                              id="jenis_dokumen"
+                              checked="checked"
+                              value="30"
+                            />
+                            30
+                          </label>
+                        </div>
+                        <div class="col-sm-2">
+                          <label class="control-label" style="margin-top: 5px">
+                            <input
+                              type="checkbox"
+                              name="jenis_dokumen[]"
+                              id="jenis_dokumen"
+                              checked="checked"
+                              value="41"
+                            />
+                            41
+                          </label>
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Jenis Dokumen</label>
-                      <div class="col-sm-2">
-                        <label class="control-label" style="margin-top: 5px">
-                          <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked"
-                            value="27" />
-                          27
-                        </label>
+                      <div class="form-group row justify-content-center">
+                        <div class="col-sm-4">
+                          <button
+                            class="btn btn-primary"
+                            @click="filterTranscation"
+                          >
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            Filter
+                          </button>
+                          <button class="btn btn-secondary" @click="clearForm">
+                            <i class="fa-solid fa-rotate"></i> Reset
+                          </button>
+                        </div>
                       </div>
-                      <div class="col-sm-2">
-                        <label class="control-label" style="margin-top: 5px">
-                          <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked"
-                            value="28" />
-                          28
-                        </label>
-                      </div>
-                      <div class="col-sm-2">
-                        <label class="control-label" style="margin-top: 5px">
-                          <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked"
-                            value="30" />
-                          30
-                        </label>
-                      </div>
-                      <div class="col-sm-2">
-                        <label class="control-label" style="margin-top: 5px">
-                          <input type="checkbox" name="jenis_dokumen[]" id="jenis_dokumen" checked="checked"
-                            value="41" />
-                          41
-                        </label>
-                      </div>
-                    </div>
+                    </form>
                   </div>
-
-                  <div class="col-md-1"></div>
                 </div>
-                <div class="row">
-                  <div class="col-md-3 col-sm-6"></div>
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label"></label>
-                      <div class="col-sm-4">
-                        <button class="btn btn-primary btn-md" @click="filter">Filter</button>
-                        <button class="btn btn-secondary btn-md" @click="reset">Reset</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <!-- END: Cari Data -->
 
-                <hr />
-                <div class="form-group">
+                <hr v-if="filter_clicked" />
+                <div class="form-group mt-4" v-if="filter_clicked">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
                       <div class="vgt-global-search vgt-clearfix">
@@ -108,8 +179,12 @@
                             </span>
                             <span class="sr-only"> Search </span>
                           </label>
-                          <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left"
-                            v-model="search" />
+                          <input
+                            type="text"
+                            placeholder="Search Data"
+                            class="vgt-input vgt-pull-left"
+                            v-model="search"
+                          />
                         </div>
                         <div class="vgt-global-search__actions vgt-pull-right">
                           <div>
@@ -129,173 +204,272 @@
                         </div>
                       </div>
                       <div class="vgt-responsive">
-                        <table id="vgt-table" class="vgt-table bordered polar-bear">
+                        <table
+                          id="vgt-table"
+                          class="vgt-table bordered polar-bear"
+                        >
                           <thead>
                             <tr>
                               <!-- Part Number -->
-                              <th v-if="order == 'part_number' && by == 'asc'" @click="sort('part_number', 'desc')"
-                                class="text-center sortable sorting sorting-asc">
+                              <th
+                                v-if="order == 'part_number' && by == 'asc'"
+                                @click="sort('part_number', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
                                 <span class="table_header">Part Number</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'part_number' && by == 'desc'" @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc">
+                              <th
+                                v-else-if="
+                                  order == 'part_number' && by == 'desc'
+                                "
+                                @click="sort('id', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
                                 <span class="table_header">Part Number</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('part_number', 'asc')" class="text-center sortable">
+                              <th
+                                v-else
+                                @click="sort('part_number', 'asc')"
+                                class="text-center sortable"
+                              >
                                 <span class="table_header">Part Number</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!-- Description -->
-                              <th v-if="order == 'description' && by == 'asc'" @click="sort('description', 'desc')"
-                                class="text-center sortable sorting sorting-asc">
+                              <th
+                                v-if="order == 'description' && by == 'asc'"
+                                @click="sort('description', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
                                 <span class="table_header">Description</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'description' && by == 'desc'" @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc">
+                              <th
+                                v-else-if="
+                                  order == 'description' && by == 'desc'
+                                "
+                                @click="sort('id', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
                                 <span class="table_header">Description</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('description', 'asc')" class="text-center sortable">
+                              <th
+                                v-else
+                                @click="sort('description', 'asc')"
+                                class="text-center sortable"
+                              >
                                 <span class="table_header">Description</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!-- Qty -->
-                              <th v-if="order == 'quantity' && by == 'asc'" @click="sort('quantity', 'desc')"
-                                class="text-center sortable sorting sorting-asc">
+                              <th
+                                v-if="order == 'quantity' && by == 'asc'"
+                                @click="sort('quantity', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
                                 <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'quantity' && by == 'desc'" @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc">
+                              <th
+                                v-else-if="order == 'quantity' && by == 'desc'"
+                                @click="sort('id', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
                                 <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('quantity', 'asc')" class="text-center sortable">
+                              <th
+                                v-else
+                                @click="sort('quantity', 'asc')"
+                                class="text-center sortable"
+                              >
                                 <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  Kode Satuan -->
-                              <th v-if="order == 'unit_code' && by == 'asc'" @click="sort('unit_code', 'desc')"
-                                class="text-center sortable sorting sorting-asc">
+                              <th
+                                v-if="order == 'unit_code' && by == 'asc'"
+                                @click="sort('unit_code', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
                                 <span class="table_header">Kode Satuan</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'unit_code' && by == 'desc'" @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc">
+                              <th
+                                v-else-if="order == 'unit_code' && by == 'desc'"
+                                @click="sort('id', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
                                 <span class="table_header">Kode Satuan</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('unit_code', 'asc')" class="text-center sortable">
+                              <th
+                                v-else
+                                @click="sort('unit_code', 'asc')"
+                                class="text-center sortable"
+                              >
                                 <span class="table_header">Kode Satuan</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!-- Register A/C -->
-                              <th v-if="order == 'register_ac' && by == 'asc'" @click="sort('register_ac', 'desc')"
-                                class="text-center sortable sorting sorting-asc">
+                              <th
+                                v-if="order == 'register_ac' && by == 'asc'"
+                                @click="sort('register_ac', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
                                 <span class="table_header">Register A/C</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'register_ac' && by == 'desc'" @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc">
+                              <th
+                                v-else-if="
+                                  order == 'register_ac' && by == 'desc'
+                                "
+                                @click="sort('id', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
                                 <span class="table_header">Register A/C</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('register_ac', 'asc')" class="text-center sortable">
+                              <th
+                                v-else
+                                @click="sort('register_ac', 'asc')"
+                                class="text-center sortable"
+                              >
                                 <span class="table_header">Register A/C</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!-- Customer -->
-                              <th v-if="order == 'customer' && by == 'asc'" @click="sort('customer', 'desc')"
-                                class="text-center sortable sorting sorting-asc">
+                              <th
+                                v-if="order == 'customer' && by == 'asc'"
+                                @click="sort('customer', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
                                 <span class="table_header">Customer</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'customer' && by == 'desc'" @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc">
+                              <th
+                                v-else-if="order == 'customer' && by == 'desc'"
+                                @click="sort('id', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
                                 <span class="table_header">Customer</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('customer', 'asc')" class="text-center sortable">
+                              <th
+                                v-else
+                                @click="sort('customer', 'asc')"
+                                class="text-center sortable"
+                              >
                                 <span class="table_header">Customer</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!-- Date Install/Consume -->
-                              <th v-if="order == 'date_install' && by == 'asc'" @click="sort('date_install', 'desc')"
-                                class="text-center sortable sorting sorting-asc">
-                                <span class="table_header">Date Install/Consume</span>
+                              <th
+                                v-if="order == 'date_install' && by == 'asc'"
+                                @click="sort('date_install', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header"
+                                  >Date Install/Consume</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'date_install' && by == 'desc'" @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc">
-                                <span class="table_header">Date Install/Consume</span>
+                              <th
+                                v-else-if="
+                                  order == 'date_install' && by == 'desc'
+                                "
+                                @click="sort('id', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
+                                <span class="table_header"
+                                  >Date Install/Consume</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('date_install', 'asc')" class="text-center sortable">
-                                <span class="table_header">Date Install/Consume</span>
+                              <th
+                                v-else
+                                @click="sort('date_install', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header"
+                                  >Date Install/Consume</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
 
                               <!-- Date A/C In -->
-                              <th v-if="order == 'date_ac_in' && by == 'asc'" @click="sort('date_ac_in', 'desc')"
-                                class="text-center sortable sorting sorting-asc">
+                              <th
+                                v-if="order == 'date_ac_in' && by == 'asc'"
+                                @click="sort('date_ac_in', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
                                 <span class="table_header">Date A/C In</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'date_ac_in' && by == 'desc'" @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc">
+                              <th
+                                v-else-if="
+                                  order == 'date_ac_in' && by == 'desc'
+                                "
+                                @click="sort('id', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
                                 <span class="table_header">Date A/C In</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else @click="sort('date_ac_in', 'asc')" class="text-center sortable">
+                              <th
+                                v-else
+                                @click="sort('date_ac_in', 'asc')"
+                                class="text-center sortable"
+                              >
                                 <span class="table_header">Date A/C In</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -305,56 +479,93 @@
                             <tr>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter Part Number"
-                                    v-model="search_part_number" />
+                                  <input
+                                    type="text"
+                                    class="vgt-input"
+                                    placeholder="Filter Part Number"
+                                    v-model="search_part_number"
+                                  />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter Description"
-                                    v-model="search_description" />
+                                  <input
+                                    type="text"
+                                    class="vgt-input"
+                                    placeholder="Filter Description"
+                                    v-model="search_description"
+                                  />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter Qty"
-                                    v-model="search_quantity" />
+                                  <input
+                                    type="text"
+                                    class="vgt-input"
+                                    placeholder="Filter Qty"
+                                    v-model="search_quantity"
+                                  />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter Kode satuan"
-                                    v-model="search_unit_code" />
+                                  <input
+                                    type="text"
+                                    class="vgt-input"
+                                    placeholder="Filter Kode satuan"
+                                    v-model="search_unit_code"
+                                  />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter Register A/C"
-                                    v-model="search_register_ac" />
+                                  <input
+                                    type="text"
+                                    class="vgt-input"
+                                    placeholder="Filter Register A/C"
+                                    v-model="search_register_ac"
+                                  />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="text" class="vgt-input" placeholder="Filter Customer"
-                                    v-model="search_customer" />
+                                  <input
+                                    type="text"
+                                    class="vgt-input"
+                                    placeholder="Filter Customer"
+                                    v-model="search_customer"
+                                  />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="date" class="vgt-input" placeholder="Filter Date Install/Consume"
-                                    v-model="search_date_install" />
+                                  <input
+                                    type="date"
+                                    class="vgt-input"
+                                    placeholder="Filter Date Install/Consume"
+                                    v-model="search_date_install"
+                                  />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input type="date" class="vgt-input" placeholder="Filter Date A/C In"
-                                    v-model="search_date_ac_in" />
+                                  <input
+                                    type="date"
+                                    class="vgt-input"
+                                    placeholder="Filter Date A/C In"
+                                    v-model="search_date_ac_in"
+                                  />
                                 </div>
                               </th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr v-for="(transaction, transaction_index) in transactions.data" :key="transaction_index">
+                            <tr
+                              v-for="(
+                                transaction, transaction_index
+                              ) in transactions.data"
+                              :key="transaction_index"
+                            >
                               <td class="table_content">
                                 {{ transaction.part_number }}
                               </td>
@@ -382,7 +593,9 @@
                             </tr>
                             <tr v-if="transactions.data.length < 1">
                               <td colspan="15">
-                                <div class="vgt-center-align vgt-text-disabled">Data not found</div>
+                                <div class="vgt-center-align vgt-text-disabled">
+                                  Data not found
+                                </div>
                               </td>
                             </tr>
                           </tbody>
@@ -390,9 +603,16 @@
                       </div>
                       <div class="vgt-wrap__footer vgt-clearfix">
                         <div class="footer__row-count vgt-pull-left">
-                          <label class="footer__row-count__label row_per_page_label"> Rows per page: </label>
-                          <select class="footer__row-count__select row_per_page_option" v-model="paginate"
-                            @change="list()">
+                          <label
+                            class="footer__row-count__label row_per_page_label"
+                          >
+                            Rows per page:
+                          </label>
+                          <select
+                            class="footer__row-count__select row_per_page_option"
+                            v-model="paginate"
+                            @change="list()"
+                          >
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -400,37 +620,71 @@
                           </select>
                         </div>
                         <div class="footer__navigation vgt-pull-right">
-                          <button type="button" class="footer__navigation__page-btn" :class="{
-                            disabled: !transactions.prev_page_url,
-                          }"
-                            @click="transactions.prev_page_url && list(transactions.prev_page_url)"
-                            style="margin-right: 0px">
-                            <span aria-hidden="true" class="chevron left"></span>
+                          <button
+                            type="button"
+                            class="footer__navigation__page-btn"
+                            :class="{
+                              disabled: !transactions.prev_page_url,
+                            }"
+                            @click="
+                              transactions.prev_page_url &&
+                                list(transactions.prev_page_url)
+                            "
+                            style="margin-right: 0px"
+                          >
+                            <span
+                              aria-hidden="true"
+                              class="chevron left"
+                            ></span>
                             <span class="paginate_text">Prev</span>
                           </button>
-                          <div class="footer__navigation__page-info" style="color: #99a0b2">
-                            <label class="page-info__label" style="margin-bottom: -5px">
+                          <div
+                            class="footer__navigation__page-info"
+                            style="color: #99a0b2"
+                          >
+                            <label
+                              class="page-info__label"
+                              style="margin-bottom: -5px"
+                            >
                               <span class="paginate_text">page</span>
-                              <input type="text" class="footer__navigation__page-info__current-entry vgt-input"
-                                v-model="current_page" @keypress="directPage" style="width: 60px" />
+                              <input
+                                type="text"
+                                class="footer__navigation__page-info__current-entry vgt-input"
+                                v-model="current_page"
+                                @keypress="directPage"
+                                style="width: 60px"
+                              />
                               <span class="paginate_text">
                                 of
                                 {{ transactions.last_page }}
                               </span>
                             </label>
                           </div>
-                          <button type="button" class="footer__navigation__page-btn" :class="{
-                            disabled: !transactions.next_page_url,
-                          }"
-                            @click="transactions.next_page_url && list(transactions.next_page_url)">
+                          <button
+                            type="button"
+                            class="footer__navigation__page-btn"
+                            :class="{
+                              disabled: !transactions.next_page_url,
+                            }"
+                            @click="
+                              transactions.next_page_url &&
+                                list(transactions.next_page_url)
+                            "
+                          >
                             <span style="font-weight: 500">Next</span>
-                            <span aria-hidden="true" class="chevron right"></span>
+                            <span
+                              aria-hidden="true"
+                              class="chevron right"
+                            ></span>
                           </button>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+              <div class="card-footer text-center" v-if="filter_clicked">
+                Status Pesawat Masih Didalam Area PLB GMF
               </div>
             </div>
           </div>
@@ -454,6 +708,8 @@ export default {
       },
       search: null,
       search_part_number: null,
+      customer: null,
+      part_number: null,
       search_description: null,
       search_quantity: null,
       search_unit_code: null,
@@ -467,13 +723,9 @@ export default {
       by: "desc",
       paginate: "10",
       current_page: null,
-      // Search By Form
-      form_customer: null,
-      form_part_number: null,
+      document_type: null,
+      filter_clicked: false,
     };
-  },
-  created() {
-    this.list();
   },
   watch: {
     search: debounce(function () {
@@ -503,10 +755,29 @@ export default {
     search_customer: debounce(function () {
       this.list();
     }, 500),
+    start_date: debounce(function () {
+      this.list();
+    }, 500),
+    end_date: debounce(function () {
+      this.list();
+    }, 500),
+    document_type: debounce(function () {
+      this.list();
+    }, 500),
   },
   methods: {
-    filter() {
+    filterTranscation() {
+      this.filter_clicked = true;
       this.list();
+    },
+    clearForm() {
+      this.start_date = null;
+      this.end_date = null;
+      this.customer = null;
+      this.part_number = null;
+      this.document_type = null;
+      this.list();
+      this.filter_clicked = false;
     },
     list(paginate) {
       this.showLoading();
@@ -515,22 +786,19 @@ export default {
         .get(paginate, {
           params: {
             search: this.search,
-            part_number: this.search_part_number || this.form_part_number,
-            description: this.search_description,
-            quantity: this.search_quantity,
-            unit_code: this.search_unit_code,
-            register_ac: this.search_register_ac,
-            date_install: this.search_date_install,
-            date_ac_in: this.search_date_ac_in,
-            start_date: this.start_date,
-            end_date: this.end_date,
-            form_customer: this.form_customer,
-            form_part_number: this.form_part_number,
-            end_date: this.end_date,
+            search_description: this.search_description,
+            search_quantity: this.search_quantity,
+            search_unit_code: this.search_unit_code,
+            search_register_ac: this.search_register_ac,
+            search_date_install: this.search_date_install,
+            search_date_ac_in: this.search_date_ac_in,
+            search_start_date: this.start_date,
+            search_end_date: this.end_date,
+            search_customer: this.customer,
+            search_part_number: this.part_number,
             order: this.order,
             by: this.by,
             paginate: this.paginate,
-            customer: this.search_customer || this.form_customer,
           },
         })
         .then((response) => {
@@ -568,22 +836,6 @@ export default {
         background: "transparent",
         allowOutsideClick: false,
       });
-    },
-    clearForm() {
-      this.start_date = "";
-      this.end_date = "";
-      this.form_customer = "";
-      this.form_part_number = "";
-      this.search = "";
-      this.search_part_number = "";
-      this.search_description = "";
-      this.search_quantity = "";
-      this.search_unit_code = "";
-      this.search_register_ac = "";
-      this.search_customer = "";
-      this.search_date_install = "";
-      this.search_date_ac_in = "";
-      this.list();
     },
   },
 };

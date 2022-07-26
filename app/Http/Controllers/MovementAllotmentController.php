@@ -9,6 +9,9 @@ class MovementAllotmentController extends Controller
 {
     public function index(Request $request)
     {
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
         $from_date = $request->get('from_date');
         $to_date = $request->get('to_date');
 

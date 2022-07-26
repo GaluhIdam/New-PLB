@@ -30,16 +30,20 @@
       <div class="container-fluid">
         <div class="row justify-content-center">
           <div class="col-md-12">
-            <div class="card">
+            <div class="card card-plb">
               <div class="card-header ui-sortable-handle">
                 <h5 class="card-title card_title_margin">
                   <i class="fas fa-plane-circle-exclamation mr-1"></i>
                   Aircraft Mutation
                 </h5>
                 <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item"></li>
-                  </ul>
+                  <button
+                    type="button"
+                    data-card-widget="collapse"
+                    class="btn btn-tool"
+                  >
+                    <i class="fas fa-minus"></i>
+                  </button>
                 </div>
               </div>
               <div class="card-body">
@@ -116,7 +120,10 @@
                         </div>
                       </div>
                       <div class="vgt-responsive">
-                        <table id="vgt-table" class="vgt-table bordered polar-bear">
+                        <table
+                          id="vgt-table"
+                          class="vgt-table bordered polar-bear"
+                        >
                           <thead>
                             <tr>
                               <!--  -->
@@ -274,12 +281,11 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
                               <th class="text-center">
                                 <span class="table_header">RKSP</span>
                               </th>
                               <th class="text-center">
-                                <span class="table_header">RKSP</span>
+                                <span class="table_header">Status</span>
                               </th>
                               <th class="text-center">
                                 <span class="table_header">Action</span>
@@ -341,12 +347,20 @@
                           </thead>
                           <tbody>
                             <tr
-                              v-for="(mutation, mutation_index) in mutations.data"
+                              v-for="(
+                                mutation, mutation_index
+                              ) in mutations.data"
                               :key="mutation_index"
                             >
-                              <td class="table_content">{{ mutation.reg }}</td>
-                              <td class="table_content">{{ mutation.operator }}</td>
-                              <td class="table_content">{{ mutation.type }}</td>
+                              <td class="table_content text-center">
+                                {{ mutation.reg }}
+                              </td>
+                              <td class="table_content text-center">
+                                {{ mutation.operator }}
+                              </td>
+                              <td class="table_content text-center">
+                                {{ mutation.type }}
+                              </td>
                               <td class="text-center table_content">
                                 {{ mutation.date_in | formatDate }}
                               </td>
@@ -361,9 +375,11 @@
                                   ><h4><i class="fa-solid fa-file-pdf"></i></h4
                                 ></a>
                               </td>
-                              <td class="table_content">
-                                <span v-if="mutation.date_out"> Keluar PLB GMF​ </span>
-                                <span v-else> Di dalam PLB GMF​ </span>
+                              <td class="table_content text-center">
+                                <span v-if="mutation.date_out">
+                                  Keluar PLB GMF
+                                </span>
+                                <span v-else>Di dalam PLB GMF</span>
                               </td>
                               <td class="text-center">
                                 <ul class="list-inline m-0">
@@ -389,7 +405,9 @@
                       </div>
                       <div class="vgt-wrap__footer vgt-clearfix">
                         <div class="footer__row-count vgt-pull-left">
-                          <label class="footer__row-count__label row_per_page_label">
+                          <label
+                            class="footer__row-count__label row_per_page_label"
+                          >
                             Rows per page:
                           </label>
                           <select
@@ -411,18 +429,25 @@
                               disabled: !mutations.prev_page_url,
                             }"
                             @click="
-                              mutations.prev_page_url && list(mutations.prev_page_url)
+                              mutations.prev_page_url &&
+                                list(mutations.prev_page_url)
                             "
                             style="margin-right: 0px"
                           >
-                            <span aria-hidden="true" class="chevron left"></span>
+                            <span
+                              aria-hidden="true"
+                              class="chevron left"
+                            ></span>
                             <span class="paginate_text">Prev</span>
                           </button>
                           <div
                             class="footer__navigation__page-info"
                             style="color: #99a0b2"
                           >
-                            <label class="page-info__label" style="margin-bottom: -5px">
+                            <label
+                              class="page-info__label"
+                              style="margin-bottom: -5px"
+                            >
                               <span class="paginate_text">page</span>
                               <input
                                 type="text"
@@ -444,11 +469,15 @@
                               disabled: !mutations.next_page_url,
                             }"
                             @click="
-                              mutations.next_page_url && list(mutations.next_page_url)
+                              mutations.next_page_url &&
+                                list(mutations.next_page_url)
                             "
                           >
                             <span style="font-weight: 500">Next</span>
-                            <span aria-hidden="true" class="chevron right"></span>
+                            <span
+                              aria-hidden="true"
+                              class="chevron right"
+                            ></span>
                           </button>
                         </div>
                       </div>
@@ -468,6 +497,8 @@
 import axios from "axios";
 import debounce from "lodash/debounce";
 import Swal from "sweetalert2";
+import moment from "moment";
+moment.locale("id");
 
 export default {
   data() {
@@ -492,6 +523,9 @@ export default {
   },
   created() {
     this.list();
+    Fire.$on("RefreshTable", () => {
+      this.list();
+    });
   },
   watch: {
     search: debounce(function () {
@@ -570,26 +604,34 @@ export default {
     },
     deleteData(id) {
       Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: "Apakah anda yakin?",
+        text: "Data yang dihapus tidak dapat dikembalikan!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#17816d",
-        cancelButtonColor: "#f04040",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
       }).then((result) => {
         if (result.isConfirmed) {
           this.showLoading();
           axios
             .delete(`/api/aircraft/${id}`)
-            .then((response) => {
-              this.list();
-              Swal.close();
+            .then(() => {
+              Swal.fire("Berhasil!", "Data berhasil dihapus", "success");
+              Fire.$emit("RefreshTable");
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+              this.$Progress.fail();
+              console.log(error);
+            });
         }
       });
     },
   },
 };
 </script>
+<style scoped>
+.vgt-global-search__input .input__icon .magnifying-glass {
+  margin-top: -1px;
+}
+</style>
