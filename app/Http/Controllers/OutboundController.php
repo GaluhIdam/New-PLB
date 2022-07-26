@@ -8,13 +8,14 @@ use Illuminate\Http\Request;
 
 class OutboundController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use \App\Http\Traits\ActivityHistoryTrait;
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function outbound1(Request $request)
     {
+        $this->recordActivity('Akses Outbound Transaction 1');
         $search = $request->get('search');
 
         $part_number = $request->get('part_number');
@@ -126,6 +127,8 @@ class OutboundController extends Controller
     }
     public function outbound2(Request $request)
     {
+        $this->recordActivity('Akses Outbound Transaction 2');
+
         $search = $request->get('search');
         $part_number = $request->get('part_number');
         $description = $request->get('description');
@@ -233,6 +236,8 @@ class OutboundController extends Controller
 
     public function outbound3(Request $request)
     {
+        $this->recordActivity('Akses Outbound Transaction 3');
+
         $search = $request->get('search');
         $part_number = $request->get('part_number');
         $description = $request->get('description');
@@ -347,6 +352,7 @@ class OutboundController extends Controller
 
     public function summary(Request $request)
     {
+        $this->recordActivity('Akses Summary Outbound');
         $search = $request->get('search');
         $part_number = $request->get('part_number');
         $description = $request->get('description');

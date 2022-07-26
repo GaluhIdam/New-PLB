@@ -8,8 +8,16 @@ use Illuminate\Http\Request;
 class HoardingTimeController extends Controller
 {
 
+    use \App\Http\Traits\ActivityHistoryTrait;
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function index(Request $request)
     {
+        $this->recordActivity('Akses Masa Timbun');
+
         $search = $request->get('search');
         $search_bc_16_code = $request->get('search_bc_16_code');
         $search_registration_date = $request->get('search_registration_date');

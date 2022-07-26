@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 
 class MovementAllotmentController extends Controller
 {
+    use \App\Http\Traits\ActivityHistoryTrait;
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function index(Request $request)
     {
+        $this->recordActivity('Akses Movement Allotment');
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
 

@@ -57,6 +57,25 @@
                             v-model="search"
                           />
                         </div>
+                        <div class="vgt-global-search__actions vgt-pull-right">
+                          <div>
+                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-csv"></i>
+                              CSV
+                            </button>
+                            <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-excel"></i>
+                              Excel
+                            </button>
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              style="margin-right: 10px"
+                            >
+                              <i class="fa-solid fa-file-pdf"></i>
+                              PDF
+                            </button> -->
+                          </div>
+                        </div>
                       </div>
                       <div class="vgt-responsive">
                         <table
@@ -484,3 +503,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.vgt-global-search__input .input__icon .magnifying-glass {
+  margin-top: -3px;
+}
+</style>

@@ -70,6 +70,25 @@
                           v-model="search"
                         />
                       </div>
+                      <div class="vgt-global-search__actions vgt-pull-right">
+                        <div>
+                          <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-csv"></i>
+                              CSV
+                            </button>
+                            <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-excel"></i>
+                              Excel
+                            </button>
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              style="margin-right: 10px"
+                            >
+                              <i class="fa-solid fa-file-pdf"></i>
+                              PDF
+                            </button> -->
+                        </div>
+                      </div>
                       <!-- END: Button Left (Search)-->
                     </div>
                     <!-- END Global Search Button -->
@@ -284,7 +303,7 @@
                                 <input
                                   type="date"
                                   class="vgt-input text-center"
-                                  v-model="created_at"
+                                  v-model="search_created_at"
                                 />
                               </div>
                             </th>
@@ -313,7 +332,7 @@
                               {{ user.email }}
                             </td>
                             <td class="text-center table-content">
-                              {{ user.created_at | formatDate }}
+                              {{ user.created_at | myDate }}
                             </td>
                             <td class="text-center table-content">
                               <button
@@ -784,3 +803,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.vgt-global-search__input .input__icon .magnifying-glass {
+  margin-top: -3px;
+}
+</style>

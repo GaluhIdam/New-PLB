@@ -7,8 +7,15 @@ use Illuminate\Http\Request;
 
 class InventoryAllotmentController extends Controller
 {
+    use \App\Http\Traits\ActivityHistoryTrait;
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function index(Request $request)
     {
+        $this->recordActivity('Akses Inventory Allotment');
         $search =  $request->get('search');
         $part_number =  $request->get('part_number');
         $from_plant =  $request->get('from_plant');
@@ -16,7 +23,7 @@ class InventoryAllotmentController extends Controller
         $unit_code =  $request->get('unit_code');
         //filter
         $filter_from_plant =  $request->get('filter_from_plant');
-        
+
 
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');

@@ -56,7 +56,8 @@
                           <datepicker
                             input-class="form-control text-center"
                             placeholder="Dari Tanggal"
-                            format="MM/dd/yyyy"
+                            :language="id"
+                            :format="myDate"
                             v-model="start_date"
                           />
                         </div>
@@ -64,7 +65,8 @@
                           <datepicker
                             input-class="form-control text-center"
                             placeholder="Sampai Tanggal"
-                            format="MM/dd/yyyy"
+                            :language="id"
+                            :format="myDate"
                             v-model="end_date"
                           />
                         </div>
@@ -105,6 +107,25 @@
                             class="vgt-input vgt-pull-left"
                             v-model="search"
                           />
+                        </div>
+                        <div class="vgt-global-search__actions vgt-pull-right">
+                          <div>
+                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-csv"></i>
+                              CSV
+                            </button>
+                            <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-excel"></i>
+                              Excel
+                            </button>
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              style="margin-right: 10px"
+                            >
+                              <i class="fa-solid fa-file-pdf"></i>
+                              PDF
+                            </button> -->
+                          </div>
                         </div>
                       </div>
                       <!-- END :  Global Search -->
@@ -919,6 +940,9 @@ export default {
     filterDate() {
       this.date_selected = true;
       this.list();
+    },
+    DatePicker(date) {
+      return moment(date).format("DD MMMM YYYY");
     },
     clearForm() {
       this.start_date = null;

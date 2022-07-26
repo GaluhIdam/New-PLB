@@ -98,6 +98,25 @@
                           v-model="search"
                         />
                       </div>
+                      <div class="vgt-global-search__actions vgt-pull-right">
+                        <div>
+                          <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-csv"></i>
+                              CSV
+                            </button>
+                            <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-excel"></i>
+                              Excel
+                            </button>
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              style="margin-right: 10px"
+                            >
+                              <i class="fa-solid fa-file-pdf"></i>
+                              PDF
+                            </button> -->
+                        </div>
+                      </div>
                     </div>
 
                     <div class="vgt-responsive">
@@ -455,9 +474,7 @@
                               {{ hoarding_times.bc_16_code }}
                             </td>
                             <td class="text-center table-content">
-                              {{
-                                hoarding_times.registration_date | formatDate
-                              }}
+                              {{ hoarding_times.registration_date | myDate }}
                             </td>
                             <td class="text-center table-content">
                               {{ hoarding_times.item_code }}
@@ -587,6 +604,7 @@ export default {
       DatePickerFormat: "yyyy",
 
       search: null,
+      search_id: "",
       search_bc_16_code: null,
       search_registration_date: null,
       search_registration_number: null,
@@ -611,6 +629,9 @@ export default {
 
   watch: {
     search: debounce(function () {
+      this.list();
+    }, 500),
+    search_id: debounce(function () {
       this.list();
     }, 500),
     search_bc_16_code: debounce(function () {
@@ -662,6 +683,7 @@ export default {
         .get(paginate, {
           params: {
             search: this.search,
+            search_id: this.search_id,
             search_bc_16_code: this.search_bc_16_code,
             search_registration_date: this.search_registration_date,
             search_registration_number: this.search_registration_number,

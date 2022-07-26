@@ -8,13 +8,16 @@ use App\Models\CustomsOutboundDocument;
 
 class CustomsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use \App\Http\Traits\ActivityHistoryTrait;
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function inboundDocument(Request $request)
     {
+        $this->recordActivity('Akses Dokumen Pemasukan PLB');
+
         $search = $request->get('search');
         $search_document_type = $request->get('search_document_type');
         $search_no_aju = $request->get('search_no_aju');
@@ -179,6 +182,8 @@ class CustomsController extends Controller
 
     public function outboundDocument(Request $request)
     {
+        $this->recordActivity('Akses Dokumen Pengeluaran PLB');
+
         $search = $request->get('search');
         $search_document_type = $request->get('search_document_type');
         $search_no_aju = $request->get('search_no_aju');

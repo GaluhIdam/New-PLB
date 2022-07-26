@@ -57,7 +57,27 @@
                             v-model="search"
                           />
                         </div>
+                        <div class="vgt-global-search__actions vgt-pull-right">
+                          <div>
+                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-csv"></i>
+                              CSV
+                            </button>
+                            <button class="btn btn-secondary ms-auto rounded-1">
+                              <i class="fa-solid fa-file-excel"></i>
+                              Excel
+                            </button>
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              style="margin-right: 10px"
+                            >
+                              <i class="fa-solid fa-file-pdf"></i>
+                              PDF
+                            </button> -->
+                          </div>
+                        </div>
                       </div>
+
                       <div class="vgt-responsive">
                         <table
                           id="vgt-table"
@@ -153,7 +173,7 @@
                                 @click="sort('time', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Time</span>
+                                <span class="table_header">Tanggal</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -203,11 +223,11 @@
                                   />
                                 </div>
                               </th>
-                              <th class="filter-th">
+                              <th class="filter-th text-center">
                                 <div>
                                   <input
                                     type="date"
-                                    class="vgt-input"
+                                    class="vgt-input text-center"
                                     v-model="search_time"
                                   />
                                 </div>
@@ -236,7 +256,7 @@
                                 {{ activity.username }}
                               </td>
                               <td class="text-center table_content">
-                                {{ activity.time }}
+                                {{ activity.time | myDateTime }}
                               </td>
                               <td class="table_content">
                                 {{ activity.activity }}
@@ -438,3 +458,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.vgt-global-search__input .input__icon .magnifying-glass {
+  margin-top: -3px;
+}
+</style>
