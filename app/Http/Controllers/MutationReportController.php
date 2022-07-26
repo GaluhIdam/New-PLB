@@ -8,8 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class MutationReportController extends Controller
 {
+    use \App\Http\Traits\ActivityHistoryTrait;
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function index(Request $request)
     {
+        $this->recordActivity('Akses Report Mutasi');
         $search = $request->get('search');
         $search_item_code = $request->get('search_item_code');
         $search_item_name = $request->get('search_item_name');

@@ -13,10 +13,9 @@ class ActivityHistoryController extends Controller
         $this->middleware('auth:api');
     }
 
-
     public function index(Request $request)
     {
-        $this->recordActivity('tes');
+        $this->recordActivity('Akses Activity History');
 
         $search  = $request->get('search');
         $search_username = $request->get('search_username');

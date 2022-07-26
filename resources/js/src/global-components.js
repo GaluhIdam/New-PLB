@@ -47,9 +47,14 @@ import "vue-multiselect/dist/vue-multiselect.min.css";
 // Vue-Moment
 import moment from "moment";
 // Filter Moment
-Vue.filter("formatDate", function (value) {
+Vue.filter("myDate", function (value) {
   if (value) {
-    return moment(String(value)).format("MM/DD/YYYY");
+    return moment(String(value)).format("DD MMMM YYYY");
+  }
+});
+Vue.filter("myDateTime", function (value) {
+  if (value) {
+    return moment(String(value)).format("DD MMMM YYYY - HH:mm:ss");
   }
 });
 

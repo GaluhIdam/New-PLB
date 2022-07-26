@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             CustomsOutboundDocumentSeeder::class,
             HoardingTimeSeeder::class,
             LoginHistorySeeder::class,
-            ActivityHistorySeeder::class,
+            // ActivityHistorySeeder::class,
             MutationPeriodicSeeder::class,
             MutationReportSeeder::class,
             OutboundSeeder::class,

@@ -7,11 +7,6 @@ use App\Models\Aircraft;
 
 class AircraftController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     use \App\Http\Traits\ActivityHistoryTrait;
     public function __construct()
     {
@@ -20,7 +15,7 @@ class AircraftController extends Controller
 
     public function index(Request $request)
     {
-        $this->recordActivity('Accessed Aircraft');
+        $this->recordActivity('Akses Aircraft Mutation');
 
         $search = $request->get('search');
         $search_reg = $request->get('search_reg');
@@ -105,6 +100,8 @@ class AircraftController extends Controller
      */
     public function delivery(Request $request)
     {
+        $this->recordActivity('Akses Aircraft Delivery');
+
         $request->validate([
             'operator' => 'required',
             'type' => 'required',
@@ -134,6 +131,8 @@ class AircraftController extends Controller
 
     public function redelivery(Request $request)
     {
+        $this->recordActivity('Akses Aircraft Redelivery');
+
         $request->validate([
             'operator' => 'required',
             'type' => 'required',
@@ -169,6 +168,8 @@ class AircraftController extends Controller
      */
     public function destroy($id)
     {
+        $this->recordActivity('Menghapus Aircraft');
+
         $campus = Aircraft::find($id);
         $campus->delete();
     }
