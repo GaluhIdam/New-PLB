@@ -43,6 +43,7 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        // Default Database Connection
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
@@ -52,6 +53,66 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+        // Database Connection for PLB Production (plb_db_prod)
+        'plb_db_prod' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL_PROD'),
+            'host' => env('DB_HOST_PROD', '192.168.40.80'),
+            'port' => env('DB_PORT_PROD', '3306'),
+            'database' => env('DB_DATABASE_PROD', 'plb_db_prod'),
+            'username' => env('DB_USERNAME_PROD', 'usr-jti'),
+            'password' => env('DB_PASSWORD_PROD', 'aeroasia'),
+            'unix_socket' => env('DB_SOCKET_PROD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+        // Database Connection for IPLB (iplb_db_prod)
+        'iplb_db_prod' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL_IPLB'),
+            'host' => env('DB_HOST_IPLB', '192.168.40.80'),
+            'port' => env('DB_PORT_IPLB', '3306'),
+            'database' => env('DB_DATABASE_IPLB', 'iplb_db_prod'),
+            'username' => env('DB_USERNAME_IPLB', 'usr-jti'),
+            'password' => env('DB_PASSWORD_IPLB', 'aeroasia'),
+            'unix_socket' => env('DB_SOCKET_IPLB', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+        // Database Connection for Archive (plb_db_archive)
+        'plb_db_archive' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL_ARCHIVE'),
+            'host' => env('DB_HOST_ARCHIVE', '192.168.40.80'),
+            'port' => env('DB_PORT_ARCHIVE', '3306'),
+            'database' => env('DB_DATABASE_ARCHIVE', 'plb_db_archive'),
+            'username' => env('DB_USERNAME_ARCHIVE', 'usr-jti'),
+            'password' => env('DB_PASSWORD_ARCHIVE', 'aeroasia'),
+            'unix_socket' => env('DB_SOCKET_ARCHIVE', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
@@ -125,7 +186,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [

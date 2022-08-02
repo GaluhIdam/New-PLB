@@ -48,7 +48,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-money-bill-transfer"></i>
                         <p>
-                            Allotment
+                            Outbound
                             <i class="right fas fa-angle-right"></i>
                         </p>
                     </a>
