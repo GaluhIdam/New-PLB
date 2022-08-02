@@ -8,8 +8,9 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
-                        <li class="breadcrumb-item active">
+    <li class="breadcrumb-item">
+                <router-link to="/dashboard">Dashboard</router-link>
+              </li>                        <li class="breadcrumb-item active">
                             <span>Outbound Transaction​</span>
                         </li>
                     </ol>

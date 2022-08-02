@@ -109,7 +109,7 @@ export default [
   {
     path: "/developer",
     name: "developer",
-    component: require("@/views/pages/UserManagement/Developer.vue").default,
+    component: require("@/views/pages/Developer.vue").default,
   },
   // Log
   {
