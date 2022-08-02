@@ -166,8 +166,8 @@
                 <hr v-if="filter_clicked" />
 
                 <!-- BEGIN: Tampil Data -->
-                <!-- <div class="form-group mt-4" v-if="filter_clicked"> -->
-                <div class="form-group mt-4">
+                <div class="form-group mt-4" v-if="filter_clicked">
+                  <!-- <div class="form-group mt-4"> -->
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
                       <!-- BEGIN: Global Search -->
@@ -416,7 +416,7 @@
                                 @click="sort('customer', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">customer</span>
+                                <span class="table_header">Customer</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
