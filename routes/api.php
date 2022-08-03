@@ -14,7 +14,7 @@ use App\Http\Controllers\MutationReportController;
 use App\Http\Controllers\ActivityHistoryController;
 use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\MovementAllotmentController;
-use App\Http\Controllers\InventoryAllotmentController;
+use App\Http\Controllers\API\Allotment\InventoryController;
 use App\Http\Controllers\API\Reports\OutboundOneController;
 use App\Http\Controllers\API\Reports\OutboundTwoController;
 use App\Http\Controllers\API\Reports\OutboundThreeController;
@@ -65,10 +65,8 @@ Route::post('/mutation-periodic-report', [MutationPeriodicController::class, 'se
 // Masa Timbun (Hoarding Time)
 Route::get('/hoarding-time', [HoardingTimeController::class, 'index']);
 
-// Invetory Allotment
-Route::get('inventory-allotment', [InventoryAllotmentController::class, 'index']);
-
-//Movement Allotment
+// Allotment
+Route::get('inventory-allotment', [InventoryController::class, 'inventoryAllotment']);
 Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
 
 //Dashboard
