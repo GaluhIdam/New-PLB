@@ -85,9 +85,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-4 col-form-label"
-                          >Part Number</label
-                        >
+                        <label class="col-sm-4 col-form-label">Plant</label>
                         <div class="col-sm-8">
                           <input
                             type="text"
@@ -168,8 +166,8 @@
                 <hr v-if="filter_clicked" />
 
                 <!-- BEGIN: Tampil Data -->
-                <div class="form-group mt-4" v-if="filter_clicked">
-                  <!-- <div class="form-group mt-4"> -->
+                <!-- <div class="form-group mt-4" v-if="filter_clicked"> -->
+                <div class="form-group mt-4">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
                       <!-- BEGIN: Global Search -->
@@ -325,8 +323,8 @@
                               <!-- END: Quantity -->
                               <!-- BEGIN: Kode Satuan -->
                               <th
-                                v-if="order == 'unit_measure' && by == 'asc'"
-                                @click="sort('unit_measure', 'desc')"
+                                v-if="order == 'unit_code' && by == 'asc'"
+                                @click="sort('unit_code', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Kode Satuan</span>
@@ -335,9 +333,7 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'unit_measure' && by == 'desc'
-                                "
+                                v-else-if="order == 'unit_code' && by == 'desc'"
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
@@ -348,7 +344,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('unit_measure', 'asc')"
+                                @click="sort('unit_code', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Kode Satuan</span>
@@ -420,7 +416,7 @@
                                 @click="sort('customer', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Customer</span>
+                                <span class="table_header">customer</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -544,7 +540,7 @@
                                     type="text"
                                     class="vgt-input text-center"
                                     placeholder="Kode Satuan"
-                                    v-model="search_unit_measure"
+                                    v-model="search_unit_code"
                                   />
                                 </div>
                               </th>
@@ -620,7 +616,7 @@
                                 {{ outbound.quantity }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.unit_measure }}
+                                {{ outbound.unit_code }}
                               </td>
                               <td class="table_content text-center">
                                 {{ outbound.register_aircraft }}
@@ -762,7 +758,7 @@ export default {
       search_part_number: null, // Part Number
       search_description: null, // Description
       search_quantity: null, // Quantity
-      search_unit_measure: null, // Kode Satuan
+      search_unit_code: null, // Kode Satuan
       search_register_aircraft: null, // Register Aircraft
       search_customer: null, // Customer
       search_date_install: null, // Date Install
@@ -811,7 +807,7 @@ export default {
     search_quantity: debounce(function () {
       this.list();
     }, 500),
-    search_unit_measure: debounce(function () {
+    search_unit_code: debounce(function () {
       this.list();
     }, 500),
     search_register_aircraft: debounce(function () {
@@ -897,7 +893,7 @@ export default {
             search_part_number: this.search_part_number,
             search_description: this.search_description,
             search_quantity: this.search_quantity,
-            search_unit_measure: this.search_unit_measure,
+            search_unit_code: this.search_unit_code,
             search_register_aircraft: this.search_register_aircraft,
             search_customer: this.customer,
             search_date_install: this.search_date_install,

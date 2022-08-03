@@ -12,6 +12,7 @@ use App\Http\Controllers\HoardingTimeController;
 use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\MutationReportController;
 use App\Http\Controllers\ActivityHistoryController;
+use App\Http\Controllers\API\Reports\OutboundController as ReportsOutboundController;
 use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\MovementAllotmentController;
 use App\Http\Controllers\InventoryAllotmentController;
@@ -33,6 +34,7 @@ Route::get('/customs/inbound-document', [CustomsController::class, 'inboundDocum
 Route::get('/customs/outbound-document', [CustomsController::class, 'outboundDocument']);
 
 // Outbound
+Route::get('/outbound-transaction', [ReportsOutboundController::class, 'getOutbound1']);
 Route::get('/outbound/transaction-1', [OutboundController::class, 'outbound1']);
 Route::get('/outbound/transaction-2', [OutboundController::class, 'outbound2']);
 Route::get('/outbound/transaction-3', [OutboundController::class, 'outbound3']);

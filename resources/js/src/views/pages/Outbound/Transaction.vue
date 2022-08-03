@@ -8,8 +8,9 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
-                        <li class="breadcrumb-item active">
+    <li class="breadcrumb-item">
+                <router-link to="/dashboard">Dashboard</router-link>
+              </li>                        <li class="breadcrumb-item active">
                             <span>Outbound Transaction​</span>
                         </li>
                     </ol>
@@ -38,7 +39,7 @@
                         <div class="card-body">
                             <div class="row justify-content-center align-items-center mt-4">
                                 <div class="col-md-12 text-center">
-                                    <h1> Pilih Transaction Outbound dibawah ini </h1>
+                                    <h1> Pilih Kondisi dibawah ini </h1>
                                 </div>
                             </div>
                             <div class="row" style="margin-top: 100px;margin-bottom: 100px;">
@@ -46,23 +47,23 @@
                                     <router-link to=/outbound-transcation-1 class="btn btn-1">1</router-link>
                                     <br>
                                     <br>
-                                    <label>Outbound 1</label><br />
-                                    <label>Status Part Pesawat yang masih didalam PLB GMF</label>
+                                    <!-- <label>Outbound 1</label><br /> -->
+                                    <label>Inventory berkurang dari Sistem</label>
                                 </div>
                                 <div class="col-md-4 text-center">
                                     <router-link to=/outbound-transcation-2 class="btn btn-2">2</router-link>
                                     <br>
                                     <br>
-                                    <label>Outbound 2</label><br />
-                                    <label>Status Part Pesawat yang sudah diluar PLB GMF​</label>
+                                    <!-- <label>Outbound 2</label><br /> -->
+                                    <label>Inventory berkurang BC 28 AJU​</label>
                                 </div>
                                 <div class="col-md-4 text-center">
                                     <router-link to=/outbound-transcation-3 class="btn btn-3">3
                                     </router-link>
                                     <br />
                                     <br />
-                                    <label>Outbound 3</label><br />
-                                    <label>Status Part Pesawat yang sudah sudah Clearance​</label>
+                                    <!-- <label>Outbound 3</label><br /> -->
+                                    <label>Inventory berkurang BC 28 Daftar</label>
                                 </div>
                             </div>
                         </div>

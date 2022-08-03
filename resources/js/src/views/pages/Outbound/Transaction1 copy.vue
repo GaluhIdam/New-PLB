@@ -60,7 +60,7 @@
                             input-class="form-control"
                             placeholder="Dari Tanggal"
                             format="MM/dd/yyyy"
-                            v-model="filter_start_date"
+                            v-model="start_date"
                             autofocus
                           />
                         </div>
@@ -69,7 +69,7 @@
                             input-class="form-control"
                             placeholder="Sampai Tanggal"
                             format="MM/dd/yyyy"
-                            v-model="filter_end_date"
+                            v-model="end_date"
                           />
                         </div>
                       </div>
@@ -78,26 +78,24 @@
                         <div class="col-sm-8">
                           <input
                             type="text"
-                            v-model="filter_customer"
+                            v-model="customer"
                             class="form-control"
                             placeholder="Masukkan Customer"
                           />
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-4 col-form-label"
-                          >Part Number</label
-                        >
+                        <label class="col-sm-4 col-form-label">Plant</label>
                         <div class="col-sm-8">
                           <input
                             type="text"
-                            v-model="filter_part_number"
+                            v-model="part_number"
                             class="form-control"
                             placeholder="Masukkan Part Number"
                           />
                         </div>
                       </div>
-                      <div class="form-group row" id="dokumenList">
+                      <div class="form-group row">
                         <label class="col-sm-4 col-form-label"
                           >Jenis Dokumen</label
                         >
@@ -152,7 +150,10 @@
                       </div>
                       <div class="form-group row justify-content-center">
                         <div class="col-sm-4">
-                          <button class="btn btn-primary" @click="filterButton">
+                          <button
+                            class="btn btn-primary"
+                            @click="filterTranscation"
+                          >
                             <i class="fa-solid fa-magnifying-glass"></i>
                             Filter
                           </button>
@@ -165,14 +166,11 @@
                   </div>
                 </div>
                 <!-- END: Cari Data -->
-                <hr v-if="filter_clicked" />
 
-                <!-- BEGIN: Tampil Data -->
+                <hr v-if="filter_clicked" />
                 <div class="form-group mt-4" v-if="filter_clicked">
-                  <!-- <div class="form-group mt-4"> -->
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
-                      <!-- BEGIN: Global Search -->
                       <div class="vgt-global-search vgt-clearfix">
                         <div class="vgt-global-search__input vgt-pull-left">
                           <label>
@@ -188,7 +186,6 @@
                             v-model="search"
                           />
                         </div>
-                        <!-- BEGIN: Right Button -->
                         <div class="vgt-global-search__actions vgt-pull-right">
                           <div>
                             <button class="btn btn-secondary ms-auto rounded-1">
@@ -208,21 +205,15 @@
                             </button>
                           </div>
                         </div>
-                        <!-- END: Right Button -->
                       </div>
-                      <!-- END: Global Search -->
-
-                      <!-- BEGIN: Table -->
                       <div class="vgt-responsive">
                         <table
                           id="vgt-table"
                           class="vgt-table bordered polar-bear"
                         >
-                          <!-- BEGIN: Thead -->
                           <thead>
-                            <!-- BEGIN: TR Description -->
                             <tr>
-                              <!-- BEGIN: Part Number -->
+                              <!-- Part Number -->
                               <th
                                 v-if="order == 'part_number' && by == 'asc'"
                                 @click="sort('part_number', 'desc')"
@@ -255,8 +246,6 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Part Number -->
-                              <!-- BEGIN: Description -->
                               <!-- Description -->
                               <th
                                 v-if="order == 'description' && by == 'asc'"
@@ -290,14 +279,13 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Description -->
-                              <!-- BEGIN: Quantity -->
+                              <!-- Qty -->
                               <th
                                 v-if="order == 'quantity' && by == 'asc'"
                                 @click="sort('quantity', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">Quantity</span>
+                                <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -307,7 +295,7 @@
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
-                                <span class="table_header">Quantity</span>
+                                <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -317,16 +305,15 @@
                                 @click="sort('quantity', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Quantity</span>
+                                <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Quantity -->
-                              <!-- BEGIN: Kode Satuan -->
+                              <!--  Kode Satuan -->
                               <th
-                                v-if="order == 'unit_measure' && by == 'asc'"
-                                @click="sort('unit_measure', 'desc')"
+                                v-if="order == 'unit_code' && by == 'asc'"
+                                @click="sort('unit_code', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Kode Satuan</span>
@@ -335,9 +322,7 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'unit_measure' && by == 'desc'
-                                "
+                                v-else-if="order == 'unit_code' && by == 'desc'"
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
@@ -348,7 +333,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('unit_measure', 'asc')"
+                                @click="sort('unit_code', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Kode Satuan</span>
@@ -356,13 +341,10 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Kode Satuan -->
-                              <!-- BEGIN: Register Aircraft -->
+                              <!-- Register A/C -->
                               <th
-                                v-if="
-                                  order == 'register_aircraft' && by == 'asc'
-                                "
-                                @click="sort('register_aircraft', 'desc')"
+                                v-if="order == 'register_ac' && by == 'asc'"
+                                @click="sort('register_ac', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Register A/C</span>
@@ -372,7 +354,7 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'register_aircraft' && by == 'desc'
+                                  order == 'register_ac' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
@@ -384,7 +366,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('register_aircraft', 'asc')"
+                                @click="sort('register_ac', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Register A/C</span>
@@ -392,15 +374,13 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Register Aircraft -->
-
-                              <!-- BEGIN: Customer -->
+                              <!-- Customer -->
                               <th
                                 v-if="order == 'customer' && by == 'asc'"
                                 @click="sort('customer', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">customer</span>
+                                <span class="table_header">Customer</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -410,7 +390,7 @@
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
-                                <span class="table_header">customer</span>
+                                <span class="table_header">Customer</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -425,14 +405,15 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Customer -->
-                              <!-- BEGIN: Date Install/Consume -->
+                              <!-- Date Install/Consume -->
                               <th
                                 v-if="order == 'date_install' && by == 'asc'"
                                 @click="sort('date_install', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">Date Install</span>
+                                <span class="table_header"
+                                  >Date Install/Consume</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -444,7 +425,9 @@
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
-                                <span class="table_header">Date Install</span>
+                                <span class="table_header"
+                                  >Date Install/Consume</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -454,19 +437,18 @@
                                 @click="sort('date_install', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Date Install</span>
+                                <span class="table_header"
+                                  >Date Install/Consume</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Date Install/Consume -->
 
-                              <!-- BEGIN: Date Aircraft IN -->
+                              <!-- Date A/C In -->
                               <th
-                                v-if="
-                                  order == 'date_aircraft_in' && by == 'asc'
-                                "
-                                @click="sort('date_aircraft_in', 'desc')"
+                                v-if="order == 'date_ac_in' && by == 'asc'"
+                                @click="sort('date_ac_in', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Date A/C In</span>
@@ -476,7 +458,7 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'date_aircraft_in' && by == 'desc'
+                                  order == 'date_ac_in' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
@@ -488,7 +470,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('date_aircraft_in', 'asc')"
+                                @click="sort('date_ac_in', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Date A/C In</span>
@@ -496,146 +478,123 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Date Aircraft IN -->
                             </tr>
-                            <!-- END: TR Description-->
-                            <!-- BEGIN: TR Filter -->
                             <tr>
-                              <!-- BEGIN: Filter Part Number -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Part Number"
+                                    class="vgt-input"
+                                    placeholder="Filter Part Number"
                                     v-model="search_part_number"
                                   />
                                 </div>
                               </th>
-                              <!-- END: Filter Part Number -->
-                              <!-- BEGIN: Filter Description -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Description"
+                                    class="vgt-input"
+                                    placeholder="Filter Description"
                                     v-model="search_description"
                                   />
                                 </div>
                               </th>
-                              <!-- END: Filter Description -->
-                              <!-- BEGIN: Filter Quantity -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Quantity"
+                                    class="vgt-input"
+                                    placeholder="Filter Qty"
                                     v-model="search_quantity"
                                   />
                                 </div>
                               </th>
-                              <!-- END: Filter Quantity -->
-                              <!-- BEGIN: Filter Kode Satuan -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Kode Satuan"
-                                    v-model="search_unit_measure"
+                                    class="vgt-input"
+                                    placeholder="Filter Kode satuan"
+                                    v-model="search_unit_code"
                                   />
                                 </div>
                               </th>
-                              <!-- END: Filter Kode Satuan -->
-                              <!-- BEGIN: Filter Register Aircraft -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Register A/C"
-                                    v-model="search_register_aircraft"
+                                    class="vgt-input"
+                                    placeholder="Filter Register A/C"
+                                    v-model="search_register_ac"
                                   />
                                 </div>
                               </th>
-                              <!-- END: Filter Register Aircraft -->
-                              <!-- BEGIN: Filter Customer -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Customer"
+                                    class="vgt-input"
+                                    placeholder="Filter Customer"
                                     v-model="search_customer"
                                   />
                                 </div>
                               </th>
-                              <!-- END: Filter Customer -->
-                              <!-- BEGIN: Filter Date Install -->
                               <th class="filter-th">
                                 <div>
                                   <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Date Install"
+                                    type="date"
+                                    class="vgt-input"
+                                    placeholder="Filter Date Install/Consume"
                                     v-model="search_date_install"
                                   />
                                 </div>
                               </th>
-                              <!-- END: Filter Date Install -->
-                              <!-- BEGIN: Filter Date Aircraft IN -->
                               <th class="filter-th">
                                 <div>
                                   <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Date A/C In"
-                                    v-model="search_date_aircraft_in"
+                                    type="date"
+                                    class="vgt-input"
+                                    placeholder="Filter Date A/C In"
+                                    v-model="search_date_ac_in"
                                   />
                                 </div>
                               </th>
-                              <!-- END: Filter Date Aircraft IN -->
                             </tr>
-                            <!-- END: TR Filter -->
                           </thead>
-                          <!-- END: Thead -->
-
-                          <!-- BEGIN: Tbody -->
                           <tbody>
                             <tr
                               v-for="(
-                                outbound, outbound_index
-                              ) in outbounds.data"
-                              :key="outbound_index"
+                                transaction, transaction_index
+                              ) in transactions.data"
+                              :key="transaction_index"
                             >
-                              <td class="table_content text-center">
-                                {{ outbound.part_number }}
+                              <td class="table_content">
+                                {{ transaction.part_number }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.description }}
+                              <td class="table_content">
+                                {{ transaction.description }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.quantity }}
+                              <td class="table_content">
+                                {{ transaction.quantity }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.unit_measure }}
+                              <td class="table_content">
+                                {{ transaction.unit_code }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.register_aircraft }}
+                              <td class="text-center table_content">
+                                {{ transaction.register_ac }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.customer }}
+                              <td class="table_content">
+                                {{ transaction.customer }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.date_install | myDate }}
+                              <td class="table_content">
+                                {{ transaction.date_install | formatDate }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.date_aircraft_in | myDate }}
+                              <td class="table_content">
+                                {{ transaction.date_ac_in | formatDate }}
                               </td>
                             </tr>
-                            <tr v-if="outbounds.data.length < 1">
+                            <tr v-if="transactions.data.length < 1">
                               <td colspan="15">
                                 <div class="vgt-center-align vgt-text-disabled">
                                   Data not found
@@ -643,11 +602,8 @@
                               </td>
                             </tr>
                           </tbody>
-                          <!-- END: Tbody -->
                         </table>
                       </div>
-                      <!-- END: Table -->
-                      <!-- BEGIN: Paginate -->
                       <div class="vgt-wrap__footer vgt-clearfix">
                         <div class="footer__row-count vgt-pull-left">
                           <label
@@ -671,11 +627,11 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !outbounds.prev_page_url,
+                              disabled: !transactions.prev_page_url,
                             }"
                             @click="
-                              outbounds.prev_page_url &&
-                                list(outbounds.prev_page_url)
+                              transactions.prev_page_url &&
+                                list(transactions.prev_page_url)
                             "
                             style="margin-right: 0px"
                           >
@@ -703,7 +659,7 @@
                               />
                               <span class="paginate_text">
                                 of
-                                {{ outbounds.last_page }}
+                                {{ transactions.last_page }}
                               </span>
                             </label>
                           </div>
@@ -711,11 +667,11 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !outbounds.next_page_url,
+                              disabled: !transactions.next_page_url,
                             }"
                             @click="
-                              outbounds.next_page_url &&
-                                list(outbounds.next_page_url)
+                              transactions.next_page_url &&
+                                list(transactions.next_page_url)
                             "
                           >
                             <span style="font-weight: 500">Next</span>
@@ -726,15 +682,14 @@
                           </button>
                         </div>
                       </div>
-                      <!-- END: Paginate -->
                     </div>
                   </div>
                 </div>
-                <!-- END: Tampil Data -->
               </div>
-              <!-- END: Card Body -->
+              <div class="card-footer text-center" v-if="filter_clicked">
+                Status Pesawat Masih Didalam Area PLB GMF
+              </div>
             </div>
-            <!-- END: Card -->
           </div>
         </div>
       </div>
@@ -746,57 +701,34 @@
 import axios from "axios";
 import debounce from "lodash/debounce";
 import Swal from "sweetalert2";
-import moment from "moment";
-moment.locale("id");
 
 export default {
   data() {
     return {
-      outbounds: {
+      transactions: {
         data: [],
         links: [],
       },
-      // Search Data
-      search: null, // Pencarian Data
+      search: null,
+      search_part_number: null,
       customer: null,
-      search_part_number: null, // Part Number
-      search_description: null, // Description
-      search_quantity: null, // Quantity
-      search_unit_measure: null, // Kode Satuan
-      search_register_aircraft: null, // Register Aircraft
-      search_customer: null, // Customer
-      search_date_install: null, // Date Install
-      search_date_aircraft_in: null, // Date Aircraft In
-      search_date_aircraft_out: null, // Date Aircraft Out
-      search_document_type: null, // Type BC
-      search_submission_number: null, // Nomor Aju
-      search_submission_date: null, // Tanggal Aju
-      search_registration_number: null, // Nomor Daftar
-      search_registration_date: null, // Tanggal Daftar
-      search_cif_idr: null, // CIF IDR
-      search_bm_bayar: null, // BM Bayar
-      search_ppn_bayar: null, // PPn Bayar
-      search_pph_bayar: null, // PPh Bayar
-
-      // Order By
+      part_number: null,
+      search_description: null,
+      search_quantity: null,
+      search_unit_code: null,
+      search_register_ac: null,
+      search_customer: null,
+      search_date_install: null,
+      search_date_ac_in: null,
+      start_date: null,
+      end_date: null,
       order: "id",
       by: "desc",
       paginate: "10",
       current_page: null,
-
-      filter_start_date: null,
-      filter_end_date: null,
-      filter_customer: null,
-      filter_part_number: null,
-      filter_document_type: [],
+      document_type: null,
       filter_clicked: false,
     };
-  },
-  created() {
-    this.list();
-    Fire.$on("RefreshTable", () => {
-      this.list();
-    });
   },
   watch: {
     search: debounce(function () {
@@ -811,134 +743,83 @@ export default {
     search_quantity: debounce(function () {
       this.list();
     }, 500),
-    search_unit_measure: debounce(function () {
+    search_unit_code: debounce(function () {
       this.list();
     }, 500),
-    search_register_aircraft: debounce(function () {
-      this.list();
-    }, 500),
-    search_customer: debounce(function () {
+    search_register_ac: debounce(function () {
       this.list();
     }, 500),
     search_date_install: debounce(function () {
       this.list();
     }, 500),
-    search_date_aircraft_in: debounce(function () {
+    search_date_ac_in: debounce(function () {
       this.list();
     }, 500),
-    search_date_aircraft_out: debounce(function () {
+    search_customer: debounce(function () {
       this.list();
     }, 500),
-    search_document_type: debounce(function () {
+    start_date: debounce(function () {
       this.list();
     }, 500),
-    search_submission_number: debounce(function () {
+    end_date: debounce(function () {
       this.list();
     }, 500),
-    search_submission_date: debounce(function () {
-      this.list();
-    }, 500),
-    search_registration_number: debounce(function () {
-      this.list();
-    }, 500),
-    search_registration_date: debounce(function () {
-      this.list();
-    }, 500),
-    search_cif_idr: debounce(function () {
-      this.list();
-    }, 500),
-    search_bm_bayar: debounce(function () {
-      this.list();
-    }, 500),
-    search_ppn_bayar: debounce(function () {
-      this.list();
-    }, 500),
-    search_pph_bayar: debounce(function () {
-      this.list();
-    }, 500),
-    filter_start_date: debounce(function () {
-      this.list();
-    }, 500),
-    filter_end_date: debounce(function () {
-      this.list();
-    }, 500),
-    filter_customer: debounce(function () {
-      this.list();
-    }, 500),
-    filter_part_number: debounce(function () {
-      this.list();
-    }, 500),
-    filter_document_type: debounce(function () {
+    document_type: debounce(function () {
       this.list();
     }, 500),
   },
-
   methods: {
-    filterButton() {
+    filterTranscation() {
       this.filter_clicked = true;
       this.list();
     },
     clearForm() {
-      this.filter_start_date = null;
-      this.filter_end_date = null;
-      this.filter_customer = null;
-      this.filter_part_number = null;
-      this.filter_document_type = null;
-      this.filter_clicked = false;
+      this.start_date = null;
+      this.end_date = null;
+      this.customer = null;
+      this.part_number = null;
+      this.document_type = null;
       this.list();
+      this.filter_clicked = false;
     },
     list(paginate) {
-      this.$Progress.start();
-      paginate = paginate || `/api/outbound-transaction`;
+      this.showLoading();
+      paginate = paginate || `/api/outbound/transaction-1`;
       axios
         .get(paginate, {
           params: {
             search: this.search,
-            search_part_number: this.search_part_number,
             search_description: this.search_description,
             search_quantity: this.search_quantity,
-            search_unit_measure: this.search_unit_measure,
-            search_register_aircraft: this.search_register_aircraft,
-            search_customer: this.customer,
+            search_unit_code: this.search_unit_code,
+            search_register_ac: this.search_register_ac,
             search_date_install: this.search_date_install,
-            search_date_aircraft_in: this.search_date_aircraft_in,
-            search_date_aircraft_out: this.search_date_aircraft_out,
-            search_document_type: this.search_document_type,
-            search_submission_number: this.search_submission_number,
-            search_submission_date: this.search_submission_date,
-            search_registration_number: this.search_registration_number,
-            search_registration_date: this.search_registration_date,
-            search_cif_idr: this.search_cif_idr,
-            search_bm_bayar: this.search_bm_bayar,
-            search_ppn_bayar: this.search_ppn_bayar,
-            search_pph_bayar: this.search_pph_bayar,
-            filter_start_date: this.filter_start_date,
-            filter_end_date: this.filter_end_date,
-            filter_customer: this.filter_customer,
-            filter_part_number: this.filter_part_number,
-            filter_document_type: this.filter_document_type,
+            search_date_ac_in: this.search_date_ac_in,
+            search_start_date: this.start_date,
+            search_end_date: this.end_date,
+            search_customer: this.customer,
+            search_part_number: this.part_number,
             order: this.order,
             by: this.by,
             paginate: this.paginate,
           },
         })
         .then((response) => {
-          this.outbounds = response.data;
-          this.current_page = this.outbounds.current_page;
-          this.$Progress.finish();
+          this.transactions = response.data;
+          this.current_page = this.transactions.current_page;
+          // console.log(this.transactions);
+          Swal.close();
         })
-        .catch((error) => {
-          this.$Progress.fail();
-          console.log(error);
-        });
+        .catch((error) => console.log(error));
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
         this.current_page = 1;
-      } else if (this.current_page > this.outbounds.last_page) {
-        this.current_page = this.outbounds.last_page;
+      } else if (this.current_page > this.transactions.last_page) {
+        this.current_page = this.transactions.last_page;
       }
-      let url = new URL(this.outbounds.first_page_url);
+
+      let url = new URL(this.transactions.first_page_url);
       let search_params = url.searchParams;
       search_params.set("page", this.current_page);
       url.search = search_params.toString();
@@ -949,6 +830,15 @@ export default {
       this.order = order;
       this.by = by;
       this.list();
+    },
+    showLoading() {
+      Swal.fire({
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        background: "transparent",
+        allowOutsideClick: false,
+      });
     },
   },
 };
