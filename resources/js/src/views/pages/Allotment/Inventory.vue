@@ -56,14 +56,14 @@
                           type="text"
                           class="form-control text-center"
                           placeholder="Masukan Plant"
-                          v-model="filter_from_plant"
+                          v-model="filter_plant"
                           autofocus
                         />
                       </div>
                     </div>
                     <div class="form-group row justify-content-center">
                       <div class="col-sm-4">
-                        <button class="btn btn-primary" @click="fliterPlant">
+                        <button class="btn btn-primary" @click="filterButton">
                           <i class="fa-solid fa-magnifying-glass"></i> Filter
                         </button>
                         <button class="btn btn-secondary" @click="clearForm">
@@ -74,10 +74,10 @@
                   </div>
                 </div>
                 <!-- END: Cari Data -->
+                <hr v-if="filter_clicked" />
 
-                <hr v-if="date_selected" />
                 <!-- BEGIN: Tampil Data -->
-                <div class="form-group mt-4" v-if="click_filter">
+                <div class="form-group mt-4" v-if="filter_clicked">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
                       <div class="vgt-global-search vgt-clearfix">
@@ -189,99 +189,104 @@
                               </th>
                               <!--  -->
                               <th
-                                v-if="order == 'from_plant' && by == 'asc'"
-                                @click="sort('from_plant', 'desc')"
+                                v-if="order == 'plant' && by == 'asc'"
+                                @click="sort('plant', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">Plant Asal</span>
+                                <span class="table_header">Plant</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else-if="order == 'plant' && by == 'desc'"
+                                @click="sort('plant', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
+                                <span class="table_header">Plant</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else
+                                @click="sort('plant', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header">Plant</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+
+                              <!-- BEGIN: Nomor Matdoc -->
+                              <th
+                                v-if="
+                                  order == 'material_document' && by == 'asc'
+                                "
+                                @click="sort('material_document', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header">Nomor Matdoc</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'from_plant' && by == 'desc'
+                                  order == 'material_document' && by == 'desc'
                                 "
-                                @click="sort('from_plant', 'asc')"
+                                @click="sort('material_document', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
-                                <span class="table_header">Plant Asal</span>
+                                <span class="table_header">Nomor Matdoc</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th
                                 v-else
-                                @click="sort('from_plant', 'asc')"
+                                @click="sort('material_document', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Plant Asal</span>
+                                <span class="table_header">Nomor Matdoc</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
+                              <!-- END: Plant Tujuan -->
+                              <!-- BEGIN: Quantity -->
                               <th
-                                v-if="order == 'to_plant' && by == 'asc'"
-                                @click="sort('to_plant', 'desc')"
+                                v-if="order == 'total' && by == 'asc'"
+                                @click="sort('total', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">Plant Tujuan</span>
+                                <span class="table_header">Quantity</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'to_plant' && by == 'desc'"
-                                @click="sort('to_plant', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">Plant Tujuan</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('to_plant', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Plant Tujuan</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <!--  -->
-                              <th
-                                v-if="order == 'quantity' && by == 'asc'"
-                                @click="sort('quantity', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header">Qty</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="order == 'quantity' && by == 'desc'"
+                                v-else-if="order == 'total' && by == 'desc'"
                                 @click="sort('quantity', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
-                                <span class="table_header">Qty</span>
+                                <span class="table_header">Quantity</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th
                                 v-else
-                                @click="sort('quantity', 'asc')"
+                                @click="sort('total', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Qty</span>
+                                <span class="table_header">Quantity</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
+                              <!-- END: Quantity -->
 
                               <!--  -->
                               <th
@@ -322,8 +327,8 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter part_number"
+                                    class="vgt-input text-center"
+                                    placeholder="Part Number"
                                     v-model="search_part_number"
                                   />
                                 </div>
@@ -332,9 +337,9 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter IP Address"
-                                    v-model="search_from_plant"
+                                    class="vgt-input text-center"
+                                    placeholder="Plant"
+                                    v-model="search_plant"
                                   />
                                 </div>
                               </th>
@@ -342,9 +347,9 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter IP Address"
-                                    v-model="search_to_plant"
+                                    class="vgt-input text-center"
+                                    placeholder="Nomor Matdoc"
+                                    v-model="search_material_document"
                                   />
                                 </div>
                               </th>
@@ -352,9 +357,9 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter User Agent"
-                                    v-model="search_quantity"
+                                    class="vgt-input text-center"
+                                    placeholder="Quantity"
+                                    v-model="search_total"
                                   />
                                 </div>
                               </th>
@@ -362,9 +367,9 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter IP Address"
-                                    v-model="search_unit_code"
+                                    class="vgt-input text-center"
+                                    placeholder="Kode Satuan"
+                                    v-model="search_unit_measure"
                                   />
                                 </div>
                               </th>
@@ -374,29 +379,29 @@
                             <tr
                               v-for="(
                                 inventory, inventory_index
-                              ) in inventory_allotment.data"
+                              ) in inventorys.data"
                               :key="inventory_index"
                             >
-                              <td class="table_content">
+                              <td class="text-center table_content">
                                 {{ inventory.id }}
                               </td>
-                              <td class="table_content">
+                              <td class="text-center table_content">
                                 {{ inventory.part_number }}
                               </td>
-                              <td class="table_content">
-                                {{ inventory.from_plant }}
+                              <td class="text-center table_content">
+                                {{ inventory.plant }}
                               </td>
                               <td class="text-center table_content">
-                                {{ inventory.to_plant }}
+                                {{ inventory.material_document }}
                               </td>
                               <td class="text-center table_content">
-                                {{ inventory.quantity }}
+                                {{ inventory.total }}
                               </td>
                               <td class="text-center table_content">
-                                {{ inventory.unit_code }}
+                                {{ inventory.unit_measure }}
                               </td>
                             </tr>
-                            <tr v-if="inventory_allotment.data.length < 1">
+                            <tr v-if="inventorys.data.length < 1">
                               <td colspan="8">
                                 <div class="vgt-center-align vgt-text-disabled">
                                   Data not found
@@ -429,11 +434,11 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !inventory_allotment.prev_page_url,
+                              disabled: !inventorys.prev_page_url,
                             }"
                             @click="
-                              inventory_allotment.prev_page_url &&
-                                list(inventory_allotment.prev_page_url)
+                              inventorys.prev_page_url &&
+                                list(inventorys.prev_page_url)
                             "
                             style="margin-right: 0px"
                           >
@@ -461,7 +466,7 @@
                               />
                               <span class="paginate_text">
                                 of
-                                {{ inventory_allotment.last_page }}
+                                {{ inventorys.last_page }}
                               </span>
                             </label>
                           </div>
@@ -469,11 +474,11 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !inventory_allotment.next_page_url,
+                              disabled: !inventorys.next_page_url,
                             }"
                             @click="
-                              inventory_allotment.next_page_url &&
-                                list(inventory_allotment.next_page_url)
+                              inventorys.next_page_url &&
+                                list(inventorys.next_page_url)
                             "
                           >
                             <span style="font-weight: 500">Next</span>
@@ -507,27 +512,32 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
-      inventory_allotment: {
+      inventorys: {
         data: [],
         links: [],
       },
-      search: null,
-      search_part_number: null,
-      search_from_plant: null,
-      search_to_plant: null,
-      search_quantity: null,
-      search_unit_code: null,
-      click_filter: false,
-      filter_from_plant: null,
+      // Search Data
+      search: "",
+      search_part_number: "",
+      search_plant: "",
+      search_material_document: "",
+      search_total: "",
+      search_unit_measure: "",
+      // Order By
       order: "id",
-      by: "desc",
+      by: "asc",
       paginate: "10",
       current_page: null,
+      // Filter
+      filter_plant: "",
+      filter_clicked: false,
     };
   },
-
   created() {
     this.list();
+    Fire.$on("RefreshTable", () => {
+      this.list();
+    });
   },
   watch: {
     search: debounce(function () {
@@ -536,63 +546,68 @@ export default {
     search_part_number: debounce(function () {
       this.list();
     }, 500),
-    search_form_plant: debounce(function () {
+    search_plant: debounce(function () {
       this.list();
     }, 500),
-    search_to_plant: debounce(function () {
+    search_material_document: debounce(function () {
       this.list();
     }, 500),
-    search_quantity: debounce(function () {
+    search_total: debounce(function () {
       this.list();
     }, 500),
-    search_unit_code: debounce(function () {
+    search_unit_measure: debounce(function () {
+      this.list();
+    }, 500),
+    filter_plant: debounce(function () {
       this.list();
     }, 500),
   },
   methods: {
+    filterButton() {
+      this.filter_clicked = true;
+      this.list();
+    },
+    clearForm() {
+      this.filter_plant = null;
+      this.list();
+      this.filter_clicked = false;
+    },
     list(paginate) {
-      this.showLoading();
+      this.$Progress.start();
       paginate = paginate || `/api/inventory-allotment`;
       axios
         .get(paginate, {
           params: {
-            filter_from_plant: this.filter_from_plant,
-            search: this.search,
             search_part_number: this.search_part_number,
-            search_from_plant: this.search_from_plant,
-            search_to_plant: this.search_to_plant,
-            start_quantity: this.search_quantity,
-            start_unit_code: this.search_unit_code,
+            search_plant: this.search_plant,
+            search_material_document: this.search_material_document,
+            search_total: this.search_total,
+            search_unit_measure: this.search_unit_measure,
+            filter_plant: this.filter_plant,
+
             order: this.order,
             by: this.by,
             paginate: this.paginate,
           },
         })
         .then((response) => {
-          this.inventory_allotment = response.data;
-          this.current_page = this.inventory_allotment.current_page;
-          //console.log(this.inventory_allotment)
-          Swal.close();
+          this.inventorys = response.data;
+          this.current_page = this.inventorys.current_page;
+          this.$Progress.finish();
         })
-        .catch((error) => console.log(error));
-    },
-    fliterPlant() {
-      this.click_filter = true;
-      this.list();
-    },
-    clearForm() {
-      this.filter_from_plant = null;
-      this.list();
-      this.click_filter = false;
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
+        });
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
         this.current_page = 1;
-      } else if (this.current_page > this.inventory_allotment.last_page) {
-        this.current_page = this.inventory_allotment.last_page;
+      } else if (this.current_page > this.inventorys.last_page) {
+        this.current_page = this.inventorys.last_page;
       }
 
-      let url = new URL(this.inventory_allotment.first_page_url);
+      let url = new URL(this.inventorys.first_page_url);
       let search_params = url.searchParams;
       search_params.set("page", this.current_page);
 
@@ -604,16 +619,6 @@ export default {
       this.order = order;
       this.by = by;
       this.list();
-    },
-
-    showLoading() {
-      Swal.fire({
-        didOpen: () => {
-          Swal.showLoading();
-        },
-        background: "transparent",
-        allowOutsideClick: false,
-      });
     },
   },
 };
