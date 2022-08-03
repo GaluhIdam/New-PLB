@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h4 class="m-0">Transaksi Outbound 1</h4>
+            <h4 class="m-0">Outbound Transaction 1</h4>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -59,7 +59,7 @@
                           <datepicker
                             input-class="form-control"
                             placeholder="Dari Tanggal"
-                            format="MM/dd/yyyy"
+                            format="dd/MM/yyyy"
                             v-model="filter_start_date"
                             autofocus
                           />
@@ -68,7 +68,7 @@
                           <datepicker
                             input-class="form-control"
                             placeholder="Sampai Tanggal"
-                            format="MM/dd/yyyy"
+                            format="dd/MM/yyyy"
                             v-model="filter_end_date"
                           />
                         </div>
@@ -508,7 +508,7 @@
                                     type="text"
                                     class="vgt-input text-center"
                                     placeholder="Part Number"
-                                    v-model="search_part_number"
+                                    v-model="filter_part_number"
                                   />
                                 </div>
                               </th>
@@ -577,7 +577,7 @@
                               <th class="filter-th">
                                 <div>
                                   <input
-                                    type="text"
+                                    type="date"
                                     class="vgt-input text-center"
                                     placeholder="Date Install"
                                     v-model="search_date_install"
@@ -589,7 +589,7 @@
                               <th class="filter-th">
                                 <div>
                                   <input
-                                    type="text"
+                                    type="date"
                                     class="vgt-input text-center"
                                     placeholder="Date A/C In"
                                     v-model="search_date_aircraft_in"
@@ -631,7 +631,11 @@
                               <td class="table_content text-center">
                                 {{ outbound.date_install | myDate }}
                               </td>
-                              <td class="table_content text-center">
+
+                              <td
+                                class="table_content text-center"
+                                v-if="!!outbound.date_aircraft_in"
+                              >
                                 {{ outbound.date_aircraft_in | myDate }}
                               </td>
                             </tr>
@@ -733,6 +737,9 @@
                 <!-- END: Tampil Data -->
               </div>
               <!-- END: Card Body -->
+              <div class="card-footer text-center" v-if="filter_clicked">
+                Inventory berkurang dari Sistem
+              </div>
             </div>
             <!-- END: Card -->
           </div>
@@ -779,7 +786,7 @@ export default {
       search_pph_bayar: null, // PPh Bayar
 
       // Order By
-      order: "id",
+      order: "date_install",
       by: "desc",
       paginate: "10",
       current_page: null,
@@ -884,22 +891,22 @@ export default {
       this.filter_customer = null;
       this.filter_part_number = null;
       this.filter_document_type = null;
-      this.filter_clicked = false;
       this.list();
+      this.filter_clicked = false;
     },
     list(paginate) {
       this.$Progress.start();
-      paginate = paginate || `/api/outbound-transaction`;
+      paginate = paginate || `/api/outbound-transaction-1`;
       axios
         .get(paginate, {
           params: {
             search: this.search,
-            search_part_number: this.search_part_number,
+            search_part_number: this.part_number,
             search_description: this.search_description,
             search_quantity: this.search_quantity,
             search_unit_measure: this.search_unit_measure,
             search_register_aircraft: this.search_register_aircraft,
-            search_customer: this.customer,
+            search_customer: this.search_customer,
             search_date_install: this.search_date_install,
             search_date_aircraft_in: this.search_date_aircraft_in,
             search_date_aircraft_out: this.search_date_aircraft_out,
@@ -917,6 +924,7 @@ export default {
             filter_customer: this.filter_customer,
             filter_part_number: this.filter_part_number,
             filter_document_type: this.filter_document_type,
+
             order: this.order,
             by: this.by,
             paginate: this.paginate,

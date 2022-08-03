@@ -5,29 +5,9 @@ namespace App\Http\Controllers\API\Reports;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \App\Http\Traits\ActivityHistoryTrait;
+use App\Models\Outbound;
 // Import Model
-use App\Models\Reports\IPLBProduction;
-use App\Models\Reports\PLBProduction;
 use App\Models\Reports\OutboundTransaction;
-use App\Models\Reports\Archive;
-use App\Models\Reports\Archive1;
-use App\Models\Reports\Archive2;
-use App\Models\Reports\Archive3;
-use App\Models\Reports\Archive4;
-use App\Models\Reports\Archive5;
-use App\Models\Reports\Archive6;
-use App\Models\Reports\Archive7;
-use App\Models\Reports\Archive8;
-use App\Models\Reports\Archive9;
-use App\Models\Reports\Archive10;
-use App\Models\Reports\Archive11;
-use App\Models\Reports\Archive12;
-use App\Models\Reports\Archive13;
-use App\Models\Reports\Archive14;
-use App\Models\Reports\Archive15;
-use App\Models\Reports\Archive16;
-use App\Models\Reports\Archive17;
-use App\Models\Reports\Archive18;
 
 class OutboundController extends Controller
 {
@@ -101,7 +81,7 @@ class OutboundController extends Controller
         // Query Untuk Menampilkan Data
         $outbounds  = OutboundTransaction::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
-                $sub_query->where('PartNumber', 'LIKE', "%$search%")
+                $sub_query->where('part_number', 'LIKE', "%$search%")
                     ->orWhere('description', 'LIKE', "%{$search}%")
                     ->orWhere('quantity', 'LIKE', "%$search%")
                     ->orWhere('unit_measure', 'LIKE', "%$search%")
@@ -120,9 +100,9 @@ class OutboundController extends Controller
                     ->orWhere('pph_bayar', 'LIKE', "%$search%");
             });
         })->when($part_number, function ($query) use ($part_number) {
-            $query->where('PartNumber', 'LIKE', "%$part_number%");
+            $query->where('part_number', 'LIKE', "%$part_number%");
         })->when($description, function ($query) use ($description) {
-            $query->where('description', 'LIKE', "%{$description}%");
+            $query->where('description', 'LIKE', "%$description%");
         })->when($quantity, function ($query) use ($quantity) {
             $query->where('quantity', 'LIKE', "%$quantity%");
         })->when($unit_measure, function ($query) use ($unit_measure) {
@@ -165,6 +145,157 @@ class OutboundController extends Controller
             $query->where('customer', 'LIKE', "%$filter_customer%");
         })->when($filter_part_number, function ($query) use ($filter_part_number) {
             $query->where('part_number', 'LIKE', "%$filter_part_number%");
+        })->when($filter_document_type, function ($query) use ($filter_document_type) {
+            $query->where('document_type', 'LIKE', "%$filter_document_type%");
+        })->when(($order && $by), function ($query) use ($order, $by) {
+            $query->orderBy($order, $by);
+        })->paginate($paginate);
+
+        $result = [
+            'search' => $search,
+            'order' => $order,
+            'by' => $by,
+        ];
+
+        $outbounds->appends($result);
+        return $outbounds;
+    }
+
+    public function getOutbound2(Request $request)
+    {
+        $search = $request->get('search');
+        $order = $request->get('order');
+        $by = $request->get('by');
+        $paginate = $request->get('paginate') ? $request->get('paginate') : 10;
+        $part_number = $request->get('part_number');
+        $description = $request->get('description');
+        $quantity = $request->get('quantity');
+        $unit_measure = $request->get('unit_measure');
+        $register_aircraft = $request->get('register_aircraft');
+        $customer = $request->get('customer');
+        $date_install = $request->get('date_install');
+        $date_aircraft_in = $request->get('date_aircraft_in');
+        $date_aircraft_out = $request->get('date_aircraft_out');
+        $document_type = $request->get('document_type');
+        $submission_number = $request->get('submission_number');
+        $submission_date = $request->get('submission_date');
+        $registration_number = $request->get('registration_number');
+        $registration_date = $request->get('registration_date');
+        $due_date = $request->get('due_date');
+        $cif_idr = $request->get('cif_idr');
+        $bm_bayar = $request->get('bm_bayar');
+        $ppn_bayar = $request->get('ppn_bayar');
+        $pph_bayar = $request->get('pph_bayar');
+
+        // Filter
+        $filter_start_date = $request->get('filter_start_date');
+        $filter_end_date = $request->get('filter_end_date');
+        $filter_customer = $request->get('filter_customer');
+        $filter_part_number = $request->get('filter_part_number');
+        $filter_submission_number = $request->get('filter_submission_number');
+        $filter_submission_date = $request->get('filter_submission_date');
+        $filter_document_type = $request->get('filter_document_type');
+
+        // Order
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'date_install';
+            $by = 'desc';
+        }
+
+        if ($request->get('paginate')) {
+            $paginate = $request->get('paginate');
+        } else {
+            $paginate = 10;
+        }
+
+        $outbounds = Outbound::when($search, function ($query) use ($search) {
+            $query->where(function ($sub_query) use ($search) {
+                $sub_query->where('part_number', 'LIKE', "%$search%")
+                    ->orWhere('description', 'LIKE', "%$search%")
+                    ->orWhere('quantity', 'LIKE', "%$search%")
+                    ->orWhere('unit_measure', 'LIKE', "%$search%")
+                    ->orWhere(
+                        'register_aircraft',
+                        'LIKE',
+                        "%$search%"
+                    )
+                    ->orWhere('customer', 'LIKE', "%$search%")
+                    ->orWhere('date_install', 'LIKE', "%$search%")
+                    ->orWhere('date_aircraft_in', 'LIKE', "%$search%")
+                    ->orWhere('date_aircraft_out', 'LIKE', "%$search%")
+                    ->orWhere('document_type', 'LIKE', "%$search%")
+                    ->orWhere('submission_number', 'LIKE', "%$search%")
+                    ->orWhere('submission_date', 'LIKE', "%$search%")
+                    ->orWhere('registration_number', 'LIKE', "%$search%")
+                    ->orWhere('registration_date', 'LIKE', "%$search%")
+                    ->orWhere('due_date', 'LIKE', "%$search%")
+                    ->orWhere('cif_idr', 'LIKE', "%$search%")
+                    ->orWhere('bm_bayar', 'LIKE', "%$search%")
+                    ->orWhere('ppn_bayar', 'LIKE', "%$search%")
+                    ->orWhere('pph_bayar', 'LIKE', "%$search%");
+            });
+        })->when($part_number, function ($query) use ($part_number) {
+            $query->where('part_number', 'LIKE', "%$part_number%");
+        })->when($description, function ($query) use ($description) {
+            $query->where('description', 'LIKE', "%$description%");
+        })->when($quantity, function ($query) use ($quantity) {
+            $query->where('quantity', 'LIKE', "%$quantity%");
+        })->when($unit_measure, function ($query) use ($unit_measure) {
+            $query->where('unit_measure', 'LIKE', "%$unit_measure%");
+        })->when($register_aircraft, function ($query) use ($register_aircraft) {
+            $query->where('register_aircraft', 'LIKE', "%$register_aircraft%");
+        })->when($customer, function ($query) use ($customer) {
+            $query->where('customer', 'LIKE', "%$customer%");
+        })->when($date_install, function ($query) use ($date_install) {
+            $query->where('date_install', 'LIKE', "%$date_install%");
+        })->when($date_aircraft_in, function ($query) use ($date_aircraft_in) {
+            $query->where('date_aircraft_in', 'LIKE', "%$date_aircraft_in%");
+        })->when($date_aircraft_out, function ($query) use ($date_aircraft_out) {
+            $query->where('date_aircraft_out', 'LIKE', "%$date_aircraft_out%");
+        })->when(
+            $document_type,
+            function ($query) use ($document_type) {
+                $query->where('document_type', 'LIKE', "%$document_type%");
+            }
+        )->when($submission_number, function ($query) use ($submission_number) {
+            $query->where('submission_number', 'LIKE', "%$submission_number%");
+        })->when($submission_date, function ($query) use ($submission_date) {
+            $query->where('submission_date', 'LIKE', "%$submission_date%");
+        })->when($registration_number, function ($query) use ($registration_number) {
+            $query->where('registration_number', 'LIKE', "%$registration_number%");
+        })->when($registration_date, function ($query) use ($registration_date) {
+            $query->where(
+                'registration_date',
+                'LIKE',
+                "%$registration_date%"
+            );
+        })->when($due_date, function ($query) use ($due_date) {
+            $query->where('due_date', 'LIKE', "%$due_date%");
+        })->when($cif_idr, function ($query) use ($cif_idr) {
+            $query->where('cif_idr', 'LIKE', "%$cif_idr%");
+        })->when($bm_bayar, function ($query) use ($bm_bayar) {
+            $query->where('bm_bayar', 'LIKE', "%$bm_bayar%");
+        })->when($ppn_bayar, function ($query) use ($ppn_bayar) {
+            $query->where('ppn_bayar', 'LIKE', "%$ppn_bayar%");
+        })->when($pph_bayar, function ($query) use ($pph_bayar) {
+            $query->where('pph_bayar', 'LIKE', "%$pph_bayar%");
+        })->when($filter_start_date && $filter_end_date, function ($query) use ($filter_start_date, $filter_end_date) {
+            $query->whereBetween('date_install', [$filter_start_date, $filter_end_date]);
+        })->when($filter_start_date, function ($query) use ($filter_start_date) {
+            $query->whereDate('date_install', '>=', $filter_start_date);
+        })->when($filter_end_date, function ($query) use ($filter_end_date) {
+            $query->whereDate('date_install', '<=', $filter_end_date);
+        })->when($filter_customer, function ($query) use ($filter_customer) {
+            $query->where('customer', 'LIKE', "%$filter_customer%");
+        })->when($filter_part_number, function ($query) use ($filter_part_number) {
+            $query->where('part_number', 'LIKE', "%$filter_part_number%");
+        })->when($filter_submission_number, function ($query) use ($filter_submission_number) {
+            $query->where('submission_number', 'LIKE', "%$filter_submission_number%");
+        })->when($filter_submission_date, function ($query) use ($filter_submission_date) {
+            $query->where('submission_date', 'LIKE', "%$filter_submission_date%");
         })->when($filter_document_type, function ($query) use ($filter_document_type) {
             $query->where('document_type', 'LIKE', "%$filter_document_type%");
         })->when(($order && $by), function ($query) use ($order, $by) {

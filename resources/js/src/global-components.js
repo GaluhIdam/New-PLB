@@ -48,10 +48,20 @@ import "vue-multiselect/dist/vue-multiselect.min.css";
 import moment from "moment";
 // Filter Moment
 Vue.filter("myDate", function (value) {
-  if (value) {
+  if (value == "0000-00-00") {
+    return "-";
+  } else {
     return moment(String(value)).format("DD MMMM YYYY");
   }
 });
+Vue.filter("invalidDate", function (value) {
+  if (value == null) {
+    return "-";
+  } else {
+    return moment(String(value)).format("DD MMMM YYYY");
+  }
+});
+
 Vue.filter("myDateTime", function (value) {
   if (value) {
     return moment(String(value)).format("DD MMMM YYYY - HH:mm:ss");
@@ -90,4 +100,5 @@ const toast = swal.mixin({
 window.toast = toast;
 
 import Datepicker from "vuejs-datepicker";
+import { is } from "@babel/types";
 Vue.component("datepicker", Datepicker);
