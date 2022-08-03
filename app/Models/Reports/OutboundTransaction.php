@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class OutboundTransaction extends Model
 {
     use HasFactory;
-    protected $table = 'tbl_outbound';
+    protected $connection = 'dummy';
+    protected $table = 'tbl_outcon';
 
     protected $guarded = [];
 }

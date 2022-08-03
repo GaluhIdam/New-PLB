@@ -36,7 +36,7 @@ class OutboundController extends Controller
     1. Part Number [$part_number]
     2. Description [$description]
     3. Quantity [$quantity]
-    4. Kode Satuan [$unit_code]
+    4. Kode Satuan [$unit_measure]
     5. Register Aircraft [$register_aircraft]
     6. customer [$customer]
     7. Date Install [$date_install]
@@ -59,7 +59,7 @@ class OutboundController extends Controller
         $part_number = $request->get('part_number'); // Untuk Pencarian Part Number
         $description = $request->get('description'); // Untuk Pencarian Description
         $quantity = $request->get('search_quantity'); // Untuk Pencarian Quantity
-        $unit_code = $request->get('unit_code'); // Untuk Pencarian Kode Satuan
+        $unit_measure = $request->get('unit_measure'); // Untuk Pencarian Kode Satuan
         $register_aircraft = $request->get('register_aircraft'); // Untuk Pencarian Register Aircraft
         $customer = $request->get('customer'); // Untuk Pencarian customer
         $date_install = $request->get('date_install'); // Untuk Pencarian Install Date
@@ -87,7 +87,7 @@ class OutboundController extends Controller
             $order = $request->get('order');
             $by = $request->get('by');
         } else {
-            $order = 'id';
+            $order = 'date_install';
             $by = 'desc';
         }
 
@@ -104,7 +104,7 @@ class OutboundController extends Controller
                 $sub_query->where('PartNumber', 'LIKE', "%$search%")
                     ->orWhere('description', 'LIKE', "%{$search}%")
                     ->orWhere('quantity', 'LIKE', "%$search%")
-                    ->orWhere('unit_code', 'LIKE', "%$search%")
+                    ->orWhere('unit_measure', 'LIKE', "%$search%")
                     ->orWhere('register_aircraft', 'LIKE', "%$search%")
                     ->orWhere('date_install', 'LIKE', "%$search%")
                     ->orWhere('date_aircraft_in', 'LIKE', "%$search%")
@@ -125,8 +125,8 @@ class OutboundController extends Controller
             $query->where('description', 'LIKE', "%{$description}%");
         })->when($quantity, function ($query) use ($quantity) {
             $query->where('quantity', 'LIKE', "%$quantity%");
-        })->when($unit_code, function ($query) use ($unit_code) {
-            $query->where('unit_code', 'LIKE', "%$unit_code%");
+        })->when($unit_measure, function ($query) use ($unit_measure) {
+            $query->where('unit_measure', 'LIKE', "%$unit_measure%");
         })->when($register_aircraft, function ($query) use ($register_aircraft) {
             $query->where('register_aircraft', 'LIKE', "%$register_aircraft%");
         })->when($customer, function ($query) use ($customer) {
