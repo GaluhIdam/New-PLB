@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h4 class="m-0">Outbound Transaction 3</h4>
+            <h4 class="m-0">Transaksi Outbound 3</h4>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -59,17 +59,16 @@
                           <datepicker
                             input-class="form-control"
                             placeholder="Dari Tanggal"
-                            format="dd/MM/yyyy"
-                            v-model="filter_start_date"
-                            autofocus
+                            format="MM/dd/yyyy"
+                            v-model="start_date"
                           />
                         </div>
                         <div class="col-sm-4">
                           <datepicker
                             input-class="form-control"
                             placeholder="Sampai Tanggal"
-                            format="dd/MM/yyyy"
-                            v-model="filter_end_date"
+                            format="MM/dd/yyyy"
+                            v-model="end_date"
                           />
                         </div>
                       </div>
@@ -79,7 +78,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            v-model="filter_submission_number"
+                            v-model="filter_no_aju"
                             placeholder="Masukan Nomor AJU"
                           />
                         </div>
@@ -92,7 +91,7 @@
                           <datepicker
                             input-class="form-control"
                             placeholder="Masukan Tanggal AJU"
-                            format="dd/MM/yyyy"
+                            format="MM/dd/yyyy"
                           />
                         </div>
                       </div>
@@ -104,7 +103,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            v-model="filter_registration_number"
+                            v-model="filter_no_register"
                             placeholder="Masukan Nomor Daftar"
                           />
                         </div>
@@ -117,7 +116,7 @@
                           <datepicker
                             input-class="form-control"
                             placeholder="Masukan Tanggal Daftar"
-                            format="dd/MM/yyyy"
+                            format="MM/dd/yyyy"
                           />
                         </div>
                       </div>
@@ -133,15 +132,12 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-4 col-form-label"
-                          >Part Number</label
-                        >
+                        <label class="col-sm-4 col-form-label">Plant</label>
                         <div class="col-sm-8">
                           <input
                             type="text"
                             class="form-control"
-                            v-model="filter_part_number"
-                            placeholder="Masukan Nama Part Number"
+                            placeholder="Masukan Nama Plant"
                           />
                         </div>
                       </div>
@@ -200,7 +196,10 @@
                       </div>
                       <div class="form-group row justify-content-center">
                         <div class="col-sm-4">
-                          <button class="btn btn-primary" @click="filterButton">
+                          <button
+                            class="btn btn-primary"
+                            @click="filterTranscation"
+                          >
                             <i class="fa-solid fa-magnifying-glass"></i>
                             Filter
                           </button>
@@ -326,13 +325,13 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- Quantity -->
+                              <!-- Qty -->
                               <th
                                 v-if="order == 'quantity' && by == 'asc'"
                                 @click="sort('quantity', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">Quantity</span>
+                                <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -342,7 +341,7 @@
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
-                                <span class="table_header">Quantity</span>
+                                <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -352,15 +351,15 @@
                                 @click="sort('quantity', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Quantity</span>
+                                <span class="table_header">Qty</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  Kode Satuan -->
                               <th
-                                v-if="order == 'unit_measure' && by == 'asc'"
-                                @click="sort('unit_measure', 'desc')"
+                                v-if="order == 'unit_code' && by == 'asc'"
+                                @click="sort('unit_code', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Kode Satuan</span>
@@ -369,9 +368,7 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'unit_measure' && by == 'desc'
-                                "
+                                v-else-if="order == 'unit_code' && by == 'desc'"
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
@@ -382,7 +379,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('unit_measure', 'asc')"
+                                @click="sort('unit_code', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Kode Satuan</span>
@@ -392,10 +389,8 @@
                               </th>
                               <!-- Register A/C -->
                               <th
-                                v-if="
-                                  order == 'register_aircraft' && by == 'asc'
-                                "
-                                @click="sort('register_aircraft', 'desc')"
+                                v-if="order == 'register_ac' && by == 'asc'"
+                                @click="sort('register_ac', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Register A/C</span>
@@ -405,7 +400,7 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'register_aircraft' && by == 'desc'
+                                  order == 'register_ac' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
@@ -417,7 +412,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('register_aircraft', 'asc')"
+                                @click="sort('register_ac', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Register A/C</span>
@@ -456,13 +451,15 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- Date Install -->
+                              <!-- Date Install/Consume -->
                               <th
                                 v-if="order == 'date_install' && by == 'asc'"
                                 @click="sort('date_install', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">Date Install</span>
+                                <span class="table_header"
+                                  >Date Install/Consume</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -474,7 +471,9 @@
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
-                                <span class="table_header">Date Install</span>
+                                <span class="table_header"
+                                  >Date Install/Consume</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -484,17 +483,17 @@
                                 @click="sort('date_install', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Date Install</span>
+                                <span class="table_header"
+                                  >Date Install/Consume</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!-- Date A/C In -->
                               <th
-                                v-if="
-                                  order == 'date_aircraft_in' && by == 'asc'
-                                "
-                                @click="sort('date_aircraft_in', 'desc')"
+                                v-if="order == 'date_ac_in' && by == 'asc'"
+                                @click="sort('date_ac_in', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Date A/C In</span>
@@ -504,7 +503,7 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'date_aircraft_in' && by == 'desc'
+                                  order == 'date_ac_in' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
@@ -516,7 +515,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('date_aircraft_in', 'asc')"
+                                @click="sort('date_ac_in', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Date A/C In</span>
@@ -526,10 +525,8 @@
                               </th>
                               <!-- Date A/C Out -->
                               <th
-                                v-if="
-                                  order == 'date_aircraft_out' && by == 'asc'
-                                "
-                                @click="sort('date_aircraft_out', 'desc')"
+                                v-if="order == 'date_ac_out' && by == 'asc'"
+                                @click="sort('date_ac_out', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Date A/C Out</span>
@@ -539,7 +536,7 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'date_aircraft_out' && by == 'desc'
+                                  order == 'date_ac_out' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
@@ -551,7 +548,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('date_aircraft_out', 'asc')"
+                                @click="sort('date_ac_out', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Date A/C Out</span>
@@ -561,8 +558,8 @@
                               </th>
                               <!-- Type BC Out -->
                               <th
-                                v-if="order == 'document_type' && by == 'asc'"
-                                @click="sort('document_type', 'desc')"
+                                v-if="order == 'type_bc_out' && by == 'asc'"
+                                @click="sort('type_bc_out', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Type BC Out</span>
@@ -572,7 +569,7 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'document_type' && by == 'desc'
+                                  order == 'type_bc_out' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
@@ -584,7 +581,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('document_type', 'asc')"
+                                @click="sort('type_bc_out', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Type BC Out</span>
@@ -594,10 +591,8 @@
                               </th>
                               <!-- No. AJU -->
                               <th
-                                v-if="
-                                  order == 'submission_number' && by == 'asc'
-                                "
-                                @click="sort('submission_number', 'desc')"
+                                v-if="order == 'no_aju' && by == 'asc'"
+                                @click="sort('no_aju', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">No. AJU</span>
@@ -606,9 +601,7 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'submission_number' && by == 'desc'
-                                "
+                                v-else-if="order == 'no_aju' && by == 'desc'"
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
@@ -619,7 +612,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('submission_number', 'asc')"
+                                @click="sort('no_aju', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">No. AJU</span>
@@ -629,10 +622,8 @@
                               </th>
                               <!-- No. Daftar -->
                               <th
-                                v-if="
-                                  order == 'registration_number' && by == 'asc'
-                                "
-                                @click="sort('registration_number', 'desc')"
+                                v-if="order == 'no_register' && by == 'asc'"
+                                @click="sort('no_register', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">No. Daftar</span>
@@ -642,7 +633,7 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'registration_number' && by == 'desc'
+                                  order == 'no_register' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
@@ -654,7 +645,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('registration_number', 'asc')"
+                                @click="sort('no_register', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">No. Daftar</span>
@@ -695,8 +686,8 @@
                               </th>
                               <!-- BM Dibayar -->
                               <th
-                                v-if="order == 'bm_bayar' && by == 'asc'"
-                                @click="sort('bm_bayar', 'desc')"
+                                v-if="order == 'bm_paid' && by == 'asc'"
+                                @click="sort('bm_paid', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">BM Dibayar</span>
@@ -705,7 +696,7 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'bm_bayar' && by == 'desc'"
+                                v-else-if="order == 'bm_paid' && by == 'desc'"
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
@@ -716,7 +707,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('bm_bayar', 'asc')"
+                                @click="sort('bm_paid', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">BM Dibayar</span>
@@ -726,8 +717,8 @@
                               </th>
                               <!-- PPN Dibayar -->
                               <th
-                                v-if="order == 'ppn_bayar' && by == 'asc'"
-                                @click="sort('ppn_bayar', 'desc')"
+                                v-if="order == 'ppn_paid' && by == 'asc'"
+                                @click="sort('ppn_paid', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">PPN Dibayar</span>
@@ -736,7 +727,7 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'ppn_bayar' && by == 'desc'"
+                                v-else-if="order == 'ppn_paid' && by == 'desc'"
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
@@ -747,7 +738,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('ppn_bayar', 'asc')"
+                                @click="sort('ppn_paid', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">PPN Dibayar</span>
@@ -757,8 +748,8 @@
                               </th>
                               <!-- PPh Dibayar -->
                               <th
-                                v-if="order == 'pph_bayar' && by == 'asc'"
-                                @click="sort('pph_bayar', 'desc')"
+                                v-if="order == 'pph_paid' && by == 'asc'"
+                                @click="sort('pph_paid', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">PPh Dibayar</span>
@@ -767,7 +758,7 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'pph_bayar' && by == 'desc'"
+                                v-else-if="order == 'pph_paid' && by == 'desc'"
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
@@ -778,7 +769,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('pph_bayar', 'asc')"
+                                @click="sort('pph_paid', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">PPh Dibayar</span>
@@ -793,7 +784,7 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="Part Number"
+                                    placeholder="Filter Part Number"
                                     v-model="search_part_number"
                                   />
                                 </div>
@@ -803,7 +794,7 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="Description"
+                                    placeholder="Filter Description"
                                     v-model="search_description"
                                   />
                                 </div>
@@ -813,7 +804,7 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="Quantity"
+                                    placeholder="Filter Qty"
                                     v-model="search_quantity"
                                   />
                                 </div>
@@ -823,8 +814,8 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="Kode satuan"
-                                    v-model="search_unit_measure"
+                                    placeholder="Filter Kode satuan"
+                                    v-model="search_unit_code"
                                   />
                                 </div>
                               </th>
@@ -833,8 +824,8 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="Register A/C"
-                                    v-model="search_register_aircraft"
+                                    placeholder="Filter Register A/C"
+                                    v-model="search_register_ac"
                                   />
                                 </div>
                               </th>
@@ -843,7 +834,7 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="Customer"
+                                    placeholder="Filter Customer"
                                     v-model="search_customer"
                                   />
                                 </div>
@@ -853,7 +844,7 @@
                                   <input
                                     type="date"
                                     class="vgt-input"
-                                    placeholder="Date Install/Consume"
+                                    placeholder="Filter Date Install/Consume"
                                     v-model="search_date_install"
                                   />
                                 </div>
@@ -863,8 +854,8 @@
                                   <input
                                     type="date"
                                     class="vgt-input"
-                                    placeholder="Date A/C In"
-                                    v-model="search_date_aircraft_in"
+                                    placeholder="Filter Date A/C In"
+                                    v-model="search_date_ac_in"
                                   />
                                 </div>
                               </th>
@@ -873,8 +864,8 @@
                                   <input
                                     type="date"
                                     class="vgt-input"
-                                    placeholder="Date A/C Out"
-                                    v-model="search_date_aircraft_out"
+                                    placeholder="Filter Date A/C Out"
+                                    v-model="search_date_ac_out"
                                   />
                                 </div>
                               </th>
@@ -883,8 +874,8 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="Type BC"
-                                    v-model="search_document_type"
+                                    placeholder="Filter Type BC Out"
+                                    v-model="search_type_bc_out"
                                   />
                                 </div>
                               </th>
@@ -893,8 +884,8 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="No. AJU"
-                                    v-model="search_submission_number"
+                                    placeholder="Filter No. AJU"
+                                    v-model="search_no_aju"
                                   />
                                 </div>
                               </th>
@@ -903,8 +894,8 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="No. Daftar"
-                                    v-model="search_registration_number"
+                                    placeholder="Filter No. Daftar"
+                                    v-model="search_no_register"
                                   />
                                 </div>
                               </th>
@@ -913,7 +904,7 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="CIF IDR"
+                                    placeholder="Filter CIF IDR"
                                     v-model="search_cif_idr"
                                   />
                                 </div>
@@ -923,8 +914,8 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="BM Dibayar"
-                                    v-model="search_bm_bayar"
+                                    placeholder="Filter BM Dibayar"
+                                    v-model="search_bm_paid"
                                   />
                                 </div>
                               </th>
@@ -933,8 +924,8 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="PPN Dibayar"
-                                    v-model="search_ppn_bayar"
+                                    placeholder="Filter PPN Dibayar"
+                                    v-model="search_ppn_paid"
                                   />
                                 </div>
                               </th>
@@ -943,8 +934,8 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="PPh Dibayar"
-                                    v-model="search_pph_bayar"
+                                    placeholder="Filter PPh Dibayar"
+                                    v-model="search_pph_paid"
                                   />
                                 </div>
                               </th>
@@ -953,60 +944,60 @@
                           <tbody>
                             <tr
                               v-for="(
-                                outbound, outbound_index
-                              ) in outbounds.data"
-                              :key="outbound_index"
+                                transaction, transaction_index
+                              ) in transactions.data"
+                              :key="transaction_index"
                             >
-                              <td class="table_content text-center">
-                                {{ outbound.part_number }}
+                              <td class="table_content">
+                                {{ transaction.part_number }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.description }}
+                              <td class="table_content">
+                                {{ transaction.description }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.quantity }}
+                              <td class="table_content">
+                                {{ transaction.quantity }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.unit_code }}
+                              <td class="table_content">
+                                {{ transaction.unit_code }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.register_aircraft }}
+                              <td class="text-center table_content">
+                                {{ transaction.register_ac }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.customer }}
+                              <td class="table_content">
+                                {{ transaction.customer }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.date_install | myDate }}
+                              <td class="table_content">
+                                {{ transaction.date_install | formatDate }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.date_aircraft_in | myDate }}
+                              <td class="table_content">
+                                {{ transaction.date_ac_in | formatDate }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.date_aircraft_out | myDate }}
+                              <td class="table_content">
+                                {{ transaction.date_ac_out | formatDate }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.document_type }}
+                              <td class="table_content">
+                                {{ transaction.type_bc_out }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.submission_number }}
+                              <td class="table_content">
+                                {{ transaction.no_aju }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.registration_number }}
+                              <td class="table_content">
+                                {{ transaction.no_register }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.cif_idr }}
+                              <td class="table_content">
+                                {{ transaction.cif_idr }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.bm_bayar }}
+                              <td class="table_content">
+                                {{ transaction.bm_paid }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.ppn_bayar }}
+                              <td class="table_content">
+                                {{ transaction.ppn_paid }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.pph_bayar }}
+                              <td class="table_content">
+                                {{ transaction.pph_paid }}
                               </td>
                             </tr>
-                            <tr v-if="outbounds.data.length < 1">
+                            <tr v-if="transactions.data.length < 1">
                               <td colspan="15">
                                 <div class="vgt-center-align vgt-text-disabled">
                                   Data not found
@@ -1039,11 +1030,11 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !outbounds.prev_page_url,
+                              disabled: !transactions.prev_page_url,
                             }"
                             @click="
-                              outbounds.prev_page_url &&
-                                list(outbounds.prev_page_url)
+                              transactions.prev_page_url &&
+                                list(transactions.prev_page_url)
                             "
                             style="margin-right: 0px"
                           >
@@ -1071,7 +1062,7 @@
                               />
                               <span class="paginate_text">
                                 of
-                                {{ outbounds.last_page }}
+                                {{ transactions.last_page }}
                               </span>
                             </label>
                           </div>
@@ -1079,11 +1070,11 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !outbounds.next_page_url,
+                              disabled: !transactions.next_page_url,
                             }"
                             @click="
-                              outbounds.next_page_url &&
-                                list(outbounds.next_page_url)
+                              transactions.next_page_url &&
+                                list(transactions.next_page_url)
                             "
                           >
                             <span style="font-weight: 500">Next</span>
@@ -1099,7 +1090,7 @@
                 </div>
               </div>
               <div class="card-footer text-center" v-if="filter_clicked">
-                Inventory berkurang BC 28 Daftar
+                Status Sudah menjadi Dokumen Clearance
               </div>
             </div>
           </div>
@@ -1113,59 +1104,43 @@
 import axios from "axios";
 import debounce from "lodash/debounce";
 import Swal from "sweetalert2";
-import moment from "moment";
-moment.locale("id");
 
 export default {
   data() {
     return {
-      outbounds: {
+      transactions: {
         data: [],
         links: [],
       },
-      // Search Data
       search: null,
       search_part_number: null,
       search_description: null,
       search_quantity: null,
-      search_unit_measure: null,
-      search_register_aircraft: null,
+      search_unit_code: null,
+      search_register_ac: null,
       search_customer: null,
       search_date_install: null,
-      search_date_aircraft_in: null,
-      search_date_aircraft_out: null,
-      search_document_type: null,
-      search_submission_number: null,
-      search_submission_date: null,
-      search_registration_number: null,
-      search_registration_date: null,
-      search_due_date: null,
+      search_date_ac_in: null,
+      search_date_ac_out: null,
+      search_type_bc_out: null,
+      search_no_aju: null,
+      search_no_register: null,
       search_cif_idr: null,
-      search_bm_bayar: null,
-      search_ppn_bayar: null,
-      search_pph_bayar: null,
-      // Order By
-      order: "date_install",
+      search_bm_paid: null,
+      search_ppn_paid: null,
+      search_pph_paid: null,
+      start_date: null,
+      end_date: null,
+
+      filter_no_register: null,
+      filter_no_aju: null,
+      filter_customer: null,
+      order: "id",
       by: "desc",
       paginate: "10",
       current_page: null,
-
-      filter_start_date: null,
-      filter_end_date: null,
-      filter_customer: null,
-      filter_part_number: null,
-      filter_submission_number: null,
-      filter_submission_date: null,
-      filter_registration_number: null,
-      filter_document_type: null,
       filter_clicked: false,
     };
-  },
-  created() {
-    this.list();
-    Fire.$on("RefreshTable", () => {
-      this.list();
-    });
   },
   watch: {
     search: debounce(function () {
@@ -1180,140 +1155,104 @@ export default {
     search_quantity: debounce(function () {
       this.list();
     }, 500),
-    search_unit_measure: debounce(function () {
+    search_unit_code: debounce(function () {
       this.list();
     }, 500),
-    search_register_aircraft: debounce(function () {
-      this.list();
-    }, 500),
-    search_customer: debounce(function () {
+    search_register_ac: debounce(function () {
       this.list();
     }, 500),
     search_date_install: debounce(function () {
       this.list();
     }, 500),
-    search_date_aircraft_in: debounce(function () {
+    search_date_ac_in: debounce(function () {
       this.list();
     }, 500),
-    search_date_aircraft_out: debounce(function () {
+    search_date_ac_out: debounce(function () {
       this.list();
     }, 500),
-    search_document_type: debounce(function () {
+    search_type_bc_out: debounce(function () {
       this.list();
     }, 500),
-    search_submission_number: debounce(function () {
+    earch_no_aju: debounce(function () {
       this.list();
     }, 500),
-    search_submission_date: debounce(function () {
-      this.list();
-    }, 500),
-    search_registration_number: debounce(function () {
-      this.list();
-    }, 500),
-    search_registration_date: debounce(function () {
+    search_no_register: debounce(function () {
       this.list();
     }, 500),
     search_cif_idr: debounce(function () {
       this.list();
     }, 500),
-    search_bm_bayar: debounce(function () {
+    search_bm_paid: debounce(function () {
       this.list();
     }, 500),
-    search_ppn_bayar: debounce(function () {
+    search_ppn_paid: debounce(function () {
       this.list();
     }, 500),
-    search_pph_bayar: debounce(function () {
-      this.list();
-    }, 500),
-    filter_start_date: debounce(function () {
-      this.list();
-    }, 500),
-    filter_end_date: debounce(function () {
-      this.list();
-    }, 500),
-    filter_customer: debounce(function () {
-      this.list();
-    }, 500),
-    filter_part_number: debounce(function () {
-      this.list();
-    }, 500),
-    filter_document_type: debounce(function () {
+    search_pph_paid: debounce(function () {
       this.list();
     }, 500),
   },
   methods: {
     list(paginate) {
-      this.$Progress.start();
-      paginate = paginate || `/api/outbound-transaction-3`;
+      this.showLoading();
+      paginate = paginate || `/api/outbound/transaction-3`;
       axios
         .get(paginate, {
           params: {
-            search: this.search,
-            search_part_number: this.part_number,
-            search_description: this.description,
-            search_quantity: this.quantity,
-            search_unit_measure: this.unit_measure,
-            search_register_aircraft: this.register_aircraft,
-            search_customer: this.customer,
-            search_date_install: this.date_install,
-            search_date_aircraft_in: this.date_aircraft_in,
-            search_date_aircraft_out: this.date_aircraft_out,
-            search_document_type: this.document_type,
-            search_submission_number: this.submission_number,
-            search_submission_date: this.submission_date,
-            search_registration_number: this.registration_number,
-            search_registration_date: this.registration_date,
-            search_cif_idr: this.cif_idr,
-            search_bm_bayar: this.bm_bayar,
-            search_ppn_bayar: this.ppn_bayar,
-            search_pph_bayar: this.pph_bayar,
-            filter_start_date: this.filter_start_date,
-            filter_end_date: this.filter_end_date,
+            filter_no_register: this.filter_no_register,
+            filter_no_aju: this.filter_no_aju,
             filter_customer: this.filter_customer,
-            filter_part_number: this.filter_part_number,
-            filter_document_type: this.filter_document_type,
-            filter_submission_number: this.filter_submission_number,
-            filter_submission_date: this.filter_submission_date,
+            search: this.search,
+            part_number: this.search_part_number,
+            description: this.search_description,
+            quantity: this.search_quantity,
+            unit_code: this.search_unit_code,
+            register_ac: this.search_register_ac,
+            date_install: this.search_date_install,
+            date_ac_in: this.search_date_ac_in,
+            date_ac_out: this.search_date_ac_out,
+            type_bc_out: this.search_type_bc_out,
+            no_aju: this.search_no_aju,
+            date_bc_out: this.search_date_bc_out,
+            cif_idr: this.search_cif_idr,
+            bm_paid: this.search_bm_paid,
+            ppn_paid: this.search_ppn_paid,
+            pph_paid: this.search_pph_paid,
+            start_date: this.start_date,
+            end_date: this.end_date,
             order: this.order,
             by: this.by,
             paginate: this.paginate,
           },
         })
         .then((response) => {
-          this.outbounds = response.data;
-          this.current_page = this.outbounds.current_page;
-          this.$Progress.finish();
+          this.transactions = response.data;
+          this.current_page = this.transactions.current_page;
+          // console.log(this.transactions);
+          Swal.close();
         })
-        .catch((error) => {
-          this.$Progress.fail();
-          console.log(error);
-        });
+        .catch((error) => console.log(error));
     },
 
-    filterButton() {
+    filterTranscation() {
       this.filter_clicked = true;
       this.list();
     },
     clearForm() {
-      this.filter_start_date = null;
-      this.filter_end_date = null;
+      this.filter_no_register = null;
+      this.filter_no_aju = null;
       this.filter_customer = null;
-      this.filter_part_number = null;
-      this.filter_submission_number = null;
-      this.filter_submission_date = null;
-      this.filter_registration_number = null;
-      this.filter_registration_date = null;
-      this.filter_document_type = null;
       this.list();
       this.filter_clicked = false;
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
         this.current_page = 1;
-      } else if (this.current_page > this.outbounds.last_page) {
-        this.current_page = this.outbounds.last_page;
+      } else if (this.current_page > this.transactions.last_page) {
+        this.current_page = this.transactions.last_page;
       }
-      let url = new URL(this.outbounds.first_page_url);
+
+      let url = new URL(this.transactions.first_page_url);
       let search_params = url.searchParams;
       search_params.set("page", this.current_page);
       url.search = search_params.toString();
@@ -1324,6 +1263,15 @@ export default {
       this.order = order;
       this.by = by;
       this.list();
+    },
+    showLoading() {
+      Swal.fire({
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        background: "transparent",
+        allowOutsideClick: false,
+      });
     },
   },
 };
