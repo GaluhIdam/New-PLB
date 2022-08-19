@@ -15,6 +15,7 @@ use App\Http\Controllers\ActivityHistoryController;
 use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\MovementAllotmentController;
 use App\Http\Controllers\API\Allotment\InventoryController;
+use App\Http\Controllers\API\Costums\InboundController;
 use App\Http\Controllers\API\Reports\OutboundOneController;
 use App\Http\Controllers\API\Reports\OutboundTwoController;
 use App\Http\Controllers\API\Reports\OutboundThreeController;
@@ -32,6 +33,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('user', UserController::class);
 
 // Dokumen Kepabeanan
+Route::get('/customs/inbound', [InboundController::class, 'index']);
 Route::get('/customs/inbound-document', [CustomsController::class, 'inboundDocument']);
 Route::get('/customs/outbound-document', [CustomsController::class, 'outboundDocument']);
 
