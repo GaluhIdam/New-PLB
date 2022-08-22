@@ -48,7 +48,7 @@ import "vue-multiselect/dist/vue-multiselect.min.css";
 import moment from "moment";
 // Filter Moment
 Vue.filter("myDate", function (value) {
-  if (value == "0000-00-00") {
+  if (value == null) {
     return "-";
   } else {
     return moment(String(value)).format("DD MMMM YYYY");
