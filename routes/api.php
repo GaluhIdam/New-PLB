@@ -2,11 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomsController;
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\OutboundController;
+use App\Http\Controllers\OutboundController as Outbound;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HoardingTimeController;
 use App\Http\Controllers\LoginHistoryController;
@@ -15,7 +14,9 @@ use App\Http\Controllers\ActivityHistoryController;
 use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\MovementAllotmentController;
 use App\Http\Controllers\API\Allotment\InventoryController;
+// Fix API
 use App\Http\Controllers\API\Costums\InboundController;
+use App\Http\Controllers\API\Costums\OutboundController;
 use App\Http\Controllers\API\Reports\OutboundOneController;
 use App\Http\Controllers\API\Reports\OutboundTwoController;
 use App\Http\Controllers\API\Reports\OutboundThreeController;
@@ -34,14 +35,13 @@ Route::apiResource('user', UserController::class);
 
 // Dokumen Kepabeanan
 Route::get('/customs/inbound', [InboundController::class, 'index']);
-Route::get('/customs/inbound-document', [CustomsController::class, 'inboundDocument']);
-Route::get('/customs/outbound-document', [CustomsController::class, 'outboundDocument']);
+Route::get('/customs/outbound', [OutboundController::class, 'index']);
 
 // Outbound
 Route::get('/outbound-transaction-1', [OutboundOneController::class, 'OutboundOne']);
 Route::get('/outbound-transaction-2', [OutboundTwoController::class, 'OutboundTwo']);
 Route::get('/outbound-transaction-3', [OutboundThreeController::class, 'OutboundThree']);
-Route::get('/outbound/summary', [OutboundController::class, 'summary']);
+Route::get('/outbound/summary', [Outbound::class, 'summary']);
 
 // Aircraft Mutation (Mutasi Pesawat)
 Route::get('/aircraft', [AircraftController::class, 'index']);
