@@ -66,73 +66,67 @@ class OutboundController extends Controller
         // Query
         $outbounds = Outbound::newOutbound()->when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
-                $sub_query->whereIn('plb_db_prod.tpb_header.KODE_DOKUMEN_PABEAN', "=", 27)
-                    ->orWhere('plb_db_prod.tpb_header.KODE_DOKUMEN_PABEAN', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_header.NOMOR_AJU', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_header.TANGGAL_AJU', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_header.NOMOR_DAFTAR', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_header.TANGGAL_DAFTAR', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_header.TANGGAL_DAFTAR', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_header.NAMA_PEMILIK', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_barang.KODE_BARANG', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_barang.POS_TARIF', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_barang.URAIAN', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_barang.JUMLAH_SATUAN', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_barang.KODE_SATUAN', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_barang.CIF_RUPIAH', 'LIKE', "%$search%");
+                $sub_query->where('KODE_DOKUMEN_PABEAN', 'LIKE', "%$search%")
+                    ->orWhere('NOMOR_AJU', 'LIKE', "%$search%")
+                    ->orWhere('TANGGAL_AJU', 'LIKE', "%$search%")
+                    ->orWhere('NOMOR_DAFTAR', 'LIKE', "%$search%")
+                    ->orWhere('TANGGAL_DAFTAR', 'LIKE', "%$search%")
+                    ->orWhere('TANGGAL_DAFTAR', 'LIKE', "%$search%")
+                    ->orWhere('NAMA_PEMILIK', 'LIKE', "%$search%")
+                    ->orWhere('iplb_db_prod.plb_barang.KODE_BARANG', 'LIKE', "%$search%")
+                    ->orWhere('iplb_db_prod.plb_barang.POS_TARIF', 'LIKE', "%$search%")
+                    ->orWhere('iplb_db_prod.plb_barang.URAIAN', 'LIKE', "%$search%")
+                    ->orWhere('iplb_db_prod.plb_barang.JUMLAH_SATUAN', 'LIKE', "%$search%")
+                    ->orWhere('iplb_db_prod.plb_barang.KODE_SATUAN', 'LIKE', "%$search%")
+                    ->orWhere('iplb_db_prod.plb_barang.CIF_RUPIAH', 'LIKE', "%$search%");
             });
         })
             ->when($search_kode_dokumen_pabean, function ($query) use ($search_kode_dokumen_pabean) {
-                $query->where('plb_db_prod.tpb_header.KODE_DOKUMEN_PABEAN', 'LIKE', "%$search_kode_dokumen_pabean%");
+                $query->where('iplb_db_prod.plb_header.KODE_DOKUMEN_PABEAN', 'LIKE', "%$search_kode_dokumen_pabean%");
             })
             ->when($search_nomor_aju, function ($query) use ($search_nomor_aju) {
-                $query->where('plb_db_prod.tpb_header.NOMOR_AJU', 'LIKE', "%$search_nomor_aju%");
+                $query->where('iplb_db_prod.plb_header.NOMOR_AJU', 'LIKE', "%$search_nomor_aju%");
             })
             ->when($search_tanggal_aju, function ($query) use ($search_tanggal_aju) {
-                $query->where('plb_db_prod.tpb_header.TANGGAL_AJU', 'LIKE', "%$search_tanggal_aju%");
+                $query->where('iplb_db_prod.plb_header.TANGGAL_AJU', 'LIKE', "%$search_tanggal_aju%");
             })
             ->when($search_nomor_daftar, function ($query) use ($search_nomor_daftar) {
-                $query->where('plb_db_prod.tpb_header.NOMOR_DAFTAR', 'LIKE', "%$search_nomor_daftar%");
+                $query->where('iplb_db_prod.plb_header.NOMOR_DAFTAR', 'LIKE', "%$search_nomor_daftar%");
             })
             ->when($search_tanggal_daftar, function ($query) use ($search_tanggal_daftar) {
-                $query->where('plb_db_prod.tpb_header.TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_daftar%");
+                $query->where('iplb_db_prod.plb_header.TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_daftar%");
             })
             ->when($search_tanggal_pengeluaran, function ($query) use ($search_tanggal_pengeluaran) {
-                $query->where('plb_db_prod.tpb_header.TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_pengeluaran%");
+                $query->where('iplb_db_prod.plb_header.TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_pengeluaran%");
             })
             ->when($search_nama_pemilik, function ($query) use ($search_nama_pemilik) {
-                $query->where('plb_db_prod.tpb_header.NAMA_PEMILIK', 'LIKE', "%$search_nama_pemilik%");
+                $query->where('iplb_db_prod.plb_header.NAMA_PEMILIK', 'LIKE', "%$search_nama_pemilik%");
             })
             ->when($search_kode_barang, function ($query) use ($search_kode_barang) {
-                $query->where('plb_db_prod.tpb_barang.KODE_BARANG', 'LIKE', "%$search_kode_barang%");
+                $query->where('iplb_db_prod.plb_barang.KODE_BARANG', 'LIKE', "%$search_kode_barang%");
             })
             ->when($search_kode_hs, function ($query) use ($search_kode_hs) {
-                $query->where('plb_db_prod.tpb_barang.POS_TARIF', 'LIKE', "%$search_kode_hs%");
+                $query->where('iplb_db_prod.plb_barang.POS_TARIF', 'LIKE', "%$search_kode_hs%");
             })
             ->when($search_nama_barang, function ($query) use ($search_nama_barang) {
-                $query->where('plb_db_prod.tpb_barang.URAIAN', 'LIKE', "%$search_nama_barang%");
+                $query->where('iplb_db_prod.plb_barang.URAIAN', 'LIKE', "%$search_nama_barang%");
             })
             ->when($search_jumlah_satuan, function ($query) use ($search_jumlah_satuan) {
-                $query->where('plb_db_prod.tpb_barang.JUMLAH_SATUAN', 'LIKE', "%$search_jumlah_satuan%");
+                $query->where('iplb_db_prod.plb_barang.JUMLAH_SATUAN', 'LIKE', "%$search_jumlah_satuan%");
             })
             ->when($search_kode_satuan, function ($query) use ($search_kode_satuan) {
-                $query->where('plb_db_prod.tpb_barang.KODE_SATUAN', 'LIKE', "%$search_kode_satuan%");
+                $query->where('iplb_db_prod.plb_barang.KODE_SATUAN', 'LIKE', "%$search_kode_satuan%");
             })
             ->when($search_cif_rupiah, function ($query) use ($search_cif_rupiah) {
-                $query->where('plb_db_prod.tpb_barang.CIF_RUPIAH', 'LIKE', "%$search_cif_rupiah%");
-            })
-            // Filter
-            ->when($filter_kode_dokumen_pabean, function ($query) use ($filter_kode_dokumen_pabean) {
+                $query->where('iplb_db_prod.plb_barang.CIF_RUPIAH', 'LIKE', "%$search_cif_rupiah%");
+            })->when($filter_kode_dokumen_pabean, function ($query) use ($filter_kode_dokumen_pabean) {
                 $query->whereIn('iplb_db_prod.plb_header.KODE_DOKUMEN_PABEAN', 'LIKE', "%$filter_kode_dokumen_pabean%");
-            })
-            ->when($filter_nomor_aju, function ($query) use ($filter_nomor_aju) {
+            })->when($filter_nomor_aju, function ($query) use ($filter_nomor_aju) {
                 $query->where('iplb_db_prod.plb_header.NOMOR_AJU', 'LIKE', "%$filter_nomor_aju%");
-            })
-            ->when($filter_start_date, function ($query) use ($filter_start_date) {
-                $query->where('iplb_db_prod.plb_header.TANGGAL_DAFTAR', 'LIKE', "%$filter_start_date%");
-            })
-            ->when($filter_end_date, function ($query) use ($filter_end_date) {
-                $query->where('iplb_db_prod.plb_header.TANGGAL_DAFTAR', 'LIKE', "%$filter_end_date%");
+            })->when($filter_start_date, function ($query) use ($filter_start_date) {
+                $query->whereDate('iplb_db_prod.plb_header.TANGGAL_DAFTAR', '>=', $filter_start_date);
+            })->when($filter_end_date, function ($query) use ($filter_end_date) {
+                $query->whereDate('iplb_db_prod.plb_header.TANGGAL_DAFTAR', '<=', $filter_end_date);
             })->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);
             })->paginate($paginate);
