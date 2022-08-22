@@ -44,10 +44,10 @@
               <div class="card-body">
                 <!-- BEGIN: Cari Data -->
                 <div class="row justify-content-center">
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                     <form @submit.prevent class="form-horizontal">
                       <div class="form-group row mt-4">
-                        <label class="col-sm-4 col-form-label"
+                        <label class="col-sm-3 col-form-label"
                           >Tanggal Pengajuan</label
                         >
                         <div class="col-sm-4">
@@ -68,19 +68,19 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-4 col-form-label"
+                        <label class="col-sm-3 col-form-label"
                           >Nomor Pengajuan</label
                         >
                         <div class="col-sm-8">
                           <input
                             type="text"
                             class="form-control"
-                            v-model="filter_no_aju"
+                            v-model="filter_nomor_aju"
                           />
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-4 col-form-label"
+                        <label class="col-sm-3 col-form-label"
                           >Jenis Dokumen</label
                         >
                         <div class="col-sm-2">
@@ -88,7 +88,7 @@
                             <input
                               type="checkbox"
                               value="27"
-                              v-model="filter_document_type"
+                              v-model="filter_kode_dokumen_pabean"
                             />
                             27
                           </label>
@@ -98,7 +98,7 @@
                             <input
                               type="checkbox"
                               value="28"
-                              v-model="filter_document_type"
+                              v-model="filter_kode_dokumen_pabean"
                             />
                             28
                           </label>
@@ -108,7 +108,7 @@
                             <input
                               type="checkbox"
                               value="30"
-                              v-model="filter_document_type"
+                              v-model="filter_kode_dokumen_pabean"
                             />
                             30
                           </label>
@@ -118,18 +118,15 @@
                             <input
                               type="checkbox"
                               value="41"
-                              v-model="filter_document_type"
+                              v-model="filter_kode_dokumen_pabean"
                             />
                             41
                           </label>
                         </div>
                       </div>
                       <div class="form-group row justify-content-center">
-                        <div class="col-sm-4">
-                          <button
-                            class="btn btn-primary"
-                            @click="filterTranscation"
-                          >
+                        <div class="col-sm-6">
+                          <button class="btn btn-primary" @click="filterButton">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             Filter
                           </button>
@@ -142,11 +139,13 @@
                   </div>
                 </div>
                 <!-- END: Cari Data -->
-
                 <hr v-if="filter_clicked" />
+
+                <!-- BEGIN: Tampil Data -->
                 <div class="form-group mt-4" v-if="filter_clicked">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
+                      <!-- END: Global Search -->
                       <div class="vgt-global-search vgt-clearfix">
                         <div class="vgt-global-search__input vgt-pull-left">
                           <label>
@@ -182,17 +181,22 @@
                           </div>
                         </div>
                       </div>
+                      <!-- END: Global Search -->
+                      <!-- BEGIN: Table Data -->
                       <div class="vgt-responsive">
                         <table
                           id="vgt-table"
                           class="vgt-table bordered polar-bear"
                         >
+                          <!-- BEGIN: Thead -->
                           <thead>
                             <tr>
-                              <!-- Jenis Dokumen -->
+                              <!-- BEGIN: Jenis Dokumen -->
                               <th
-                                v-if="order == 'document_type' && by == 'asc'"
-                                @click="sort('document_type', 'desc')"
+                                v-if="
+                                  order == 'kode_dokumen_pabean' && by == 'asc'
+                                "
+                                @click="sort('kode_dokumen_pabean', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Jenis Dokumen</span>
@@ -202,9 +206,9 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'document_type' && by == 'desc'
+                                  order == 'kode_dokumen_pabean' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('ID', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Jenis Dokumen</span>
@@ -214,7 +218,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('document_type', 'asc')"
+                                @click="sort('kode_dokumen_pabean', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Jenis Dokumen</span>
@@ -222,178 +226,190 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- No. AJU -->
-                              <th
-                                v-if="order == 'no_aju' && by == 'asc'"
-                                @click="sort('no_aju', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header">No.AJU</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="order == 'no_aju' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">No.AJU</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('no_aju', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">No.AJU</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <!-- Tanggal AJU -->
-                              <th
-                                v-if="order == 'date_aju' && by == 'asc'"
-                                @click="sort('date_aju', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header">Tanggal AJU</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="order == 'date_aju' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">Tanggal AJU</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('date_aju', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Tanggal AJU</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <!-- Nomor Daftar -->
-                              <th
-                                v-if="order == 'no_register' && by == 'asc'"
-                                @click="sort('no_register', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header">Nomor Daftar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="
-                                  order == 'no_register' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">Nomor Daftar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('no_register', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Nomor Daftar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <!-- Tanggal Daftar -->
-                              <th
-                                v-if="order == 'date_register' && by == 'asc'"
-                                @click="sort('date_register', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header">Tanggal Daftar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="
-                                  order == 'date_register' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">Tanggal Daftar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('date_register', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Tanggal Daftar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <!-- Tanggal Pengeluaran-->
-                              <th
-                                v-if="order == 'date_outbound' && by == 'asc'"
-                                @click="sort('date_outbound', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header"
-                                  >Tanggal Pengeluaran</span
-                                >
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="
-                                  order == 'date_outbound' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header"
-                                  >Tanggal Pengeluaran</span
-                                >
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('date_outbound', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header"
-                                  >Tanggal Pengeluaran</span
-                                >
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
+                              <!-- END: Jenis Dokumen -->
 
-                              <!-- Nama Pemilik -->
+                              <!-- BEGIN: Nomor AJU -->
                               <th
-                                v-if="order == 'owner' && by == 'asc'"
-                                @click="sort('owner', 'desc')"
+                                v-if="order == 'nomor_aju' && by == 'asc'"
+                                @click="sort('nomor_aju', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header">Nomor AJU</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else-if="order == 'nomor_aju' && by == 'desc'"
+                                @click="sort('ID', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
+                                <span class="table_header">Nomor AJU</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else
+                                @click="sort('nomor_aju', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header">Nomor AJU</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!-- END: Nomor AJU -->
+
+                              <!-- BEGIN: Tanggal AJU -->
+                              <th
+                                v-if="order == 'tanggal_aju' && by == 'asc'"
+                                @click="sort('tanggal_aju', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header">Tanggal AJU</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else-if="
+                                  order == 'tanggal_aju' && by == 'desc'
+                                "
+                                @click="sort('ID', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
+                                <span class="table_header">Tanggal AJU</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else
+                                @click="sort('tanggal_aju', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header">Tanggal AJU</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!-- END: Tanggal AJU -->
+
+                              <!-- BEGIN: Nomor Daftar -->
+                              <th
+                                v-if="order == 'nomor_daftar' && by == 'asc'"
+                                @click="sort('nomor_daftar', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header">Nomor Daftar</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else-if="
+                                  order == 'nomor_daftar' && by == 'desc'
+                                "
+                                @click="sort('ID', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
+                                <span class="table_header">Nomor Daftar</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else
+                                @click="sort('nomor_daftar', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header">Nomor Daftar</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!-- END: Nomor Daftar -->
+                              <!-- BEGIN: Tanggal Daftar -->
+                              <th
+                                v-if="order == 'tanggal_daftar' && by == 'asc'"
+                                @click="sort('tanggal_daftar', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header">Tanggal Daftar</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else-if="
+                                  order == 'tanggal_daftar' && by == 'desc'
+                                "
+                                @click="sort('ID', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
+                                <span class="table_header">Tanggal Daftar</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else
+                                @click="sort('tanggal_daftar', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header">Tanggal Daftar</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!-- END: Tanggal Daftar -->
+                              <!-- BEGIN: Tanggal Pemasukan -->
+                              <th
+                                v-if="
+                                  order == 'tanggal_pengeluaran' && by == 'asc'
+                                "
+                                @click="sort('tanggal_pengeluaran', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header"
+                                  >Tanggal Pemasukan</span
+                                >
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else-if="
+                                  order == 'tanggal_pengeluaran' && by == 'desc'
+                                "
+                                @click="sort('ID', 'asc')"
+                                class="text-center sortable sorting sorting-desc"
+                              >
+                                <span class="table_header"
+                                  >Tanggal Pemasukan</span
+                                >
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else
+                                @click="sort('tanggal_pengeluaran', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header"
+                                  >Tanggal Pemasukan</span
+                                >
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!-- END: Tanggal Pemasukan -->
+                              <!-- BEGIN: Nama Pemilik -->
+                              <th
+                                v-if="order == 'nama_pemilik' && by == 'asc'"
+                                @click="sort('nama_pemilik', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Nama Pemilik</span>
@@ -402,8 +418,10 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'owner' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                v-else-if="
+                                  order == 'nama_pemilik' && by == 'desc'
+                                "
+                                @click="sort('ID', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Nama Pemilik</span>
@@ -413,7 +431,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('owner', 'asc')"
+                                @click="sort('nama_pemilik', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Nama Pemilik</span>
@@ -421,10 +439,11 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- Kode Barang -->
+                              <!-- END: Nama Pemilik -->
+                              <!-- BEGIN: Kode Barang -->
                               <th
-                                v-if="order == 'item_code' && by == 'asc'"
-                                @click="sort('item_code', 'desc')"
+                                v-if="order == 'kode_barang' && by == 'asc'"
+                                @click="sort('kode_barang', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Kode Barang</span>
@@ -433,8 +452,10 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'item_code' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                v-else-if="
+                                  order == 'kode_barang' && by == 'desc'
+                                "
+                                @click="sort('ID', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Kode Barang</span>
@@ -444,7 +465,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('item_code', 'asc')"
+                                @click="sort('kode_barang', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Kode Barang</span>
@@ -452,10 +473,11 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- Kode HS -->
+                              <!-- END: Kode Barang -->
+                              <!-- BEGIN: Kode HS -->
                               <th
-                                v-if="order == 'hs_code' && by == 'asc'"
-                                @click="sort('hs_code', 'desc')"
+                                v-if="order == 'kode_hs' && by == 'asc'"
+                                @click="sort('kode_hs', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Kode HS</span>
@@ -464,8 +486,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'hs_code' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'kode_hs' && by == 'desc'"
+                                @click="sort('ID', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Kode HS</span>
@@ -475,7 +497,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('hs_code', 'asc')"
+                                @click="sort('kode_hs', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Kode HS</span>
@@ -483,10 +505,11 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- Nama Barang -->
+                              <!-- END: Kode HS -->
+                              <!-- BEGIN: Nama Barang -->
                               <th
-                                v-if="order == 'item_name' && by == 'asc'"
-                                @click="sort('item_name', 'desc')"
+                                v-if="order == 'nama_barang' && by == 'asc'"
+                                @click="sort('nama_barang', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Nama Barang</span>
@@ -495,8 +518,10 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'item_name' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                v-else-if="
+                                  order == 'nama_barang' && by == 'desc'
+                                "
+                                @click="sort('ID', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Nama Barang</span>
@@ -506,7 +531,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('item_name', 'asc')"
+                                @click="sort('nama_barang', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Nama Barang</span>
@@ -514,10 +539,11 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- Jumlah -->
+                              <!-- END: Nama Barang -->
+                              <!-- BEGIN: Jumlah -->
                               <th
-                                v-if="order == 'quantity' && by == 'asc'"
-                                @click="sort('quantity', 'desc')"
+                                v-if="order == 'jumlah_satuan' && by == 'asc'"
+                                @click="sort('jumlah_satuan', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Jumlah</span>
@@ -526,8 +552,10 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'quantity' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                v-else-if="
+                                  order == 'jumlah_satuan' && by == 'desc'
+                                "
+                                @click="sort('ID', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Jumlah</span>
@@ -537,7 +565,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('quantity', 'asc')"
+                                @click="sort('jumlah_satuan', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Jumlah</span>
@@ -545,10 +573,11 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- Satuan -->
+                              <!-- END: Jumlah -->
+                              <!-- BEGIN: Satuan -->
                               <th
-                                v-if="order == 'unit' && by == 'asc'"
-                                @click="sort('unit', 'desc')"
+                                v-if="order == 'kode_satuan' && by == 'asc'"
+                                @click="sort('kode_satuan', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Satuan</span>
@@ -557,8 +586,10 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'unit' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                v-else-if="
+                                  order == 'kode_satuan' && by == 'desc'
+                                "
+                                @click="sort('ID', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Satuan</span>
@@ -568,7 +599,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('unit', 'asc')"
+                                @click="sort('kode_satuan', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Satuan</span>
@@ -576,10 +607,11 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- Nilai Barang -->
+                              <!-- END: Satuan -->
+                              <!-- BEGIN: Nilai Barang -->
                               <th
-                                v-if="order == 'item_value' && by == 'asc'"
-                                @click="sort('item_value', 'desc')"
+                                v-if="order == 'cif_rupiah' && by == 'asc'"
+                                @click="sort('cif_rupiah', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Nilai Barang</span>
@@ -589,9 +621,9 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'item_value' && by == 'desc'
+                                  order == 'cif_rupiah' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('ID', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Nilai Barang</span>
@@ -601,7 +633,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('item_value', 'asc')"
+                                @click="sort('cif_rupiah', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Nilai Barang</span>
@@ -609,9 +641,14 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- Lampiran -->
+                              <!-- END: Nilai Barang -->
+                              <!-- BEGIN: Lampiran -->
                               <th
-                                v-if="order == 'attachment' && by == 'asc'"
+                                v-if="
+                                  order == 'attachment' &&
+                                  by == 'asc' &&
+                                  $gate.isAdminOrPlanner()
+                                "
                                 @click="sort('attachment', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
@@ -622,7 +659,9 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'attachment' && by == 'desc'
+                                  order == 'attachment' &&
+                                  by == 'desc' &&
+                                  $gate.isAdminOrPlanner()
                                 "
                                 @click="sort('id', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
@@ -642,141 +681,177 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
+                              <!-- END: Lampiran -->
                             </tr>
+                            <!-- BEGIN: Filter -->
                             <tr>
+                              <!-- BEGIN: Jenis Dokumen -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Jenis Dokumen"
-                                    v-model="search_document_type"
+                                    class="vgt-input text-center"
+                                    placeholder="Jenis Dokumen"
+                                    v-model="search_kode_dokumen_pabean"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Jenis Dokumen -->
+                              <!-- BEGIN: Nomor AJU -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter No. AJU"
-                                    v-model="search_no_aju"
+                                    class="vgt-input text-center"
+                                    placeholder="Nomor AJU"
+                                    v-model="search_nomor_aju"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Nomor AJU -->
+                              <!-- BEGIN: Tanggal AJU -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="date"
-                                    class="vgt-input"
-                                    placeholder="Filter Tanggal AJU"
-                                    v-model="search_date_aju"
+                                    class="vgt-input text-center"
+                                    placeholder="Tanggal AJU"
+                                    v-model="search_tanggal_aju"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Tanggal AJU -->
+                              <!-- BEGIN: Nomor Daftar -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter No. Daftar"
-                                    v-model="search_no_register"
+                                    class="vgt-input text-center"
+                                    placeholder="Nomor Daftar"
+                                    v-model="search_nomor_daftar"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Nomor Daftar -->
+                              <!-- BEGIN: Tanggal Daftar -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="date"
-                                    class="vgt-input"
-                                    placeholder="Filter Tanggal Daftar"
-                                    v-model="search_date_register"
+                                    class="vgt-input text-center"
+                                    placeholder="Tanggal Daftar"
+                                    v-model="search_tanggal_daftar"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Tanggal Daftar -->
+                              <!-- BEGIN: Tanggal Pengeluaran -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="date"
-                                    class="vgt-input"
-                                    placeholder="Filter Tanggal Pengeluaran"
-                                    v-model="search_date_outbound"
+                                    class="vgt-input text-center"
+                                    placeholder="Tanggal Pengeluaran"
+                                    v-model="search_tanggal_pengeluaran"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Tanggal Pengeluaran -->
+                              <!-- BEGIN: Nama Pemilik -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Nama Pemilik"
-                                    v-model="search_owner"
+                                    class="vgt-input text-center"
+                                    placeholder="Nama Pemilik"
+                                    v-model="search_nama_pemilik"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Nama Pemilik -->
+                              <!-- BEGIN: Kode Barang -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Kode Barang"
-                                    v-model="search_item_code"
+                                    class="vgt-input text-center"
+                                    placeholder="Kode Barang"
+                                    v-model="search_kode_barang"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Kode Barang -->
+                              <!-- BEGIN: Kode HS -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Kode HS"
-                                    v-model="search_hs_code"
+                                    class="vgt-input text-center"
+                                    placeholder="Kode HS"
+                                    v-model="search_kode_hs"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Kode HS -->
+                              <!-- BEGIN: Nama Barang -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Nama Barang"
-                                    v-model="search_item_name"
+                                    class="vgt-input text-center"
+                                    placeholder="Nama Barang"
+                                    v-model="search_nama_barang"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Nama Barang -->
+                              <!-- BEGIN: Jumlah -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Jumlah"
-                                    v-model="search_quantity"
+                                    class="vgt-input text-center"
+                                    placeholder="Jumlah"
+                                    v-model="search_jumlah_satuan"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Jumlah -->
+                              <!-- BEGIN: Satuan -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Satuan"
-                                    v-model="search_unit"
+                                    class="vgt-input text-center"
+                                    placeholder="Satuan"
+                                    v-model="search_kode_satuan"
                                   />
                                 </div>
                               </th>
+                              <!-- END: Satuan -->
+                              <!-- BEGIN: Nilai Barang -->
                               <th class="filter-th">
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Nilai Barang"
-                                    v-model="search_item_value"
+                                    class="vgt-input text-center"
+                                    placeholder="Nilai Barang"
+                                    v-model="search_cif_rupiah"
                                   />
                                 </div>
                               </th>
-                              <th class="filter-th"></th>
+                              <!-- END: Nilai Barang -->
+                              <!-- BEGIN: Lampiran -->
+                              <th
+                                v-if="$gate.isAdminOrPlanner()"
+                                class="filter-th"
+                              ></th>
+                              <!-- END: Lampiran -->
                             </tr>
+                            <!-- END: Filter -->
                           </thead>
+                          <!-- END: Thead -->
+                          <!-- BEGIN: Tbody -->
                           <tbody>
                             <tr
                               v-for="(
@@ -784,45 +859,49 @@
                               ) in outbounds.data"
                               :key="outbound_index"
                             >
-                              <td class="table_content">
-                                {{ outbound.document_type }}
-                              </td>
-                              <td class="table_content">
-                                {{ outbound.no_aju }}
-                              </td>
-                              <td class="table_content">
-                                {{ outbound.date_aju }}
-                              </td>
-                              <td class="table_content">
-                                {{ outbound.no_register }}
+                              <td class="text-center table_content">
+                                {{ outbound.KODE_DOKUMEN_PABEAN }}
                               </td>
                               <td class="text-center table_content">
-                                {{ outbound.date_register | formatDate }}
+                                {{ outbound.NOMOR_AJU }}
                               </td>
                               <td class="text-center table_content">
-                                {{ outbound.date_outbound | formatDate }}
+                                {{ outbound.TANGGAL_AJU | myDate }}
                               </td>
-
-                              <td class="table_content">
-                                {{ outbound.owner }}
+                              <td class="text-center table_content">
+                                {{ outbound.NOMOR_DAFTAR }}
                               </td>
-                              <td class="table_content">
-                                {{ outbound.item_code }}
+                              <td class="text-center table_content">
+                                {{ outbound.TANGGAL_DAFTAR | myDate }}
                               </td>
-                              <td class="table_content">
-                                {{ outbound.hs_code }}
+                              <td class="text-center table_content">
+                                {{ outbound.TANGGAL_DAFTAR | myDate }}
                               </td>
-                              <td class="table_content">
-                                {{ outbound.item_name }}
+                              <td class="text-center table_content">
+                                {{ outbound.NAMA_PEMILIK }}
                               </td>
-                              <td class="table_content">
-                                {{ outbound.quantity }}
+                              <td class="text-center table_content">
+                                {{ outbound.KODE_BARANG }}
                               </td>
-                              <td class="table_content">{{ outbound.unit }}</td>
-                              <td class="table_content">
-                                {{ outbound.item_value }}
+                              <td class="text-center table_content">
+                                {{ outbound.POS_TARIF }}
                               </td>
-                              <td class="table_content">
+                              <td class="text-center table_content">
+                                {{ outbound.URAIAN }}
+                              </td>
+                              <td class="text-center table_content">
+                                {{ outbound.JUMLAH_SATUAN }}
+                              </td>
+                              <td class="text-center table_content">
+                                {{ outbound.KODE_SATUAN }}
+                              </td>
+                              <td class="text-center table_content">
+                                {{ outbound.CIF_RUPIAH }}
+                              </td>
+                              <td
+                                v-if="$gate.isAdminOrPlanner()"
+                                class="text-center table_content"
+                              >
                                 {{ outbound.attachment }}
                               </td>
                             </tr>
@@ -834,8 +913,10 @@
                               </td>
                             </tr>
                           </tbody>
+                          <!-- END: Tbody -->
                         </table>
                       </div>
+                      <!-- END: Table Data -->
                       <div class="vgt-wrap__footer vgt-clearfix">
                         <div class="footer__row-count vgt-pull-left">
                           <label
@@ -852,12 +933,6 @@
                             <option value="25">25</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
-                            <option value="100">150</option>
-                            <option value="100">200</option>
-                            <option value="100">250</option>
-                            <option value="100">300</option>
-                            <option value="100">350</option>
-                            <option value="100">400</option>
                           </select>
                         </div>
                         <div class="footer__navigation vgt-pull-right">
@@ -923,6 +998,7 @@
                     </div>
                   </div>
                 </div>
+                <!-- END: Tampil Data -->
               </div>
             </div>
           </div>
@@ -935,7 +1011,6 @@
 <script>
 import axios from "axios";
 import debounce from "lodash/debounce";
-import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -944,107 +1019,139 @@ export default {
         data: [],
         links: [],
       },
-      search: null,
-      search_document_type: null,
-      search_no_aju: null,
-      search_date_aju: null,
-      search_no_register: null,
-      search_date_register: null,
-      search_date_outbound: null,
-      search_owner: null,
-      search_item_code: null,
-      search_hs_code: null,
-      search_item_name: null,
-      search_quantity: null,
-      search_unit: null,
-      search_item_value: null,
+      // Search Data
+      search: "",
+      search_kode_dokumen_pabean: null,
+      search_nomor_aju: null,
+      search_tanggal_aju: null,
+      search_nomor_daftar: null,
+      search_tanggal_daftar: null,
+      search_tanggal_pengeluaran: null,
+      search_nama_pemilik: null,
+      search_kode_barang: null,
+      search_kode_hs: null,
+      search_nama_barang: null,
+      search_jumlah_satuan: null,
+      search_kode_satuan: null,
+      search_cif_rupiah: null,
+
+      // Order Data
+      order: "ID",
+      by: "desc",
+      current_page: "",
+      paginate: "10",
+
+      // Filter Data
       filter_start_date: null,
       filter_end_date: null,
-      filter_no_aju: null,
-      filter_document_type: [],
-
-      order: "id",
-      by: "desc",
-      paginate: "10",
-      current_page: null,
+      filter_nomor_aju: null,
+      filter_kode_dokumen_pabean: [],
       filter_clicked: false,
     };
   },
   created() {
     this.list();
+    Fire.$on("RefreshTable", () => {
+      this.list();
+    });
   },
   watch: {
     search: debounce(function () {
       this.list();
     }, 500),
-    search_document_type: debounce(function () {
+    search_kode_dokumen_pabean: debounce(function () {
       this.list();
     }, 500),
-    search_no_aju: debounce(function () {
+    search_nomor_aju: debounce(function () {
       this.list();
     }, 500),
-    search_date_aju: debounce(function () {
-      this.list();
-    }, 0),
-    search_no_register: debounce(function () {
+    search_tanggal_aju: debounce(function () {
       this.list();
     }, 500),
-    search_date_register: debounce(function () {
-      this.list();
-    }, 0),
-    search_date_outbound: debounce(function () {
-      this.list();
-    }, 0),
-    search_owner: debounce(function () {
+    search_nomor_daftar: debounce(function () {
       this.list();
     }, 500),
-    search_item_code: debounce(function () {
+    search_tanggal_daftar: debounce(function () {
       this.list();
     }, 500),
-    search_hs_code: debounce(function () {
+    search_tanggal_pengeluaran: debounce(function () {
       this.list();
     }, 500),
-    search_item_name: debounce(function () {
+    search_nama_pemilik: debounce(function () {
       this.list();
     }, 500),
-    search_quantity: debounce(function () {
+    search_kode_barang: debounce(function () {
       this.list();
     }, 500),
-    search_unit: debounce(function () {
+    search_kode_hs: debounce(function () {
       this.list();
     }, 500),
-    search_item_value: debounce(function () {
+    search_nama_barang: debounce(function () {
+      this.list();
+    }, 500),
+    search_jumlah_satuan: debounce(function () {
+      this.list();
+    }, 500),
+    search_kode_satuan: debounce(function () {
+      this.list();
+    }, 500),
+    search_cif_rupiah: debounce(function () {
+      this.list();
+    }, 500),
+    filter_start_date: debounce(function () {
+      this.list();
+    }, 500),
+    filter_end_date: debounce(function () {
+      this.list();
+    }, 500),
+    filter_nomor_aju: debounce(function () {
+      this.list();
+    }, 500),
+    filter_kode_dokumen_pabean: debounce(function () {
       this.list();
     }, 500),
   },
   methods: {
+    filterButton() {
+      this.filter_clicked = true;
+      this.list();
+    },
+    clearForm() {
+      this.filter_start_date = null;
+      this.filter_end_date = null;
+      this.filter_nomor_aju = null;
+      this.filter_kode_dokumen_pabean = [];
+      this.list();
+      this.filter_clicked = false;
+    },
     list(paginate) {
-      this.showLoading();
-      paginate = paginate || `/api/customs/outbound-document`;
+      this.$Progress.start();
+      paginate = paginate || `/api/customs/outbound`;
       axios
         .get(paginate, {
           params: {
+            search: this.search,
+            search_kode_dokumen_pabean: this.search_kode_dokumen_pabean,
+            search_nomor_aju: this.search_nomor_aju,
+            search_tanggal_aju: this.search_tanggal_aju,
+            search_nomor_daftar: this.search_nomor_daftar,
+            search_tanggal_daftar: this.search_tanggal_daftar,
+            search_tanggal_pengeluaran: this.search_tanggal_pengeluaran,
+            search_nama_pemilik: this.search_nama_pemilik,
+            search_kode_barang: this.search_kode_barang,
+            search_kode_hs: this.search_kode_hs,
+            search_nama_barang: this.search_nama_barang,
+            search_jumlah_satuan: this.search_jumlah_satuan,
+            search_kode_satuan: this.search_kode_satuan,
+            search_cif_rupiah: this.search_cif_rupiah,
+
+            // Filter Data
             filter_start_date: this.filter_start_date,
             filter_end_date: this.filter_end_date,
-            filter_no_aju: this.filter_no_aju,
-            filter_document_type: this.filter_document_type,
-            search: this.search,
-            search_document_type: this.search_document_type,
-            search_no_aju: this.search_no_aju,
-            search_date_aju: this.search_date_aju,
-            search_no_register: this.search_no_register,
-            search_date_register: this.search_date_register,
-            search_date_outbound: this.search_date_outbound,
+            filter_nomor_aju: this.filter_nomor_aju,
+            filter_kode_dokumen_pabean: this.filter_kode_dokumen_pabean,
 
-            search_owner: this.search_owner,
-            search_item_code: this.search_item_code,
-            search_hs_code: this.search_hs_code,
-            search_item_name: this.search_item_name,
-            search_quantity: this.search_quantity,
-            search_unit: this.search_unit,
-            search_item_value: this.search_item_value,
-            start_date: this.start_date,
-            end_date: this.end_date,
+            // Order
             order: this.order,
             by: this.by,
             paginate: this.paginate,
@@ -1053,15 +1160,18 @@ export default {
         .then((response) => {
           this.outbounds = response.data;
           this.current_page = this.outbounds.current_page;
-          Swal.close();
+          this.$Progress.finish();
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
+        });
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
         this.current_page = 1;
-      } else if (this.current_page > this.outbounds.last_page) {
-        this.current_page = this.outbounds.last_page;
+      } else if (this.current_page > this.paginate.last_page) {
+        this.current_page = this.paginate.last_page;
       }
 
       let url = new URL(this.outbounds.first_page_url);
@@ -1075,27 +1185,6 @@ export default {
       this.order = order;
       this.by = by;
       this.list();
-    },
-    showLoading() {
-      Swal.fire({
-        didOpen: () => {
-          Swal.showLoading();
-        },
-        background: "transparent",
-        allowOutsideClick: false,
-      });
-    },
-    filterTranscation() {
-      this.filter_clicked = true;
-      this.list();
-    },
-    clearForm() {
-      this.filter_start_date = null;
-      this.filter_end_date = null;
-      this.filter_no_aju = null;
-      this.filter_document_type = [];
-      this.list();
-      this.filter_clicked = false;
     },
   },
 };
