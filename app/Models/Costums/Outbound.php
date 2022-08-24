@@ -8,22 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Outbound extends Model
 {
-
-    /* Select Columns 
-    Jenis Dokumen = iplb_db_prod.plb_header.KODE_DOKUMEN_PABEAN
-    Nomor Aju = iplb_db_prod.plb_header.NOMOR_AJU
-    Tanggal AJU = iplb_db_prod.plb_header.TANGGAL_AJU
-    Nomor Daftar = iplb_db_prod.plb_header.NOMOR_DAFTAR
-    Tanggal Daftar = iplb_db_prod.plb_header.TANGGAL_DAFTAR
-    Tanggal Pengeluaran = iplb_db_prod.plb_header.TANGGAL_DAFTAR
-    Nama Pemilik = iplb_db_prod.plb_header.NAMA_PEMILIK
-    Kode Barang = iplb_db_prod.plb_barang.KODE_BARANG
-    Kode HS = iplb_db_prod.plb_barang.POS_TARIF
-    Nama Barang = iplb_db_prod.plb_barang.URAIAN
-    Jumlah = iplb_db_prod.plb_barang.JUMLAH_SATUAN
-    Satuan = iplb_db_prod.plb_barang.KODE_SATUAN
-    Nilai Barang = iplb_db_prod.plb_barang.CIF_RUPIAH
-    */
     use HasFactory;
     protected $connection = 'iplb_db_prod';
 
@@ -37,17 +21,20 @@ class Outbound extends Model
                 'iplb_db_prod.plb_header.NOMOR_DAFTAR',
                 'iplb_db_prod.plb_header.TANGGAL_DAFTAR',
                 'iplb_db_prod.plb_header.NAMA_PEMILIK',
+                'iplb_db_prod.plb_header.NAMA_PENERIMA_BARANG',
                 'iplb_db_prod.plb_barang.ID',
                 'iplb_db_prod.plb_barang.KODE_BARANG',
                 'iplb_db_prod.plb_barang.POS_TARIF',
                 'iplb_db_prod.plb_barang.URAIAN',
                 'iplb_db_prod.plb_barang.JUMLAH_SATUAN',
                 'iplb_db_prod.plb_barang.KODE_SATUAN',
-                'iplb_db_prod.plb_barang.CIF_RUPIAH'
+                'iplb_db_prod.plb_barang.CIF',
+                'iplb_db_prod.plb_barang.CIF_RUPIAH',
+                'iplb_db_prod.plb_barang.HARGA_PENYERAHAN',
+                'iplb_db_prod.plb_kemasan.WAKTU_GATE_OUT'
             )
-            ->leftJoin('iplb_db_prod.plb_barang', 'iplb_db_prod.plb_header.ID', '=', 'iplb_db_prod.plb_barang.ID_HEADER');
-        // ->where('iplb_db_prod.plb_header.KODE_DOKUMEN_PABEAN', '=', 27)
-        // ->whereNotNull('iplb_db_prod.plb_header.NOMOR_DAFTAR');
+            ->leftJoin('iplb_db_prod.plb_barang', 'iplb_db_prod.plb_header.ID', '=', 'iplb_db_prod.plb_barang.ID_HEADER')
+            ->leftJoin('iplb_db_prod.plb_kemasan', 'iplb_db_prod.plb_header.ID', '=', 'iplb_db_prod.plb_kemasan.ID_HEADER');
 
         return $query;
     }

@@ -72,6 +72,21 @@ Vue.filter("upperCase", function (text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 });
 
+Vue.filter("uangIDR", function (value) {
+  if (Number(value) > 0) {
+    return "Rp " + value.toLocaleString();
+  } else {
+    return "-";
+  }
+});
+
+Vue.filter("uangUSD", function (value) {
+  if (Number(value) > 0) {
+    return "$" + value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  } else {
+    return "-";
+  }
+});
 // Vue-Progressbar
 import VueProgressBar from "vue-progressbar";
 const options = {

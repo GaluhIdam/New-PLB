@@ -98,8 +98,8 @@
                           <label class="control-label" style="margin-top: 5px">
                             <input
                               type="checkbox"
-                              id="27"
-                              :value="27"
+                              id="27IN"
+                              value="27IN"
                               v-model="filter_kode_dokumen_pabean"
                             />
                             27
@@ -110,7 +110,7 @@
                             <input
                               type="checkbox"
                               id="40"
-                              :value="40"
+                              value="40"
                               v-model="filter_kode_dokumen_pabean"
                             />
                             40
@@ -663,44 +663,11 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
+                              <!-- END: Harga Penyerahan -->
+
                               <!-- Lampiran -->
-                              <th
-                                v-if="
-                                  order == 'attachment' &&
-                                  by == 'asc' &&
-                                  $gate.isAdminOrPlanner()
-                                "
-                                @click="sort('attachment', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th class="text-center">
                                 <span class="table_header">Lampiran</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="
-                                  order == 'attachment' &&
-                                  by == 'desc' &&
-                                  $gate.isAdminOrPlanner()
-                                "
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">Lampiran</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('attachment', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Lampiran</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
                               </th>
                             </tr>
 
@@ -878,10 +845,7 @@
                               >
                                 {{ inbound.TANGGAL_DAFTAR | myDate }}
                               </td>
-                              <td
-                                class="text-center table_content"
-                                v-else="inbound.WAKTU_GATE_IN"
-                              >
+                              <td class="text-center table_content" v-else>
                                 {{ inbound.WAKTU_GATE_IN | myDate }}
                               </td>
                               <td class="text-center table_content">
@@ -905,14 +869,20 @@
                               <td class="text-center table_content">
                                 {{ inbound.KODE_SATUAN }}
                               </td>
-                              <td class="text-center table_content">
+                              <td
+                                v-if="inbound.KODE_DOKUMEN_PABEAN === '40'"
+                                class="text-center table_content"
+                              >
                                 {{ inbound.HARGA_PENYERAHAN }}
+                              </td>
+                              <td class="text-center table_content" v-else>
+                                {{ inbound.CIF }}
                               </td>
                               <td
                                 v-if="$gate.isAdminOrPlanner()"
                                 class="text-center table_content"
                               >
-                                {{ inbound.attachment }}
+                                <h4><i class="fa-solid fa-file-pdf"></i></h4>
                               </td>
                             </tr>
                             <tr v-if="inbounds.data.length < 1">
@@ -1046,9 +1016,10 @@ export default {
       search_jumlah_satuan: null,
       search_kode_satuan: null,
       search_harga_penyerahan: null,
+      search_cif: null,
 
       // Order Data
-      order: "ID",
+      order: "NOMOR_AJU",
       by: "desc",
       current_page: "",
       paginate: "10",
@@ -1130,9 +1101,6 @@ export default {
   },
 
   methods: {
-    checkboxStore() {
-      console.log(this.filter_kode_dokumen_pabean.toString());
-    },
     filterButton() {
       // this.filter_clicked = !this.filter_clicked;
       this.filter_clicked = true;
@@ -1168,6 +1136,7 @@ export default {
             search_jumlah_satuan: this.search_jumlah_satuan,
             search_kode_satuan: this.search_kode_satuan,
             search_harga_penyerahan: this.search_harga_penyerahan,
+            search_cif: this.search_cif,
 
             // Filter
             filter_start_date: this.filter_start_date,
@@ -1175,6 +1144,7 @@ export default {
             filter_nomor_aju: this.filter_nomor_aju,
             filter_kode_dokumen_pabean: this.filter_kode_dokumen_pabean,
 
+            // Order, by, Current Page, Paginate
             order: this.order,
             by: this.by,
             paginate: this.paginate,
