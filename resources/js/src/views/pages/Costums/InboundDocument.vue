@@ -47,7 +47,7 @@
                   <div class="col-md-8">
                     <form @submit.prevent class="form-horizontal">
                       <div class="form-group row mt-4">
-                        <label class="col-sm-4 col-form-label"
+                        <label class="col-sm-3 col-form-label"
                           >Tanggal Pengajuan</label
                         >
                         <div class="col-sm-4">
@@ -68,7 +68,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-4 col-form-label"
+                        <label class="col-sm-3 col-form-label"
                           >Nomor Pengajuan</label
                         >
                         <div class="col-sm-8">
@@ -80,7 +80,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-4 col-form-label"
+                        <label class="col-sm-3 col-form-label"
                           >Jenis Dokumen</label
                         >
                         <div class="col-sm-2">
@@ -118,7 +118,7 @@
                         </div>
                       </div>
                       <div class="form-group row justify-content-center">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                           <button class="btn btn-primary" @click="filterButton">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             Filter
