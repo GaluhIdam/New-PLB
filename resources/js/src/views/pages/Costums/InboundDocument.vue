@@ -139,6 +139,7 @@
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
                       <div class="vgt-global-search vgt-clearfix">
+                        <!-- BEGIN: Global Search -->
                         <div class="vgt-global-search__input vgt-pull-left">
                           <label>
                             <span aria-hidden="true" class="input__icon">
@@ -153,7 +154,12 @@
                             v-model="search"
                           />
                         </div>
-                        <div class="vgt-global-search__actions vgt-pull-right">
+                        <!-- END: Global Search -->
+                        <!-- BEGIN: Button Right -->
+                        <div
+                          class="vgt-global-search__actions vgt-pull-right"
+                          v-if="$gate.isAdminOrPlanner()"
+                        >
                           <div>
                             <button class="btn btn-secondary ms-auto rounded-1">
                               <i class="fa-solid fa-file-csv"></i>
@@ -164,7 +170,6 @@
                               Excel
                             </button>
                             <button
-                              v-if="$gate.isAdminOrPlanner()"
                               class="btn btn-secondary ms-auto rounded-1"
                               style="margin-right: 10px"
                             >
@@ -173,7 +178,15 @@
                             </button>
                           </div>
                         </div>
+
+                        <div
+                          class="vgt-global-search__actions vgt-pull-right"
+                          v-else
+                          style="margin-right: 5px"
+                        ></div>
+                        <!-- END: Button Right -->
                       </div>
+                      <!-- BEGIN: Table Data -->
                       <div class="vgt-responsive">
                         <table
                           id="vgt-table"
@@ -629,46 +642,19 @@
                               <!-- END: Kode Satuan -->
 
                               <!-- BEGIN: Harga Penyerahan -->
-                              <th
-                                v-if="
-                                  order == 'harga_penyerahan' && by == 'asc'
-                                "
-                                @click="sort('harga_penyerahan', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th class="text-center">
                                 <span class="table_header">Nilai Barang</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="
-                                  order == 'harga_penyerahan' && by == 'desc'
-                                "
-                                @click="sort('id', 'desc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">Nilai Barang</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('harga_penyerahan', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Nilai Barang</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
                               </th>
                               <!-- END: Harga Penyerahan -->
 
-                              <!-- Lampiran -->
-                              <th class="text-center">
+                              <!-- BEGIN: Lampiran -->
+                              <th
+                                class="text-center"
+                                v-if="$gate.isAdminOrPlanner()"
+                              >
                                 <span class="table_header">Lampiran</span>
                               </th>
+                              <!-- END: Lampiran -->
                             </tr>
 
                             <!-- BEGIN: Filter -->
@@ -827,13 +813,13 @@
                               <td class="text-center table_content">
                                 {{ inbound.KODE_DOKUMEN_PABEAN }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ inbound.NOMOR_AJU }}
                               </td>
                               <td class="text-center table_content">
                                 {{ inbound.TANGGAL_AJU | myDate }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ inbound.NOMOR_DAFTAR }}
                               </td>
                               <td class="text-center table_content">
@@ -848,10 +834,10 @@
                               <td class="text-center table_content" v-else>
                                 {{ inbound.WAKTU_GATE_IN | myDate }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ inbound.NAMA_PENGIRIM }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ inbound.NAMA_PEMILIK }}
                               </td>
                               <td class="text-center table_content">
@@ -860,7 +846,7 @@
                               <td class="text-center table_content">
                                 {{ inbound.POS_TARIF }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ inbound.URAIAN }}
                               </td>
                               <td class="text-center table_content">

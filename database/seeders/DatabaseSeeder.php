@@ -15,8 +15,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            CustomsInboundDocumentSeeder::class,
-            CustomsOutboundDocumentSeeder::class,
             HoardingTimeSeeder::class,
             LoginHistorySeeder::class,
             // ActivityHistorySeeder::class,

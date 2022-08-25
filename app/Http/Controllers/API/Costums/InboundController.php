@@ -15,8 +15,8 @@ class InboundController extends Controller
     3. plb_db_prod.tpb_header.TANGGAL_AJU [Tanggal AJU]
     4. plb_db_prod.tpb_header.NOMOR_DAFTAR [Nomor DAFTAR]
     5. plb_db_prod.tpb_header.TANGGAL_DAFTAR [Tanggal DAFTAR]
-    6. plb_db_prod.tpb_barang.NAMA_PENGIRIM [Nama Pengirim]
-    7. plb_db_prod.tpb_barang.NAMA_PEMILIK [Nama Pemilik]
+    6. plb_db_prod.tpb_header.NAMA_PENGIRIM [Nama Pengirim]
+    7. plb_db_prod.tpb_header.NAMA_PEMILIK [Nama Pemilik]
     8. plb_db_prod.tpb_barang.KODE_BARANG [Kode Barang]
     9. plb_db_prod.tpb_barang.POS_TARIF [Kode HS]
     10. plb_db_prod.tpb_barang.URAIAN [Nama Barang]
@@ -27,9 +27,14 @@ class InboundController extends Controller
     15. plb_db_prod.tpb_kemasan.WAKTU_GATE_IN [Tanggal Pemasukan]
     16. plb_db_prod.tpb_kemasan.WAKTU_GATE_OUT [Tanggal Pengeluaran]
     */
-
+    use \App\Http\Traits\ActivityHistoryTrait;
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function index(Request $request)
     {
+        $this->recordActivity('Akses Dokumen Kepabeanan (Inbound)');
         //  Search
         $search = $request->get('search');
         $search_kode_dokumen_pabean = $request->get('search_kode_dokumen_pabean');
@@ -75,8 +80,8 @@ class InboundController extends Controller
                     ->orWhere('plb_db_prod.tpb_header.TANGGAL_AJU', 'LIKE', "%$search%")
                     ->orWhere('plb_db_prod.tpb_header.NOMOR_DAFTAR', 'LIKE', "%$search%")
                     ->orWhere('plb_db_prod.tpb_header.TANGGAL_DAFTAR', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_barang.NAMA_PENGIRIM', 'LIKE', "%$search%")
-                    ->orWhere('plb_db_prod.tpb_barang.NAMA_PEMILIK', 'LIKE', "%$search%")
+                    ->orWhere('plb_db_prod.tpb_header.NAMA_PENGIRIM', 'LIKE', "%$search%")
+                    ->orWhere('plb_db_prod.tpb_header.NAMA_PEMILIK', 'LIKE', "%$search%")
                     ->orWhere('plb_db_prod.tpb_barang.KODE_BARANG', 'LIKE', "%$search%")
                     ->orWhere('plb_db_prod.tpb_barang.POS_TARIF', 'LIKE', "%$search%")
                     ->orWhere('plb_db_prod.tpb_barang.URAIAN', 'LIKE', "%$search%")
@@ -104,10 +109,10 @@ class InboundController extends Controller
                 $query->where('plb_db_prod.tpb_header.TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_daftar%");
             })
             ->when($search_nama_pengirim, function ($query) use ($search_nama_pengirim) {
-                $query->where('plb_db_prod.tpb_barang.NAMA_PENGIRIM', 'LIKE', "%$search_nama_pengirim%");
+                $query->where('plb_db_prod.tpb_header.NAMA_PENGIRIM', 'LIKE', "%$search_nama_pengirim%");
             })
             ->when($search_nama_pemilik, function ($query) use ($search_nama_pemilik) {
-                $query->where('plb_db_prod.tpb_barang.NAMA_PEMILIK', 'LIKE', "%$search_nama_pemilik%");
+                $query->where('plb_db_prod.tpb_header.NAMA_PEMILIK', 'LIKE', "%$search_nama_pemilik%");
             })
             ->when($search_kode_barang, function ($query) use ($search_kode_barang) {
                 $query->where('plb_db_prod.tpb_barang.KODE_BARANG', 'LIKE', "%$search_kode_barang%");

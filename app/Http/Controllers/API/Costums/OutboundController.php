@@ -26,9 +26,14 @@ class OutboundController extends Controller
     14. plb_db_prod.tpb_barang.CIF_RUPIAH [CIF_RUPIAH]-> 13 [Jika Kode 28]
     15. plb_db_prod.tpb_kemasan.WAKTU_GATE_OUT [Tanggal Pengeluaran] -6
     */
-
+    use \App\Http\Traits\ActivityHistoryTrait;
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function index(Request $request)
     {
+        $this->recordActivity('Akses Dokumen Kepabeanan (Outbound)');
         //  Search
         $search = $request->get('search');
         $search_kode_dokumen_pabean = $request->get('search_kode_dokumen_pabean');
