@@ -20,17 +20,17 @@ class UserSeeder extends Seeder
         DB::table('users')->insert(
             [
                 [
-                    'name' => 'Admin',
-                    'username' => 'admin',
-                    'email' => 'admin@opencloud.id',
-                    'password' => Hash::make('password'),
+                    'name' => 'Admin PLB',
+                    'username' => 'adminPLB',
+                    'email' => 'admin@gmf-aeroasia.co.id',
+                    'password' => Hash::make('@eroas1a'),
                     'role' => 'admin',
                     'created_at' => Carbon::now(),
                 ],
                 [
                     'name' => 'Planner',
                     'username' => 'planner',
-                    'email' => 'planner@opencloud.id',
+                    'email' => 'planner@gmf-aeroasia.co.id',
                     'password' => Hash::make('password'),
                     'role' => 'planner',
                     'created_at' => Carbon::now(),
@@ -38,13 +38,21 @@ class UserSeeder extends Seeder
                 [
                     'name' => 'User',
                     'username' => 'user',
-                    'email' => 'user@opencloud.id',
-                    'password' => Hash::make('password'),
+                    'email' => 'user@gmf-aeroasia.co.id',
+                    'password' => Hash::make('plbc9k'),
                     'role' => 'user',
+                    'created_at' => Carbon::now(),
+                ],
+                [
+                    'name' => 'Admin JTI',
+                    'username' => 'adminJTI',
+                    'email' => 'info@opencloud.id',
+                    'password' => Hash::make('p@ssw0rd'),
+                    'role' => 'admin',
                     'created_at' => Carbon::now(),
                 ]
             ]
         );
-        User::factory()->count(50)->create();
+        User::factory()->count(5)->create();
     }
 }

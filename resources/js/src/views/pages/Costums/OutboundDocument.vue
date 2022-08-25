@@ -145,7 +145,7 @@
                 <div class="form-group mt-4" v-if="filter_clicked">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
-                      <!-- END: Global Search -->
+                      <!-- BEGIN: Global Search -->
                       <div class="vgt-global-search vgt-clearfix">
                         <div class="vgt-global-search__input vgt-pull-left">
                           <label>
@@ -161,7 +161,13 @@
                             v-model="search"
                           />
                         </div>
-                        <div class="vgt-global-search__actions vgt-pull-right">
+                        <!-- END: Global Search -->
+
+                        <!-- BEGIN: Button Right -->
+                        <div
+                          class="vgt-global-search__actions vgt-pull-right"
+                          v-if="$gate.isAdminOrPlanner()"
+                        >
                           <div>
                             <button class="btn btn-secondary ms-auto rounded-1">
                               <i class="fa-solid fa-file-csv"></i>
@@ -180,8 +186,14 @@
                             </button>
                           </div>
                         </div>
+
+                        <div
+                          class="vgt-global-search__actions vgt-pull-right"
+                          v-else
+                          style="margin-right: 5px"
+                        ></div>
+                        <!-- END: Button Right -->
                       </div>
-                      <!-- END: Global Search -->
                       <!-- BEGIN: Table Data -->
                       <div class="vgt-responsive">
                         <table
@@ -609,43 +621,15 @@
                               </th>
                               <!-- END: Satuan -->
                               <!-- BEGIN: Nilai Barang -->
-                              <th
-                                v-if="
-                                  order == 'harga_penyerahan' && by == 'asc'
-                                "
-                                @click="sort('harga_penyerahan', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th class="text-center">
                                 <span class="table_header">Nilai Barang</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="
-                                  order == 'harga_penyerahan' && by == 'desc'
-                                "
-                                @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">Nilai Barang</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('harga_penyerahan', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Nilai Barang</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
                               </th>
                               <!-- END: Nilai Barang -->
                               <!-- BEGIN: Lampiran -->
-                              <th class="text-center">
+                              <th
+                                class="text-center"
+                                v-if="$gate.isAdminOrPlanner()"
+                              >
                                 <span class="table_header">Lampiran</span>
                               </th>
                               <!-- END: Lampiran -->
@@ -829,34 +813,34 @@
                               <td class="text-center table_content">
                                 {{ outbound.KODE_DOKUMEN_PABEAN }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ outbound.NOMOR_AJU }}
                               </td>
                               <td class="text-center table_content">
                                 {{ outbound.TANGGAL_AJU | myDate }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ outbound.NOMOR_DAFTAR }}
                               </td>
                               <td class="text-center table_content">
                                 {{ outbound.TANGGAL_DAFTAR | myDate }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ outbound.TANGGAL_DAFTAR | myDate }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ outbound.NAMA_PEMILIK }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ outbound.KODE_BARANG }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ outbound.POS_TARIF }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ outbound.URAIAN }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ outbound.JUMLAH_SATUAN }}
                               </td>
                               <td class="text-center table_content">

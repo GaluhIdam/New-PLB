@@ -73,19 +73,15 @@ Vue.filter("upperCase", function (text) {
 });
 
 Vue.filter("uangIDR", function (value) {
-  if (Number(value) > 0) {
-    return "Rp " + value.toLocaleString();
-  } else {
-    return "-";
-  }
+  return Number(value) > 0
+    ? "Rp " + value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1.")
+    : "-";
 });
 
 Vue.filter("uangUSD", function (value) {
-  if (Number(value) > 0) {
-    return "$" + value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-  } else {
-    return "-";
-  }
+  return Number(value) > 0
+    ? "$" + value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    : "-";
 });
 // Vue-Progressbar
 import VueProgressBar from "vue-progressbar";
