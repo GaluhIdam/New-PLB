@@ -208,7 +208,7 @@
                                 v-else-if="
                                   order == 'kode_dokumen_pabean' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Jenis Dokumen</span>
@@ -241,7 +241,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'nomor_aju' && by == 'desc'"
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Nomor AJU</span>
@@ -276,7 +276,7 @@
                                 v-else-if="
                                   order == 'tanggal_aju' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Tanggal AJU</span>
@@ -311,7 +311,7 @@
                                 v-else-if="
                                   order == 'nomor_daftar' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Nomor Daftar</span>
@@ -345,7 +345,7 @@
                                 v-else-if="
                                   order == 'tanggal_daftar' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Tanggal Daftar</span>
@@ -383,7 +383,7 @@
                                 v-else-if="
                                   order == 'tanggal_pengeluaran' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header"
@@ -421,7 +421,7 @@
                                 v-else-if="
                                   order == 'nama_pemilik' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Nama Pemilik</span>
@@ -455,7 +455,7 @@
                                 v-else-if="
                                   order == 'kode_barang' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Kode Barang</span>
@@ -487,7 +487,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'kode_hs' && by == 'desc'"
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Kode HS</span>
@@ -521,7 +521,7 @@
                                 v-else-if="
                                   order == 'nama_barang' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Nama Barang</span>
@@ -555,7 +555,7 @@
                                 v-else-if="
                                   order == 'jumlah_satuan' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Jumlah</span>
@@ -589,7 +589,7 @@
                                 v-else-if="
                                   order == 'kode_satuan' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Satuan</span>
@@ -610,8 +610,10 @@
                               <!-- END: Satuan -->
                               <!-- BEGIN: Nilai Barang -->
                               <th
-                                v-if="order == 'cif_rupiah' && by == 'asc'"
-                                @click="sort('cif_rupiah', 'desc')"
+                                v-if="
+                                  order == 'harga_penyerahan' && by == 'asc'
+                                "
+                                @click="sort('harga_penyerahan', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Nilai Barang</span>
@@ -621,9 +623,9 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'cif_rupiah' && by == 'desc'
+                                  order == 'harga_penyerahan' && by == 'desc'
                                 "
-                                @click="sort('ID', 'asc')"
+                                @click="sort('NOMOR_AJU', 'asc')"
                                 class="text-center sortable sorting sorting-desc"
                               >
                                 <span class="table_header">Nilai Barang</span>
@@ -633,7 +635,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('cif_rupiah', 'asc')"
+                                @click="sort('harga_penyerahan', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Nilai Barang</span>
@@ -643,43 +645,8 @@
                               </th>
                               <!-- END: Nilai Barang -->
                               <!-- BEGIN: Lampiran -->
-                              <th
-                                v-if="
-                                  order == 'attachment' &&
-                                  by == 'asc' &&
-                                  $gate.isAdminOrPlanner()
-                                "
-                                @click="sort('attachment', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th class="text-center">
                                 <span class="table_header">Lampiran</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="
-                                  order == 'attachment' &&
-                                  by == 'desc' &&
-                                  $gate.isAdminOrPlanner()
-                                "
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">Lampiran</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('attachment', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Lampiran</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
                               </th>
                               <!-- END: Lampiran -->
                             </tr>
@@ -895,8 +862,27 @@
                               <td class="text-center table_content">
                                 {{ outbound.KODE_SATUAN }}
                               </td>
-                              <td class="text-center table_content">
+                              <td
+                                v-if="outbound.KODE_DOKUMEN_PABEAN === '28'"
+                                class="text-center table_content"
+                              >
                                 {{ outbound.CIF_RUPIAH }}
+                              </td>
+                              <td
+                                class="text-center table_content"
+                                v-else-if="
+                                  outbound.KODE_DOKUMEN_PABEAN === '41'
+                                "
+                              >
+                                {{ outbound.HARGA_PENYERAHAN }}
+                              </td>
+                              <td
+                                class="text-center table_content"
+                                v-else-if="
+                                  outbound.KODE_DOKUMEN_PABEAN === '27'
+                                "
+                              >
+                                {{ outbound.CIF }}
                               </td>
                               <td
                                 v-if="$gate.isAdminOrPlanner()"
@@ -1033,10 +1019,12 @@ export default {
       search_nama_barang: null,
       search_jumlah_satuan: null,
       search_kode_satuan: null,
+      search_harga_penyerahan: null,
+      search_cif: null,
       search_cif_rupiah: null,
 
       // Order Data
-      order: "ID",
+      order: "NOMOR_AJU",
       by: "desc",
       current_page: "",
       paginate: "10",
@@ -1095,6 +1083,12 @@ export default {
     search_kode_satuan: debounce(function () {
       this.list();
     }, 500),
+    search_harga_penyerahan: debounce(function () {
+      this.list();
+    }, 500),
+    search_cif: debounce(function () {
+      this.list();
+    }, 500),
     search_cif_rupiah: debounce(function () {
       this.list();
     }, 500),
@@ -1143,6 +1137,8 @@ export default {
             search_nama_barang: this.search_nama_barang,
             search_jumlah_satuan: this.search_jumlah_satuan,
             search_kode_satuan: this.search_kode_satuan,
+            search_harga_penyerahan: this.search_harga_penyerahan,
+            search_cif: this.search_cif,
             search_cif_rupiah: this.search_cif_rupiah,
 
             // Filter Data

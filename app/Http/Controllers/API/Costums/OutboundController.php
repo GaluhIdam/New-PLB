@@ -9,20 +9,22 @@ use Illuminate\Http\Request;
 class OutboundController extends Controller
 {
     /* 
-    List Data yang ditampilkan pada tabel :
-    1. Kode Dokumen Pabean [iplb_db_prod.plb_header.KODE_DOKUMEN_PABEAN]
-    2. Nomor Aju [iplb_db_prod.plb_header.NOMOR_AJU]
-    3. Tanggal AJU [iplb_db_prod.plb_header.TANGGAL_AJU]
-    4. Nomor Daftar [iplb_db_prod.plb_header.NOMOR_DAFTAR]
-    5. Tanggal Daftar [iplb_db_prod.plb_header.TANGGAL_DAFTAR]
-    6. Tanggal Pengeluaran [iplb_db_prod.plb_header.TANGGAL_DAFTAR]
-    7. Nama Pemilik [iplb_db_prod.plb_header.NAMA_PEMILIK]
-    8. Kode Barang [iplb_db_prod.plb_barang.KODE_BARANG]
-    9. Kode HS [iplb_db_prod.plb_barang.POS_TARIF]
-    10. Nama Barang [iplb_db_prod.plb_barang.URAIAN]
-    11. Jumlah [iplb_db_prod.plb_barang.JUMLAH_SATUAN]
-    12. Satuan [iplb_db_prod.plb_barang.KODE_SATUAN]
-    13. Nilai Barang [iplb_db_prod.plb_barang.CIF_RUPIAH]
+    List Data yang dimunculin : 
+    1. plb_db_prod.tpb_header.KODE_DOKUMEN_PABEAN [Kode Dokuemen Pabean] -> 1
+    2. plb_db_prod.tpb_header.NOMOR_AJU [Nomor AJU] -> 2
+    3. plb_db_prod.tpb_header.TANGGAL_AJU [Tanggal AJU] -> 3
+    4. plb_db_prod.tpb_header.NOMOR_DAFTAR [Nomor DAFTAR] -> 4
+    5. plb_db_prod.tpb_header.TANGGAL_DAFTAR [Tanggal DAFTAR] -> 5
+    6. plb_db_prod.tpb_barang.NAMA_PEMILIK [Nama Pemilik] -> 7
+    7. plb_db_prod.tpb_barang.KODE_BARANG [Kode Barang] -> 8
+    8. plb_db_prod.tpb_barang.POS_TARIF [Kode HS] -> 9
+    9. plb_db_prod.tpb_barang.URAIAN [Nama Barang] -> 10
+    10. plb_db_prod.tpb_barang.JUMLAH_SATUAN [Jumlah ] -> 11
+    11. plb_db_prod.tpb_barang.KODE_SATUAN [Satuan] -> 12
+    12. plb_db_prod.tpb_barang.HARGA_PENYERAHAN [Harga Penyerahan] -> 13 [Jika Kode 41]
+    13. plb_db_prod.tpb_barang.CIF [CIF]  -> 13 [Jika Kode 27] | Jika 0/Null Menggunakan Harga_Penyerahan
+    14. plb_db_prod.tpb_barang.CIF_RUPIAH [CIF_RUPIAH]-> 13 [Jika Kode 28]
+    15. plb_db_prod.tpb_kemasan.WAKTU_GATE_OUT [Tanggal Pengeluaran] -6
     */
 
     public function index(Request $request)
@@ -41,6 +43,8 @@ class OutboundController extends Controller
         $search_nama_barang = $request->get('search_nama_barang');
         $search_jumlah_satuan = $request->get('search_jumlah_satuan');
         $search_kode_satuan = $request->get('search_kode_satuan');
+        $search_harga_penyerahan = $request->get('search_harga_penyerahan');
+        $search_cif = $request->get('search_cif');
         $search_cif_rupiah = $request->get('search_cif_rupiah');
 
         // Filter
@@ -66,19 +70,21 @@ class OutboundController extends Controller
         // Query
         $outbounds = Outbound::newOutbound()->when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
-                $sub_query->where('KODE_DOKUMEN_PABEAN', 'LIKE', "%$search%")
-                    ->orWhere('NOMOR_AJU', 'LIKE', "%$search%")
-                    ->orWhere('TANGGAL_AJU', 'LIKE', "%$search%")
-                    ->orWhere('NOMOR_DAFTAR', 'LIKE', "%$search%")
-                    ->orWhere('TANGGAL_DAFTAR', 'LIKE', "%$search%")
-                    ->orWhere('TANGGAL_DAFTAR', 'LIKE', "%$search%")
-                    ->orWhere('NAMA_PEMILIK', 'LIKE', "%$search%")
+                $sub_query->where('plb_db_prod.plb_header.KODE_DOKUMEN_PABEAN', 'LIKE', "%$search%")
+                    ->orWhere('plb_db_prod.plb_header.NOMOR_AJU', 'LIKE', "%$search%")
+                    ->orWhere('plb_db_prod.plb_header.TANGGAL_AJU', 'LIKE', "%$search%")
+                    ->orWhere('plb_db_prod.plb_header.NOMOR_DAFTAR', 'LIKE', "%$search%")
+                    ->orWhere('plb_db_prod.plb_header.TANGGAL_DAFTAR', 'LIKE', "%$search%")
+                    ->orWhere('iplb_db_prod.plb_header.NAMA_PEMILIK', 'LIKE', "%$search%")
                     ->orWhere('iplb_db_prod.plb_barang.KODE_BARANG', 'LIKE', "%$search%")
                     ->orWhere('iplb_db_prod.plb_barang.POS_TARIF', 'LIKE', "%$search%")
                     ->orWhere('iplb_db_prod.plb_barang.URAIAN', 'LIKE', "%$search%")
                     ->orWhere('iplb_db_prod.plb_barang.JUMLAH_SATUAN', 'LIKE', "%$search%")
                     ->orWhere('iplb_db_prod.plb_barang.KODE_SATUAN', 'LIKE', "%$search%")
-                    ->orWhere('iplb_db_prod.plb_barang.CIF_RUPIAH', 'LIKE', "%$search%");
+                    ->orWhere('iplb_db_prod.plb_barang.HARGA_PENYERAHAN', 'LIKE', "%$search%")
+                    ->orWhere('iplb_db_prod.plb_barang.CIF', 'LIKE', "%$search%")
+                    ->orWhere('iplb_db_prod.plb_barang.CIF_RUPIAH', 'LIKE', "%$search%")
+                    ->orWhere('iplb_db_prod.plb_kemasan.WAKTU_GATE_OUT', 'LIKE', "%$search%");
             });
         })
             ->when($search_kode_dokumen_pabean, function ($query) use ($search_kode_dokumen_pabean) {
@@ -97,7 +103,7 @@ class OutboundController extends Controller
                 $query->where('iplb_db_prod.plb_header.TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_daftar%");
             })
             ->when($search_tanggal_pengeluaran, function ($query) use ($search_tanggal_pengeluaran) {
-                $query->where('iplb_db_prod.plb_header.TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_pengeluaran%");
+                $query->where('iplb_db_prod.plb_kemasan.WAKTU_GATE_OUT', 'LIKE', "%$search_tanggal_pengeluaran%");
             })
             ->when($search_nama_pemilik, function ($query) use ($search_nama_pemilik) {
                 $query->where('iplb_db_prod.plb_header.NAMA_PEMILIK', 'LIKE', "%$search_nama_pemilik%");
@@ -119,17 +125,23 @@ class OutboundController extends Controller
             })
             ->when($search_cif_rupiah, function ($query) use ($search_cif_rupiah) {
                 $query->where('iplb_db_prod.plb_barang.CIF_RUPIAH', 'LIKE', "%$search_cif_rupiah%");
-            })->when($filter_kode_dokumen_pabean, function ($query) use ($filter_kode_dokumen_pabean) {
-                $query->whereIn('iplb_db_prod.plb_header.KODE_DOKUMEN_PABEAN', 'LIKE', "%$filter_kode_dokumen_pabean%");
-            })->when($filter_nomor_aju, function ($query) use ($filter_nomor_aju) {
+            })
+            ->when($filter_kode_dokumen_pabean, function ($query) use ($filter_kode_dokumen_pabean) {
+                $query->whereIn('iplb_db_prod.plb_header.KODE_DOKUMEN_PABEAN', $filter_kode_dokumen_pabean);
+            })
+            ->when($filter_nomor_aju, function ($query) use ($filter_nomor_aju) {
                 $query->where('iplb_db_prod.plb_header.NOMOR_AJU', 'LIKE', "%$filter_nomor_aju%");
-            })->when($filter_start_date, function ($query) use ($filter_start_date) {
+            })
+            ->when($filter_start_date, function ($query) use ($filter_start_date) {
                 $query->whereDate('iplb_db_prod.plb_header.TANGGAL_DAFTAR', '>=', $filter_start_date);
-            })->when($filter_end_date, function ($query) use ($filter_end_date) {
+            })
+            ->when($filter_end_date, function ($query) use ($filter_end_date) {
                 $query->whereDate('iplb_db_prod.plb_header.TANGGAL_DAFTAR', '<=', $filter_end_date);
-            })->when(($order && $by), function ($query) use ($order, $by) {
+            })
+            ->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);
-            })->paginate($paginate);
+            })
+            ->paginate($paginate);
 
         $query_string = [
             'search' => $search,
