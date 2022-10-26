@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AircraftController;
-use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\API\TestingController;
