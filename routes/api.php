@@ -21,6 +21,9 @@ use App\Http\Controllers\API\Reports\OutboundOneController;
 use App\Http\Controllers\API\Reports\OutboundTwoController;
 use App\Http\Controllers\API\Reports\OutboundThreeController;
 
+// API For Testing 
+Route::get('/testing', [TestingController::class, 'index']); // TODO: Will be deleted
+
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
