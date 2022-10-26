@@ -15,15 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            HoardingTimeSeeder::class,
-            LoginHistorySeeder::class,
-            // ActivityHistorySeeder::class,
-            MutationPeriodicSeeder::class,
-            MutationReportSeeder::class,
-            OutboundSeeder::class,
             UserSeeder::class,
-            InventoryAllotmentSeeder::class,
-            MovementAllotmentSeeder::class,
             DashboardSatuSeeder::class,
             DashboardDuaSeeder::class,
             DashboardTigaSeeder::class,
