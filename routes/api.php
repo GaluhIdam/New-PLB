@@ -5,18 +5,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\OutboundController as Outbound;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\API\TestingController;
 use App\Http\Controllers\HoardingTimeController;
 use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\MutationReportController;
 use App\Http\Controllers\ActivityHistoryController;
 use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\MovementAllotmentController;
-use App\Http\Controllers\API\Allotment\InventoryController;
-// Fix API
 use App\Http\Controllers\API\Costums\InboundController;
+// Fix API
 use App\Http\Controllers\API\Costums\OutboundController;
+use App\Http\Controllers\OutboundController as Outbound;
+use App\Http\Controllers\API\Allotment\InventoryController;
 use App\Http\Controllers\API\Reports\OutboundOneController;
 use App\Http\Controllers\API\Reports\OutboundTwoController;
 use App\Http\Controllers\API\Reports\OutboundThreeController;

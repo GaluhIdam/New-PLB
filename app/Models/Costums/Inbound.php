@@ -14,7 +14,7 @@ class Inbound extends Model
 
     public function scopeNewInbound()
     {
-        $query = DB::connection('plb_db_prod')->table('v_tbl_inbound')
+        $query = DB::connection('plb_db_prod')->table('v_tbl_kepabeanan_inbound')
             ->select('*');
 
         return $query;
