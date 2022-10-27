@@ -1063,7 +1063,7 @@ export default {
       search_cif: null,
 
       // Order Data
-      order: "TANGGAL_DAFTAR",
+      order: "TANGGAL_AJU",
       by: "asc  ",
       current_page: "",
       paginate: "10",

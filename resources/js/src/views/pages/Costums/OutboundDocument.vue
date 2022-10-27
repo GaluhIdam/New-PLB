@@ -1092,7 +1092,7 @@ export default {
       search_cif_rupiah: null,
 
       // Order Data
-      order: "TANGGAL_DAFTAR",
+      order: "TANGGAL_AJU",
       by: "asc",
       current_page: "",
       paginate: "10",

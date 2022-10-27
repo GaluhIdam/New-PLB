@@ -63,7 +63,7 @@ class InboundController extends Controller
             $order = $request->get('order');
             $by = $request->get('by');
         } else {
-            $order = 'TANGGAL_DAFTAR';
+            $order = 'TANGGAL_AJU';
             $by = 'asc';
         }
         if ($request->get('paginate')) {
@@ -144,10 +144,10 @@ class InboundController extends Controller
                 $query->where('NOMOR_AJU', 'LIKE', "%$filter_nomor_aju%");
             })
             ->when($filter_start_date, function ($query) use ($filter_start_date) {
-                $query->whereDate('TANGGAL_DAFTAR', '>=', $filter_start_date);
+                $query->whereDate('TANGGAL_AJU', '>=', $filter_start_date);
             })
             ->when($filter_end_date, function ($query) use ($filter_end_date) {
-                $query->whereDate('TANGGAL_DAFTAR', '<=', $filter_end_date);
+                $query->whereDate('TANGGAL_AJU', '<=', $filter_end_date);
             })
             ->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);
