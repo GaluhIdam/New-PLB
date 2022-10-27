@@ -89,6 +89,7 @@
                               type="checkbox"
                               value="27"
                               v-model="filter_kode_dokumen_pabean"
+                              disabled
                             />
                             27
                           </label>
@@ -109,6 +110,7 @@
                               type="checkbox"
                               value="30"
                               v-model="filter_kode_dokumen_pabean"
+                              disabled
                             />
                             30
                           </label>
@@ -119,6 +121,7 @@
                               type="checkbox"
                               value="41"
                               v-model="filter_kode_dokumen_pabean"
+                              disabled
                             />
                             41
                           </label>
@@ -221,7 +224,11 @@
                                   order == 'kode_dokumen_pabean' && by == 'desc'
                                 "
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Jenis Dokumen</span>
                                 <button>
@@ -254,7 +261,11 @@
                               <th
                                 v-else-if="order == 'nomor_aju' && by == 'desc'"
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Nomor AJU</span>
                                 <button>
@@ -289,7 +300,11 @@
                                   order == 'tanggal_aju' && by == 'desc'
                                 "
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Tanggal AJU</span>
                                 <button>
@@ -324,7 +339,11 @@
                                   order == 'nomor_daftar' && by == 'desc'
                                 "
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Nomor Daftar</span>
                                 <button>
@@ -358,7 +377,11 @@
                                   order == 'tanggal_daftar' && by == 'desc'
                                 "
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Tanggal Daftar</span>
                                 <button>
@@ -376,7 +399,7 @@
                                 </button>
                               </th>
                               <!-- END: Tanggal Daftar -->
-                              <!-- BEGIN: Tanggal Pemasukan -->
+                              <!-- BEGIN: Tanggal Pengeluaran -->
                               <th
                                 v-if="
                                   order == 'tanggal_pengeluaran' && by == 'asc'
@@ -385,7 +408,7 @@
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header"
-                                  >Tanggal Pemasukan</span
+                                  >Tanggal Pengeluaran</span
                                 >
                                 <button>
                                   <span class="sr-only"></span>
@@ -395,11 +418,15 @@
                                 v-else-if="
                                   order == 'tanggal_pengeluaran' && by == 'desc'
                                 "
-                                @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                @click="sort('tanggal_pengeluaran', 'asc')"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header"
-                                  >Tanggal Pemasukan</span
+                                  >Tanggal Pengeluaran</span
                                 >
                                 <button>
                                   <span class="sr-only"></span>
@@ -411,13 +438,13 @@
                                 class="text-center sortable"
                               >
                                 <span class="table_header"
-                                  >Tanggal Pemasukan</span
+                                  >Tanggal Pengeluaran</span
                                 >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Tanggal Pemasukan -->
+                              <!-- END: Tanggal Pengeluaran -->
                               <!-- BEGIN: Nama Pemilik -->
                               <th
                                 v-if="order == 'nama_pemilik' && by == 'asc'"
@@ -434,7 +461,11 @@
                                   order == 'nama_pemilik' && by == 'desc'
                                 "
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Nama Pemilik</span>
                                 <button>
@@ -468,7 +499,11 @@
                                   order == 'kode_barang' && by == 'desc'
                                 "
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Kode Barang</span>
                                 <button>
@@ -500,7 +535,11 @@
                               <th
                                 v-else-if="order == 'kode_hs' && by == 'desc'"
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Kode HS</span>
                                 <button>
@@ -534,7 +573,11 @@
                                   order == 'nama_barang' && by == 'desc'
                                 "
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Nama Barang</span>
                                 <button>
@@ -568,7 +611,11 @@
                                   order == 'jumlah_satuan' && by == 'desc'
                                 "
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Jumlah</span>
                                 <button>
@@ -602,7 +649,11 @@
                                   order == 'kode_satuan' && by == 'desc'
                                 "
                                 @click="sort('NOMOR_AJU', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Satuan</span>
                                 <button>
@@ -626,12 +677,12 @@
                               </th>
                               <!-- END: Nilai Barang -->
                               <!-- BEGIN: Lampiran -->
-                              <th
+                              <!-- <th
                                 class="text-center"
                                 v-if="$gate.isAdminOrPlanner()"
                               >
                                 <span class="table_header">Lampiran</span>
-                              </th>
+                              </th> -->
                               <!-- END: Lampiran -->
                             </tr>
                             <!-- BEGIN: Filter -->
@@ -793,10 +844,10 @@
                               </th>
                               <!-- END: Nilai Barang -->
                               <!-- BEGIN: Lampiran -->
-                              <th
+                              <!-- <th
                                 v-if="$gate.isAdminOrPlanner()"
                                 class="filter-th"
-                              ></th>
+                              ></th> -->
                               <!-- END: Lampiran -->
                             </tr>
                             <!-- END: Filter -->
@@ -819,28 +870,45 @@
                               <td class="text-center table_content">
                                 {{ outbound.TANGGAL_AJU | myDate }}
                               </td>
-                              <td class="text-left table_content">
+                              <td class="text-center table_content">
                                 {{ outbound.NOMOR_DAFTAR }}
                               </td>
                               <td class="text-center table_content">
                                 {{ outbound.TANGGAL_DAFTAR | myDate }}
                               </td>
-                              <td class="text-left table_content">
+                              <td
+                                class="text-center table_content"
+                                v-if="!outbound.WAKTU_GATE_OUT"
+                              >
                                 {{ outbound.TANGGAL_DAFTAR | myDate }}
                               </td>
-                              <td class="text-left table_content">
+                              <td class="text-center table_content" v-else>
+                                {{ outbound.WAKTU_GATE_OUT | myDate }}
+                              </td>
+                              <!-- <td class="text-left table_content">
+                                {{ outbound.NAMA_PEMILIK }}
+                              </td> -->
+
+                              <td
+                                v-if="outbound.KODE_DOKUMEN_PABEAN === '28'"
+                                class="text-center table_content"
+                              >
                                 {{ outbound.NAMA_PEMILIK }}
                               </td>
-                              <td class="text-left table_content">
+                              <td class="text-center table_content" v-else>
+                                {{ outbound.NAMA_PENERIMA_BARANG }}
+                              </td>
+
+                              <td class="text-center table_content">
                                 {{ outbound.KODE_BARANG }}
                               </td>
-                              <td class="text-left table_content">
+                              <td class="text-center table_content">
                                 {{ outbound.POS_TARIF }}
                               </td>
                               <td class="text-left table_content">
                                 {{ outbound.URAIAN }}
                               </td>
-                              <td class="text-left table_content">
+                              <td class="text-center table_content">
                                 {{ outbound.JUMLAH_SATUAN }}
                               </td>
                               <td class="text-center table_content">
@@ -866,14 +934,24 @@
                                   outbound.KODE_DOKUMEN_PABEAN === '27'
                                 "
                               >
-                                {{ outbound.CIF }}
+                                <span
+                                  v-if="
+                                    outbound.HARGA_PENYERAHAN == null ||
+                                    outbound.HARGA_PENYERAHAN == 0
+                                  "
+                                >
+                                  {{ outbound.CIF }}
+                                </span>
+                                <span v-else>
+                                  {{ outbound.HARGA_PENYERAHAN }}
+                                </span>
                               </td>
-                              <td
+                              <!-- <td
                                 v-if="$gate.isAdminOrPlanner()"
                                 class="text-center table_content"
                               >
                                 {{ outbound.attachment }}
-                              </td>
+                              </td> -->
                             </tr>
                             <tr v-if="outbounds.data.length < 1">
                               <td colspan="15">
@@ -895,7 +973,10 @@
                             Rows per page:
                           </label>
                           <select
-                            class="footer__row-count__select row_per_page_option"
+                            class="
+                              footer__row-count__select
+                              row_per_page_option
+                            "
                             v-model="paginate"
                             @change="list()"
                           >
@@ -935,7 +1016,10 @@
                               <span class="paginate_text">page</span>
                               <input
                                 type="text"
-                                class="footer__navigation__page-info__current-entry vgt-input"
+                                class="
+                                  footer__navigation__page-info__current-entry
+                                  vgt-input
+                                "
                                 v-model="current_page"
                                 @keypress="directPage"
                                 style="width: 60px"
@@ -1008,8 +1092,8 @@ export default {
       search_cif_rupiah: null,
 
       // Order Data
-      order: "NOMOR_AJU",
-      by: "desc",
+      order: "TANGGAL_DAFTAR",
+      by: "asc",
       current_page: "",
       paginate: "10",
 

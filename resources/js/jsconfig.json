@@ -2,8 +2,13 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@/*": ["resources/js/src/*"],
+            "@/*": [
+                "resources/js/src/*"
+            ],
         },
-        "jsx": "preserve"
+        "jsx": "preserve",
+        "extensions": [
+            ".vue"
+        ]
     }
 }

@@ -28,6 +28,8 @@ class User extends Authenticatable
         'role',
         'photo',
         'description',
+        'is_active',
+        'is_ldap',
     ];
 
     /**
