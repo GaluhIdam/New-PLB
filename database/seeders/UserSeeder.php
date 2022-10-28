@@ -29,15 +29,15 @@ class UserSeeder extends Seeder
                 ],
                 [
                     'name' => 'Planner',
-                    'username' => 'planner',
+                    'username' => 'plannerPLB',
                     'email' => 'planner@gmf-aeroasia.co.id',
-                    'password' => Hash::make('password'),
+                    'password' => Hash::make('p@ssw0rd'),
                     'role' => 'planner',
                     'created_at' => Carbon::now(),
                 ],
                 [
                     'name' => 'User',
-                    'username' => 'user',
+                    'username' => 'userPLB',
                     'email' => 'user@gmf-aeroasia.co.id',
                     'password' => Hash::make('plbc9k'),
                     'role' => 'user',
