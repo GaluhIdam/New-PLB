@@ -4,11 +4,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
+use App\Models\LoginHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Models\LoginHistory;
 
 class AuthController extends Controller
 {
@@ -76,14 +77,6 @@ class AuthController extends Controller
             ]);
         }
 
-        //Login History
-        loginHistory::create([
-            'username' => $request->username,
-            'time' => now(),
-            'ip_address' =>  $request->ip(),
-            'user_agent' =>  $request->header('user-agent')
-        ]);
-
         return response()->json([
             'success' => true,
             'message' => 'Login Berhasil!',
@@ -102,5 +95,11 @@ class AuthController extends Controller
                 'message' => 'Kamu telah berhasil keluar!',
             ]);
         }
+    }
+
+    // User Profile
+    public function user(Request $request)
+    {
+        return response()->json($request->user());
     }
 }

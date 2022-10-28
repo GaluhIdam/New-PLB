@@ -48,7 +48,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role === 'planner' || $user->role === 'user';
         });
 
-        Passport::routes(); //Passport routes
+        // Passport::routes(); //Passport routes
 
     }
 }

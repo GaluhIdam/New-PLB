@@ -98,7 +98,11 @@
                               <th
                                 v-else-if="order == 'id' && by == 'desc'"
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">No.</span>
                                 <button>
@@ -115,7 +119,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
+                              <!-- BEGIN: Username -->
                               <th
                                 v-if="order == 'username' && by == 'asc'"
                                 @click="sort('username', 'desc')"
@@ -129,7 +133,11 @@
                               <th
                                 v-else-if="order == 'username' && by == 'desc'"
                                 @click="sort('username', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Username</span>
                                 <button>
@@ -138,7 +146,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('username', 'asc')"
+                                @click="sort('email', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Username</span>
@@ -146,41 +154,84 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
+                              <!-- END: Username -->
+                              <!-- BEGIN: Email Address -->
                               <th
-                                v-if="order == 'time' && by == 'asc'"
-                                @click="sort('time', 'desc')"
+                                v-if="order == 'email' && by == 'asc'"
+                                @click="sort('username', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">Time</span>
+                                <span class="table_header">Email Address</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'time' && by == 'desc'"
-                                @click="sort('time', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                v-else-if="order == 'email' && by == 'desc'"
+                                @click="sort('email', 'asc')"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
-                                <span class="table_header">Time</span>
+                                <span class="table_header">Email Address</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th
                                 v-else
-                                @click="sort('time', 'asc')"
+                                @click="sort('email', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Time</span>
+                                <span class="table_header">Email Address</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
+                              <!-- END: Email Address -->
+                              <!-- BEGIN: Last Login  -->
                               <th
-                                v-if="order == 'ip_address' && by == 'asc'"
-                                @click="sort('ip_address', 'desc')"
+                                v-if="order == 'last_login_at' && by == 'asc'"
+                                @click="sort('last_login_at', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header">Last Login</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else-if="
+                                  order == 'last_login_at' && by == 'desc'
+                                "
+                                @click="sort('last_login_at', 'asc')"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
+                              >
+                                <span class="table_header">Last Login</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else
+                                @click="sort('last_login_at', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header">Last Login</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!-- END: Last Login -->
+                              <th
+                                v-if="order == 'last_login_ip' && by == 'asc'"
+                                @click="sort('last_login_ip', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">IP Address</span>
@@ -190,10 +241,14 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'ip_address' && by == 'desc'
+                                  order == 'last_login_ip' && by == 'desc'
                                 "
-                                @click="sort('ip_address', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                @click="sort('last_login_ip', 'asc')"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">IP Address</span>
                                 <button>
@@ -202,7 +257,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('ip_address', 'asc')"
+                                @click="sort('last_login_ip', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">IP Address</span>
@@ -226,7 +281,11 @@
                                   order == 'user_agent' && by == 'desc'
                                 "
                                 @click="sort('user_agent', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">User Agent</span>
                                 <button>
@@ -251,8 +310,8 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Username"
+                                    class="vgt-input text-center"
+                                    placeholder="Search Username"
                                     v-model="search_username"
                                   />
                                 </div>
@@ -260,9 +319,19 @@
                               <th class="filter-th">
                                 <div>
                                   <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="Search Email"
+                                    v-model="search_email"
+                                  />
+                                </div>
+                              </th>
+                              <th class="filter-th">
+                                <div>
+                                  <input
                                     type="date"
-                                    class="vgt-input"
-                                    v-model="search_time"
+                                    class="vgt-input text-center"
+                                    v-model="search_last_login_at"
                                   />
                                 </div>
                               </th>
@@ -270,9 +339,9 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter IP Address"
-                                    v-model="search_ip_address"
+                                    class="vgt-input text-center"
+                                    placeholder="Search IP"
+                                    v-model="search_last_login_ip"
                                   />
                                 </div>
                               </th>
@@ -280,9 +349,9 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter User Agent"
-                                    v-model="search_user_agent"
+                                    class="vgt-input text-center"
+                                    placeholder="Search Device"
+                                    v-model="search_last_login_device"
                                   />
                                 </div>
                               </th>
@@ -293,16 +362,23 @@
                               v-for="(login, login_index) in login_history.data"
                               :key="login_index"
                             >
-                              <td class="table_content">{{ login.id }}</td>
-                              <td class="table_content">
+                              <td class="text-center table_content">
+                                {{ login.id }}
+                              </td>
+                              <td class="text-center table_content">
                                 {{ login.username }}
                               </td>
-                              <td class="table_content">{{ login.time }}</td>
                               <td class="text-center table_content">
-                                {{ login.ip_address }}
+                                {{ login.email }}
                               </td>
                               <td class="text-center table_content">
-                                {{ login.user_agent }}
+                                {{ login.last_login_at }}
+                              </td>
+                              <td class="text-center table_content">
+                                {{ login.last_login_ip }}
+                              </td>
+                              <td class="text-center table_content">
+                                {{ login.last_login_device }}
                               </td>
                             </tr>
                             <tr v-if="login_history.data.length < 1">
@@ -323,7 +399,10 @@
                             Rows per page:
                           </label>
                           <select
-                            class="footer__row-count__select row_per_page_option"
+                            class="
+                              footer__row-count__select
+                              row_per_page_option
+                            "
                             v-model="paginate"
                             @change="list()"
                           >
@@ -363,7 +442,10 @@
                               <span class="paginate_text">page</span>
                               <input
                                 type="text"
-                                class="footer__navigation__page-info__current-entry vgt-input"
+                                class="
+                                  footer__navigation__page-info__current-entry
+                                  vgt-input
+                                "
                                 v-model="current_page"
                                 @keypress="directPage"
                                 style="width: 60px"
@@ -417,12 +499,16 @@ export default {
         data: [],
         links: [],
       },
+      // Query Search
       search: null,
       search_username: null,
-      search_time: null,
-      search_ip_address: null,
-      search_user_agent: null,
-      order: "id",
+      search_email: null,
+      search_last_login_at: null,
+      search_last_login_ip: null,
+      search_last_login_device: null,
+
+      //  Query Order
+      order: "last_login_at",
       by: "desc",
       paginate: "10",
       current_page: null,
@@ -438,13 +524,16 @@ export default {
     search_username: debounce(function () {
       this.list();
     }, 500),
-    search_time: debounce(function () {
+    search_email: debounce(function () {
       this.list();
     }, 500),
-    search_ip_address: debounce(function () {
+    search_last_login_at: debounce(function () {
       this.list();
     }, 500),
-    search_user_agent: debounce(function () {
+    search_last_login_ip: debounce(function () {
+      this.list();
+    }, 500),
+    search_last_login_device: debounce(function () {
       this.list();
     }, 500),
   },
@@ -457,9 +546,10 @@ export default {
           params: {
             search: this.search,
             search_username: this.search_username,
-            search_time: this.search_time,
-            search_ip_adress: this.search_ip_address,
-            start_user_agent: this.search_user_agent,
+            search_email: this.search_email,
+            search_last_login_at: this.search_last_login_at,
+            search_last_login_ip: this.search_last_login_ip,
+            search_last_login_device: this.search_last_login_device,
             order: this.order,
             by: this.by,
             paginate: this.paginate,

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\LoginHistory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Request;
 
 class LoginController extends Controller
 {
@@ -42,5 +44,20 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+
+    protected function authenticated(Request $request)
+    {
+        $credentials = $request->only('username', 'password');
+
+        if (Auth::attempt($credentials)) {
+            LoginHistory::create([
+                'username' => $request->username,
+                'email' => Auth::user()->email,
+                'last_login_at' => Carbon::now()->toDateTimeString(),
+                'last_login_ip' => $request->ip(),
+                'last_login_device' => request()->userAgent()
+            ]);
+        }
     }
 }

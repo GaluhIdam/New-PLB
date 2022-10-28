@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('login_histories', function (Blueprint $table) {
             $table->id();
             $table->string('username')->nullable();
-            $table->dateTime('time')->nullable();
-            $table->string('ip_address')->nullable();
-            $table->string('user_agent')->nullable();
+            $table->string('email')->nullable();
+            $table->dateTime('last_login_at')->nullable();
+            $table->string('last_login_ip')->nullable();
+            $table->string('last_login_device')->nullable();
             $table->timestamps();
         });
     }
