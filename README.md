@@ -27,7 +27,6 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    php artisan migrate:refresh --seed
    php artisan passport:install
-   php artisan passport:keys
    php artisan key:generate
    php artisan storage:link
    npm run dev
@@ -44,6 +43,5 @@ Sigit Prayoga - sigit.prayoga@opencloud.id \
 Fatur Ridlwan - fatur.ridlwan@opencloud.id\
 Rizky Ibrahim - rizky.ibrahim@opencloud.id \
 Alnuria Vanadia Equila - vanadia.equila@opencloud.id\
-Galuh Idam Danutirto - galuh.danutirto@opencloud.id\
 Galuh Idam Danutirto - galuh.danutirto@opencloud.id\
 Jacob Edward Ginting - jacob.ginting@opencloud.id

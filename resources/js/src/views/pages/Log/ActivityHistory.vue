@@ -99,7 +99,11 @@
                               <th
                                 v-else-if="order == 'id' && by == 'desc'"
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">No.</span>
                                 <button>
@@ -130,7 +134,11 @@
                               <th
                                 v-else-if="order == 'username' && by == 'desc'"
                                 @click="sort('username', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Username</span>
                                 <button>
@@ -153,7 +161,7 @@
                                 @click="sort('time', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">Time</span>
+                                <span class="table_header">Date</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -161,9 +169,13 @@
                               <th
                                 v-else-if="order == 'time' && by == 'desc'"
                                 @click="sort('time', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
-                                <span class="table_header">Time</span>
+                                <span class="table_header">Date</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -173,7 +185,7 @@
                                 @click="sort('time', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Tanggal</span>
+                                <span class="table_header">Date</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -184,7 +196,7 @@
                                 @click="sort('activity', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">Activity</span>
+                                <span class="table_header">Last Activity</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -192,9 +204,13 @@
                               <th
                                 v-else-if="order == 'activity' && by == 'desc'"
                                 @click="sort('activity', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
-                                <span class="table_header">Activity</span>
+                                <span class="table_header">Last Activity</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -204,7 +220,7 @@
                                 @click="sort('activity', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Activity</span>
+                                <span class="table_header">Last Activity</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -213,12 +229,12 @@
                             </tr>
                             <tr>
                               <th class="filter-th"></th>
-                              <th class="filter-th">
+                              <th class="filter-th text-center">
                                 <div>
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="Filter Username"
+                                    placeholder="Search Username"
                                     v-model="search_username"
                                   />
                                 </div>
@@ -237,7 +253,7 @@
                                   <input
                                     type="text"
                                     class="vgt-input"
-                                    placeholder="Filter Activity"
+                                    placeholder="Search Activity"
                                     v-model="search_activity"
                                   />
                                 </div>
@@ -251,14 +267,16 @@
                               ) in activities.data"
                               :key="activity_index"
                             >
-                              <td class="table_content">{{ activity.id }}</td>
-                              <td class="table_content">
+                              <td class="text-center table_content">
+                                {{ activity.id }}
+                              </td>
+                              <td class="text-center table_content">
                                 {{ activity.username }}
                               </td>
                               <td class="text-center table_content">
                                 {{ activity.time | myDateTime }}
                               </td>
-                              <td class="table_content">
+                              <td class="text-center table_content">
                                 {{ activity.activity }}
                               </td>
                             </tr>
@@ -280,7 +298,10 @@
                             Rows per page:
                           </label>
                           <select
-                            class="footer__row-count__select row_per_page_option"
+                            class="
+                              footer__row-count__select
+                              row_per_page_option
+                            "
                             v-model="paginate"
                             @change="list()"
                           >
@@ -320,7 +341,10 @@
                               <span class="paginate_text">page</span>
                               <input
                                 type="text"
-                                class="footer__navigation__page-info__current-entry vgt-input"
+                                class="
+                                  footer__navigation__page-info__current-entry
+                                  vgt-input
+                                "
                                 v-model="current_page"
                                 @keypress="directPage"
                                 style="width: 60px"

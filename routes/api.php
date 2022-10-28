@@ -22,16 +22,13 @@ use App\Http\Controllers\API\Reports\OutboundOneController;
 use App\Http\Controllers\API\Reports\OutboundTwoController;
 use App\Http\Controllers\API\Reports\OutboundThreeController;
 
-// API For Testing 
-Route::get('/testing', [TestingController::class, 'index']); // TODO: Will be deleted
-
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/user', [AuthController::class, 'user']);
 });
 
 // Routing User

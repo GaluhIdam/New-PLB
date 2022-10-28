@@ -6,9 +6,6 @@
                 "resources/js/src/*"
             ],
         },
-        "jsx": "preserve",
-        "extensions": [
-            ".vue"
-        ]
+        "jsx": "preserve"
     }
 }
