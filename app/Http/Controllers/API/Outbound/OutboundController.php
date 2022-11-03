@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API\Reports;
+namespace App\Http\Controllers\API\Outbound;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use \App\Http\Traits\ActivityHistoryTrait;
 use App\Models\Outbound;
 // Import Model
-use App\Models\Reports\OutboundTransaction;
+use App\Models\Outbound\TransactionOne;
 
 class OutboundController extends Controller
 {
@@ -79,7 +78,7 @@ class OutboundController extends Controller
         }
 
         // Query Untuk Menampilkan Data
-        $outbounds  = OutboundTransaction::when($search, function ($query) use ($search) {
+        $outbounds  = TransactionOne::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('part_number', 'LIKE', "%$search%")
                     ->orWhere('description', 'LIKE', "%{$search}%")

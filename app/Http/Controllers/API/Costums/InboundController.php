@@ -151,9 +151,7 @@ class InboundController extends Controller
             })
             ->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);
-            })
-            ->paginate($paginate);
-
+            })->paginate($paginate);
 
         $query_string = [
             'search' => $search,
