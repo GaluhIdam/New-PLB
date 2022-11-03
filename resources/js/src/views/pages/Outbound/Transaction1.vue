@@ -49,10 +49,10 @@
               <div class="card-body">
                 <!-- BEGIN: Cari Data -->
                 <div class="row justify-content-center">
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                     <form @submit.prevent class="form-horizontal">
                       <div class="form-group row mt-4">
-                        <label class="col-sm-4 col-form-label"
+                        <label class="col-sm-3 col-form-label"
                           >Tanggal Outbound</label
                         >
                         <div class="col-sm-4">
@@ -74,7 +74,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">Customer</label>
+                        <label class="col-sm-3 col-form-label">Customer</label>
                         <div class="col-sm-8">
                           <input
                             type="text"
@@ -85,7 +85,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-4 col-form-label"
+                        <label class="col-sm-3 col-form-label"
                           >Part Number</label
                         >
                         <div class="col-sm-8">
@@ -98,17 +98,16 @@
                         </div>
                       </div>
                       <div class="form-group row" id="dokumenList">
-                        <label class="col-sm-4 col-form-label"
+                        <label class="col-sm-3 col-form-label"
                           >Jenis Dokumen</label
                         >
                         <div class="col-sm-2">
                           <label class="control-label" style="margin-top: 5px">
                             <input
                               type="checkbox"
-                              name="jenis_dokumen[]"
-                              id="jenis_dokumen"
-                              checked="checked"
+                              id="27"
                               value="27"
+                              v-model="filter_kode_dokumen_pabean"
                             />
                             27
                           </label>
@@ -117,10 +116,9 @@
                           <label class="control-label" style="margin-top: 5px">
                             <input
                               type="checkbox"
-                              name="jenis_dokumen[]"
-                              id="jenis_dokumen"
-                              checked="checked"
+                              id="28"
                               value="28"
+                              v-model="filter_kode_dokumen_pabean"
                             />
                             28
                           </label>
@@ -129,10 +127,9 @@
                           <label class="control-label" style="margin-top: 5px">
                             <input
                               type="checkbox"
-                              name="jenis_dokumen[]"
-                              id="jenis_dokumen"
-                              checked="checked"
+                              id="30"
                               value="30"
+                              v-model="filter_kode_dokumen_pabean"
                             />
                             30
                           </label>
@@ -141,17 +138,16 @@
                           <label class="control-label" style="margin-top: 5px">
                             <input
                               type="checkbox"
-                              name="jenis_dokumen[]"
-                              id="jenis_dokumen"
-                              checked="checked"
+                              id="41"
                               value="41"
+                              v-model="filter_kode_dokumen_pabean"
                             />
                             41
                           </label>
                         </div>
                       </div>
                       <div class="form-group row justify-content-center">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                           <button class="btn btn-primary" @click="filterButton">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             Filter
@@ -238,7 +234,11 @@
                                   order == 'part_number' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Part Number</span>
                                 <button>
@@ -273,7 +273,11 @@
                                   order == 'description' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Description</span>
                                 <button>
@@ -305,7 +309,11 @@
                               <th
                                 v-else-if="order == 'quantity' && by == 'desc'"
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Quantity</span>
                                 <button>
@@ -339,7 +347,11 @@
                                   order == 'unit_measure' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Kode Satuan</span>
                                 <button>
@@ -375,7 +387,11 @@
                                   order == 'register_aircraft' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Register A/C</span>
                                 <button>
@@ -408,7 +424,11 @@
                               <th
                                 v-else-if="order == 'customer' && by == 'desc'"
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">customer</span>
                                 <button>
@@ -442,7 +462,11 @@
                                   order == 'date_install' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Date Install</span>
                                 <button>
@@ -479,7 +503,11 @@
                                   order == 'date_aircraft_in' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Date A/C In</span>
                                 <button>
@@ -508,7 +536,7 @@
                                     type="text"
                                     class="vgt-input text-center"
                                     placeholder="Part Number"
-                                    v-model="filter_part_number"
+                                    v-model="search_part_number"
                                   />
                                 </div>
                               </th>
@@ -611,32 +639,31 @@
                               :key="outbound_index"
                             >
                               <td class="table_content text-center">
-                                {{ outbound.part_number }}
+                                {{ outbound.PART_NUMBER }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.description }}
+                                {{ outbound.DESCRIPTION }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.quantity }}
+                                {{ outbound.QUANTITY }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.unit_measure }}
+                                {{ outbound.UNIT_MEASURE }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.register_aircraft }}
+                                {{ outbound.REGISTER_AIRCRAFT }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.customer }}
+                                {{ outbound.CUSTOMER }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.date_install | myDate }}
+                                {{ outbound.DATE_INSTALL | myDate }}
                               </td>
-
                               <td
                                 class="table_content text-center"
-                                v-if="!!outbound.date_aircraft_in"
+                                v-if="!outbound.DATE_AIRCRAFT_IN"
                               >
-                                {{ outbound.date_aircraft_in | myDate }}
+                                {{ outbound.DATE_INSTALL | myDate }}
                               </td>
                             </tr>
                             <tr v-if="outbounds.data.length < 1">
@@ -660,7 +687,10 @@
                             Rows per page:
                           </label>
                           <select
-                            class="footer__row-count__select row_per_page_option"
+                            class="
+                              footer__row-count__select
+                              row_per_page_option
+                            "
                             v-model="paginate"
                             @change="list()"
                           >
@@ -700,7 +730,10 @@
                               <span class="paginate_text">page</span>
                               <input
                                 type="text"
-                                class="footer__navigation__page-info__current-entry vgt-input"
+                                class="
+                                  footer__navigation__page-info__current-entry
+                                  vgt-input
+                                "
                                 v-model="current_page"
                                 @keypress="directPage"
                                 style="width: 60px"
@@ -774,19 +807,9 @@ export default {
       search_customer: null, // Customer
       search_date_install: null, // Date Install
       search_date_aircraft_in: null, // Date Aircraft In
-      search_date_aircraft_out: null, // Date Aircraft Out
-      search_document_type: null, // Type BC
-      search_submission_number: null, // Nomor Aju
-      search_submission_date: null, // Tanggal Aju
-      search_registration_number: null, // Nomor Daftar
-      search_registration_date: null, // Tanggal Daftar
-      search_cif_idr: null, // CIF IDR
-      search_bm_bayar: null, // BM Bayar
-      search_ppn_bayar: null, // PPn Bayar
-      search_pph_bayar: null, // PPh Bayar
 
       // Order By
-      order: "date_install",
+      order: "DATE_INSTALL",
       by: "desc",
       paginate: "10",
       current_page: null,
@@ -795,7 +818,7 @@ export default {
       filter_end_date: null,
       filter_customer: null,
       filter_part_number: null,
-      filter_document_type: [],
+      filter_kode_dokumen_pabean: [],
       filter_clicked: false,
     };
   },
@@ -833,36 +856,6 @@ export default {
     search_date_aircraft_in: debounce(function () {
       this.list();
     }, 500),
-    search_date_aircraft_out: debounce(function () {
-      this.list();
-    }, 500),
-    search_document_type: debounce(function () {
-      this.list();
-    }, 500),
-    search_submission_number: debounce(function () {
-      this.list();
-    }, 500),
-    search_submission_date: debounce(function () {
-      this.list();
-    }, 500),
-    search_registration_number: debounce(function () {
-      this.list();
-    }, 500),
-    search_registration_date: debounce(function () {
-      this.list();
-    }, 500),
-    search_cif_idr: debounce(function () {
-      this.list();
-    }, 500),
-    search_bm_bayar: debounce(function () {
-      this.list();
-    }, 500),
-    search_ppn_bayar: debounce(function () {
-      this.list();
-    }, 500),
-    search_pph_bayar: debounce(function () {
-      this.list();
-    }, 500),
     filter_start_date: debounce(function () {
       this.list();
     }, 500),
@@ -875,7 +868,7 @@ export default {
     filter_part_number: debounce(function () {
       this.list();
     }, 500),
-    filter_document_type: debounce(function () {
+    filter_kode_dokumen_pabean: debounce(function () {
       this.list();
     }, 500),
   },
@@ -890,7 +883,7 @@ export default {
       this.filter_end_date = null;
       this.filter_customer = null;
       this.filter_part_number = null;
-      this.filter_document_type = null;
+      this.filter_kode_dokumen_pabean = [];
       this.list();
       this.filter_clicked = false;
     },
@@ -909,21 +902,11 @@ export default {
             search_customer: this.search_customer,
             search_date_install: this.search_date_install,
             search_date_aircraft_in: this.search_date_aircraft_in,
-            search_date_aircraft_out: this.search_date_aircraft_out,
-            search_document_type: this.search_document_type,
-            search_submission_number: this.search_submission_number,
-            search_submission_date: this.search_submission_date,
-            search_registration_number: this.search_registration_number,
-            search_registration_date: this.search_registration_date,
-            search_cif_idr: this.search_cif_idr,
-            search_bm_bayar: this.search_bm_bayar,
-            search_ppn_bayar: this.search_ppn_bayar,
-            search_pph_bayar: this.search_pph_bayar,
             filter_start_date: this.filter_start_date,
             filter_end_date: this.filter_end_date,
             filter_customer: this.filter_customer,
             filter_part_number: this.filter_part_number,
-            filter_document_type: this.filter_document_type,
+            filter_kode_dokumen_pabean: this.filter_kode_dokumen_pabean,
 
             order: this.order,
             by: this.by,

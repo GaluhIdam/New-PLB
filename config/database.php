@@ -47,7 +47,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '10.143.147.245'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
@@ -64,32 +64,16 @@ return [
             ]) : [],
         ],
 
-        // Database Connection for Development
-        'db-dev' => [
-            'driver' => 'pgsql',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_POSTGRE_HOST', '127.0.0.1'),
-            'port' => env('DB_POSTGRE_PORT', '5432'),
-            'database' => env('DB_POSTGRE_DATABASE', 'forge'),
-            'username' => env('DB_POSTGRE_USERNAME', 'forge'),
-            'password' => env('DB_POSTGRE_PASSWORD', ''),
-            'charset' => 'utf8',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'search_path' => 'public',
-            'sslmode' => 'prefer',
-        ],
-
-        // Database Connection for PLB Dummy (dummy)
-        'dummy' => [
+        // Database Connection for db_plbGmf (Outbound)
+        'db_plbGmf' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_DUMMY_HOST', '10.143.147.245'),
-            'port' => env('DB_DUMMY_PORT', '3306'),
-            'database' => env('DB_DUMMY_DATABASE', 'dummy'),
-            'username' => env('DB_DUMMY_USERNAME', 'usr-jti'),
-            'password' => env('DB_DUMMY_PASSWORD', 'P@ssw0rd'),
-            'unix_socket' => env('DB_DUMMY_SOCKET', ''),
+            'host' => env('DB_OUTBOUND_HOST', '10.143.147.245'),
+            'port' => env('DB_OUTBOUND_PORT', '3306'),
+            'database' => env('DB_OUTBOUND_DATABASE', 'db_plbGmf'),
+            'username' => env('DB_OUTBOUND_USERNAME', 'usr-jti'),
+            'password' => env('DB_OUTBOUND_PASSWORD', 'P@ssw0rd'),
+            'unix_socket' => env('DB_OUTBOUND_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
