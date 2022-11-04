@@ -140,7 +140,11 @@
                               <th
                                 v-else-if="order == 'reg' && by == 'desc'"
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">A/C Reg</span>
                                 <button>
@@ -171,7 +175,11 @@
                               <th
                                 v-else-if="order == 'operator' && by == 'desc'"
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Operator</span>
                                 <button>
@@ -202,7 +210,11 @@
                               <th
                                 v-else-if="order == 'type' && by == 'desc'"
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">A/C Type</span>
                                 <button>
@@ -233,7 +245,11 @@
                               <th
                                 v-else-if="order == 'date_in' && by == 'desc'"
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Date In</span>
                                 <button>
@@ -264,7 +280,11 @@
                               <th
                                 v-else-if="order == 'date_out' && by == 'desc'"
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Date Out</span>
                                 <button>
@@ -296,8 +316,8 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter A/C Reg"
+                                    class="vgt-input text-center"
+                                    placeholder="Search A/C Reg"
                                     v-model="search_reg"
                                   />
                                 </div>
@@ -306,8 +326,8 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter Operator"
+                                    class="vgt-input text-center"
+                                    placeholder="Search Operator"
                                     v-model="search_operator"
                                   />
                                 </div>
@@ -316,8 +336,8 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
-                                    placeholder="Filter A/C Type"
+                                    class="vgt-input text-center"
+                                    placeholder="Search A/C Type"
                                     v-model="search_type"
                                   />
                                 </div>
@@ -326,7 +346,7 @@
                                 <div>
                                   <input
                                     type="date"
-                                    class="vgt-input"
+                                    class="vgt-input text-center"
                                     v-model="search_date_in"
                                   />
                                 </div>
@@ -335,7 +355,7 @@
                                 <div>
                                   <input
                                     type="date"
-                                    class="vgt-input"
+                                    class="vgt-input text-center"
                                     v-model="search_date_out"
                                   />
                                 </div>
@@ -362,12 +382,12 @@
                                 {{ mutation.type }}
                               </td>
                               <td class="text-center table_content">
-                                {{ mutation.date_in | formatDate }}
+                                {{ mutation.date_in | myDateTime }}
                               </td>
                               <td class="text-center table_content">
-                                {{ mutation.date_out | formatDate }}
+                                {{ mutation.date_out | myDateTime }}
                               </td>
-                              <td class="text-center">
+                              <td class="text-center table_content">
                                 <a
                                   v-if="mutation.rksp != null"
                                   :href="`/storage/${mutation.rksp}`"
@@ -411,7 +431,10 @@
                             Rows per page:
                           </label>
                           <select
-                            class="footer__row-count__select row_per_page_option"
+                            class="
+                              footer__row-count__select
+                              row_per_page_option
+                            "
                             v-model="paginate"
                             @change="list()"
                           >
@@ -451,7 +474,10 @@
                               <span class="paginate_text">page</span>
                               <input
                                 type="text"
-                                class="footer__navigation__page-info__current-entry vgt-input"
+                                class="
+                                  footer__navigation__page-info__current-entry
+                                  vgt-input
+                                "
                                 v-model="current_page"
                                 @keypress="directPage"
                                 style="width: 60px"

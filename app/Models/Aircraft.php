@@ -18,6 +18,8 @@ class Aircraft extends Model
         'rksp',
         'fight_route',
         'crews',
-        'report'
+        'report',
+        'ID_BARANG',
+        'ID_HEADER'
     ];
 }

@@ -105,9 +105,9 @@
                           <label class="control-label" style="margin-top: 5px">
                             <input
                               type="checkbox"
-                              id="27"
-                              value="27"
-                              v-model="filter_kode_dokumen_pabean"
+                              id="EX27"
+                              value="EX27"
+                              v-model="filter_document_type"
                             />
                             27
                           </label>
@@ -116,20 +116,20 @@
                           <label class="control-label" style="margin-top: 5px">
                             <input
                               type="checkbox"
-                              id="28"
-                              value="28"
-                              v-model="filter_kode_dokumen_pabean"
+                              id="BC28"
+                              value="BC28"
+                              v-model="filter_document_type"
                             />
                             28
                           </label>
                         </div>
                         <div class="col-sm-2">
                           <label class="control-label" style="margin-top: 5px">
-                            <input
-                              type="checkbox"
-                              id="30"
-                              value="30"
-                              v-model="filter_kode_dokumen_pabean"
+                             <input
+                                  type="checkbox"
+                              id="BC30"
+                              value="BC30"
+                              v-model="filter_document_type"
                             />
                             30
                           </label>
@@ -140,7 +140,7 @@
                               type="checkbox"
                               id="41"
                               value="41"
-                              v-model="filter_kode_dokumen_pabean"
+                              v-model="filter_document_type"
                             />
                             41
                           </label>
@@ -818,7 +818,7 @@ export default {
       filter_end_date: null,
       filter_customer: null,
       filter_part_number: null,
-      filter_kode_dokumen_pabean: [],
+      filter_document_type: [],
       filter_clicked: false,
     };
   },
@@ -868,7 +868,7 @@ export default {
     filter_part_number: debounce(function () {
       this.list();
     }, 500),
-    filter_kode_dokumen_pabean: debounce(function () {
+    filter_document_type: debounce(function () {
       this.list();
     }, 500),
   },
@@ -883,7 +883,7 @@ export default {
       this.filter_end_date = null;
       this.filter_customer = null;
       this.filter_part_number = null;
-      this.filter_kode_dokumen_pabean = [];
+      this.filter_document_type = [];
       this.list();
       this.filter_clicked = false;
     },
@@ -893,6 +893,7 @@ export default {
       axios
         .get(paginate, {
           params: {
+            // This is for Search Data
             search: this.search,
             search_part_number: this.part_number,
             search_description: this.search_description,
@@ -902,12 +903,15 @@ export default {
             search_customer: this.search_customer,
             search_date_install: this.search_date_install,
             search_date_aircraft_in: this.search_date_aircraft_in,
+
+            // This is for Filter Data
             filter_start_date: this.filter_start_date,
             filter_end_date: this.filter_end_date,
             filter_customer: this.filter_customer,
             filter_part_number: this.filter_part_number,
-            filter_kode_dokumen_pabean: this.filter_kode_dokumen_pabean,
+            filter_document_type: this.filter_document_type,
 
+            // This is for Order By
             order: this.order,
             by: this.by,
             paginate: this.paginate,

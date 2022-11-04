@@ -12,17 +12,14 @@ use App\Http\Controllers\MutationReportController;
 use App\Http\Controllers\ActivityHistoryController;
 use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\MovementAllotmentController;
-use App\Http\Controllers\API\Allotment\InventoryController;
+use App\Http\Controllers\API\Costums\InboundController;
 
 // Dokumen Kepabeanan
-use App\Http\Controllers\API\Costums\InboundController;
 use App\Http\Controllers\API\Costums\OutboundController;
+use App\Http\Controllers\API\Allotment\InventoryController;
 // Outbound
 use App\Http\Controllers\API\Outbound\OutboundOneController;
 use App\Http\Controllers\API\Outbound\OutboundTwoController;
-use App\Http\Controllers\API\Outbound\OutboundThreeController;
-
-Route::get('/testing', [OutboundOneController::class, 'testing']);
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -30,7 +27,6 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user', [AuthController::class, 'user']);
 });
 
 // Routing User
@@ -42,6 +38,7 @@ Route::get('/customs/outbound', [OutboundController::class, 'index']);
 
 // Outbound
 Route::get('/outbound-transaction-1', [OutboundOneController::class, 'index']);
+Route::get('/outbound-transaction-2', [OutboundTwoController::class, 'index']);
 
 // Aircraft Mutation (Mutasi Pesawat)
 Route::get('/aircraft', [AircraftController::class, 'index']);
