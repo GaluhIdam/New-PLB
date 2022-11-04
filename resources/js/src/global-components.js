@@ -64,7 +64,7 @@ Vue.filter("invalidDate", function (value) {
 
 Vue.filter("myDateTime", function (value) {
   if (value) {
-    return moment(String(value)).format("DD MMMM YYYY - HH:mm:ss");
+    return moment(String(value)).format("DD MMMM YYYY HH:mm:ss");
   }
 });
 
@@ -73,15 +73,15 @@ Vue.filter("upperCase", function (text) {
 });
 
 Vue.filter("uangIDR", function (value) {
-  return Number(value) > 0
-    ? "Rp " + value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1.")
-    : "-";
+  return Number(value) > 0 ?
+    "Rp " + value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1.") :
+    "-";
 });
 
 Vue.filter("uangUSD", function (value) {
-  return Number(value) > 0
-    ? "$" + value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
-    : "-";
+  return Number(value) > 0 ?
+    "$" + value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") :
+    "-";
 });
 // Vue-Progressbar
 import VueProgressBar from "vue-progressbar";
@@ -111,5 +111,7 @@ const toast = swal.mixin({
 window.toast = toast;
 
 import Datepicker from "vuejs-datepicker";
-import { is } from "@babel/types";
+import {
+  is
+} from "@babel/types";
 Vue.component("datepicker", Datepicker);

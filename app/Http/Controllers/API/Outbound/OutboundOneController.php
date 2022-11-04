@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 // Import Model
 use App\Models\Outbound\TransactionOne;
-use App\Http\Traits\ActivityHistoryTrait;
-
 
 class OutboundOneController extends Controller
 {
@@ -21,20 +19,17 @@ class OutboundOneController extends Controller
     6. Customer [$customer]
     7. Date Install [$date_install]
     8. Date Aircraft In [$date_aircraft_in]
+    9. Kode Dokumen Kepabeanan [$document_type]
     */
 
     public function __construct()
     {
         $this->middleware('auth:api');
     }
-    public function Testing()
-    {
-        $data = TransactionOne::newTransactionOne()->get();
-        return response()->json($data);
-    }
 
     public function index(Request $request)
     {
+        // Record Activity
         $this->recordActivity('Akses Outbound Transaction 1');
 
         // Search
@@ -53,7 +48,7 @@ class OutboundOneController extends Controller
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
         $filter_customer = $request->get('filter_customer'); // Untuk Filter customer
         $filter_part_number = $request->get('filter_part_number'); // Untuk Filter Part Number
-        $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean'); // Untuk Filter Type BC
+        $filter_document_type = $request->get('filter_document_type'); // Untuk Filter Kode Dokumen Kepabeanan
 
         // Sort Data
         if ($request->get('order') && $request->get('by')) {
@@ -108,8 +103,8 @@ class OutboundOneController extends Controller
             $query->where('CUSTOMER', 'LIKE', "%$filter_customer%");
         })->when($filter_part_number, function ($query) use ($filter_part_number) {
             $query->where('PART_NUMBER', 'LIKE', "%$filter_part_number%");
-        })->when($filter_kode_dokumen_pabean, function ($query) use ($filter_kode_dokumen_pabean) {
-            $query->whereIn('KODE_DOKUMEN_PABEAN', 'LIKE', "%$filter_kode_dokumen_pabean%");
+        })->when($filter_document_type, function ($query) use ($filter_document_type) {
+            $query->whereIn('KODE_DOKUMEN_PABEAN', $filter_document_type);
         })->when(($order && $by), function ($query) use ($order, $by) {
             $query->orderBy($order, $by);
         })->paginate($paginate);

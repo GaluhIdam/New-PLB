@@ -42,7 +42,6 @@ class AircraftController extends Controller
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('operator', 'LIKE', "%{$search}%")
                     ->orWhere('reg', 'LIKE', "%{$search}%")
-                    ->orWhere('operator', 'LIKE', "%{$search}%")
                     ->orWhere('type', 'LIKE', "%{$search}%");
             });
         })
@@ -92,12 +91,6 @@ class AircraftController extends Controller
         return $mutations;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function delivery(Request $request)
     {
         $this->recordActivity('Akses Aircraft Delivery');
@@ -108,6 +101,8 @@ class AircraftController extends Controller
             'reg' => 'required|unique:aircraft',
             'date_in' => 'required',
         ], [
+            'operator.required' => 'Operator field is required',
+            'type.required' => 'Type field is required',
             'reg.required' => 'Registration field is required.',
             'reg.unique' => 'The registration has already been taken.',
             'date_in.required' => 'Actual time arrival field is required.',
@@ -122,11 +117,11 @@ class AircraftController extends Controller
 
         $delivery = Aircraft::create($data);
 
-        return response()->json(array(
-            "response_code" => 201,
-            "message" => "Delivery created successfully",
-            "data" => $delivery
-        ), 201);
+        return response()->json([
+            'Success' => true,
+            'Message' => 'Delivery created successfully',
+            'Data' => $delivery
+        ], 201);
     }
 
     public function redelivery(Request $request)
@@ -139,6 +134,8 @@ class AircraftController extends Controller
             'reg' => 'required',
             'date_out' => 'required',
         ], [
+            'operator.required' => 'Operator field is required.',
+            'type.required' => 'Type field is required.',
             'reg.required' => 'Registration field is required.',
             'date_out.required' => 'Actual time depart field is required.',
         ]);
@@ -147,25 +144,19 @@ class AircraftController extends Controller
             $redelivery->date_out = $request->date_out;
             $redelivery->save();
 
-            return response()->json(array(
-                "response_code" => 201,
-                "message" => "Delivery created successfully",
-                "data" => $redelivery
-            ), 201);
+            return response()->json([
+                'Success' => true,
+                'Message' => 'Redelivery created successfully',
+                'Data' => $redelivery
+            ], 201);
         } else {
-            return response()->json(array(
-                "response_code" => 500,
-                "message" => "Error occurred",
-            ), 500);
+            return response()->json([
+                'Success' => false,
+                'Message' => 'Failed to create redelivery',
+            ], 500);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $this->recordActivity('Menghapus Aircraft');
