@@ -20,6 +20,7 @@ use App\Http\Controllers\API\Allotment\InventoryController;
 // Outbound
 use App\Http\Controllers\API\Outbound\OutboundOneController;
 use App\Http\Controllers\API\Outbound\OutboundTwoController;
+use App\Http\Controllers\API\Outbound\OutboundThreeController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -39,6 +40,7 @@ Route::get('/customs/outbound', [OutboundController::class, 'index']);
 // Outbound
 Route::get('/outbound-transaction-1', [OutboundOneController::class, 'index']);
 Route::get('/outbound-transaction-2', [OutboundTwoController::class, 'index']);
+Route::get('/outbound-transaction-3', [OutboundThreeController::class, 'index']);
 
 // Aircraft Mutation (Mutasi Pesawat)
 Route::get('/aircraft', [AircraftController::class, 'index']);
