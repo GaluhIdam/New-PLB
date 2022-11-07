@@ -2,6 +2,7 @@
 
 namespace App\Models\Outbound;
 
+use App\Models\Aircraft;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,12 +11,24 @@ class TransactionTwo extends Model
 {
     use HasFactory;
     protected $connection = 'db_plbGmf';
+    protected $table = 'v_condition_two';
+    protected $appends = ['DATE_AIRCRAFT_IN', 'DATE_AIRCRAFT_OUT'];
 
-    public function scopeNewTransactionTwo()
+    public function getDateAircraftInAttribute()
     {
-        $query = DB::connection('db_plbGmf')->table('v_condition_two')
-            ->select('*');
+        if ($aircraft =  Aircraft::where('reg', $this->attributes['REGISTER_AIRCRAFT'])->first()) {
+            return $aircraft->date_in;
+        } else {
+            return null;
+        }
+    }
 
-        return $query;
+    public function getDateAircraftOutAttribute()
+    {
+        if ($aircraft =  Aircraft::where('reg', $this->attributes['REGISTER_AIRCRAFT'])->first()) {
+            return $aircraft->date_out;
+        } else {
+            return null;
+        }
     }
 }

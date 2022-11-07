@@ -67,7 +67,7 @@ class OutboundOneController extends Controller
         }
 
         // Query Untuk Menampilkan Data
-        $outbounds  = TransactionOne::newTransactionOne()->when($search, function ($query) use ($search) {
+        $outbounds  = TransactionOne::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('KODE_DOKUMEN_PABEAN', 'LIKE', "%$search%")
                     ->orWhere('PART_NUMBER', 'LIKE', "%$search%")
@@ -92,9 +92,9 @@ class OutboundOneController extends Controller
         })->when($search_customer, function ($query) use ($search_customer) {
             $query->where('CUSTOMER', 'LIKE', "%$search_customer%");
         })->when($search_date_install, function ($query) use ($search_date_install) {
-            $query->where('DATE_INSTALL', 'LIKE', "%$search_date_install%");
+            $query->whereDate('DATE_INSTALL', "$search_date_install");
         })->when($search_date_aircraft_in, function ($query) use ($search_date_aircraft_in) {
-            $query->where('DATE_AIRCRAFT_IN', 'LIKE', "%$search_date_aircraft_in%");
+            $query->whereDate('DATE_AIRCRAFT_IN', "$search_date_aircraft_in");
         })->when($filter_start_date, function ($query) use ($filter_start_date) {
             $query->where('DATE_INSTALL', '>=', $filter_start_date);
         })->when($filter_end_date, function ($query) use ($filter_end_date) {

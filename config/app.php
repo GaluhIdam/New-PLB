@@ -182,6 +182,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -210,7 +211,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Image' => Intervention\Image\Facades\Image::class,
 
     ])->toArray(),

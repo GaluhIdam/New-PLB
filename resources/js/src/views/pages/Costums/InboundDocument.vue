@@ -161,21 +161,25 @@
                           v-if="$gate.isAdminOrPlanner()"
                         >
                           <div>
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
-                            </button>
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            </button> -->
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              style="margin-right: 10px"
+                              @click="exportExcel"
+                            >
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
                             </button>
-                            <button
+                            <!-- <button
                               class="btn btn-secondary ms-auto rounded-1"
                               style="margin-right: 10px"
                             >
                               <i class="fa-solid fa-file-pdf"></i>
                               PDF
-                            </button>
+                            </button> -->
                           </div>
                         </div>
 
@@ -1145,6 +1149,21 @@ export default {
   },
 
   methods: {
+    exportExcel() {
+      let url = "/api/inbound/export";
+      axios
+        .get(url, {
+          responseType: "blob",
+        })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "inbound.xlsx");
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
     filterButton() {
       // this.filter_clicked = !this.filter_clicked;
       this.filter_clicked = true;
