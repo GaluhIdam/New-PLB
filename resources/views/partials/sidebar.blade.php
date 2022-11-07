@@ -117,7 +117,7 @@
                 <!-- END: Aircraft Mutation -->
 
                 <!-- BEGIN: Allotment -->
-                <li class="nav-item ">
+                {{-- <li class="nav-item ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-warehouse"></i>
                         <p>
@@ -137,7 +137,7 @@
                             </router-link>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- END: Allotment -->
 
                 <!-- BEGIN: Mutasi -->
@@ -165,12 +165,12 @@
                     </ul>
                 </li> -->
                 @can('isAdminOrPlanner')
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <router-link to="/report-mutation" class="nav-link">
                         <i class="nav-icon fa-solid fa-file-circle-exclamation"></i>
                         <p>Mutasi</p>
                     </router-link>
-                </li>
+                </li> --}}
                 @endcan
                 <!-- END: Mutasi -->
 
@@ -185,12 +185,12 @@
 
 
                 <!-- BEGIN: Masa Timbun -->
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <router-link to="/hoarding-time" class="nav-link">
                         <i class="nav-icon fa-solid fa-hands-holding-circle"></i>
                         <p>Masa Timbun</p>
                     </router-link>
-                </li>
+                </li> --}}
                 <!-- END: Masa Timbun -->
 
                 <li class="nav-header">Miscellaneous</li>

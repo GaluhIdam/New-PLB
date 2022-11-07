@@ -125,8 +125,8 @@
                         </div>
                         <div class="col-sm-2">
                           <label class="control-label" style="margin-top: 5px">
-                             <input
-                                  type="checkbox"
+                            <input
+                              type="checkbox"
                               id="BC30"
                               value="BC30"
                               v-model="filter_document_type"
@@ -185,23 +185,30 @@
                           />
                         </div>
                         <!-- BEGIN: Right Button -->
-                        <div class="vgt-global-search__actions vgt-pull-right">
+                        <div
+                          class="vgt-global-search__actions vgt-pull-right"
+                          v-if="$gate.isAdminOrPlanner()"
+                        >
                           <div>
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
-                            </button>
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            </button> -->
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              style="margin-right: 10px"
+                              @click="exportExcel"
+                            >
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
                             </button>
-                            <button
+                            <!-- <button
                               class="btn btn-secondary ms-auto rounded-1"
                               style="margin-right: 10px"
                             >
                               <i class="fa-solid fa-file-pdf"></i>
                               PDF
-                            </button>
+                            </button> -->
                           </div>
                         </div>
                         <!-- END: Right Button -->
@@ -659,11 +666,8 @@
                               <td class="table_content text-center">
                                 {{ outbound.DATE_INSTALL | myDate }}
                               </td>
-                              <td
-                                class="table_content text-center"
-                                v-if="!outbound.DATE_AIRCRAFT_IN"
-                              >
-                                {{ outbound.DATE_INSTALL | myDate }}
+                              <td class="table_content text-center">
+                                {{ outbound.DATE_AIRCRAFT_IN | myDate }}
                               </td>
                             </tr>
                             <tr v-if="outbounds.data.length < 1">

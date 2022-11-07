@@ -56,20 +56,16 @@ class OutboundThreeController extends Controller
         $search_registration_number = $request->get('search_registration_number'); // Untuk Pencarian Nomor Daftar
         $search_registration_date = $request->get('search_registration_date'); // Untuk Pencarian Tanggal Daftar
         $search_cif_idr = $request->get('search_cif_idr'); // Untuk Pencarian CIF IDR
-        $search_bm_dibayar = $request->get('search_bm_dibayar'); // Untuk Pencarian BM Dibayar
-        $search_ppn_dibayar = $request->get('search_ppn_dibayar'); // Untuk Pencarian PPN Dibayar
-        $search_pph_dibayar = $request->get('search_pph_dibayar'); // Untuk Pencarian PPH Dibayar
-
 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
         $filter_customer = $request->get('filter_customer'); // Untuk Filter Customer
+        $filter_part_number = $request->get('filter_part_number'); // Untuk Filter Part Number
         $filter_submission_number = $request->get('filter_submission_number'); // Untuk Filter Nomor Aju
         $filter_submission_date = $request->get('filter_submission_date'); // Untuk Filter Tanggal Aju
         $filter_registration_number = $request->get('filter_registration_number'); // Untuk Filter Nomor Daftar
         $filter_registration_date = $request->get('filter_registration_date'); // Untuk Filter Tanggal Daftar
-        $filter_part_number = $request->get('filter_part_number'); // Untuk Filter Part Number
         $filter_document_type = $request->get('filter_document_type');  // Untuk Filter Type BC
 
         // Sort Data
@@ -77,7 +73,7 @@ class OutboundThreeController extends Controller
             $order = $request->get('order');
             $by = $request->get('by');
         } else {
-            $order = 'date_install';
+            $order = 'DATE_INSTALL';
             $by = 'desc';
         }
 
@@ -88,7 +84,7 @@ class OutboundThreeController extends Controller
             $paginate = 10;
         }
         // Query Untuk Menampilkan Data
-        $outbounds  = TransactionThree::newTransactionThree()->when($search, function ($query) use ($search) {
+        $outbounds  = TransactionThree::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('PART_NUMBER', 'LIKE', "%$search%")
                     ->orWhere('DESCRIPTION', 'LIKE', "%$search%")
@@ -104,10 +100,7 @@ class OutboundThreeController extends Controller
                     ->orWhere('SUBMISSION_DATE', 'LIKE', "%$search%")
                     ->orWhere('REGISTRATION_NUMBER', 'LIKE', "%$search%")
                     ->orWhere('REGISTRATION_DATE', 'LIKE', "%$search%")
-                    ->orWhere('CIF_RUPIAH', 'LIKE', "%$search%")
-                    ->orWhere('BM_DIBAYAR', 'LIKE', "%$search%")
-                    ->orWhere('PPN_DIBAYAR', 'LIKE', "%$search%")
-                    ->orWhere('PPH_DIBAYAR', 'LIKE', "%$search%");
+                    ->orWhere('CIF_IDR', 'LIKE', "%$search%");
             });
         })->when($search_part_number, function ($query) use ($search_part_number) {
             $query->where('PART_NUMBER', 'LIKE', "%$search_part_number%");
@@ -122,29 +115,23 @@ class OutboundThreeController extends Controller
         })->when($search_customer, function ($query) use ($search_customer) {
             $query->where('CUSTOMER', 'LIKE', "%$search_customer%");
         })->when($search_date_install, function ($query) use ($search_date_install) {
-            $query->where('DATE_INSTALL', 'LIKE', "%$search_date_install%");
+            $query->whereDate('DATE_INSTALL', "$search_date_install");
         })->when($search_date_aircraft_in, function ($query) use ($search_date_aircraft_in) {
-            $query->where('DATE_AIRCRAFT_IN', 'LIKE', "%$search_date_aircraft_in%");
+            $query->whereDate('DATE_AIRCRAFT_IN', "$search_date_aircraft_in");
         })->when($search_date_aircraft_out, function ($query) use ($search_date_aircraft_out) {
-            $query->where('DATE_AIRCRAFT_OUT', 'LIKE', "%$search_date_aircraft_out%");
+            $query->whereDate('DATE_AIRCRAFT_OUT', "$search_date_aircraft_out");
         })->when($search_document_type, function ($query) use ($search_document_type) {
             $query->where('TYPE_BC', 'LIKE', "%$search_document_type%");
         })->when($search_submission_number, function ($query) use ($search_submission_number) {
             $query->where('SUBMISSION_NUMBER', 'LIKE', "%$search_submission_number%");
         })->when($search_submission_date, function ($query) use ($search_submission_date) {
-            $query->where('SUBMISSION_DATE', 'LIKE', "%$search_submission_date%");
+            $query->whereDate('SUBMISSION_DATE', "$search_submission_date");
         })->when($search_registration_number, function ($query) use ($search_registration_number) {
             $query->where('REGISTRATION_NUMBER', 'LIKE', "%$search_registration_number%");
         })->when($search_registration_date, function ($query) use ($search_registration_date) {
-            $query->where('REGISTRATION_DATE', 'LIKE', "%$search_registration_date%");
+            $query->whereDate('REGISTRATION_DATE', "$search_registration_date");
         })->when($search_cif_idr, function ($query) use ($search_cif_idr) {
             $query->where('CIF_IDR', 'LIKE', "%$search_cif_idr%");
-        })->when($search_bm_dibayar, function ($query) use ($search_bm_dibayar) {
-            $query->where('BM_DIBAYAR', 'LIKE', "%$search_bm_dibayar%");
-        })->when($search_ppn_dibayar, function ($query) use ($search_ppn_dibayar) {
-            $query->where('PPN_DIBAYAR', 'LIKE', "%$search_ppn_dibayar%");
-        })->when($search_pph_dibayar, function ($query) use ($search_pph_dibayar) {
-            $query->where('PPH_DIBAYAR', 'LIKE', "%$search_pph_dibayar%");
         })->when($filter_start_date, function ($query) use ($filter_start_date) {
             $query->whereDate('DATE_INSTALL', '>=', $filter_start_date);
         })->when($filter_end_date, function ($query) use ($filter_end_date) {
@@ -156,11 +143,11 @@ class OutboundThreeController extends Controller
         })->when($filter_submission_number, function ($query) use ($filter_submission_number) {
             $query->where('SUBMISSION_NUMBER', 'LIKE', "%$filter_submission_number%");
         })->when($filter_submission_date, function ($query) use ($filter_submission_date) {
-            $query->whereDate('SUBMISSION_DATE', 'LIKE', "%$filter_submission_date%");
+            $query->whereDate('SUBMISSION_DATE', "$filter_submission_date");
         })->when($filter_registration_number, function ($query) use ($filter_registration_number) {
             $query->where('REGISTRATION_NUMBER', 'LIKE', "%$filter_registration_number%");
         })->when($filter_registration_date, function ($query) use ($filter_registration_date) {
-            $query->whereDate('REGISTRATION_DATE', 'LIKE', "%$filter_registration_date%");
+            $query->whereDate('REGISTRATION_DATE', "$filter_registration_date");
         })->when($filter_document_type, function ($query) use ($filter_document_type) {
             $query->whereIn('TYPE_BC', $filter_document_type);
         })->when(($order && $by), function ($query) use ($order, $by) {
@@ -171,6 +158,7 @@ class OutboundThreeController extends Controller
             'search' => $search,
             'order' => $order,
             'by' => $by,
+            'paginate' => $paginate,
         ];
 
         $outbounds->appends($result);

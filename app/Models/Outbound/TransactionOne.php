@@ -2,6 +2,7 @@
 
 namespace App\Models\Outbound;
 
+use App\Models\Aircraft;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,11 +11,15 @@ class TransactionOne extends Model
 {
     use HasFactory;
     protected $connection = 'db_plbGmf';
-    public function scopeNewTransactionOne()
-    {
-        $query = DB::connection('db_plbGmf')->table('v_condition_one')
-            ->select('*');
+    protected $table = 'v_condition_one';
+    protected  $appends = ['DATE_AIRCRAFT_IN'];
 
-        return $query;
+    public function getDateAircraftInAttribute()
+    {
+        if ($aircraft =  Aircraft::where('reg', $this->attributes['REGISTER_AIRCRAFT'])->first()) {
+            return $aircraft->date_in;
+        } else {
+            return null;
+        }
     }
 }

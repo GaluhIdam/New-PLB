@@ -234,21 +234,24 @@
                         </div>
                         <div class="vgt-global-search__actions vgt-pull-right">
                           <div>
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
-                            </button>
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            </button> -->
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              style="margin-right: 10px"
+                            >
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
                             </button>
-                            <button
+                            <!-- <button
                               class="btn btn-secondary ms-auto rounded-1"
                               style="margin-right: 10px"
                             >
                               <i class="fa-solid fa-file-pdf"></i>
                               PDF
-                            </button>
+                            </button> -->
                           </div>
                         </div>
                       </div>
@@ -1016,36 +1019,9 @@
                                   />
                                 </div>
                               </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="BM Dibayar"
-                                    v-model="search_bm_bayar"
-                                  />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="PPN Dibayar"
-                                    v-model="search_ppn_bayar"
-                                  />
-                                </div>
-                              </th>
-                              <th class="filter-th">
-                                <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input"
-                                    placeholder="PPh Dibayar"
-                                    v-model="search_pph_bayar"
-                                  />
-                                </div>
-                              </th>
+                              <th class="filter-th"></th>
+                              <th class="filter-th"></th>
+                              <th class="filter-th"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1095,13 +1071,19 @@
                                 {{ outbound.CIF_IDR }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.BM_BAYAR }}
+                                <span v-if="outbound.JENIS_TARIF == 'BM'">{{
+                                  outbound.TARIF
+                                }}</span>
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.PPN_BAYAR }}
+                                <span v-if="outbound.JENIS_TARIF == 'PPN'">{{
+                                  outbound.TARIF
+                                }}</span>
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.PPH_BAYAR }}
+                                <span v-if="outbound.JENIS_TARIF == 'PPH'">{{
+                                  outbound.TARIF
+                                }}</span>
                               </td>
                             </tr>
                             <tr v-if="outbounds.data.length < 1">
@@ -1248,9 +1230,6 @@ export default {
       search_registration_number: null, // Search Registration Number
       search_registration_date: null, // Search Registration Date
       search_cif_idr: null, // Search CIF IDR
-      search_bm_bayar: null, // Search BM Bayar
-      search_ppn_bayar: null, // Search PPN Bayar
-      search_pph_bayar: null, // Search PPH Bayar
 
       // Order By
       order: "DATE_INSTALL",
@@ -1325,15 +1304,6 @@ export default {
     search_cif_idr: debounce(function () {
       this.list();
     }, 500),
-    search_bm_bayar: debounce(function () {
-      this.list();
-    }, 500),
-    search_ppn_bayar: debounce(function () {
-      this.list();
-    }, 500),
-    search_pph_bayar: debounce(function () {
-      this.list();
-    }, 500),
     filter_start_date: debounce(function () {
       this.list();
     }, 500),
@@ -1344,6 +1314,18 @@ export default {
       this.list();
     }, 500),
     filter_part_number: debounce(function () {
+      this.list();
+    }, 500),
+    filter_submission_number: debounce(function () {
+      this.list();
+    }, 500),
+    filter_submission_date: debounce(function () {
+      this.list();
+    }, 500),
+    filter_registration_number: debounce(function () {
+      this.list();
+    }, 500),
+    filter_document_type: debounce(function () {
       this.list();
     }, 500),
     filter_document_type: debounce(function () {
@@ -1396,13 +1378,15 @@ export default {
             search_pph_bayar: this.search_pph_bayar,
 
             // This is for Filter Data
-            filter_start_date: this.search_filter_start_date,
-            filter_end_date: this.search_filter_end_date,
-            filter_customer: this.search_filter_customer,
-            filter_part_number: this.search_filter_part_number,
-            filter_document_type: this.search_filter_document_type,
-            filter_submission_number: this.search_filter_submission_number,
-            filter_submission_date: this.search_filter_submission_date,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_customer: this.filter_customer,
+            filter_part_number: this.filter_part_number,
+            filter_document_type: this.filter_document_type,
+            filter_submission_number: this.filter_submission_number,
+            filter_submission_date: this.filter_submission_date,
+            filter_registration_number: this.filter_registration_number,
+            filter_registration_date: this.filter_registration_date,
 
             // This is for Order By
             order: this.order,
