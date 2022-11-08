@@ -74,10 +74,10 @@
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
                             </button> -->
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
-                            </button>
+                            </button> -->
                             <!-- <button class="btn btn-secondary ms-auto rounded-1">
                               <i class="fa-solid fa-file-pdf"></i>
                               PDF
@@ -132,7 +132,9 @@
                                 @click="sort('reg', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">A/C Reg</span>
+                                <span class="table_header"
+                                  >Aircraft Registration</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -146,7 +148,9 @@
                                   sorting sorting-desc
                                 "
                               >
-                                <span class="table_header">A/C Reg</span>
+                                <span class="table_header"
+                                  >Aircraft Registration</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -156,7 +160,9 @@
                                 @click="sort('reg', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">A/C Reg</span>
+                                <span class="table_header"
+                                  >Aircraft Registration</span
+                                >
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -202,7 +208,7 @@
                                 @click="sort('type', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">A/C Type</span>
+                                <span class="table_header">Aircraft Type</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -216,7 +222,7 @@
                                   sorting sorting-desc
                                 "
                               >
-                                <span class="table_header">A/C Type</span>
+                                <span class="table_header">Aircraft Type</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -226,7 +232,7 @@
                                 @click="sort('type', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">A/C Type</span>
+                                <span class="table_header">Aircraft Type</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -317,7 +323,7 @@
                                   <input
                                     type="text"
                                     class="vgt-input text-center"
-                                    placeholder="Search A/C Reg"
+                                    placeholder="Search Aircraft Registration"
                                     v-model="search_reg"
                                   />
                                 </div>
@@ -337,7 +343,7 @@
                                   <input
                                     type="text"
                                     class="vgt-input text-center"
-                                    placeholder="Search A/C Type"
+                                    placeholder="Search Aircraft Type"
                                     v-model="search_type"
                                   />
                                 </div>

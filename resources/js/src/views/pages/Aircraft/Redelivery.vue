@@ -48,7 +48,7 @@
                   <!-- BEGIN: Aircraft Registration -->
                   <div class="form-group row">
                     <label for="reg" class="col-sm-2 col-form-label"
-                      >A/C Registration</label
+                      >Aircraft Registration</label
                     >
                     <div class="col-sm-4">
                       <multiselect
@@ -56,7 +56,7 @@
                         id="ajax"
                         :custom-label="mutationLabel"
                         track-by="id"
-                        placeholder="Pilih A/C Registration"
+                        placeholder="Pilih Aircraft Registration"
                         open-direction="bottom"
                         :options="mutations"
                         :multiple="false"
@@ -80,7 +80,7 @@
                   <!-- BEGIN: Aircraft Type -->
                   <div class="form-group row mt-4">
                     <label for="type" class="col-sm-2 col-form-label"
-                      >A/C Type</label
+                      >Aircraft Type</label
                     >
                     <div class="col-sm-4">
                       <input type="text" class="form-control" v-model="type" />
