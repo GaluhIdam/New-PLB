@@ -31,16 +31,28 @@ Route::middleware('auth:api')->group(function () {
 });
 
 // Routing User
+Route::get('user/export', [UserController::class, 'export']);
 Route::apiResource('user', UserController::class);
 
 // Dokumen Kepabeanan
 Route::get('/customs/inbound', [InboundController::class, 'index']);
+Route::get('/customs/inbound-csv', [InboundController::class, 'exportCsv']);
+Route::get('/customs/inbound-excel', [InboundController::class, 'exportExcel']);
+
 Route::get('/customs/outbound', [OutboundController::class, 'index']);
+Route::get('/customs/outbound-csv', [OutboundController::class, 'exportCsv']);
+Route::get('/customs/outbound-excel', [OutboundController::class, 'exportExcel']);
 
 // Outbound
 Route::get('/outbound-transaction-1', [OutboundOneController::class, 'index']);
+Route::get('/outbound-transaction-1-csv', [OutboundOneController::class, 'exportCsv']);
+Route::get('/outbound-transaction-1-excel', [OutboundOneController::class, 'exportExcel']);
 Route::get('/outbound-transaction-2', [OutboundTwoController::class, 'index']);
+Route::get('/outbound-transaction-2-csv', [OutboundTwoController::class, 'exportCsv']);
+Route::get('/outbound-transaction-2-excel', [OutboundTwoController::class, 'exportExcel']);
 Route::get('/outbound-transaction-3', [OutboundThreeController::class, 'index']);
+Route::get('/outbound-transaction-3-csv', [OutboundThreeController::class, 'exportCsv']);
+Route::get('/outbound-transaction-3-excel', [OutboundThreeController::class, 'exportExcel']);
 
 // Aircraft Mutation (Mutasi Pesawat)
 Route::get('/aircraft', [AircraftController::class, 'index']);

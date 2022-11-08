@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API\Outbound;
 
-use App\Http\Controllers\Controller;
-use App\Models\Outbound\TransactionTwo;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Outbound\TransactionTwo;
+use App\Exports\Outbounds\TransactionTwoExport;
 
 class OutboundTwoController extends Controller
 {
@@ -153,5 +155,15 @@ class OutboundTwoController extends Controller
 
         $outbounds->appends($result);
         return $outbounds;
+    }
+
+    public function exportCsv()
+    {
+        return Excel::download(new TransactionTwoExport, 'outbound-transaction-two.csv');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new TransactionTwoExport, 'outbound-transaction-two.xlsx');
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API\Costums;
 
-use App\Http\Controllers\Controller;
-use App\Models\Costums\Outbound;
 use Illuminate\Http\Request;
+use App\Models\Costums\Outbound;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Costums\OutboundExport;
 
 class OutboundController extends Controller
 {
@@ -48,9 +50,6 @@ class OutboundController extends Controller
         $search_nama_barang = $request->get('search_nama_barang');
         $search_jumlah_satuan = $request->get('search_jumlah_satuan');
         $search_kode_satuan = $request->get('search_kode_satuan');
-        $search_harga_penyerahan = $request->get('search_harga_penyerahan');
-        $search_cif = $request->get('search_cif');
-        $search_cif_rupiah = $request->get('search_cif_rupiah');
 
         // Filter
         $filter_start_date = $request->get('filter_start_date');
@@ -64,7 +63,7 @@ class OutboundController extends Controller
             $by = $request->get('by');
         } else {
             $order = 'TANGGAL_AJU';
-            $by = 'asc';
+            $by = 'desc';
         }
         if ($request->get('paginate')) {
             $paginate = $request->get('paginate');
@@ -73,7 +72,7 @@ class OutboundController extends Controller
         }
 
         // Query
-        $outbounds = Outbound::newOutbound()->when($search, function ($query) use ($search) {
+        $outbounds = Outbound::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('KODE_DOKUMEN_PABEAN', 'LIKE', "%$search%")
                     ->orWhere('NOMOR_AJU', 'LIKE', "%$search%")
@@ -128,9 +127,6 @@ class OutboundController extends Controller
             ->when($search_kode_satuan, function ($query) use ($search_kode_satuan) {
                 $query->where('KODE_SATUAN', 'LIKE', "%$search_kode_satuan%");
             })
-            ->when($search_cif_rupiah, function ($query) use ($search_cif_rupiah) {
-                $query->where('CIF_RUPIAH', 'LIKE', "%$search_cif_rupiah%");
-            })
             ->when($filter_kode_dokumen_pabean, function ($query) use ($filter_kode_dokumen_pabean) {
                 $query->whereIn('KODE_DOKUMEN_PABEAN', $filter_kode_dokumen_pabean);
             })
@@ -157,5 +153,15 @@ class OutboundController extends Controller
 
         $outbounds = $outbounds->appends($query_string);
         return $outbounds;
+    }
+
+    public function exportCsv()
+    {
+        return Excel::download(new OutboundExport, 'kepabeanan-outbound.csv');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new OutboundExport, 'kepabeanan-outbound.xlsx');
     }
 }

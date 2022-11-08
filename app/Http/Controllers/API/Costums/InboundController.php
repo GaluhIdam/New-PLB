@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API\Costums;
 
-use App\Http\Controllers\Controller;
-use App\Models\Costums\Inbound;
 use Illuminate\Http\Request;
+use App\Models\Costums\Inbound;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Costums\InboundExport;
 
 class InboundController extends Controller
 {
@@ -64,7 +66,7 @@ class InboundController extends Controller
             $by = $request->get('by');
         } else {
             $order = 'TANGGAL_AJU';
-            $by = 'asc';
+            $by = 'desc';
         }
         if ($request->get('paginate')) {
             $paginate = $request->get('paginate');
@@ -73,7 +75,7 @@ class InboundController extends Controller
         }
 
 
-        $inbounds = Inbound::newInbound()->when($search, function ($query) use ($search) {
+        $inbounds = Inbound::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('KODE_DOKUMEN_PABEAN', 'LIKE', "%$search%")
                     ->orWhere('NOMOR_AJU', 'LIKE', "%$search%")
@@ -163,5 +165,15 @@ class InboundController extends Controller
         $inbounds->appends($query_string);
 
         return $inbounds;
+    }
+
+    public function exportCsv()
+    {
+        return Excel::download(new InboundExport, 'kepabeanan-inbound.csv');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new InboundExport, 'kepabeanan-inbound.xlsx');
     }
 }

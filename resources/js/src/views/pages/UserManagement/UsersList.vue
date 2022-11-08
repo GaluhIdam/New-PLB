@@ -272,8 +272,8 @@
                               <div>
                                 <input
                                   type="text"
-                                  class="vgt-input"
-                                  placeholder="Filter Username"
+                                  class="vgt-input text-center"
+                                  placeholder="Search Username"
                                   v-model="search_username"
                                 />
                               </div>
@@ -282,8 +282,8 @@
                               <div>
                                 <input
                                   type="text"
-                                  class="vgt-input"
-                                  placeholder="Filter Role"
+                                  class="vgt-input text-center"
+                                  placeholder="Search Role"
                                   v-model="search_role"
                                 />
                               </div>
@@ -292,8 +292,8 @@
                               <div>
                                 <input
                                   type="text"
-                                  class="vgt-input"
-                                  placeholder="Filter Email"
+                                  class="vgt-input text-center"
+                                  placeholder="Search Email"
                                   v-model="search_email"
                                 />
                               </div>
@@ -397,7 +397,10 @@
                             <span class="paginate_text">page</span>
                             <input
                               type="text"
-                              class="footer__navigation__page-info__current-entry vgt-input"
+                              class="
+                                footer__navigation__page-info__current-entry
+                                vgt-input
+                              "
                               v-model="current_page"
                               @keypress="directPage"
                               style="width: 60px"

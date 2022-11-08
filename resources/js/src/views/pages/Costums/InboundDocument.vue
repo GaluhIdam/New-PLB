@@ -161,10 +161,13 @@
                           v-if="$gate.isAdminOrPlanner()"
                         >
                           <div>
-                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              @click="exportCsv"
+                            >
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
-                            </button> -->
+                            </button>
                             <button
                               class="btn btn-secondary ms-auto rounded-1"
                               style="margin-right: 10px"
@@ -1066,11 +1069,12 @@ export default {
       search_harga_penyerahan: null,
       search_cif: null,
 
-      // Order Data
+      // Order And Paginate
       order: "TANGGAL_AJU",
-      by: "asc  ",
+      by: "desc  ",
       current_page: "",
       paginate: "10",
+
       //Filter
       filter_start_date: null,
       filter_end_date: null,
@@ -1150,16 +1154,25 @@ export default {
 
   methods: {
     exportExcel() {
-      let url = "/api/inbound/export";
       axios
-        .get(url, {
-          responseType: "blob",
-        })
+        .get("/api/customs/inbound-excel", { responseType: "blob" })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
           link.href = url;
-          link.setAttribute("download", "inbound.xlsx");
+          link.setAttribute("download", "kepabeanan-inbound.xlsx");
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
+    exportCsv() {
+      axios
+        .get("/api/customs/inbound-csv", { responseType: "blob" })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "kepabeanan-inbound.csv");
           document.body.appendChild(link);
           link.click();
         });
