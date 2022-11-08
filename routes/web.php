@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,5 @@ Auth::routes([
     'reset' => false,
     'verify' => false,
 ]);
+
 Route::get('/{any}', [HomeController::class, 'index'])->where('any', '.*');

@@ -190,10 +190,13 @@
                           v-if="$gate.isAdminOrPlanner()"
                         >
                           <div>
-                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              @click="exportCsv"
+                            >
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
-                            </button> -->
+                            </button>
                             <button
                               class="btn btn-secondary ms-auto rounded-1"
                               style="margin-right: 10px"
@@ -878,6 +881,30 @@ export default {
   },
 
   methods: {
+    exportExcel() {
+      axios
+        .get("/api/outbound-transaction-1-excel", { responseType: "blob" })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "outbound-transaction-one.xlsx");
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
+    exportCsv() {
+      axios
+        .get("/api/outbound-transaction-1-csv", { responseType: "blob" })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "outbound-transaction-one.csv");
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
     filterButton() {
       this.filter_clicked = true;
       this.list();

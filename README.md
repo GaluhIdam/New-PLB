@@ -17,7 +17,7 @@ Sebagai User CSSM, Ada tiga point penting yang saya inginkan
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Clone Repository`git clone -b dev https://bitbucket.gmf-aeroasia.co.id/scm/gdo/new-plb.git`
+1. Clone Repository `git clone -b production https://bitbucket.gmf-aeroasia.co.id/scm/gdo/new-plb.git`
 2. go to project folder. `cd new-plb`
 3. Save as the. `env.example` to `.env` and set your database.
 4. `composer install`
@@ -25,10 +25,11 @@ _Below is an example of how you can instruct your audience on installing and set
 6. Next, run the program key generation and commands migration
 
    ```sh
-   php artisan migrate:refresh --seed
+   php artisan migrate:fresh --seed
    php artisan passport:install
    php artisan key:generate
    php artisan storage:link
+   php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider" --tag=config
    npm run dev
    ```
 
@@ -44,4 +45,4 @@ Fatur Ridlwan - fatur.ridlwan@opencloud.id\
 Rizky Ibrahim - rizky.ibrahim@opencloud.id \
 Alnuria Vanadia Equila - vanadia.equila@opencloud.id\
 Galuh Idam Danutirto - galuh.danutirto@opencloud.id\
-Jacob Edward Ginting - jacob.ginting@opencloud.id
+I Putu Sedana Wijaya - putu.wijaya@opencloud.id

@@ -10,13 +10,5 @@ class Inbound extends Model
 {
     use HasFactory;
     protected $connection = 'plb_db_prod';
-
-
-    public function scopeNewInbound()
-    {
-        $query = DB::connection('plb_db_prod')->table('v_tbl_kepabeanan_inbound')
-            ->select('*');
-
-        return $query;
-    }
+    protected $table = 'v_tbl_kepabeanan_inbound';
 }

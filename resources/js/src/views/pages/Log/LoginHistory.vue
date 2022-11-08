@@ -377,7 +377,7 @@
                               <td class="text-center table_content">
                                 {{ login.last_login_ip }}
                               </td>
-                              <td class="text-center table_content">
+                              <td class="text-left table_content">
                                 {{ login.last_login_device }}
                               </td>
                             </tr>

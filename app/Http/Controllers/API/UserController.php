@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Exports\ExportUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image as Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class UserController extends Controller
@@ -18,11 +19,7 @@ class UserController extends Controller
         $this->middleware('auth:api');
         $users = DB::table('users')->count();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
 
@@ -128,12 +125,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -176,13 +167,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -214,12 +198,6 @@ class UserController extends Controller
         return ['message' => 'Successfully updated'];
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $this->authorize('isAdmin');
@@ -228,5 +206,12 @@ class UserController extends Controller
         $user->delete();
 
         return ['message' => 'Successfully deleted'];
+    }
+
+    public function export()
+    {
+        // return Excel::download(new ExportUser, $filename);
+        return Excel::download(new ExportUser, 'users.xlsx');
+        // return (new ExportUser)->download('invoices.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 }

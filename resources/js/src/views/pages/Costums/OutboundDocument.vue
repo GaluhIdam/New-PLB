@@ -172,10 +172,13 @@
                           v-if="$gate.isAdminOrPlanner()"
                         >
                           <div>
-                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              @click="exportCsv"
+                            >
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
-                            </button> -->
+                            </button>
                             <button
                               class="btn btn-secondary ms-auto rounded-1"
                               style="margin-right: 10px"
@@ -1097,7 +1100,7 @@ export default {
 
       // Order Data
       order: "TANGGAL_AJU",
-      by: "asc",
+      by: "desc",
       current_page: "",
       paginate: "10",
 
@@ -1178,6 +1181,30 @@ export default {
     }, 500),
   },
   methods: {
+    exportExcel() {
+      axios
+        .get("/api/customs/outbound-excel", { responseType: "blob" })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "kepabeanan-outbound.xlsx");
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
+    exportCsv() {
+      axios
+        .get("/api/customs/outbound-csv", { responseType: "blob" })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "kepabeanan-outbound.csv");
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
     filterButton() {
       this.filter_clicked = true;
       this.list();

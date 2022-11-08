@@ -234,13 +234,17 @@
                         </div>
                         <div class="vgt-global-search__actions vgt-pull-right">
                           <div>
-                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              @click="exportCsv"
+                            >
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
-                            </button> -->
+                            </button>
                             <button
                               class="btn btn-secondary ms-auto rounded-1"
                               style="margin-right: 10px"
+                              @click="exportExcel"
                             >
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
@@ -778,113 +782,20 @@
                               <!-- END: CIF IDR Header -->
 
                               <!-- BEGIN: BM Dibayar Header -->
-                              <th
-                                v-if="order == 'bm_bayar' && by == 'asc'"
-                                @click="sort('bm_bayar', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th class="text-center">
                                 <span class="table_header">BM Dibayar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="order == 'bm_bayar' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="
-                                  text-center
-                                  sortable
-                                  sorting sorting-desc
-                                "
-                              >
-                                <span class="table_header">BM Dibayar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('bm_bayar', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">BM Dibayar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
                               </th>
                               <!-- END: BM Dibayar Header -->
 
                               <!-- BEGIN: PPN Dibayar Header -->
-                              <th
-                                v-if="order == 'ppn_bayar' && by == 'asc'"
-                                @click="sort('ppn_bayar', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header">PPN Dibayar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="order == 'ppn_bayar' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="
-                                  text-center
-                                  sortable
-                                  sorting sorting-desc
-                                "
-                              >
-                                <span class="table_header">PPN Dibayar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('ppn_bayar', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">PPN Dibayar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
+                              <th class="text-center">
+                                <span class="table_header">PPn Dibayar</span>
                               </th>
                               <!-- END: PPN Dibayar Header -->
 
                               <!-- END: PPh Dibayar Header -->
-                              <th
-                                v-if="order == 'pph_bayar' && by == 'asc'"
-                                @click="sort('pph_bayar', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th class="text-center">
                                 <span class="table_header">PPh Dibayar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="order == 'pph_bayar' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="
-                                  text-center
-                                  sortable
-                                  sorting sorting-desc
-                                "
-                              >
-                                <span class="table_header">PPh Dibayar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('pph_bayar', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">PPh Dibayar</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
                               </th>
                             </tr>
                             <!-- END: Header Table -->
@@ -1333,6 +1244,30 @@ export default {
     }, 500),
   },
   methods: {
+    exportExcel() {
+      axios
+        .get("/api/outbound-transaction-3-excel", { responseType: "blob" })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "outbound-transaction-three.xlsx");
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
+    exportCsv() {
+      axios
+        .get("/api/outbound-transaction-3-csv", { responseType: "blob" })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "outbound-transaction-three.csv");
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
     filterButton() {
       this.filter_clicked = true;
       this.list();
