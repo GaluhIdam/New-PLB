@@ -89,7 +89,6 @@
                               type="checkbox"
                               value="27"
                               v-model="filter_kode_dokumen_pabean"
-                              disabled
                             />
                             27
                           </label>
@@ -110,7 +109,6 @@
                               type="checkbox"
                               value="30"
                               v-model="filter_kode_dokumen_pabean"
-                              disabled
                             />
                             30
                           </label>
@@ -121,7 +119,6 @@
                               type="checkbox"
                               value="41"
                               v-model="filter_kode_dokumen_pabean"
-                              disabled
                             />
                             41
                           </label>

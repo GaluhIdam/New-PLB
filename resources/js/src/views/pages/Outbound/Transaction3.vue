@@ -115,8 +115,9 @@
                         <div class="col-sm-8">
                           <datepicker
                             input-class="form-control"
-                            placeholder="Masukan Tanggal AJU"
                             format="dd/MM/yyyy"
+                            v-model="filter_submission_date"
+                            placeholder="Masukan Tanggal AJU"
                           />
                         </div>
                       </div>
@@ -142,6 +143,7 @@
                             input-class="form-control"
                             placeholder="Masukan Tanggal Daftar"
                             format="dd/MM/yyyy"
+                            v-model="filter_registration_date"
                           />
                         </div>
                       </div>
