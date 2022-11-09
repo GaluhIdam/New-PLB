@@ -207,7 +207,10 @@
                             v-model="search"
                           />
                         </div>
-                        <div class="vgt-global-search__actions vgt-pull-right">
+                        <div
+                          class="vgt-global-search__actions vgt-pull-right"
+                          v-if="$gate.isAdminOrPlanner()"
+                        >
                           <div>
                             <button
                               class="btn btn-secondary ms-auto rounded-1"
@@ -233,6 +236,11 @@
                             </button> -->
                           </div>
                         </div>
+                         <div
+                          class="vgt-global-search__actions vgt-pull-right"
+                          v-else
+                          style="margin-right: 5px"
+                        ></div>
                       </div>
                       <!-- END: Global Search -->
 

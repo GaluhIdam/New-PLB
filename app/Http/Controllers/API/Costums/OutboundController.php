@@ -55,14 +55,13 @@ class OutboundController extends Controller
         $filter_start_date = $request->get('filter_start_date');
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
-        $filter_nomor_aju = $request->get('filter_nomor_aju');
 
         // Sort
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
             $by = $request->get('by');
         } else {
-            $order = 'TANGGAL_AJU';
+            $order = 'TANGGAL_DAFTAR';
             $by = 'desc';
         }
         if ($request->get('paginate')) {
@@ -130,14 +129,11 @@ class OutboundController extends Controller
             ->when($filter_kode_dokumen_pabean, function ($query) use ($filter_kode_dokumen_pabean) {
                 $query->whereIn('KODE_DOKUMEN_PABEAN', $filter_kode_dokumen_pabean);
             })
-            ->when($filter_nomor_aju, function ($query) use ($filter_nomor_aju) {
-                $query->where('NOMOR_AJU', 'LIKE', "%$filter_nomor_aju%");
-            })
             ->when($filter_start_date, function ($query) use ($filter_start_date) {
-                $query->whereDate('TANGGAL_AJU', '>=', $filter_start_date);
+                $query->whereDate('TANGGAL_DAFTAR', '>=', $filter_start_date);
             })
             ->when($filter_end_date, function ($query) use ($filter_end_date) {
-                $query->whereDate('TANGGAL_AJU', '<=', $filter_end_date);
+                $query->whereDate('TANGGAL_DAFTAR', '<=', $filter_end_date);
             })
             ->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);

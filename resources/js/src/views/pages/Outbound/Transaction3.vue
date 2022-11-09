@@ -234,7 +234,10 @@
                             v-model="search"
                           />
                         </div>
-                        <div class="vgt-global-search__actions vgt-pull-right">
+                        <div
+                          class="vgt-global-search__actions vgt-pull-right"
+                          v-if="$gate.isAdminOrPlanner()"
+                        >
                           <div>
                             <button
                               class="btn btn-secondary ms-auto rounded-1"
@@ -260,6 +263,11 @@
                             </button> -->
                           </div>
                         </div>
+                        <div
+                          class="vgt-global-search__actions vgt-pull-right"
+                          v-else
+                          style="margin-right: 5px"
+                        ></div>
                       </div>
                       <!-- END: Global Search -->
 
@@ -1158,6 +1166,7 @@ export default {
       filter_submission_number: null,
       filter_submission_date: null,
       filter_registration_number: null,
+      filter_registration_date: null,
       filter_document_type: [],
       filter_clicked: false,
     };
@@ -1236,6 +1245,9 @@ export default {
       this.list();
     }, 500),
     filter_registration_number: debounce(function () {
+      this.list();
+    }, 500),
+    filter_registration_date: debounce(function () {
       this.list();
     }, 500),
     filter_document_type: debounce(function () {

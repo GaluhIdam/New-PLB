@@ -58,11 +58,11 @@
                                 <p>Outbound Transaction</p>
                             </router-link>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <router-link to="/summary-outbound" class="nav-link">
                                 <p>Summary Outbound</p>
                             </router-link>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <!-- END: Outbound -->

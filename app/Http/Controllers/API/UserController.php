@@ -207,11 +207,4 @@ class UserController extends Controller
 
         return ['message' => 'Successfully deleted'];
     }
-
-    public function export()
-    {
-        // return Excel::download(new ExportUser, $filename);
-        return Excel::download(new ExportUser, 'users.xlsx');
-        // return (new ExportUser)->download('invoices.csv', \Maatwebsite\Excel\Excel::CSV);
-    }
 }

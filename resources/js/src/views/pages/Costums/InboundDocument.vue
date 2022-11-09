@@ -48,7 +48,7 @@
                     <form @submit.prevent class="form-horizontal">
                       <div class="form-group row mt-4">
                         <label class="col-sm-3 col-form-label"
-                          >Tanggal Pengajuan</label
+                          >Tanggal Daftar</label
                         >
                         <div class="col-sm-4">
                           <datepicker
@@ -64,18 +64,6 @@
                             placeholder="Sampai Tanggal"
                             format="MM/dd/yyyy"
                             v-model="filter_end_date"
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label"
-                          >Nomor Pengajuan</label
-                        >
-                        <div class="col-sm-8">
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="filter_nomor_aju"
                           />
                         </div>
                       </div>
@@ -1070,7 +1058,7 @@ export default {
       search_cif: null,
 
       // Order And Paginate
-      order: "TANGGAL_AJU",
+      order: "TANGGAL_DAFTAR",
       by: "desc  ",
       current_page: "",
       paginate: "10",
@@ -1079,7 +1067,6 @@ export default {
       filter_start_date: null,
       filter_end_date: null,
       filter_clicked: false,
-      filter_nomor_aju: null,
       filter_kode_dokumen_pabean: [],
     };
   },
@@ -1144,9 +1131,6 @@ export default {
     filter_end_date: debounce(function () {
       this.list();
     }, 500),
-    filter_nomor_aju: debounce(function () {
-      this.list();
-    }, 500),
     filter_kode_dokumen_pabean: debounce(function () {
       this.list();
     }, 500),
@@ -1185,7 +1169,6 @@ export default {
     clearForm() {
       this.filter_start_date = null;
       this.filter_end_date = null;
-      this.filter_nomor_aju = null;
       this.filter_kode_dokumen_pabean = [];
       this.list();
       this.filter_clicked = false;
@@ -1217,7 +1200,6 @@ export default {
             // Filter
             filter_start_date: this.filter_start_date,
             filter_end_date: this.filter_end_date,
-            filter_nomor_aju: this.filter_nomor_aju,
             filter_kode_dokumen_pabean: this.filter_kode_dokumen_pabean,
 
             // Order, by, Current Page, Paginate

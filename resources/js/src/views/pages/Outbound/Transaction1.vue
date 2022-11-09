@@ -214,6 +214,11 @@
                             </button> -->
                           </div>
                         </div>
+                        <div
+                          class="vgt-global-search__actions vgt-pull-right"
+                          v-else
+                          style="margin-right: 5px"
+                        ></div>
                         <!-- END: Right Button -->
                       </div>
                       <!-- END: Global Search -->
@@ -804,8 +809,7 @@ export default {
         links: [],
       },
       // Search Data
-      search: null, // Pencarian Data
-      customer: null,
+      search: null, // Search All Data
       search_part_number: null, // Part Number
       search_description: null, // Description
       search_quantity: null, // Quantity
@@ -926,7 +930,7 @@ export default {
           params: {
             // This is for Search Data
             search: this.search,
-            search_part_number: this.part_number,
+            search_part_number: this.search_part_number,
             search_description: this.search_description,
             search_quantity: this.search_quantity,
             search_unit_measure: this.search_unit_measure,

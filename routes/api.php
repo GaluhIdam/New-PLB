@@ -19,6 +19,7 @@ use App\Http\Controllers\API\Costums\OutboundController;
 use App\Http\Controllers\API\Allotment\InventoryController;
 // Outbound
 use App\Http\Controllers\API\Outbound\OutboundOneController;
+use App\Http\Controllers\API\Outbound\OutboundSummaryController;
 use App\Http\Controllers\API\Outbound\OutboundTwoController;
 use App\Http\Controllers\API\Outbound\OutboundThreeController;
 
@@ -35,24 +36,28 @@ Route::get('user/export', [UserController::class, 'export']);
 Route::apiResource('user', UserController::class);
 
 // Dokumen Kepabeanan
-Route::get('/customs/inbound', [InboundController::class, 'index']);
-Route::get('/customs/inbound-csv', [InboundController::class, 'exportCsv']);
-Route::get('/customs/inbound-excel', [InboundController::class, 'exportExcel']);
+Route::get('/customs/inbound', [InboundController::class, 'index']); // Dokumen Kepabeanan Pemasukan (Inbound)
+Route::get('/customs/inbound-csv', [InboundController::class, 'exportCsv']); // Dokumen Kepabeanan Pemasukan (Inbound) - Export CSV
+Route::get('/customs/inbound-excel', [InboundController::class, 'exportExcel']); // Dokumen Kepabeanan Pemasukan (Inbound) - Export Excel
 
-Route::get('/customs/outbound', [OutboundController::class, 'index']);
-Route::get('/customs/outbound-csv', [OutboundController::class, 'exportCsv']);
-Route::get('/customs/outbound-excel', [OutboundController::class, 'exportExcel']);
+Route::get('/customs/outbound', [OutboundController::class, 'index']); // Dokumen Kepabeanan Pengeluaran (Outbound)
+Route::get('/customs/outbound-csv', [OutboundController::class, 'exportCsv']); // Dokumen Kepabeanan Pengeluaran (Outbound) - Outbound - Export CSV
+Route::get('/customs/outbound-excel', [OutboundController::class, 'exportExcel']); // Dokumen Kepabeanan Pengeluaran (Outbound) - Outbound - Export Excel
 
 // Outbound
-Route::get('/outbound-transaction-1', [OutboundOneController::class, 'index']);
-Route::get('/outbound-transaction-1-csv', [OutboundOneController::class, 'exportCsv']);
-Route::get('/outbound-transaction-1-excel', [OutboundOneController::class, 'exportExcel']);
-Route::get('/outbound-transaction-2', [OutboundTwoController::class, 'index']);
-Route::get('/outbound-transaction-2-csv', [OutboundTwoController::class, 'exportCsv']);
-Route::get('/outbound-transaction-2-excel', [OutboundTwoController::class, 'exportExcel']);
-Route::get('/outbound-transaction-3', [OutboundThreeController::class, 'index']);
-Route::get('/outbound-transaction-3-csv', [OutboundThreeController::class, 'exportCsv']);
-Route::get('/outbound-transaction-3-excel', [OutboundThreeController::class, 'exportExcel']);
+Route::get('/outbound-transaction-1', [OutboundOneController::class, 'index']); // Outbound Transaction 1
+Route::get('/outbound-transaction-1-csv', [OutboundOneController::class, 'exportCsv']); // Outbound Transaction 1 - Export CSV
+Route::get('/outbound-transaction-1-excel', [OutboundOneController::class, 'exportExcel']); // Outbound Transaction 1 - Export Excel
+Route::get('/outbound-transaction-2', [OutboundTwoController::class, 'index']); // Outbound Transaction 2
+Route::get('/outbound-transaction-2-csv', [OutboundTwoController::class, 'exportCsv']); // Outbound Transaction 2 - Export CSV
+Route::get('/outbound-transaction-2-excel', [OutboundTwoController::class, 'exportExcel']); // Outbound Transaction 2 - Export Excel
+Route::get('/outbound-transaction-3', [OutboundThreeController::class, 'index']); // Outbound Transaction 3
+Route::get('/outbound-transaction-3-csv', [OutboundThreeController::class, 'exportCsv']); // Outbound Transaction 3 - Export CSV
+Route::get('/outbound-transaction-3-excel', [OutboundThreeController::class, 'exportExcel']); // Outbound Transaction 3 - Export Excel
+Route::get('/outbound-summary', [OutboundSummaryController::class, 'index']); // Outbound Summary
+Route::get('/outbound-summary-csv', [OutboundSummaryController::class, 'exportCsv']); // Outbound Summary - Export CSV
+Route::get('/outbound-summary-excel', [OutboundSummaryController::class, 'exportExcel']); // Outbound Summary - Export Excel
+
 
 // Aircraft Mutation (Mutasi Pesawat)
 Route::get('/aircraft', [AircraftController::class, 'index']);
