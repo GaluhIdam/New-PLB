@@ -16,11 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            DashboardSatuSeeder::class,
-            DashboardDuaSeeder::class,
-            DashboardTigaSeeder::class,
-            DashboardEmpatSeeder::class,
-            DashboardLimaSeeder::class,
         ]);
     }
 }

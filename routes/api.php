@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\HoardingTimeController;
 use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\MutationReportController;
@@ -88,8 +88,6 @@ Route::get('inventory-allotment', [InventoryController::class, 'inventoryAllotme
 Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
 
 //Dashboard
-Route::get('dashboard/one', [DashboardController::class, 'dashboardSatu']);
-Route::get('dashboard/two', [DashboardController::class, 'dashboardDua']);
-Route::get('dashboard/three', [DashboardController::class, 'dashboardTiga']);
-Route::get('dashboard/four', [DashboardController::class, 'dashboardEmpat']);
-Route::get('dashboard/five', [DashboardController::class, 'dashboardLima']);
+Route::get('dashboard-one', [DashboardController::class, 'chartOne']);
+Route::get('dashboard-two', [DashboardController::class, 'chartTwo']);
+Route::get('dashboard-three', [DashboardController::class, 'chartThree']);

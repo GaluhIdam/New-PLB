@@ -1,5 +1,5 @@
 export default [{
     path: '/dashboard',
     name: 'dashboard',
-    component: () => import('@/views/dashboard/Dashboard.vue'),
+    component: () => import('@/views/pages/Dashboard.vue'),
 }, ]

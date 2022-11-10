@@ -1,16 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Dashboards;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DashboardDua extends Model
+class ChartTwo extends Model
 {
     use HasFactory;
-
-    protected $filable = [
-        'customer',
-        'total',
-    ];
 }

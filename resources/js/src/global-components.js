@@ -110,8 +110,15 @@ const toast = swal.mixin({
 });
 window.toast = toast;
 
+// Datepicker
 import Datepicker from "vuejs-datepicker";
-import {
-  is
-} from "@babel/types";
 Vue.component("datepicker", Datepicker);
+
+// ApexChart
+import VueApexCharts from "vue-apexcharts";
+Vue.component("dashboard-one", VueApexCharts);
+Vue.component("pie-one", VueApexCharts);
+Vue.component("pie-two", VueApexCharts);
+Vue.component("pie-three", VueApexCharts);
+Vue.component("column-one", VueApexCharts);
+Vue.component("column-two", VueApexCharts);
