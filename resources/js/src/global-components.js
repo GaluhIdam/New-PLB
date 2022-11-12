@@ -63,7 +63,12 @@ Vue.filter("invalidDate", function (value) {
 });
 
 Vue.filter("myDateTime", function (value) {
-  if (value) {
+  if (value == null) {
+    return "-";
+  } else if (value == "0000-00-00 00:00:00") {
+    return "-";
+  }
+  else {
     return moment(String(value)).format("DD MMMM YYYY HH:mm:ss");
   }
 });
@@ -83,6 +88,18 @@ Vue.filter("uangUSD", function (value) {
     "$" + value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") :
     "-";
 });
+
+Vue.filter("formatNumber", function (value) {
+  return Number(value) > 0 ?
+    value.toLocaleString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") :
+    "-";
+});
+
+// Condition when value is null
+Vue.filter("defaultFilter", function (value) {
+  return value == null ? "-" : value;
+});
+
 // Vue-Progressbar
 import VueProgressBar from "vue-progressbar";
 const options = {
@@ -116,7 +133,6 @@ Vue.component("datepicker", Datepicker);
 
 // ApexChart
 import VueApexCharts from "vue-apexcharts";
-Vue.component("dashboard-one", VueApexCharts);
 Vue.component("pie-one", VueApexCharts);
 Vue.component("pie-two", VueApexCharts);
 Vue.component("pie-three", VueApexCharts);

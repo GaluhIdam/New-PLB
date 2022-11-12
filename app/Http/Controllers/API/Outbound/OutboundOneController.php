@@ -71,7 +71,7 @@ class OutboundOneController extends Controller
         // Query Untuk Menampilkan Data
         $outbounds  = TransactionOne::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
-                $sub_query->where('KODE_DOKUMEN_PABEAN', 'LIKE', "%$search%")
+                $sub_query->where('TYPE_BC', 'LIKE', "%$search%")
                     ->orWhere('PART_NUMBER', 'LIKE', "%$search%")
                     ->orWhere('DESCRIPTION', 'LIKE', "%{$search}%")
                     ->orWhere('QUANTITY', 'LIKE', "%$search%")
@@ -106,7 +106,7 @@ class OutboundOneController extends Controller
         })->when($filter_part_number, function ($query) use ($filter_part_number) {
             $query->where('PART_NUMBER', 'LIKE', "%$filter_part_number%");
         })->when($filter_document_type, function ($query) use ($filter_document_type) {
-            $query->whereIn('KODE_DOKUMEN_PABEAN', $filter_document_type);
+            $query->whereIn('TYPE_BC', $filter_document_type);
         })->when(($order && $by), function ($query) use ($order, $by) {
             $query->orderBy($order, $by);
         })->paginate($paginate);

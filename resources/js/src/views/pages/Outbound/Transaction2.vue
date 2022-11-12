@@ -236,7 +236,7 @@
                             </button> -->
                           </div>
                         </div>
-                         <div
+                        <div
                           class="vgt-global-search__actions vgt-pull-right"
                           v-else
                           style="margin-right: 5px"
@@ -934,29 +934,47 @@
                               <td class="table_content text-center">
                                 {{ outbound.UNIT_MEASURE }}
                               </td>
-                              <td class="table_content text-center">
+                              <td
+                                v-if="outbound.REGISTER_AIRCRAFT === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.REGISTER_AIRCRAFT }}
                               </td>
-                              <td class="table_content text-center">
+                              <td
+                                v-if="outbound.CUSTOMER === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.CUSTOMER }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.DATE_INSTALL | myDate }}
+                                {{ outbound.DATE_INSTALL | myDateTime }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.DATE_AIRCRAFT_IN | myDate }}
+                                {{ outbound.DATE_AIRCRAFT_IN | myDateTime }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.DATE_AIRCRAFT_OUT | myDate }}
+                                {{ outbound.DATE_AIRCRAFT_OUT | myDateTime }}
                               </td>
-                              <td class="table_content text-center">
+                              <td
+                                v-if="outbound.TYPE_BC === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.TYPE_BC }}
                               </td>
                               <td class="table_content text-center">
                                 {{ outbound.SUBMISSION_NUMBER }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.TTD_DATE | invalidDate }}
+                                {{ outbound.TTD_DATE | myDateTime }}
                               </td>
                               <td class="table_content text-center">
                                 {{ outbound.CIF_IDR }}
@@ -1099,7 +1117,6 @@
 <script>
 import axios from "axios";
 import debounce from "lodash/debounce";
-import Swal from "sweetalert2";
 import moment from "moment";
 moment.locale("id");
 
@@ -1128,7 +1145,7 @@ export default {
       search_cif_idr: null, // Search CIF IDR
 
       // Order By
-      order: "DATE_INSTALL",
+      order: "ID",
       by: "desc",
       paginate: "10",
       current_page: null,
@@ -1255,6 +1272,21 @@ export default {
       this.filter_submission_number = null;
       this.filter_submission_date = null;
       this.filter_document_type = [];
+      this.search = null; // Search Data Global
+      this.search_part_number = null; // Search Part Number
+      this.search_description = null; // Search Description
+      this.search_quantity = null; // Search Quantity
+      this.search_unit_measure = null; // Search Unit Measure
+      this.search_register_aircraft = null; // Search Register Aircraft
+      this.search_customer = null; // Search Customer
+      this.search_date_install = null; // Search Date Install
+      this.search_date_aircraft_in = null; // Search Date Aircraft In
+      this.search_date_aircraft_out = null; // Search Date Aircraft Out
+      this.search_document_type = null; // Search Document Type
+      this.search_submission_number = null; // Search Submission Number
+      this.search_submission_date = null; // Search Submission Date
+      this.search_ttd_date = null; // Search TTD Date
+      this.search_cif_idr = null; // Search CIF IDR
       this.list();
       this.filter_clicked = false;
     },
