@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class TransactionOne extends Model
 {
     use HasFactory;
-    protected $connection = 'db_plbGmf';
-    protected $table = 'v_condition_one';
+    protected $connection = 'plb_db_prod';
+    protected $table = 'v_tbl_outbound_one';
     protected  $appends = ['DATE_AIRCRAFT_IN'];
 
     public function getDateAircraftInAttribute()

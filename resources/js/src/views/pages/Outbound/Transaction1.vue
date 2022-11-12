@@ -138,8 +138,8 @@
                           <label class="control-label" style="margin-top: 5px">
                             <input
                               type="checkbox"
-                              id="41"
-                              value="41"
+                              id="BC41"
+                              value="BC41"
                               v-model="filter_document_type"
                             />
                             41
@@ -665,17 +665,29 @@
                               <td class="table_content text-center">
                                 {{ outbound.UNIT_MEASURE }}
                               </td>
-                              <td class="table_content text-center">
+                              <td
+                                v-if="outbound.REGISTER_AIRCRAFT === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.REGISTER_AIRCRAFT }}
                               </td>
+                              <td
+                              v-if="outbound.CUSTOMER === null"
+                              class="text-center table_content"
+                            >
+                              -
+                            </td>
+                            <td class="text-center table_content" v-else>
+                              {{ outbound.CUSTOMER }}
+                            </td>
                               <td class="table_content text-center">
-                                {{ outbound.CUSTOMER }}
+                                {{ outbound.DATE_INSTALL | myDateTime  }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.DATE_INSTALL | myDate }}
-                              </td>
-                              <td class="table_content text-center">
-                                {{ outbound.DATE_AIRCRAFT_IN | myDate }}
+                                {{ outbound.DATE_AIRCRAFT_IN  | myDateTime  }}
                               </td>
                             </tr>
                             <tr v-if="outbounds.data.length < 1">

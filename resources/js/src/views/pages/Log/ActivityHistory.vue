@@ -233,7 +233,7 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
+                                    class="vgt-input text-center"
                                     placeholder="Search Username"
                                     v-model="search_username"
                                   />
@@ -252,7 +252,7 @@
                                 <div>
                                   <input
                                     type="text"
-                                    class="vgt-input"
+                                    class="vgt-input text-center"
                                     placeholder="Search Activity"
                                     v-model="search_activity"
                                   />
