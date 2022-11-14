@@ -10,16 +10,16 @@ class Aircraft extends Model
     use HasFactory;
 
     protected $fillable = [
-        'reg',
-        'operator',
-        'type',
-        'date_in',
-        'date_out',
-        'rksp',
-        'fight_route',
-        'crews',
-        'report',
-        'ID_BARANG',
-        'ID_HEADER'
+        'AIRCRAFT_REGISTRATION',
+        'AIRCRAFT_TYPE',
+        'OPERATOR',
+        'DATE_AIRCRAFT_IN',
+        'DATE_AIRCRAFT_OUT',
+        'RKSP',
+        'FLIGHT_ROUTE',
+        'CREWS',
+        'REPORT',
+        'ID_HEADER',
+        'ID_BARANG'
     ];
 }

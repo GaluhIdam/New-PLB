@@ -194,7 +194,7 @@
                 <!-- END: Masa Timbun -->
                 @can('isAdminOrPlanner')
                 <!-- BEGIN: Data Upload -->
-                <li class="nav-item ">
+                {{-- <li class="nav-item ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-cloud-arrow-up"></i>
                         <p>Data Upload<i class="right fas fa-angle-right"></i></p>
@@ -252,7 +252,7 @@
                             </router-link>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- END: Data Upload -->
                 @endcan
 
