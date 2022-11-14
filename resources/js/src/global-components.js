@@ -67,8 +67,7 @@ Vue.filter("myDateTime", function (value) {
     return "-";
   } else if (value == "0000-00-00 00:00:00") {
     return "-";
-  }
-  else {
+  } else {
     return moment(String(value)).format("DD MMMM YYYY HH:mm:ss");
   }
 });
@@ -91,9 +90,10 @@ Vue.filter("uangUSD", function (value) {
 
 Vue.filter("formatNumber", function (value) {
   return Number(value) > 0 ?
-    value.toLocaleString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") :
+    value.toLocaleString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") :
     "-";
 });
+
 
 // Condition when value is null
 Vue.filter("defaultFilter", function (value) {
