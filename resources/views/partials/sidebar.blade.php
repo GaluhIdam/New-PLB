@@ -171,8 +171,8 @@
                         <p>Mutasi</p>
                     </router-link>
                 </li> --}}
-                @endcan
                 <!-- END: Mutasi -->
+                @endcan
 
                 {{-- BEGIN: Scrap --}}
                 {{-- <li class="nav-item">
@@ -192,6 +192,69 @@
                     </router-link>
                 </li> --}}
                 <!-- END: Masa Timbun -->
+                @can('isAdminOrPlanner')
+                <!-- BEGIN: Data Upload -->
+                <li class="nav-item ">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa-solid fa-cloud-arrow-up"></i>
+                        <p>Data Upload<i class="right fas fa-angle-right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <p>Data Mutasi</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <p>Data Barang BC 3.0</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <p>Data Header BC 3.0</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <p>Data Dokumen BC 3.0</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <p>Data Scan Dokumen</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <p>Data Stok Opname</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <p>Data Movement OSA</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <p>Install/Consume OSA</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <p>List Movement to OSA</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <p>List Install/Consume OSA
+                                </p>
+                            </router-link>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END: Data Upload -->
+                @endcan
 
                 <li class="nav-header">Miscellaneous</li>
                 @can('isAdmin')
