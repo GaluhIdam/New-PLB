@@ -693,6 +693,11 @@
                                 <span class="table_header">Nilai Barang</span>
                               </th>
                               <!-- END: Harga Penyerahan -->
+                              <!-- BEGIN: Kode Valuta -->
+                              <th class="text-center">
+                                <span class="table_header">Kode Valuta</span>
+                              </th>
+                              <!-- END: Kode Valuta -->
 
                               <!-- BEGIN: Lampiran -->
                               <!-- <th
@@ -762,7 +767,7 @@
                                     type="date"
                                     class="vgt-input text-center"
                                     placeholder="Tanggal Pemasukan"
-                                    v-model="search_tanggal_daftar"
+                                    v-model="search_tanggal_pemasukan"
                                   />
                                 </div>
                               </th>
@@ -842,7 +847,17 @@
                                     type="text"
                                     class="vgt-input text-center"
                                     placeholder="Nilai Barang"
-                                    v-model="search_harga_penyerahan"
+                                    v-model="search_nilai_barang"
+                                  />
+                                </div>
+                              </th>
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="Kode Valuta"
+                                    v-model="search_kode_valuta"
                                   />
                                 </div>
                               </th>
@@ -864,22 +879,22 @@
                                 {{ inbound.NOMOR_AJU }}
                               </td>
                               <td class="text-center table_content">
-                                {{ inbound.TANGGAL_AJU | myDate }}
+                                {{ inbound.TANGGAL_AJU | myDateTime }}
                               </td>
                               <td class="text-center table_content">
                                 {{ inbound.NOMOR_DAFTAR }}
                               </td>
                               <td class="text-center table_content">
-                                {{ inbound.TANGGAL_DAFTAR | myDate }}
+                                {{ inbound.TANGGAL_DAFTAR | myDateTime }}
                               </td>
                               <td
                                 class="text-center table_content"
                                 v-if="!inbound.WAKTU_GATE_IN"
                               >
-                                {{ inbound.TANGGAL_DAFTAR | myDate }}
+                                {{ inbound.TANGGAL_DAFTAR | myDateTime }}
                               </td>
                               <td class="text-center table_content" v-else>
-                                {{ inbound.WAKTU_GATE_IN | myDate }}
+                                {{ inbound.WAKTU_GATE_IN | myDateTime }}
                               </td>
                               <td class="text-left table_content">
                                 {{ inbound.NAMA_PENGIRIM }}
@@ -906,10 +921,13 @@
                                 v-if="inbound.KODE_DOKUMEN_PABEAN === '40'"
                                 class="text-center table_content"
                               >
-                                {{ inbound.HARGA_PENYERAHAN }}
+                                {{ inbound.HARGA_PENYERAHAN | formatNumber }}
                               </td>
                               <td class="text-center table_content" v-else>
-                                {{ inbound.CIF }}
+                                {{ inbound.CIF | formatNumber }}
+                              </td>
+                              <td class="text-center table_content">
+                                {{ inbound.KODE_VALUTA }}
                               </td>
                               <!-- <td
                                 v-if="$gate.isAdminOrPlanner()"
@@ -1045,7 +1063,7 @@ export default {
       search_tanggal_aju: null,
       search_nomor_daftar: null,
       search_tanggal_daftar: null,
-      search_waktu_gate_in: null,
+      search_tanggal_pemasukan: null,
       search_waktu_gate_out: null,
       search_nama_pengirim: null,
       search_nama_pemilik: null,
@@ -1054,8 +1072,8 @@ export default {
       search_uraian: null,
       search_jumlah_satuan: null,
       search_kode_satuan: null,
-      search_harga_penyerahan: null,
-      search_cif: null,
+      search_nilai_barang: null,
+      search_kode_valuta: null,
 
       // Order And Paginate
       order: "TANGGAL_DAFTAR",
@@ -1095,7 +1113,7 @@ export default {
     search_tanggal_daftar: debounce(function () {
       this.list();
     }, 500),
-    search_waktu_gate_in: debounce(function () {
+    search_tanggal_pemasukan: debounce(function () {
       this.list();
     }, 500),
     search_waktu_gate_out: debounce(function () {
@@ -1122,7 +1140,10 @@ export default {
     search_kode_satuan: debounce(function () {
       this.list();
     }, 500),
-    search_harga_penyerahan: debounce(function () {
+    search_nilai_barang: debounce(function () {
+      this.list();
+    }, 500),
+    search_kode_valuta: debounce(function () {
       this.list();
     }, 500),
     filter_start_date: debounce(function () {
@@ -1170,6 +1191,24 @@ export default {
       this.filter_start_date = null;
       this.filter_end_date = null;
       this.filter_kode_dokumen_pabean = [];
+      //  Remove Search
+      this.search = null;
+      this.search_kode_dokumen_pabean = null;
+      this.search_nomor_aju = null;
+      this.search_tanggal_aju = null;
+      this.search_nomor_daftar = null;
+      this.search_tanggal_daftar = null;
+      this.search_tanggal_pemasukan = null;
+      this.search_waktu_gate_out = null;
+      this.search_nama_pengirim = null;
+      this.search_nama_pemilik = null;
+      this.search_kode_barang = null;
+      this.search_pos_tarif = null;
+      this.search_uraian = null;
+      this.search_jumlah_satuan = null;
+      this.search_kode_satuan = null;
+      this.search_nilai_barang = null;
+      this.search_kode_valuta = null;
       this.list();
       this.filter_clicked = false;
     },
@@ -1185,7 +1224,7 @@ export default {
             search_tanggal_aju: this.search_tanggal_aju,
             search_nomor_daftar: this.search_nomor_daftar,
             search_tanggal_daftar: this.search_tanggal_daftar,
-            search_waktu_gate_in: this.search_waktu_gate_in,
+            search_tanggal_pemasukan: this.search_tanggal_pemasukan,
             search_waktu_gate_out: this.search_waktu_gate_out,
             search_nama_pengirim: this.search_nama_pengirim,
             search_nama_pemilik: this.search_nama_pemilik,
@@ -1194,8 +1233,8 @@ export default {
             search_uraian: this.search_uraian,
             search_jumlah_satuan: this.search_jumlah_satuan,
             search_kode_satuan: this.search_kode_satuan,
-            search_harga_penyerahan: this.search_harga_penyerahan,
-            search_cif: this.search_cif,
+            search_nilai_barang: this.search_nilai_barang,
+            search_kode_valuta: this.search_kode_valuta,
 
             // Filter
             filter_start_date: this.filter_start_date,
