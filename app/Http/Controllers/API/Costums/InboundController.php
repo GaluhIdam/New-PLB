@@ -10,25 +10,6 @@ use App\Exports\Costums\InboundExport;
 
 class InboundController extends Controller
 {
-    /* 
-    List Data yang dimunculin : 
-    1. plb_db_prod.tpb_header.KODE_DOKUMEN_PABEAN [Kode Dokuemen Pabean]
-    2. plb_db_prod.tpb_header.NOMOR_AJU [Nomor AJU]
-    3. plb_db_prod.tpb_header.TANGGAL_AJU [Tanggal AJU]
-    4. plb_db_prod.tpb_header.NOMOR_DAFTAR [Nomor DAFTAR]
-    5. plb_db_prod.tpb_header.TANGGAL_DAFTAR [Tanggal DAFTAR]
-    6. plb_db_prod.tpb_header.NAMA_PENGIRIM [Nama Pengirim]
-    7. plb_db_prod.tpb_header.NAMA_PEMILIK [Nama Pemilik]
-    8. plb_db_prod.tpb_barang.KODE_BARANG [Kode Barang]
-    9. plb_db_prod.tpb_barang.POS_TARIF [Kode HS]
-    10. plb_db_prod.tpb_barang.URAIAN [Nama Barang]
-    11. plb_db_prod.tpb_barang.JUMLAH_SATUAN [Jumlah Satuan]
-    12. plb_db_prod.tpb_barang.KODE_SATUAN [Kode Satuan]
-    13. plb_db_prod.tpb_barang.HARGA_PENYERAHAN [Harga Penyerahan]
-    14. plb_db_prod.tpb_barang.CIF [CIF]
-    15. plb_db_prod.tpb_kemasan.WAKTU_GATE_IN [Tanggal Pemasukan]
-    16. plb_db_prod.tpb_kemasan.WAKTU_GATE_OUT [Tanggal Pengeluaran]
-    */
     use \App\Http\Traits\ActivityHistoryTrait;
     public function __construct()
     {
@@ -51,15 +32,16 @@ class InboundController extends Controller
         $search_uraian = $request->get('search_uraian');
         $search_jumlah_satuan = $request->get('search_jumlah_satuan');
         $search_kode_satuan = $request->get('search_kode_satuan');
-        $search_harga_penyerahan = $request->get('search_harga_penyerahan');
-        $search_cif = $request->get('search_cif');
-        $search_waktu_gate_in = $request->get('search_waktu_gate_in');
-        $search_waktu_gate_out = $request->get('search_waktu_gate_out');
+        $search_nilai_barang = $request->get('search_nilai_barang'); // Harga Penyerahan / CIF
+        $search_kode_valuta = $request->get('search_kode_valuta');
+        $search_tanggal_pemasukan = $request->get('search_tanggal_pemasukan');
 
+        // Filter
         $filter_start_date = $request->get('filter_start_date');
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
 
+        // Sort, By, and Pagination
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
             $by = $request->get('by');
@@ -90,6 +72,7 @@ class InboundController extends Controller
                     ->orWhere('KODE_SATUAN', 'LIKE', "%$search%")
                     ->orWhere('HARGA_PENYERAHAN', 'LIKE', "%$search%")
                     ->orWhere('CIF', 'LIKE', "%$search%")
+                    ->orWhere('KODE_VALUTA', 'LIKE', "%$search%")
                     ->orWhere('WAKTU_GATE_IN', 'LIKE', "%$search%");
             });
         })
@@ -107,6 +90,9 @@ class InboundController extends Controller
             })
             ->when($search_tanggal_daftar, function ($query) use ($search_tanggal_daftar) {
                 $query->where('TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_daftar%");
+            })
+            ->when($search_tanggal_pemasukan, function ($query) use ($search_tanggal_pemasukan) {
+                $query->where('WAKTU_GATE_IN', 'LIKE', "%$search_tanggal_pemasukan%");
             })
             ->when($search_nama_pengirim, function ($query) use ($search_nama_pengirim) {
                 $query->where('NAMA_PENGIRIM', 'LIKE', "%$search_nama_pengirim%");
@@ -129,14 +115,12 @@ class InboundController extends Controller
             ->when($search_kode_satuan, function ($query) use ($search_kode_satuan) {
                 $query->where('KODE_SATUAN', 'LIKE', "%$search_kode_satuan%");
             })
-            ->when($search_harga_penyerahan, function ($query) use ($search_harga_penyerahan) {
-                $query->where('HARGA_PENYERAHAN', 'LIKE', "%$search_harga_penyerahan%");
+            ->when($search_nilai_barang, function ($query) use ($search_nilai_barang) {
+                $query->where('HARGA_PENYERAHAN', 'LIKE', "%$search_nilai_barang%")
+                    ->orWhere('CIF', 'LIKE', "%$search_nilai_barang%");
             })
-            ->when($search_cif, function ($query) use ($search_cif) {
-                $query->where('CIF', 'LIKE', "%$search_cif%");
-            })
-            ->when($search_waktu_gate_in, function ($query) use ($search_waktu_gate_in) {
-                $query->where('WAKTU_GATE_IN', 'LIKE', "%$search_waktu_gate_in%");
+            ->when($search_kode_valuta, function ($query) use ($search_kode_valuta) {
+                $query->where('KODE_VALUTA', 'LIKE', "%$search_kode_valuta%");
             })
             ->when($filter_kode_dokumen_pabean, function ($query) use ($filter_kode_dokumen_pabean) {
                 $query->whereIn('KODE_DOKUMEN_PABEAN', $filter_kode_dokumen_pabean);
