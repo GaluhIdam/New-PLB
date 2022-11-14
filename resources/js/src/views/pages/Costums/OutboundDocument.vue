@@ -668,6 +668,11 @@
                                 <span class="table_header">Nilai Barang</span>
                               </th>
                               <!-- END: Nilai Barang -->
+                              <!-- BEGIN: Kode Valuta -->
+                              <th class="text-center">
+                                <span class="table_header">Kode Valuta</span>
+                              </th>
+                              <!-- END: Kode Valuta -->
                               <!-- BEGIN: Lampiran -->
                               <!-- <th
                                 class="text-center"
@@ -830,11 +835,25 @@
                                     type="text"
                                     class="vgt-input text-center"
                                     placeholder="Nilai Barang"
-                                    v-model="search_cif_rupiah"
+                                    v-model="search_nilai_barang"
                                   />
                                 </div>
                               </th>
                               <!-- END: Nilai Barang -->
+
+                              <!-- BEGIN: Nilai Barang -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="Kode Valuta"
+                                    v-model="search_kode_valuta"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Nilai Barang -->
+
                               <!-- BEGIN: Lampiran -->
                               <!-- <th
                                 v-if="$gate.isAdminOrPlanner()"
@@ -860,22 +879,22 @@
                                 {{ outbound.NOMOR_AJU }}
                               </td>
                               <td class="text-center table_content">
-                                {{ outbound.TANGGAL_AJU | myDate }}
+                                {{ outbound.TANGGAL_AJU | myDateTime }}
                               </td>
                               <td class="text-center table_content">
                                 {{ outbound.NOMOR_DAFTAR }}
                               </td>
                               <td class="text-center table_content">
-                                {{ outbound.TANGGAL_DAFTAR | myDate }}
+                                {{ outbound.TANGGAL_DAFTAR | myDateTime }}
                               </td>
                               <td
                                 class="text-center table_content"
                                 v-if="!outbound.WAKTU_GATE_OUT"
                               >
-                                {{ outbound.TANGGAL_DAFTAR | myDate }}
+                                {{ outbound.TANGGAL_DAFTAR | myDateTime }}
                               </td>
                               <td class="text-center table_content" v-else>
-                                {{ outbound.WAKTU_GATE_OUT | myDate }}
+                                {{ outbound.WAKTU_GATE_OUT | myDateTime }}
                               </td>
                               <!-- <td class="text-left table_content">
                                 {{ outbound.NAMA_PEMILIK }}
@@ -910,7 +929,7 @@
                                 v-if="outbound.KODE_DOKUMEN_PABEAN === '28'"
                                 class="text-center table_content"
                               >
-                                {{ outbound.CIF_RUPIAH }}
+                                {{ outbound.CIF_RUPIAH | formatNumber }}
                               </td>
                               <td
                                 class="text-center table_content"
@@ -918,7 +937,7 @@
                                   outbound.KODE_DOKUMEN_PABEAN === '41'
                                 "
                               >
-                                {{ outbound.HARGA_PENYERAHAN }}
+                                {{ outbound.HARGA_PENYERAHAN | formatNumber }}
                               </td>
                               <td
                                 class="text-center table_content"
@@ -932,11 +951,14 @@
                                     outbound.HARGA_PENYERAHAN == 0
                                   "
                                 >
-                                  {{ outbound.CIF }}
+                                  {{ outbound.CIF | formatNumber }}
                                 </span>
                                 <span v-else>
-                                  {{ outbound.HARGA_PENYERAHAN }}
+                                  {{ outbound.HARGA_PENYERAHAN | formatNumber }}
                                 </span>
+                              </td>
+                              <td class="text-center table_content">
+                                {{ outbound.KODE_VALUTA }}
                               </td>
                               <!-- <td
                                 v-if="$gate.isAdminOrPlanner()"
@@ -1079,9 +1101,8 @@ export default {
       search_nama_barang: null,
       search_jumlah_satuan: null,
       search_kode_satuan: null,
-      search_harga_penyerahan: null,
-      search_cif: null,
-      search_cif_rupiah: null,
+      search_nilai_barang: null,
+      search_kode_valuta: null,
 
       // Order Data
       order: "TANGGAL_DAFTAR",
@@ -1142,13 +1163,7 @@ export default {
     search_kode_satuan: debounce(function () {
       this.list();
     }, 500),
-    search_harga_penyerahan: debounce(function () {
-      this.list();
-    }, 500),
-    search_cif: debounce(function () {
-      this.list();
-    }, 500),
-    search_cif_rupiah: debounce(function () {
+    search_nilai_barang: debounce(function () {
       this.list();
     }, 500),
     filter_start_date: debounce(function () {
@@ -1194,6 +1209,24 @@ export default {
       this.filter_start_date = null;
       this.filter_end_date = null;
       this.filter_kode_dokumen_pabean = [];
+      //  Remove Search
+      this.search = null;
+      this.search_kode_dokumen_pabean = null;
+      this.search_nomor_aju = null;
+      this.search_tanggal_aju = null;
+      this.search_nomor_daftar = null;
+      this.search_tanggal_daftar = null;
+      this.search_waktu_gate_in = null;
+      this.search_waktu_gate_out = null;
+      this.search_nama_pengirim = null;
+      this.search_nama_pemilik = null;
+      this.search_kode_barang = null;
+      this.search_pos_tarif = null;
+      this.search_uraian = null;
+      this.search_jumlah_satuan = null;
+      this.search_kode_satuan = null;
+      this.search_nilai_barang = null;
+      this.search_kode_valuta = null;
       this.list();
       this.filter_clicked = false;
     },
@@ -1216,16 +1249,14 @@ export default {
             search_nama_barang: this.search_nama_barang,
             search_jumlah_satuan: this.search_jumlah_satuan,
             search_kode_satuan: this.search_kode_satuan,
-            search_harga_penyerahan: this.search_harga_penyerahan,
-            search_cif: this.search_cif,
-            search_cif_rupiah: this.search_cif_rupiah,
+            search_nilai_barang: this.search_nilai_barang,
+            search_kode_valuta: this.search_kode_valuta,
 
             // Filter Data
             filter_start_date: this.filter_start_date,
             filter_end_date: this.filter_end_date,
             filter_kode_dokumen_pabean: this.filter_kode_dokumen_pabean,
 
-            // Order
             order: this.order,
             by: this.by,
             paginate: this.paginate,
