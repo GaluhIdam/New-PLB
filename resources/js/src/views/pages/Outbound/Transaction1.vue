@@ -248,7 +248,7 @@
                                 v-else-if="
                                   order == 'part_number' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -287,7 +287,7 @@
                                 v-else-if="
                                   order == 'description' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -323,7 +323,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'quantity' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -361,7 +361,7 @@
                                 v-else-if="
                                   order == 'unit_measure' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -401,7 +401,7 @@
                                 v-else-if="
                                   order == 'register_aircraft' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -438,7 +438,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'customer' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -476,7 +476,7 @@
                                 v-else-if="
                                   order == 'date_install' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -517,7 +517,7 @@
                                 v-else-if="
                                   order == 'date_aircraft_in' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -931,6 +931,15 @@ export default {
       this.filter_customer = null;
       this.filter_part_number = null;
       this.filter_document_type = [];
+this.search=null; // Search All Data
+this.search_part_number=null; // Part Number
+this.search_description=null; // Description
+this.search_quantity=null; // Quantity
+this.search_unit_measure=null; // Kode Satuan
+this.search_register_aircraft=null; // Register Aircraft
+this.search_customer=null; // Customer
+this.search_date_install=null; // Date Install
+this.search_date_aircraft_in=null; // Date Aircraft In
       this.list();
       this.filter_clicked = false;
     },

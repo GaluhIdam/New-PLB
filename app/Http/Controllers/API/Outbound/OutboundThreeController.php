@@ -11,27 +11,6 @@ use App\Exports\Outbounds\TransactionThreeExport;
 
 class OutboundThreeController extends Controller
 {
-    /* 
-    List Data yang dimunculin : 
-    1. Part Number [$part_number] - db_plbGmf.TBL_PLB_SWIFT.MATNR
-    2. Description [$description] - db_plbGmf.TBL_PLB_SWIFT.MAKTX 
-    3. Quantity [$quantity] - db_plbGmf.TBL_PLB_SWIFT.ERFMG
-    4. Kode Satuan [$unit_measure] - db_plbGmf.TBL_PLB_SWIFT.ERFME
-    5. Register Aircraft [$register_aircraft]  - db_plbGmf.TBL_PLB_SWIFT.TPLNR
-    6. customer [$customer] - db_plbGmf.TBL_PLB_SWIFT.KUNUM
-    7. Date Install [$date_install] - db_plbGmf.TBL_PLB_SWIFT.BUDAT
-    8. Date Aircraft In [$date_aircraft_in] - db_plb.aircraft.date_in
-    9. Date Aircraft Out [$date_aircraft_out] - db_plb.aircraft.date_out
-    10. Type BC OUT [$document_type] - db_plbGmf.TBL_PLB_SWIFT.JENIS_BC
-    11. Nomor Aju [$submission_number] - db_plbGmf.TBL_PLB_SWIFT.NO_AJU
-    12. Tanggal Aju [$submission_date] - db_plbGmf.TBL_PLB_SWIFT.TGL_AJU
-    13. Nomor Daftar [$registration_number] = db_plbGmf.TBL_PLB_SWIFT.REGISTRATION_NUMBER
-    14. Tanggal Daftar [$registration_date] = db_plbGmf.TBL_PLB_SWIFT.REGISTRATION_DATE
-    15. CIF IDR [$cif_idr] - iplb_db_prod.PLB_HEADER.CIF_RUPIAH
-    16. BM Bayar [$bm_dibayar] - iplb_db_prod.PLB_HEADER.JENIS_TARIF (if Jenis_Tarif = BM)
-    17. PPn Bayar [$ppn_dibayar] - iplb_db_prod.PLB_HEADER.JENIS_TARIF (if Jenis_Tarif = PPN)
-    18. PPh Bayar [pph_dibayar] - iplb_db_prod.PLB_HEADER.JENIS_TARIF (if Jenis_Tarif = PPh)
-    */
 
     public function __construct()
     {
@@ -40,7 +19,7 @@ class OutboundThreeController extends Controller
     public function index(Request $request)
     {
         // Record Activity
-        $this->recordActivity('Akses Outbound Transaction 2');
+        $this->recordActivity('Akses Outbound Transaction 3');
         // Search Data
         $search = $request->get('search'); // Untuk Pencarian Global
         $search_part_number = $request->get('search_part_number'); // Untuk Pencarian Part Number

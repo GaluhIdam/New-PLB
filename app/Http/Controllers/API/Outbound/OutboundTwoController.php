@@ -10,27 +10,6 @@ use App\Exports\Outbounds\TransactionTwoExport;
 
 class OutboundTwoController extends Controller
 {
-    /* 
-    List Data yang dimunculin : 
-    1. Part Number [$part_number] - TBL_PLB_SWIFT.MATNR
-    2. Description [$description] - TBL_PLB_SWIFT.MAKTX 
-    3. Quantity [$quantity] - TBL_PLB_SWIFT.ERFMG
-    4. Kode Satuan [$unit_measure] - TBL_PLB_SWIFT.ERFME
-    5. Register Aircraft [$register_aircraft]  - TBL_PLB_SWIFT.TPLNR
-    6. customer [$customer] - TBL_PLB_SWIFT.KUNUM
-    7. Date Install [$date_install] - TBL_PLB_SWIFT.BUDAT
-    8. Date Aircraft In [$date_aircraft_in] - db_plb.aircraft.date_in
-    9. Date Aircraft Out [$date_aircraft_out] - db_plb.aircraft.date_out
-    10. Type BC [$document_type] - TBL_PLB_SWIFT.JENIS_BC
-    11. Nomor Aju [$submission_number] - TBL_PLB_SWIFT.NO_AJU
-    12. Tanggal Aju [$submission_date] - TBL_PLB_SWIFT.TGL_AJU
-    13. TTD Date [$ttd_date] - plb_db_prod.TPB_HEADER.TANGGAL_TTD
-    14. CIF IDR [$cif_idr] - plb_db_prod.TPB_HEADER.CIF_RUPIAH
-    15. BM Dibayar[$bm_dibayar] - plb_db_prod.TPB_BARANG_TARIF.JENIS_TARIF
-    16. PPN Dibayar[$ppn_dibayar] - plb_db_prod.TPB_BARANG_TARIF.JENIS_TARIF
-    17. PPH Dibayar[$pph_dibayar] - plb_db_prod.TPB_BARANG_TARIF.JENIS_TARIF
-    */
-
     public function __construct()
     {
         $this->middleware('auth:api');
@@ -52,11 +31,10 @@ class OutboundTwoController extends Controller
         $search_date_aircraft_in = $request->get('search_date_aircraft_in'); // Untuk Pencarian Date Aircraft In
         $search_date_aircraft_out = $request->get('search_date_aircraft_out'); // Untuk Pencarian Date Aircraft Out
         $search_document_type = $request->get('search_document_type'); // Untuk Pencarian Type BC
-        $search_submission_number = $request->get('search_submission_number'); // Untuk Pencarian Nomor Aju
-        $search_submission_date = $request->get('search_submission_date'); // Untuk Pencarian Tanggal Aju
+        $search_submission_number = $request->get('search_submission_number'); // Untuk Pencarian Submission Number
+        $search_submission_date = $request->get('search_submission_date'); // Untuk Pencarian Submission Date
         $search_ttd_date = $request->get('search_ttd_date'); // Untuk Pencarian TTD Date
-        $search_cif_idr = $request->get('search_cif_idr'); // Untuk Pencarian CIF IDR
-
+        $search_cif_idr = $request->get('search_cif_idr'); // Untuk Pencarian CIF IDR 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Start Date
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter End Date
@@ -123,15 +101,15 @@ class OutboundTwoController extends Controller
         })->when($search_submission_number, function ($query) use ($search_submission_number) {
             $query->where('SUBMISSION_NUMBER', 'LIKE', "%$search_submission_number%");
         })->when($search_submission_date, function ($query) use ($search_submission_date) {
-            $query->whereDate('SUBMISSION_DATE', "$search_submission_date");
+            $query->where('SUBMISSION_DATE', 'LIKE', "%$search_submission_date%");
         })->when($search_ttd_date, function ($query) use ($search_ttd_date) {
-            $query->where('TTD_DATE', 'LIKE', "%$search_ttd_date%");
+            $query->whereDate('TTD_DATE', $search_ttd_date);
         })->when($search_cif_idr, function ($query) use ($search_cif_idr) {
             $query->where('CIF_IDR', 'LIKE', "%$search_cif_idr%");
         })->when($filter_start_date, function ($query) use ($filter_start_date) {
-            $query->where('DATE_INSTALL', '>=', $filter_start_date);
+            $query->whereDate('DATE_INSTALL', '>=', $filter_start_date);
         })->when($filter_end_date, function ($query) use ($filter_end_date) {
-            $query->where('DATE_INSTALL', '<=', $filter_end_date);
+            $query->whereDate('DATE_INSTALL', '<=', $filter_end_date);
         })->when($filter_customer, function ($query) use ($filter_customer) {
             $query->where('CUSTOMER', 'LIKE', "%$filter_customer%");
         })->when($filter_part_number, function ($query) use ($filter_part_number) {
@@ -139,7 +117,7 @@ class OutboundTwoController extends Controller
         })->when($filter_submission_number, function ($query) use ($filter_submission_number) {
             $query->where('SUBMISSION_NUMBER', 'LIKE', "%$filter_submission_number%");
         })->when($filter_submission_date, function ($query) use ($filter_submission_date) {
-            $query->whereDate('SUBMISSION_DATE', "$filter_submission_date");
+            $query->where('SUBMISSION_DATE', '=', $filter_submission_date);
         })->when($filter_document_type, function ($query) use ($filter_document_type) {
             $query->whereIn('TYPE_BC', $filter_document_type);
         })->when(($order && $by), function ($query) use ($order, $by) {

@@ -115,7 +115,7 @@
                         <div class="col-sm-8">
                           <datepicker
                             input-class="form-control"
-                            placeholder="Masukan Tanggal AJU"
+                            placeholder="Masukan Tanggal"
                             format="dd/MM/yyyy"
                             v-model="filter_submission_date"
                           />
@@ -268,7 +268,7 @@
                                 v-else-if="
                                   order == 'part_number' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -306,7 +306,7 @@
                                 v-else-if="
                                   order == 'description' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -343,7 +343,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'quantity' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -382,7 +382,7 @@
                                 v-else-if="
                                   order == 'unit_measure' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -423,7 +423,7 @@
                                 v-else-if="
                                   order == 'register_aircraft' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -460,7 +460,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'customer' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -499,7 +499,7 @@
                                 v-else-if="
                                   order == 'date_install' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -540,7 +540,7 @@
                                 v-else-if="
                                   order == 'date_aircraft_in' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -567,9 +567,9 @@
                               <!-- BEGIN: Date A/C Out Header -->
                               <th
                                 v-if="
-                                  order == 'date_aircraft_out' && by == 'asc'
+                                  order == 'DATE_AIRCRAFT_OUT' && by == 'asc'
                                 "
-                                @click="sort('date_aircraft_out', 'desc')"
+                                @click="sort('DATE_AIRCRAFT_OUT', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Date A/C Out</span>
@@ -579,9 +579,9 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'date_aircraft_out' && by == 'desc'
+                                  order == 'DATE_AIRCRAFT_OUT' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -595,7 +595,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('date_aircraft_out', 'asc')"
+                                @click="sort('DATE_AIRCRAFT_OUT', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Date A/C Out</span>
@@ -607,8 +607,8 @@
 
                               <!-- BEGIN: Jenis Dokumen Header -->
                               <th
-                                v-if="order == 'document_type' && by == 'asc'"
-                                @click="sort('document_type', 'desc')"
+                                v-if="order == 'TYPE_BC' && by == 'asc'"
+                                @click="sort('TYPE_BC', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Type BC</span>
@@ -617,10 +617,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'document_type' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'TYPE_BC' && by == 'desc'"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -634,7 +632,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('document_type', 'asc')"
+                                @click="sort('TYPE_BC', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Type BC</span>
@@ -661,7 +659,7 @@
                                 v-else-if="
                                   order == 'submission_number' && by == 'desc'
                                 "
-                                @click="sort('id', 'asc')"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -687,8 +685,8 @@
 
                               <!-- BEGIN: TTD Date Header -->
                               <th
-                                v-if="order == 'due_date' && by == 'asc'"
-                                @click="sort('due_date', 'desc')"
+                                v-if="order == 'TTD_DATE' && by == 'asc'"
+                                @click="sort('TTD_DATE', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">TTD Date</span>
@@ -697,8 +695,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'due_date' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'TTD_DATE' && by == 'desc'"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -712,7 +710,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('due_date', 'asc')"
+                                @click="sort('TTD_DATE', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">TTD Date</span>
@@ -722,10 +720,10 @@
                               </th>
                               <!-- END: TTD Date Header -->
 
-                              <!-- BEGIN: CIF_IDR Header -->
+                              <!-- BEGIN: CIF_RUPIAH Header -->
                               <th
-                                v-if="order == 'cif_idr' && by == 'asc'"
-                                @click="sort('cif_idr', 'desc')"
+                                v-if="order == 'CIF_IDR' && by == 'asc'"
+                                @click="sort('CIF_IDR', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">CIF IDR</span>
@@ -734,8 +732,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'cif_idr' && by == 'desc'"
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'CIF_IDR' && by == 'desc'"
+                                @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -749,7 +747,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('cif_idr', 'asc')"
+                                @click="sort('CIF_IDR', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">CIF IDR</span>
@@ -757,7 +755,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: CIF_IDR Header -->
+                              <!-- END: CIF_RUPIAH Header -->
 
                               <!-- BEGIN: BM Dibayar Header -->
                               <th class="text-center">
@@ -976,8 +974,14 @@
                               <td class="table_content text-center">
                                 {{ outbound.TTD_DATE | myDateTime }}
                               </td>
-                              <td class="table_content text-center">
-                                {{ outbound.CIF_IDR }}
+                              <td
+                                v-if="outbound.CIF_IDR === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
+                                {{ outbound.CIF_IDR | formatNumber }}
                               </td>
                               <td class="table_content text-center">
                                 <span v-if="outbound.JENIS_TARIF == 'BM'">{{
@@ -1145,7 +1149,7 @@ export default {
       search_cif_idr: null, // Search CIF IDR
 
       // Order By
-      order: "ID",
+      order: "DATE_INSTALL",
       by: "desc",
       paginate: "10",
       current_page: null,
@@ -1310,21 +1314,17 @@ export default {
             search_document_type: this.search_document_type,
             search_submission_number: this.search_submission_number,
             search_submission_date: this.search_submission_date,
-            search_registration_number: this.search_registration_number,
-            search_registration_date: this.search_registration_date,
+            search_ttd_date: this.search_ttd_date,
             search_cif_idr: this.search_cif_idr,
-            search_bm_bayar: this.search_bm_bayar,
-            search_ppn_bayar: this.search_ppn_bayar,
-            search_pph_bayar: this.search_pph_bayar,
 
             // This is for filter Data
             filter_start_date: this.filter_start_date,
             filter_end_date: this.filter_end_date,
             filter_customer: this.filter_customer,
             filter_part_number: this.filter_part_number,
-            filter_document_type: this.filter_document_type,
             filter_submission_number: this.filter_submission_number,
             filter_submission_date: this.filter_submission_date,
+            filter_document_type: this.filter_document_type,
 
             // This is for order by
             order: this.order,
