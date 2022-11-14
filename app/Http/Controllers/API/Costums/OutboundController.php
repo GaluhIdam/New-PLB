@@ -10,24 +10,6 @@ use App\Exports\Costums\OutboundExport;
 
 class OutboundController extends Controller
 {
-    /* 
-    List Data yang dimunculin : 
-    1. plb_db_prod.tpb_header.KODE_DOKUMEN_PABEAN [Kode Dokuemen Pabean] -> 1
-    2. plb_db_prod.tpb_header.NOMOR_AJU [Nomor AJU] -> 2
-    3. plb_db_prod.tpb_header.TANGGAL_AJU [Tanggal AJU] -> 3
-    4. plb_db_prod.tpb_header.NOMOR_DAFTAR [Nomor DAFTAR] -> 4
-    5. plb_db_prod.tpb_header.TANGGAL_DAFTAR [Tanggal DAFTAR] -> 5
-    6. plb_db_prod.tpb_barang.NAMA_PEMILIK [Nama Pemilik] -> 7
-    7. plb_db_prod.tpb_barang.KODE_BARANG [Kode Barang] -> 8
-    8. plb_db_prod.tpb_barang.POS_TARIF [Kode HS] -> 9
-    9. plb_db_prod.tpb_barang.URAIAN [Nama Barang] -> 10
-    10. plb_db_prod.tpb_barang.JUMLAH_SATUAN [Jumlah ] -> 11
-    11. plb_db_prod.tpb_barang.KODE_SATUAN [Satuan] -> 12
-    12. plb_db_prod.tpb_barang.HARGA_PENYERAHAN [Harga Penyerahan] -> 13 [Jika Kode 41]
-    13. plb_db_prod.tpb_barang.CIF [CIF]  -> 13 [Jika Kode 27] | Jika 0/Null Menggunakan Harga_Penyerahan
-    14. plb_db_prod.tpb_barang.CIF_RUPIAH [CIF_RUPIAH]-> 13 [Jika Kode 28]
-    15. plb_db_prod.tpb_kemasan.WAKTU_GATE_OUT [Tanggal Pengeluaran] -6
-    */
     use \App\Http\Traits\ActivityHistoryTrait;
     public function __construct()
     {
@@ -50,13 +32,15 @@ class OutboundController extends Controller
         $search_nama_barang = $request->get('search_nama_barang');
         $search_jumlah_satuan = $request->get('search_jumlah_satuan');
         $search_kode_satuan = $request->get('search_kode_satuan');
+        $search_nilai_barang = $request->get('search_nilai_barang'); // Harga Penyerahan / CIF / CIF_RUPIAH
+        $search_kode_valuta = $request->get('search_kode_valuta');
 
         // Filter
         $filter_start_date = $request->get('filter_start_date');
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
 
-        // Sort
+        // Sort, By, and Pagination
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
             $by = $request->get('by');
@@ -87,6 +71,7 @@ class OutboundController extends Controller
                     ->orWhere('HARGA_PENYERAHAN', 'LIKE', "%$search%")
                     ->orWhere('CIF', 'LIKE', "%$search%")
                     ->orWhere('CIF_RUPIAH', 'LIKE', "%$search%")
+                    ->orWhere('KODE_VALUTA', 'LIKE', "%$search%")
                     ->orWhere('WAKTU_GATE_OUT', 'LIKE', "%$search%");
             });
         })
@@ -125,6 +110,14 @@ class OutboundController extends Controller
             })
             ->when($search_kode_satuan, function ($query) use ($search_kode_satuan) {
                 $query->where('KODE_SATUAN', 'LIKE', "%$search_kode_satuan%");
+            })
+            ->when($search_nilai_barang, function ($query) use ($search_nilai_barang) {
+                $query->where('HARGA_PENYERAHAN', 'LIKE', "%$search_nilai_barang%")
+                    ->orWhere('CIF', 'LIKE', "%$search_nilai_barang%")
+                    ->orWhere('CIF_RUPIAH', 'LIKE', "%$search_nilai_barang%");
+            })
+            ->when($search_kode_valuta, function ($query) use ($search_kode_valuta) {
+                $query->where('KODE_VALUTA', 'LIKE', "%$search_kode_valuta%");
             })
             ->when($filter_kode_dokumen_pabean, function ($query) use ($filter_kode_dokumen_pabean) {
                 $query->whereIn('KODE_DOKUMEN_PABEAN', $filter_kode_dokumen_pabean);
