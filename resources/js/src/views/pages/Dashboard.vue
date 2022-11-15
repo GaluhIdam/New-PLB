@@ -109,21 +109,21 @@
                         >
                         <div class="col-sm-4">
                           <datepicker
-                          input-class="form-control text-center"
-                          placeholder="Dari Tanggal"
-                          format="dd/MM/yyyy"
-                          @input="chartThree()"
-                          v-model="from"
-                        />
+                            input-class="form-control text-center"
+                            placeholder="Dari Tanggal"
+                            format="dd/MM/yyyy"
+                            @input="chartThree()"
+                            v-model="from"
+                          />
                         </div>
                         <div class="col-sm-4">
                           <datepicker
-                                input-class="form-control text-center"
-                                placeholder="Sampai Tanggal"
-                                format="dd/MM/yyyy"
-                                @input="chartThree()"
-                                v-model="to"
-                              />
+                            input-class="form-control text-center"
+                            placeholder="Sampai Tanggal"
+                            format="dd/MM/yyyy"
+                            @input="chartThree()"
+                            v-model="to"
+                          />
                         </div>
                       </div>
                     </form>
@@ -272,12 +272,24 @@ export default {
           },
           yaxis: [
             {
+              labels: {
+                formatter: function (val) {
+                  // Add dots to thousands
+                  return val.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                },
+              },
               title: {
                 text: "Nilai Pembayaran",
               },
             },
             {
               opposite: true,
+              labels: {
+                formatter: function (val) {
+                  // Add dots to thousands
+                  return val.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                },
+              },
               title: {
                 text: "Jumlah BC",
               },

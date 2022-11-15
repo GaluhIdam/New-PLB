@@ -88,7 +88,8 @@ class DashboardController extends Controller
             ->when($to, function ($query) use ($to) {
                 $query->whereDate('TANGGAL_DAFTAR', '<=', $to);
             })
-            ->groupby('year', 'month')
+            ->orderBy('TANGGAL_DAFTAR', 'asc')
+            ->groupBy('year', 'month')
             ->get();
     }
 }
