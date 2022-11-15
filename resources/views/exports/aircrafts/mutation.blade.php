@@ -16,8 +16,16 @@
             <td>{{ $aircraft->reg }}</td>
             <td>{{ $aircraft->operator }}</td>
             <td>{{ $aircraft->type }}</td>
-            <td>{{ $aircraft->date_in }}</td>
-            <td>{{ $aircraft->date_out }}</td>
+            @if ($aircraft->date_in)
+            <td>{{ Carbon\Carbon::parse($aircraft->date_in)->format('d F Y H:i:s') }}</td>
+            @else
+            <td></td>
+            @endif
+            @if ($aircraft->date_out)
+            <td>{{ Carbon\Carbon::parse($aircraft->date_out)->format('d F Y H:i:s') }}</td>
+            @else
+            <td></td>
+            @endif
             <td>{{ $aircraft->status }}</td>
         </tr>
         @endforeach
