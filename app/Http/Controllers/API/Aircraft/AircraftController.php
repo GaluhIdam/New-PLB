@@ -206,13 +206,85 @@ class AircraftController extends Controller
         ], 200);
     }
 
-    public function exportCsv()
+    public function exportCsv(Request $request)
     {
-        return Excel::download(new AircraftExport, 'aircraft-mutations.csv');
+        // Search by keyword
+        $search = $request->get('search');
+        $search_aircraft_registration = $request->get('search_aircraft_registration');
+        $search_aircraft_type = $request->get('search_aircraft_type');
+        $search_operator = $request->get('search_operator');
+        $search_date_aircraft_in = $request->get('search_date_aircraft_in');
+        $search_date_aircraft_out = $request->get('search_date_aircraft_out');
+        $search_rksp = $request->get('search_rksp');
+        $search_flight_route = $request->get('search_flight_route');
+        $search_crews = $request->get('search_crews');
+        $search_report = $request->get('search_report');
+        $search_status = $request->get('search_status');
+
+        // Sort Data
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'id';
+            $by = 'desc';
+        }
+
+        return Excel::download(new AircraftExport(
+            $search,
+            $search_aircraft_registration,
+            $search_aircraft_type,
+            $search_operator,
+            $search_date_aircraft_in,
+            $search_date_aircraft_out,
+            $search_rksp,
+            $search_flight_route,
+            $search_crews,
+            $search_report,
+            $search_status,
+            $order,
+            $by
+        ), 'aircraft-mutations.csv');
     }
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        return Excel::download(new AircraftExport, 'aircraft-mutations.xlsx');
+        // Search by keyword
+        $search = $request->get('search');
+        $search_aircraft_registration = $request->get('search_aircraft_registration');
+        $search_aircraft_type = $request->get('search_aircraft_type');
+        $search_operator = $request->get('search_operator');
+        $search_date_aircraft_in = $request->get('search_date_aircraft_in');
+        $search_date_aircraft_out = $request->get('search_date_aircraft_out');
+        $search_rksp = $request->get('search_rksp');
+        $search_flight_route = $request->get('search_flight_route');
+        $search_crews = $request->get('search_crews');
+        $search_report = $request->get('search_report');
+        $search_status = $request->get('search_status');
+
+        // Sort Data
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'id';
+            $by = 'desc';
+        }
+
+        return Excel::download(new AircraftExport(
+            $search,
+            $search_aircraft_registration,
+            $search_aircraft_type,
+            $search_operator,
+            $search_date_aircraft_in,
+            $search_date_aircraft_out,
+            $search_rksp,
+            $search_flight_route,
+            $search_crews,
+            $search_report,
+            $search_status,
+            $order,
+            $by
+        ), 'aircraft-mutations.xlsx');
     }
 }

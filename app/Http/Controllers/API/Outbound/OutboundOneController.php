@@ -11,27 +11,13 @@ use App\Exports\Outbounds\TransactionOneExport;
 
 class OutboundOneController extends Controller
 {
-    /* 
-    List Data yang dimunculin : 
-    1. Part Number [$part_number]
-    2. Description [$description]
-    3. Quantity [$quantity]
-    4. Kode Satuan [$unit_measure]
-    5. Register Aircraft [$register_aircraft]
-    6. Customer [$customer]
-    7. Date Install [$date_install]
-    8. Date Aircraft In [$date_aircraft_in]
-    9. Kode Dokumen Kepabeanan [$document_type]
-    */
-
     public function __construct()
     {
         $this->middleware('auth:api');
     }
 
     public function index(Request $request)
-    {
-        // Record Activity
+    {   // Record Activity
         $this->recordActivity('Akses Outbound Transaction 1');
 
         // Search
@@ -122,13 +108,99 @@ class OutboundOneController extends Controller
         return $outbounds;
     }
 
-    public function exportCsv()
+    public function exportCsv(Request $request)
     {
-        return Excel::download(new TransactionOneExport, 'outbound-transaction-one.csv');
+        // Search
+        $search = $request->get('search'); // Untuk Pencarian
+        $search_part_number = $request->get('search_part_number'); // Untuk Pencarian Part Number
+        $search_description = $request->get('search_description'); // Untuk Pencarian Description
+        $search_quantity = $request->get('search_quantity'); // Untuk Pencarian Quantity
+        $search_unit_measure = $request->get('search_unit_measure'); // Untuk Pencarian Unit Measure (Kode Satuan)
+        $search_register_aircraft = $request->get('search_register_aircraft'); // Untuk Pencarian Register Aircraft
+        $search_customer = $request->get('search_customer'); // Untuk Pencarian Customer
+        $search_date_install = $request->get('search_date_install'); // Untuk Pencarian Date Install
+        $search_date_aircraft_in = $request->get('search_date_aircraft_in'); // Untuk Pencarian Date Aircraft In
+
+        // Filter Data
+        $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
+        $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
+        $filter_customer = $request->get('filter_customer'); // Untuk Filter customer
+        $filter_part_number = $request->get('filter_part_number'); // Untuk Filter Part Number
+        $filter_document_type = $request->get('filter_document_type'); // Untuk Filter Kode Dokumen Kepabeanan
+
+        // Sort Data
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'DATE_INSTALL';
+            $by = 'desc';
+        }
+        return Excel::download(new TransactionOneExport(
+            $search,
+            $search_part_number,
+            $search_description,
+            $search_quantity,
+            $search_unit_measure,
+            $search_register_aircraft,
+            $search_customer,
+            $search_date_install,
+            $search_date_aircraft_in,
+            $filter_start_date,
+            $filter_end_date,
+            $filter_customer,
+            $filter_part_number,
+            $filter_document_type,
+            $order,
+            $by
+        ), 'outbound-transaction-one.csv');
     }
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        return Excel::download(new TransactionOneExport, 'outbound-transaction-one.xlsx');
+        // Search
+        $search = $request->get('search'); // Untuk Pencarian
+        $search_part_number = $request->get('search_part_number'); // Untuk Pencarian Part Number
+        $search_description = $request->get('search_description'); // Untuk Pencarian Description
+        $search_quantity = $request->get('search_quantity'); // Untuk Pencarian Quantity
+        $search_unit_measure = $request->get('search_unit_measure'); // Untuk Pencarian Unit Measure (Kode Satuan)
+        $search_register_aircraft = $request->get('search_register_aircraft'); // Untuk Pencarian Register Aircraft
+        $search_customer = $request->get('search_customer'); // Untuk Pencarian Customer
+        $search_date_install = $request->get('search_date_install'); // Untuk Pencarian Date Install
+        $search_date_aircraft_in = $request->get('search_date_aircraft_in'); // Untuk Pencarian Date Aircraft In
+
+        // Filter Data
+        $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
+        $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
+        $filter_customer = $request->get('filter_customer'); // Untuk Filter customer
+        $filter_part_number = $request->get('filter_part_number'); // Untuk Filter Part Number
+        $filter_document_type = $request->get('filter_document_type'); // Untuk Filter Kode Dokumen Kepabeanan
+
+        // Sort Data
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'DATE_INSTALL';
+            $by = 'desc';
+        }
+        return Excel::download(new TransactionOneExport(
+            $search,
+            $search_part_number,
+            $search_description,
+            $search_quantity,
+            $search_unit_measure,
+            $search_register_aircraft,
+            $search_customer,
+            $search_date_install,
+            $search_date_aircraft_in,
+            $filter_start_date,
+            $filter_end_date,
+            $filter_customer,
+            $filter_part_number,
+            $filter_document_type,
+            $order,
+            $by
+        ), 'outbound-transaction-one.xlsx');
     }
 }

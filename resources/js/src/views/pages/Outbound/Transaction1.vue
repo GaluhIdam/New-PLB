@@ -73,7 +73,7 @@
                           />
                         </div>
                       </div>
-                      <div class="form-group row">
+                      <!-- <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Customer</label>
                         <div class="col-sm-8">
                           <input
@@ -96,7 +96,7 @@
                             placeholder="Masukkan Part Number"
                           />
                         </div>
-                      </div>
+                      </div> -->
                       <div class="form-group row" id="dokumenList">
                         <label class="col-sm-3 col-form-label"
                           >Jenis Dokumen</label
@@ -431,7 +431,7 @@
                                 @click="sort('customer', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">customer</span>
+                                <span class="table_header">Customer</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -445,7 +445,7 @@
                                   sorting sorting-desc
                                 "
                               >
-                                <span class="table_header">customer</span>
+                                <span class="table_header">Customer</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -500,7 +500,7 @@
                               </th>
                               <!-- END: Date Install/Consume -->
 
-                              <!-- BEGIN: Date Aircraft IN -->
+                              <!-- BEGIN: Date A/C IN Header -->
                               <th
                                 v-if="
                                   order == 'date_aircraft_in' && by == 'asc'
@@ -539,7 +539,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Date Aircraft IN -->
+                              <!-- END: Date A/C IN Header -->
                             </tr>
                             <!-- END: TR Description-->
                             <!-- BEGIN: TR Filter -->
@@ -633,7 +633,7 @@
                                 <div>
                                   <input
                                     type="date"
-                                    class="vgt-input text-center"
+                                    class="vgt-input"
                                     placeholder="Date A/C In"
                                     v-model="search_date_aircraft_in"
                                   />
@@ -675,19 +675,19 @@
                                 {{ outbound.REGISTER_AIRCRAFT }}
                               </td>
                               <td
-                              v-if="outbound.CUSTOMER === null"
-                              class="text-center table_content"
-                            >
-                              -
-                            </td>
-                            <td class="text-center table_content" v-else>
-                              {{ outbound.CUSTOMER }}
-                            </td>
-                              <td class="table_content text-center">
-                                {{ outbound.DATE_INSTALL | myDateTime  }}
+                                v-if="outbound.CUSTOMER === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
+                                {{ outbound.CUSTOMER }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.DATE_AIRCRAFT_IN  | myDateTime  }}
+                                {{ outbound.DATE_INSTALL | myDateTime }}
+                              </td>
+                              <td class="table_content text-center">
+                                {{ outbound.DATE_AIRCRAFT_IN | myDateTime }}
                               </td>
                             </tr>
                             <tr v-if="outbounds.data.length < 1">
@@ -809,7 +809,6 @@
 <script>
 import axios from "axios";
 import debounce from "lodash/debounce";
-import Swal from "sweetalert2";
 import moment from "moment";
 moment.locale("id");
 
@@ -837,8 +836,10 @@ export default {
       paginate: "10",
       current_page: null,
 
-      filter_start_date: null,
-      filter_end_date: null,
+      filter_start_date: new Date(new Date().setDate(new Date().getDate() - 30))
+        .toISOString()
+        .substr(0, 10),
+      filter_end_date: new Date().toISOString().substr(0, 10),
       filter_customer: null,
       filter_part_number: null,
       filter_document_type: [],
@@ -899,7 +900,29 @@ export default {
   methods: {
     exportExcel() {
       axios
-        .get("/api/outbound-transaction-1-excel", { responseType: "blob" })
+        .get("/api/outbound-transaction-1-excel", {
+          params: {
+            // This is for Search Data
+            search: this.search,
+            search_part_number: this.search_part_number,
+            search_description: this.search_description,
+            search_quantity: this.search_quantity,
+            search_unit_measure: this.search_unit_measure,
+            search_register_aircraft: this.search_register_aircraft,
+            search_customer: this.search_customer,
+            search_date_install: this.search_date_install,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_customer: this.filter_customer,
+            filter_part_number: this.filter_part_number,
+            filter_document_type: this.filter_document_type,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
@@ -911,7 +934,29 @@ export default {
     },
     exportCsv() {
       axios
-        .get("/api/outbound-transaction-1-csv", { responseType: "blob" })
+        .get("/api/outbound-transaction-1-csv", {
+          params: {
+            // This is for Search Data
+            search: this.search,
+            search_part_number: this.search_part_number,
+            search_description: this.search_description,
+            search_quantity: this.search_quantity,
+            search_unit_measure: this.search_unit_measure,
+            search_register_aircraft: this.search_register_aircraft,
+            search_customer: this.search_customer,
+            search_date_install: this.search_date_install,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_customer: this.filter_customer,
+            filter_part_number: this.filter_part_number,
+            filter_document_type: this.filter_document_type,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
@@ -926,20 +971,24 @@ export default {
       this.list();
     },
     clearForm() {
-      this.filter_start_date = null;
-      this.filter_end_date = null;
+      this.filter_start_date = new Date(
+        new Date().setDate(new Date().getDate() - 30)
+      )
+        .toISOString()
+        .substr(0, 10);
+      this.filter_end_date = new Date().toISOString().substr(0, 10);
       this.filter_customer = null;
       this.filter_part_number = null;
       this.filter_document_type = [];
-this.search=null; // Search All Data
-this.search_part_number=null; // Part Number
-this.search_description=null; // Description
-this.search_quantity=null; // Quantity
-this.search_unit_measure=null; // Kode Satuan
-this.search_register_aircraft=null; // Register Aircraft
-this.search_customer=null; // Customer
-this.search_date_install=null; // Date Install
-this.search_date_aircraft_in=null; // Date Aircraft In
+      this.search = null; // Search All Data
+      this.search_part_number = null; // Part Number
+      this.search_description = null; // Description
+      this.search_quantity = null; // Quantity
+      this.search_unit_measure = null; // Kode Satuan
+      this.search_register_aircraft = null; // Register Aircraft
+      this.search_customer = null; // Customer
+      this.search_date_install = null; // Date Install
+      this.search_date_aircraft_in = null; // Date Aircraft In
       this.list();
       this.filter_clicked = false;
     },

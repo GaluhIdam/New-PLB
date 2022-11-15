@@ -612,7 +612,23 @@ export default {
   methods: {
     exportExcel() {
       axios
-        .get("/api/aircraft-mutation-excel", { responseType: "blob" })
+        .get("/api/aircraft-mutation-excel", {
+          params: {
+            search: this.search,
+            search_reg: this.search_reg,
+            search_operator: this.search_operator,
+            search_type: this.search_type,
+            search_date_in: this.search_date_in,
+            search_date_out: this.search_date_out,
+            search_status: this.search_status,
+            start_date: this.start_date,
+            end_date: this.end_date,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
@@ -624,7 +640,23 @@ export default {
     },
     exportCsv() {
       axios
-        .get("/api/aircraft-mutation-csv", { responseType: "blob" })
+        .get("/api/aircraft-mutation-csv", {
+          params: {
+            search: this.search,
+            search_reg: this.search_reg,
+            search_operator: this.search_operator,
+            search_type: this.search_type,
+            search_date_in: this.search_date_in,
+            search_date_out: this.search_date_out,
+            search_status: this.search_status,
+            start_date: this.start_date,
+            end_date: this.end_date,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");

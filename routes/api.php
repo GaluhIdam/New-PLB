@@ -69,12 +69,6 @@ Route::post('/aircraft-delivery', [AircraftController::class, 'createDelivery'])
 Route::post('/aircraft-redelivery', [AircraftController::class, 'createRedelivery']); // Aircraft Redivery
 Route::delete('/aircraft/{id}', [AircraftController::class, 'deleteDelivery']); //Delete Aircraft Data
 
-// Route::get('/aircraft', [AircraftController::class, 'index']);
-// Route::post('/aircraft/delivery', [AircraftController::class, 'delivery']);
-// Route::post('/aircraft/redelivery', [AircraftController::class, 'redelivery']);
-// Route::delete('/aircraft/{id}', [AircraftController::class, 'destroy']);
-// Route::get('/aircraft/data', [AircraftController::class, 'data']);
-
 // Log -> Login History
 Route::get('/login-history', [LoginHistoryController::class, 'index']);
 Route::get('/login-history/{id}', [LoginHistoryController::class, 'index']);
