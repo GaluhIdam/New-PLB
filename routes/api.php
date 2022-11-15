@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\DashboardController;
@@ -12,9 +11,11 @@ use App\Http\Controllers\MutationReportController;
 use App\Http\Controllers\ActivityHistoryController;
 use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\MovementAllotmentController;
-use App\Http\Controllers\API\Costums\InboundController;
 
+// Module Aircraft
+use App\Http\Controllers\API\Aircraft\AircraftController;
 // Dokumen Kepabeanan
+use App\Http\Controllers\API\Costums\InboundController;
 use App\Http\Controllers\API\Costums\OutboundController;
 use App\Http\Controllers\API\Allotment\InventoryController;
 // Outbound
@@ -60,11 +61,19 @@ Route::get('/outbound-summary-excel', [OutboundSummaryController::class, 'export
 
 
 // Aircraft Mutation (Mutasi Pesawat)
-Route::get('/aircraft', [AircraftController::class, 'index']);
-Route::post('/aircraft/delivery', [AircraftController::class, 'delivery']);
-Route::post('/aircraft/redelivery', [AircraftController::class, 'redelivery']);
-Route::delete('/aircraft/{id}', [AircraftController::class, 'destroy']);
-Route::get('/aircraft/data', [AircraftController::class, 'data']);
+Route::get('/aircraft-mutation', [AircraftController::class, 'index']); // Aircraft Mutation
+Route::get('/aircraft-mutation-csv', [AircraftController::class, 'exportCsv']); // Aircraft Mutation - Export CSV
+Route::get('/aircraft-mutation-excel', [AircraftController::class, 'exportExcel']); // Aircraft Mutation - Export Excel
+Route::get('/aircraft-data', [AircraftController::class, 'store']); // Aircraft Data
+Route::post('/aircraft-delivery', [AircraftController::class, 'createDelivery']); // Aircraft Delivery
+Route::post('/aircraft-redelivery', [AircraftController::class, 'createRedelivery']); // Aircraft Redivery
+Route::delete('/aircraft/{id}', [AircraftController::class, 'deleteDelivery']); //Delete Aircraft Data
+
+// Route::get('/aircraft', [AircraftController::class, 'index']);
+// Route::post('/aircraft/delivery', [AircraftController::class, 'delivery']);
+// Route::post('/aircraft/redelivery', [AircraftController::class, 'redelivery']);
+// Route::delete('/aircraft/{id}', [AircraftController::class, 'destroy']);
+// Route::get('/aircraft/data', [AircraftController::class, 'data']);
 
 // Log -> Login History
 Route::get('/login-history', [LoginHistoryController::class, 'index']);

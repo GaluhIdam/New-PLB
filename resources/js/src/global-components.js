@@ -50,10 +50,13 @@ import moment from "moment";
 Vue.filter("myDate", function (value) {
   if (value == null) {
     return "-";
+  } else if (value == "0000-00-00 00:00:00") {
+    return "-";
   } else {
     return moment(String(value)).format("DD MMMM YYYY");
   }
 });
+
 Vue.filter("invalidDate", function (value) {
   if (value == null) {
     return "-";
@@ -90,7 +93,7 @@ Vue.filter("uangUSD", function (value) {
 
 Vue.filter("formatNumber", function (value) {
   return Number(value) > 0 ?
-    value.toLocaleString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") :
+    value.toLocaleString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") :
     "-";
 });
 

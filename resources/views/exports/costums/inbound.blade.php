@@ -15,6 +15,7 @@
             <th><strong>JUMLAH</strong></th>
             <th><strong>SATUAN</strong></th>
             <th><strong>NILAI BARANG</strong></th>
+            <th><strong>KODE VALUTA</strong></th>
 
         </tr>
     </thead>
@@ -23,10 +24,14 @@
         <tr>
             <td>{{ $costum->KODE_DOKUMEN_PABEAN }}</td>
             <td>{{ $costum->NOMOR_AJU }}</td>
-            <td>{{ $costum->TANGGAL_AJU }}</td>
+            <td>{{ Carbon\Carbon::parse($costum->TANGGAL_AJU)->format('d F Y') }}</td>
             <td>{{ $costum->NOMOR_DAFTAR }}</td>
-            <td>{{ $costum->TANGGAL_DAFTAR }}</td>
-            <td>{{ $costum->WAKTU_GATE_IN }}</td>
+            <td>{{ Carbon\Carbon::parse($costum->TANGGAL_DAFTAR)->format('d F Y') }}</td>
+            @if($costum->WAKTU_GATE_IN == null || $costum->WAKTU_GATE_IN == '0000-00-00 00:00:00')
+            <td>{{ Carbon\Carbon::parse($costum->TANGGAL_DAFTAR)->format('d F Y') }}</td>
+            @else
+            <td>{{ Carbon\Carbon::parse($costum->WAKTU_GATE_IN)->format('d F Y') }}</td>
+            @endif
             <td>{{ $costum->NAMA_PENGIRIM }}</td>
             <td>{{ $costum->NAMA_PEMILIK }}</td>
             <td>{{ $costum->KODE_BARANG }}</td>
@@ -38,6 +43,11 @@
             <td>{{ $costum->HARGA_PENYERAHAN }}</td>
             @else
             <td>{{ $costum->CIF }}</td>
+            @endif
+            @if($costum->KODE_DOKUMEN_PABEAN == '40')
+            <td>IDR</td>
+            @else
+            <td>{{ $costum->KODE_VALUTA }}</td>
             @endif
         </tr>
         @endforeach

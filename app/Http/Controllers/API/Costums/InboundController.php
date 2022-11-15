@@ -147,13 +147,77 @@ class InboundController extends Controller
         return $inbounds;
     }
 
-    public function exportCsv()
+    public function exportCsv(Request $request)
     {
-        return Excel::download(new InboundExport, 'kepabeanan-inbound.csv');
+        //  Search
+        $search = $request->get('search');
+        $search_kode_dokumen_pabean = $request->get('search_kode_dokumen_pabean');
+        $search_nomor_aju = $request->get('search_nomor_aju');
+        $search_tanggal_aju = $request->get('search_tanggal_aju');
+        $search_nomor_daftar = $request->get('search_nomor_daftar');
+        $search_tanggal_daftar = $request->get('search_tanggal_daftar');
+        $search_nama_pengirim = $request->get('search_nama_pengirim');
+        $search_nama_pemilik = $request->get('search_nama_pemilik');
+        $search_kode_barang = $request->get('search_kode_barang');
+        $search_pos_tarif = $request->get('search_pos_tarif');
+        $search_uraian = $request->get('search_uraian');
+        $search_jumlah_satuan = $request->get('search_jumlah_satuan');
+        $search_kode_satuan = $request->get('search_kode_satuan');
+        $search_nilai_barang = $request->get('search_nilai_barang'); // Harga Penyerahan / CIF
+        $search_kode_valuta = $request->get('search_kode_valuta');
+        $search_tanggal_pemasukan = $request->get('search_tanggal_pemasukan');
+
+        // Filter
+        $filter_start_date = $request->get('filter_start_date');
+        $filter_end_date = $request->get('filter_end_date');
+        $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
+
+        // Sort, By, and Pagination
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'TANGGAL_DAFTAR';
+            $by = 'desc';
+        }
+
+        return Excel::download(new InboundExport($search, $search_kode_dokumen_pabean, $search_nomor_aju, $search_tanggal_aju, $search_nomor_daftar, $search_tanggal_daftar, $search_nama_pengirim, $search_nama_pemilik, $search_kode_barang, $search_pos_tarif, $search_uraian, $search_jumlah_satuan, $search_kode_satuan, $search_nilai_barang, $search_kode_valuta, $search_tanggal_pemasukan, $filter_start_date, $filter_end_date, $filter_kode_dokumen_pabean, $order, $by), 'kepabeanan-inbound.csv');
     }
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        return Excel::download(new InboundExport, 'kepabeanan-inbound.xlsx');
+        //  Search
+        $search = $request->get('search');
+        $search_kode_dokumen_pabean = $request->get('search_kode_dokumen_pabean');
+        $search_nomor_aju = $request->get('search_nomor_aju');
+        $search_tanggal_aju = $request->get('search_tanggal_aju');
+        $search_nomor_daftar = $request->get('search_nomor_daftar');
+        $search_tanggal_daftar = $request->get('search_tanggal_daftar');
+        $search_nama_pengirim = $request->get('search_nama_pengirim');
+        $search_nama_pemilik = $request->get('search_nama_pemilik');
+        $search_kode_barang = $request->get('search_kode_barang');
+        $search_pos_tarif = $request->get('search_pos_tarif');
+        $search_uraian = $request->get('search_uraian');
+        $search_jumlah_satuan = $request->get('search_jumlah_satuan');
+        $search_kode_satuan = $request->get('search_kode_satuan');
+        $search_nilai_barang = $request->get('search_nilai_barang'); // Harga Penyerahan / CIF
+        $search_kode_valuta = $request->get('search_kode_valuta');
+        $search_tanggal_pemasukan = $request->get('search_tanggal_pemasukan');
+
+        // Filter
+        $filter_start_date = $request->get('filter_start_date');
+        $filter_end_date = $request->get('filter_end_date');
+        $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
+
+        // Sort, By, and Pagination
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'TANGGAL_DAFTAR';
+            $by = 'desc';
+        }
+
+        return Excel::download(new InboundExport($search, $search_kode_dokumen_pabean, $search_nomor_aju, $search_tanggal_aju, $search_nomor_daftar, $search_tanggal_daftar, $search_nama_pengirim, $search_nama_pemilik, $search_kode_barang, $search_pos_tarif, $search_uraian, $search_jumlah_satuan, $search_kode_satuan, $search_nilai_barang, $search_kode_valuta, $search_tanggal_pemasukan, $filter_start_date, $filter_end_date, $filter_kode_dokumen_pabean, $order, $by), 'kepabeanan-inbound.xlsx');
     }
 }

@@ -2,24 +2,20 @@
 
 namespace App\Http\Controllers\API\Aircraft;
 
-use App\Http\Controllers\Controller;
 use App\Models\Aircraft;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Aircrafts\AircraftExport;
 
 class AircraftController extends Controller
 {
 
-    //    'AIRCRAFT_REGISTRATION',
-    //     'AIRCRAFT_TYPE',
-    //     'OPERATOR',
-    //     'DATE_AIRCRAFT_IN',
-    //     'DATE_AIRCRAFT_OUT',
-    //     'RKSP',
-    //     'FLIGHT_ROUTE',
-    //     'CREWS',
-    //     'REPORT',
-    //     'ID_HEADER',
-    //     'ID_BARANG'
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function index(Request $request)
     {
         // Record Activity
@@ -36,13 +32,14 @@ class AircraftController extends Controller
         $search_flight_route = $request->get('search_flight_route');
         $search_crews = $request->get('search_crews');
         $search_report = $request->get('search_report');
+        $search_status = $request->get('search_status');
 
         // Sort Data
         if ($request->get('order') && $request->get('by')) {
             $order = $request->get('order');
             $by = $request->get('by');
         } else {
-            $order = 'ID';
+            $order = 'id';
             $by = 'desc';
         }
 
@@ -55,34 +52,37 @@ class AircraftController extends Controller
 
         $aircraft = Aircraft::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
-                $sub_query->where('AIRCRAFT_REGISTRATION', 'LIKE', "%{$search}%")
-                    ->orWhere('AIRCRAFT_TYPE', 'LIKE', "%{$search}%")
-                    ->orWhere('OPERATOR', 'LIKE', "%{$search}%")
-                    ->orWhere('DATE_AIRCRAFT_IN', 'LIKE', "%{$search}%")
-                    ->orWhere('DATE_AIRCRAFT_OUT', 'LIKE', "%{$search}%")
-                    ->orWhere('RKSP', 'LIKE', "%{$search}%")
-                    ->orWhere('FLIGHT_ROUTE', 'LIKE', "%{$search}%")
-                    ->orWhere('CREWS', 'LIKE', "%{$search}%")
-                    ->orWhere('REPORT', 'LIKE', "%{$search}%");
+                $sub_query->where('reg', 'LIKE', "%{$search}%")
+                    ->orWhere('type', 'LIKE', "%{$search}%")
+                    ->orWhere('operator', 'LIKE', "%{$search}%")
+                    ->orWhere('date_in', 'LIKE', "%{$search}%")
+                    ->orWhere('date_out', 'LIKE', "%{$search}%")
+                    ->orWhere('rksp', 'LIKE', "%{$search}%")
+                    ->orWhere('fight_route', 'LIKE', "%{$search}%")
+                    ->orWhere('crews', 'LIKE', "%{$search}%")
+                    ->orWhere('report', 'LIKE', "%{$search}%")
+                    ->orWhere('status', 'LIKE', "%{$search}%");
             });
         })->when($search_aircraft_registration, function ($query) use ($search_aircraft_registration) {
-            $query->where('AIRCRAFT_REGISTRATION', 'LIKE', "%{$search_aircraft_registration}%");
+            $query->where('reg', 'LIKE', "%{$search_aircraft_registration}%");
         })->when($search_aircraft_type, function ($query) use ($search_aircraft_type) {
-            $query->where('AIRCRAFT_TYPE', 'LIKE', "%{$search_aircraft_type}%");
+            $query->where('type', 'LIKE', "%{$search_aircraft_type}%");
         })->when($search_operator, function ($query) use ($search_operator) {
-            $query->where('OPERATOR', 'LIKE', "%{$search_operator}%");
+            $query->where('operator', 'LIKE', "%{$search_operator}%");
         })->when($search_date_aircraft_in, function ($query) use ($search_date_aircraft_in) {
-            $query->whereDate('DATE_AIRCRAFT_IN', $search_date_aircraft_in);
+            $query->whereDate('date_in', $search_date_aircraft_in);
         })->when($search_date_aircraft_out, function ($query) use ($search_date_aircraft_out) {
-            $query->whereDate('DATE_AIRCRAFT_OUT', $search_date_aircraft_out);
+            $query->whereDate('date_out', $search_date_aircraft_out);
         })->when($search_rksp, function ($query) use ($search_rksp) {
-            $query->where('RKSP', 'LIKE', "%{$search_rksp}%");
+            $query->where('rksp', 'LIKE', "%{$search_rksp}%");
         })->when($search_flight_route, function ($query) use ($search_flight_route) {
-            $query->where('FLIGHT_ROUTE', 'LIKE', "%{$search_flight_route}%");
+            $query->where('fight_route', 'LIKE', "%{$search_flight_route}%");
         })->when($search_crews, function ($query) use ($search_crews) {
-            $query->where('CREWS', 'LIKE', "%{$search_crews}%");
+            $query->where('crews', 'LIKE', "%{$search_crews}%");
         })->when($search_report, function ($query) use ($search_report) {
-            $query->where('REPORT', 'LIKE', "%{$search_report}%");
+            $query->where('report', 'LIKE', "%{$search_report}%");
+        })->when($search_status, function ($query) use ($search_status) {
+            $query->where('status', 'LIKE', "%{$search_status}%");
         })->when(($order && $by), function ($query) use ($order, $by) {
             $query->orderBy($order, $by);
         })->paginate($paginate);
@@ -103,28 +103,33 @@ class AircraftController extends Controller
         $this->recordActivity('Akses Aircraft Delivery');
 
         $request->validate([
-            'OPERATOR' => 'required',
-            'AIRCRAFT_REGISTRATION' => 'required|unique:aircraft',
-            'AIRCRAFT_TYPE' => 'required',
-            'DATE_AIRCRAFT_IN' => 'required',
+            'operator' => 'required',
+            'reg' => 'required|unique:aircraft',
+            'type' => 'required',
+            'date_in' => 'required',
         ], [
-            'OPERATOR.required' => 'Operator tidak boleh kosong',
-            'AIRCRAFT_REGISTRATION.required' => 'Aircraft Registration tidak boleh kosong',
-            'AIRCRAFT_REGISTRATION.unique' => 'Aircraft Registration sudah terdaftar',
-            'AIRCRAFT_TYPE.required' => 'Aircraft Type tidak boleh kosong',
-            'DATE_AIRCRAFT_IN.required' => 'Actual Time Arrival tidak boleh kosong',
+            'operator.required' => 'Operator tidak boleh kosong',
+            'reg.required' => 'Aircraft Registration tidak boleh kosong',
+            'reg.unique' => 'Aircraft Registration sudah terdaftar',
+            'type.required' => 'Aircraft Type tidak boleh kosong',
+            'date_in.required' => 'Actual Time Arrival tidak boleh kosong',
         ]);
 
         $data = $request->all();
 
-        if ($request->hasFile('RKSP')) {
-            $file = $request->file('RKSP');
-            $fileName = $file->getClientOriginalName();
-            $file->move('uploads/rksp', $fileName);
-            $data['RKSP'] = $fileName;
+        if ($request->hasFile('rksp')) {
+            $path = $request->file('rksp')->store('uploaded_documents', 'public');
+            $data['rksp'] = $path;
         }
 
-        $delivery = Aircraft::create($data);
+        $delivery = Aircraft::create([
+            'operator' => $data['operator'],
+            'reg' => $data['reg'],
+            'type' => $data['type'],
+            'date_in' => $data['date_in'],
+            'rksp' => $data['rksp'],
+            'status' => 'Di dalam PLB GMF',
+        ]);
 
         return response()->json([
             'success' => 'Success',
@@ -139,23 +144,24 @@ class AircraftController extends Controller
         $this->recordActivity('Akses Aircraft Delivery');
 
         $request->validate([
-            'OPERATOR' => 'required',
-            'AIRCRAFT_TYPE' => 'required',
-            'AIRCRAT_REGISTRATION' => 'required',
-            'DATE_AIRCRAFT_OUT' => 'required',
+            'operator' => 'required',
+            'type' => 'required',
+            'reg' => 'required',
+            'date_out' => 'required',
 
         ], [
-            'OPERATOR.required' => 'Operator tidak boleh kosong',
-            'AIRCRAFT_TYPE.required' => 'Aircraft Type tidak boleh kosong',
-            'AIRCRAT_REGISTRATION.required' => 'Aircraft Registration tidak boleh kosong',
-            'DATE_AIRCRAFT_OUT.required' => 'Actual Time Departure tidak boleh kosong',
+            'operator.required' => 'Operator tidak boleh kosong',
+            'type.required' => 'Aircraft Type tidak boleh kosong',
+            'reg.required' => 'Aircraft Registration tidak boleh kosong',
+            'date_out.required' => 'Actual Time Departure tidak boleh kosong',
         ]);
 
-        if ($redelivery = Aircraft::where('AIRCRAFT_REGISTRATION', $request->AIRCRAT_REGISTRATION)->first()) {
+        if ($redelivery = Aircraft::where('reg', $request->reg)->first()) {
             $redelivery->update([
-                'DATE_AIRCRAFT_OUT' => $request->DATE_AIRCRAFT_OUT,
-
+                'date_out' => $request->date_out,
+                'status' => 'Di luar PLB GMF',
             ]);
+
             return response()->json([
                 'success' => 'Success',
                 'message' => 'Aircraft Redelivery Created Successfully',
@@ -175,10 +181,10 @@ class AircraftController extends Controller
 
         $aircraft = Aircraft::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
-                $sub_query->where('AIRCRAFT_REGISTRATION', 'LIKE', "%{$search}%");
+                $sub_query->where('reg', 'LIKE', "%{$search}%");
             });
         })
-            ->where('DATE_AIRCRAFT_OUT', null)
+            ->where('date_out', null)
             ->get();
 
         return $aircraft;
@@ -198,5 +204,15 @@ class AircraftController extends Controller
             'success' => 'Success',
             'message' => 'Aircraft Mutation Deleted Successfully',
         ], 200);
+    }
+
+    public function exportCsv()
+    {
+        return Excel::download(new AircraftExport, 'aircraft-mutations.csv');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new AircraftExport, 'aircraft-mutations.xlsx');
     }
 }

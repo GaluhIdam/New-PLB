@@ -14,16 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('aircraft', function (Blueprint $table) {
-            $table->id('ID');
-            $table->string('AIRCRAFT_REGISTRATION')->unique();
-            $table->string('AIRCRAFT_TYPE');
-            $table->string('OPERATOR');
-            $table->datetime('DATE_AIRCRAFT_IN');
-            $table->datetime('DATE_AIRCRAFT_OUT')->nullable();
-            $table->string('RKSP')->nullable();
-            $table->string('FLIGHT_ROUTE')->nullable();
-            $table->string('CREWS')->nullable();
-            $table->string('REPORT')->nullable();
+            $table->id();
+            $table->string('reg')->unique();
+            $table->string('operator');
+            $table->string('type');
+            $table->datetime('date_in');
+            $table->datetime('date_out')->nullable();
+            $table->string('rksp')->nullable();
+            $table->string('fight_route')->nullable();
+            $table->string('crews')->nullable();
+            $table->string('report')->nullable();
+            $table->string('status')->default('Di dalam PLB GMF');
             $table->bigInteger('ID_BARANG')->nullable();
             $table->bigInteger('ID_HEADER')->nullable();
             $table->timestamps();
