@@ -86,11 +86,11 @@
                           <label class="control-label" style="margin-top: 5px">
                             <input
                               type="checkbox"
-                              id="27"
-                              value="27"
+                              id="27IN"
+                              value="27IN"
                               v-model="filter_kode_dokumen_pabean"
                             />
-                            27
+                            27IN
                           </label>
                         </div>
                         <div class="col-sm-2">
@@ -918,7 +918,10 @@
                                 {{ inbound.KODE_BARANG }}
                               </td>
                               <td
-                                v-if="inbound.POS_TARIF === null || inbound.POS_TARIF === ''"
+                                v-if="
+                                  inbound.POS_TARIF === null ||
+                                  inbound.POS_TARIF === ''
+                                "
                                 class="text-center table_content"
                               >
                                 -
