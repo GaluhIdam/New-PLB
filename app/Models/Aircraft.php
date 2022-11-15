@@ -11,15 +11,16 @@ class Aircraft extends Model
 
     protected $fillable = [
         'reg',
-        'operator',
         'type',
+        'operator',
         'date_in',
         'date_out',
         'rksp',
         'fight_route',
         'crews',
         'report',
-        'ID_BARANG',
-        'ID_HEADER'
+        'status',
+        'ID_HEADER',
+        'ID_BARANG'
     ];
 }

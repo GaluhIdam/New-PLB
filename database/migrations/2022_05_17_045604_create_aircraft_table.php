@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('fight_route')->nullable();
             $table->string('crews')->nullable();
             $table->string('report')->nullable();
+            $table->string('status')->default('Di dalam PLB GMF');
             $table->bigInteger('ID_BARANG')->nullable();
             $table->bigInteger('ID_HEADER')->nullable();
             $table->timestamps();

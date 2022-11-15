@@ -842,16 +842,7 @@
                               <!-- END: Nilai Barang -->
 
                               <!-- BEGIN: Nilai Barang -->
-                              <th class="filter-th">
-                                <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Kode Valuta"
-                                    v-model="search_kode_valuta"
-                                  />
-                                </div>
-                              </th>
+                              <th class="filter-th"></th>
                               <!-- END: Nilai Barang -->
 
                               <!-- BEGIN: Lampiran -->
@@ -879,22 +870,22 @@
                                 {{ outbound.NOMOR_AJU }}
                               </td>
                               <td class="text-center table_content">
-                                {{ outbound.TANGGAL_AJU | myDateTime }}
+                                {{ outbound.TANGGAL_AJU | myDate }}
                               </td>
                               <td class="text-center table_content">
                                 {{ outbound.NOMOR_DAFTAR }}
                               </td>
                               <td class="text-center table_content">
-                                {{ outbound.TANGGAL_DAFTAR | myDateTime }}
+                                {{ outbound.TANGGAL_DAFTAR | myDate }}
                               </td>
                               <td
                                 class="text-center table_content"
                                 v-if="!outbound.WAKTU_GATE_OUT"
                               >
-                                {{ outbound.TANGGAL_DAFTAR | myDateTime }}
+                                {{ outbound.TANGGAL_DAFTAR | myDate }}
                               </td>
                               <td class="text-center table_content" v-else>
-                                {{ outbound.WAKTU_GATE_OUT | myDateTime }}
+                                {{ outbound.WAKTU_GATE_OUT | myDate }}
                               </td>
                               <!-- <td class="text-left table_content">
                                 {{ outbound.NAMA_PEMILIK }}
@@ -910,19 +901,43 @@
                                 {{ outbound.NAMA_PENERIMA_BARANG }}
                               </td>
 
-                              <td class="text-center table_content">
+                              <td
+                                v-if="outbound.KODE_BARANG === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.KODE_BARANG }}
                               </td>
-                              <td class="text-center table_content">
+                              <td
+                                v-if="outbound.POS_TARIF === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.POS_TARIF }}
                               </td>
                               <td class="text-left table_content">
                                 {{ outbound.URAIAN }}
                               </td>
-                              <td class="text-center table_content">
+                              <td
+                                v-if="outbound.JUMLAH_SATUAN === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.JUMLAH_SATUAN }}
                               </td>
-                              <td class="text-center table_content">
+                              <td
+                                v-if="outbound.KODE_SATUAN === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.KODE_SATUAN }}
                               </td>
                               <td
@@ -930,6 +945,14 @@
                                 class="text-center table_content"
                               >
                                 {{ outbound.CIF_RUPIAH | formatNumber }}
+                              </td>
+                              <td
+                                class="text-center table_content"
+                                v-else-if="
+                                  outbound.KODE_DOKUMEN_PABEAN === '30'
+                                "
+                              >
+                                {{ outbound.FOB | formatNumber }}
                               </td>
                               <td
                                 class="text-center table_content"
@@ -958,7 +981,17 @@
                                 </span>
                               </td>
                               <td class="text-center table_content">
-                                {{ outbound.KODE_VALUTA }}
+                                <span
+                                  v-if="
+                                    outbound.KODE_DOKUMEN_PABEAN === '28' ||
+                                    outbound.KODE_DOKUMEN_PABEAN === '41'
+                                  "
+                                >
+                                  IDR
+                                </span>
+                                <span v-else>
+                                  {{ outbound.KODE_VALUTA }}
+                                </span>
                               </td>
                               <!-- <td
                                 v-if="$gate.isAdminOrPlanner()"
@@ -1110,9 +1143,11 @@ export default {
       current_page: "",
       paginate: "10",
 
-      // Filter Data
-      filter_start_date: null,
-      filter_end_date: null,
+      // Filter
+      filter_start_date: new Date(new Date().setDate(new Date().getDate() - 30))
+        .toISOString()
+        .substr(0, 10),
+      filter_end_date: new Date().toISOString().substr(0, 10),
       filter_kode_dokumen_pabean: [],
       filter_clicked: false,
     };
@@ -1179,7 +1214,32 @@ export default {
   methods: {
     exportExcel() {
       axios
-        .get("/api/customs/outbound-excel", { responseType: "blob" })
+        .get("/api/customs/outbound-excel", {
+          params: {
+            search: this.search,
+            search_kode_dokumen_pabean: this.search_kode_dokumen_pabean,
+            search_nomor_aju: this.search_nomor_aju,
+            search_tanggal_aju: this.search_tanggal_aju,
+            search_nomor_daftar: this.search_nomor_daftar,
+            search_tanggal_daftar: this.search_tanggal_daftar,
+            search_tanggal_pengeluaran: this.search_tanggal_pengeluaran,
+            search_nama_pemilik: this.search_nama_pemilik,
+            search_kode_barang: this.search_kode_barang,
+            search_kode_hs: this.search_kode_hs,
+            search_nama_barang: this.search_nama_barang,
+            search_jumlah_satuan: this.search_jumlah_satuan,
+            search_kode_satuan: this.search_kode_satuan,
+            search_nilai_barang: this.search_nilai_barang,
+            search_kode_valuta: this.search_kode_valuta,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_kode_dokumen_pabean: this.filter_kode_dokumen_pabean,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
@@ -1191,7 +1251,32 @@ export default {
     },
     exportCsv() {
       axios
-        .get("/api/customs/outbound-csv", { responseType: "blob" })
+        .get("/api/customs/outbound-csv", {
+          params: {
+            search: this.search,
+            search_kode_dokumen_pabean: this.search_kode_dokumen_pabean,
+            search_nomor_aju: this.search_nomor_aju,
+            search_tanggal_aju: this.search_tanggal_aju,
+            search_nomor_daftar: this.search_nomor_daftar,
+            search_tanggal_daftar: this.search_tanggal_daftar,
+            search_tanggal_pengeluaran: this.search_tanggal_pengeluaran,
+            search_nama_pemilik: this.search_nama_pemilik,
+            search_kode_barang: this.search_kode_barang,
+            search_kode_hs: this.search_kode_hs,
+            search_nama_barang: this.search_nama_barang,
+            search_jumlah_satuan: this.search_jumlah_satuan,
+            search_kode_satuan: this.search_kode_satuan,
+            search_nilai_barang: this.search_nilai_barang,
+            search_kode_valuta: this.search_kode_valuta,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_kode_dokumen_pabean: this.filter_kode_dokumen_pabean,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
@@ -1206,8 +1291,12 @@ export default {
       this.list();
     },
     clearForm() {
-      this.filter_start_date = null;
-      this.filter_end_date = null;
+      this.filter_start_date = new Date(
+        new Date().setDate(new Date().getDate() - 30)
+      )
+        .toISOString()
+        .substr(0, 10);
+      this.filter_end_date = new Date().toISOString().substr(0, 10);
       this.filter_kode_dokumen_pabean = [];
       //  Remove Search
       this.search = null;
@@ -1216,11 +1305,12 @@ export default {
       this.search_tanggal_aju = null;
       this.search_nomor_daftar = null;
       this.search_tanggal_daftar = null;
-      this.search_waktu_gate_in = null;
-      this.search_waktu_gate_out = null;
+      this.search_tanggal_pengeluaran = null;
       this.search_nama_pengirim = null;
       this.search_nama_pemilik = null;
       this.search_kode_barang = null;
+      this.search_kode_hs = null;
+      this.search_nama_barang = null;
       this.search_pos_tarif = null;
       this.search_uraian = null;
       this.search_jumlah_satuan = null;

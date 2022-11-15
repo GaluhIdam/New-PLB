@@ -168,7 +168,7 @@ export default {
   methods: {
     create() {
       axios
-        .post("/api/aircraft/redelivery", {
+        .post("/api/aircraft-redelivery", {
           reg: this.reg,
           operator: this.operator,
           type: this.type,
@@ -195,7 +195,7 @@ export default {
     initMutation() {
       this.isLoading = true;
 
-      axios.get("/api/aircraft/data").then((response) => {
+      axios.get("/api/aircraft-data").then((response) => {
         this.mutations = response.data;
         this.isLoading = false;
       });
@@ -204,7 +204,7 @@ export default {
       this.isLoading = true;
 
       axios
-        .get("/api/aircraft/data", {
+        .get("/api/aircraft-data", {
           params: {
             search: keyword,
           },

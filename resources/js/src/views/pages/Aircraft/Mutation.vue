@@ -70,15 +70,24 @@
                           v-if="$gate.isAdminOrPlanner()"
                         >
                           <div>
-                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              @click="exportCsv"
+                            >
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
-                            </button> -->
-                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                            </button>
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              @click="exportExcel"
+                            >
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
-                            </button> -->
-                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                            </button>
+                            <!-- <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              style="margin-right: 10px"
+                            >
                               <i class="fa-solid fa-file-pdf"></i>
                               PDF
                             </button> -->
@@ -367,7 +376,16 @@
                                 </div>
                               </th>
                               <th class="filter-th"></th>
-                              <th class="filter-th"></th>
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="Search Status"
+                                    v-model="search_status"
+                                  />
+                                </div>
+                              </th>
                               <th class="filter-th"></th>
                             </tr>
                           </thead>
@@ -395,6 +413,7 @@
                               </td>
                               <td class="text-center table_content">
                                 <a
+                                  class="text-danger"
                                   v-if="mutation.rksp != null"
                                   :href="`/storage/${mutation.rksp}`"
                                   target="_blank"
@@ -402,17 +421,24 @@
                                 ></a>
                               </td>
                               <td class="table_content text-center">
-                                <span v-if="mutation.date_out">
-                                  Keluar PLB GMF
-                                </span>
-                                <span v-else>Di dalam PLB GMF</span>
+                                {{ mutation.status }}
                               </td>
                               <td class="text-center">
                                 <ul class="list-inline m-0">
+                                  <!-- <li class="list-inline-item">
+                                    <a
+                                      @click="deleteData(mutation.id)"
+                                      class="text-warning"
+                                      title="Edit"
+                                      ><h5>
+                                        <i class="fa-solid fa-edit"></i></h5
+                                    ></a>
+                                  </li> -->
                                   <li class="list-inline-item">
                                     <a
                                       @click="deleteData(mutation.id)"
                                       class="text-danger"
+                                      title="Delete"
                                       ><h5><i class="fa-solid fa-trash"></i></h5
                                     ></a>
                                   </li>
@@ -545,6 +571,7 @@ export default {
       search_type: null,
       search_date_in: null,
       search_date_out: null,
+      search_status: null,
       start_date: null,
       end_date: null,
       order: "id",
@@ -578,11 +605,38 @@ export default {
     search_date_out: debounce(function () {
       this.list();
     }, 0),
+    search_status: debounce(function () {
+      this.list();
+    }, 500),
   },
   methods: {
+    exportExcel() {
+      axios
+        .get("/api/aircraft-mutation-excel", { responseType: "blob" })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "aircraft-mutations.xlsx");
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
+    exportCsv() {
+      axios
+        .get("/api/aircraft-mutation-csv", { responseType: "blob" })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "aircraft-mutations.csv");
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
     list(paginate) {
       this.showLoading();
-      paginate = paginate || `/api/aircraft`;
+      paginate = paginate || `/api/aircraft-mutation`;
       axios
         .get(paginate, {
           params: {
@@ -592,6 +646,7 @@ export default {
             search_type: this.search_type,
             search_date_in: this.search_date_in,
             search_date_out: this.search_date_out,
+            search_status: this.search_status,
             start_date: this.start_date,
             end_date: this.end_date,
             order: this.order,
