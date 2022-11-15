@@ -93,12 +93,10 @@ Vue.filter("uangUSD", function (value) {
 
 Vue.filter("formatNumber", function (value) {
   return Number(value) > 0 ?
-    value.toLocaleString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") :
+    (value / 1).toFixed(2).replace('.', ',').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") :
     "-";
 });
 
-
-// Condition when value is null
 Vue.filter("defaultFilter", function (value) {
   return value == null ? "-" : value;
 });

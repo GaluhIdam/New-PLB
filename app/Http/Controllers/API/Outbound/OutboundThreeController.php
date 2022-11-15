@@ -146,13 +146,141 @@ class OutboundThreeController extends Controller
         return $outbounds;
     }
 
-    public function exportCsv()
+    public function exportCsv(Request $request)
     {
-        return Excel::download(new TransactionThreeExport, 'outbound-transaction-three.csv');
+        $search = $request->get('search'); // Untuk Pencarian Global
+        $search_part_number = $request->get('search_part_number'); // Untuk Pencarian Part Number
+        $search_description = $request->get('search_description'); // Untuk Pencarian Description
+        $search_quantity = $request->get('search_quantity'); // Untuk Pencarian Quantity
+        $search_unit_measure = $request->get('search_unit_measure'); // Untuk Pencarian Kode Satuan
+        $search_register_aircraft = $request->get('search_register_aircraft'); // Untuk Pencarian Register Aircraft
+        $search_customer = $request->get('search_customer'); // Untuk Pencarian Customer
+        $search_date_install = $request->get('search_date_install'); // Untuk Pencarian Date Install
+        $search_date_aircraft_in = $request->get('search_date_aircraft_in'); // Untuk Pencarian Date Aircraft In
+        $search_date_aircraft_out = $request->get('search_date_aircraft_out'); // Untuk Pencarian Date Aircraft Out
+        $search_document_type = $request->get('search_document_type'); // Untuk Pencarian Type BC
+        $search_submission_number = $request->get('search_submission_number'); // Untuk Pencarian Nomor Aju
+        $search_submission_date = $request->get('search_submission_date'); // Untuk Pencarian Tanggal Aju
+        $search_registration_number = $request->get('search_registration_number'); // Untuk Pencarian Nomor Daftar
+        $search_registration_date = $request->get('search_registration_date'); // Untuk Pencarian Tanggal Daftar
+        $search_cif_idr = $request->get('search_cif_idr'); // Untuk Pencarian CIF IDR
+
+        // Filter Data
+        $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
+        $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
+        $filter_customer = $request->get('filter_customer'); // Untuk Filter Customer
+        $filter_part_number = $request->get('filter_part_number'); // Untuk Filter Part Number
+        $filter_submission_number = $request->get('filter_submission_number'); // Untuk Filter Nomor Aju
+        $filter_submission_date = $request->get('filter_submission_date'); // Untuk Filter Tanggal Aju
+        $filter_registration_number = $request->get('filter_registration_number'); // Untuk Filter Nomor Daftar
+        $filter_registration_date = $request->get('filter_registration_date'); // Untuk Filter Tanggal Daftar
+        $filter_document_type = $request->get('filter_document_type');  // Untuk Filter Type BC
+
+        // Sort Data
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'DATE_INSTALL';
+            $by = 'desc';
+        }
+        return Excel::download(new TransactionThreeExport(
+            $search,
+            $search_part_number,
+            $search_description,
+            $search_quantity,
+            $search_unit_measure,
+            $search_register_aircraft,
+            $search_customer,
+            $search_date_install,
+            $search_date_aircraft_in,
+            $search_date_aircraft_out,
+            $search_document_type,
+            $search_submission_number,
+            $search_submission_date,
+            $search_registration_number,
+            $search_registration_date,
+            $search_cif_idr,
+            $filter_start_date,
+            $filter_end_date,
+            $filter_customer,
+            $filter_part_number,
+            $filter_submission_number,
+            $filter_submission_date,
+            $filter_registration_number,
+            $filter_registration_date,
+            $filter_document_type,
+            $order,
+            $by
+        ), 'outbound-transaction-three.csv');
     }
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        return Excel::download(new TransactionThreeExport, 'outbound-transaction-three.xlsx');
+        $search = $request->get('search'); // Untuk Pencarian Global
+        $search_part_number = $request->get('search_part_number'); // Untuk Pencarian Part Number
+        $search_description = $request->get('search_description'); // Untuk Pencarian Description
+        $search_quantity = $request->get('search_quantity'); // Untuk Pencarian Quantity
+        $search_unit_measure = $request->get('search_unit_measure'); // Untuk Pencarian Kode Satuan
+        $search_register_aircraft = $request->get('search_register_aircraft'); // Untuk Pencarian Register Aircraft
+        $search_customer = $request->get('search_customer'); // Untuk Pencarian Customer
+        $search_date_install = $request->get('search_date_install'); // Untuk Pencarian Date Install
+        $search_date_aircraft_in = $request->get('search_date_aircraft_in'); // Untuk Pencarian Date Aircraft In
+        $search_date_aircraft_out = $request->get('search_date_aircraft_out'); // Untuk Pencarian Date Aircraft Out
+        $search_document_type = $request->get('search_document_type'); // Untuk Pencarian Type BC
+        $search_submission_number = $request->get('search_submission_number'); // Untuk Pencarian Nomor Aju
+        $search_submission_date = $request->get('search_submission_date'); // Untuk Pencarian Tanggal Aju
+        $search_registration_number = $request->get('search_registration_number'); // Untuk Pencarian Nomor Daftar
+        $search_registration_date = $request->get('search_registration_date'); // Untuk Pencarian Tanggal Daftar
+        $search_cif_idr = $request->get('search_cif_idr'); // Untuk Pencarian CIF IDR
+
+        // Filter Data
+        $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
+        $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
+        $filter_customer = $request->get('filter_customer'); // Untuk Filter Customer
+        $filter_part_number = $request->get('filter_part_number'); // Untuk Filter Part Number
+        $filter_submission_number = $request->get('filter_submission_number'); // Untuk Filter Nomor Aju
+        $filter_submission_date = $request->get('filter_submission_date'); // Untuk Filter Tanggal Aju
+        $filter_registration_number = $request->get('filter_registration_number'); // Untuk Filter Nomor Daftar
+        $filter_registration_date = $request->get('filter_registration_date'); // Untuk Filter Tanggal Daftar
+        $filter_document_type = $request->get('filter_document_type');  // Untuk Filter Type BC
+
+        // Sort Data
+        if ($request->get('order') && $request->get('by')) {
+            $order = $request->get('order');
+            $by = $request->get('by');
+        } else {
+            $order = 'DATE_INSTALL';
+            $by = 'desc';
+        }
+        return Excel::download(new TransactionThreeExport(
+            $search,
+            $search_part_number,
+            $search_description,
+            $search_quantity,
+            $search_unit_measure,
+            $search_register_aircraft,
+            $search_customer,
+            $search_date_install,
+            $search_date_aircraft_in,
+            $search_date_aircraft_out,
+            $search_document_type,
+            $search_submission_number,
+            $search_submission_date,
+            $search_registration_number,
+            $search_registration_date,
+            $search_cif_idr,
+            $filter_start_date,
+            $filter_end_date,
+            $filter_customer,
+            $filter_part_number,
+            $filter_submission_number,
+            $filter_submission_date,
+            $filter_registration_number,
+            $filter_registration_date,
+            $filter_document_type,
+            $order,
+            $by
+        ), 'outbound-transaction-three.xlsx');
     }
 }

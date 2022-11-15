@@ -73,7 +73,7 @@
                           />
                         </div>
                       </div>
-                      <div class="form-group row">
+                      <!-- <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Customer</label>
                         <div class="col-sm-8">
                           <input
@@ -120,7 +120,7 @@
                             v-model="filter_submission_date"
                           />
                         </div>
-                      </div>
+                      </div> -->
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label"
                           >Jenis Dokumen</label
@@ -722,8 +722,8 @@
 
                               <!-- BEGIN: CIF_RUPIAH Header -->
                               <th
-                                v-if="order == 'CIF_IDR' && by == 'asc'"
-                                @click="sort('CIF_IDR', 'desc')"
+                                v-if="order == 'cif_idr' && by == 'asc'"
+                                @click="sort('cif_idr', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">CIF IDR</span>
@@ -732,7 +732,7 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="order == 'CIF_IDR' && by == 'desc'"
+                                v-else-if="order == 'cif_idr' && by == 'desc'"
                                 @click="sort('DATE_INSTALL', 'asc')"
                                 class="
                                   text-center
@@ -747,7 +747,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('CIF_IDR', 'asc')"
+                                @click="sort('cif_idr', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">CIF IDR</span>
@@ -951,7 +951,7 @@
                                 {{ outbound.CUSTOMER }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.DATE_INSTALL | myDateTime }}
+                                {{ outbound.DATE_INSTALL | myDate }}
                               </td>
                               <td class="table_content text-center">
                                 {{ outbound.DATE_AIRCRAFT_IN | myDateTime }}
@@ -972,7 +972,7 @@
                                 {{ outbound.SUBMISSION_NUMBER }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.TTD_DATE | myDateTime }}
+                                {{ outbound.TTD_DATE | myDate }}
                               </td>
                               <td
                                 v-if="outbound.CIF_IDR === null"
@@ -1155,8 +1155,10 @@ export default {
       current_page: null,
 
       // Filter
-      filter_start_date: null,
-      filter_end_date: null,
+      filter_start_date: new Date(new Date().setDate(new Date().getDate() - 30))
+        .toISOString()
+        .substr(0, 10),
+      filter_end_date: new Date().toISOString().substr(0, 10),
       filter_customer: null,
       filter_part_number: null,
       filter_submission_number: null,
@@ -1242,7 +1244,28 @@ export default {
   methods: {
     exportExcel() {
       axios
-        .get("/api/outbound-transaction-2-excel", { responseType: "blob" })
+        .get("/api/outbound-transaction-2-excel", {
+          params: {
+            // This is for Search Data
+            search: this.search,
+            search_part_number: this.search_part_number,
+            search_description: this.search_description,
+            search_quantity: this.search_quantity,
+            search_unit_measure: this.search_unit_measure,
+            search_register_aircraft: this.search_register_aircraft,
+            search_customer: this.search_customer,
+            search_date_install: this.search_date_install,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_customer: this.filter_customer,
+            filter_part_number: this.filter_part_number,
+            filter_document_type: this.filter_document_type,
+            order: this.order,
+            by: this.by,
+          },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
@@ -1254,7 +1277,28 @@ export default {
     },
     exportCsv() {
       axios
-        .get("/api/outbound-transaction-2-csv", { responseType: "blob" })
+        .get("/api/outbound-transaction-2-csv", {
+          params: {
+            // This is for Search Data
+            search: this.search,
+            search_part_number: this.search_part_number,
+            search_description: this.search_description,
+            search_quantity: this.search_quantity,
+            search_unit_measure: this.search_unit_measure,
+            search_register_aircraft: this.search_register_aircraft,
+            search_customer: this.search_customer,
+            search_date_install: this.search_date_install,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_customer: this.filter_customer,
+            filter_part_number: this.filter_part_number,
+            filter_document_type: this.filter_document_type,
+            order: this.order,
+            by: this.by,
+          },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
@@ -1269,8 +1313,12 @@ export default {
       this.list();
     },
     clearForm() {
-      this.filter_start_date = null;
-      this.filter_end_date = null;
+      this.filter_start_date = new Date(
+        new Date().setDate(new Date().getDate() - 30)
+      )
+        .toISOString()
+        .substr(0, 10);
+      this.filter_end_date = new Date().toISOString().substr(0, 10);
       this.filter_customer = null;
       this.filter_part_number = null;
       this.filter_submission_number = null;

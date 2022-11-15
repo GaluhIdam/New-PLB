@@ -73,7 +73,7 @@
                           />
                         </div>
                       </div>
-                      <div class="form-group row">
+                      <!-- <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Customer</label>
                         <div class="col-sm-8">
                           <input
@@ -146,7 +146,7 @@
                             v-model="filter_registration_date"
                           />
                         </div>
-                      </div>
+                      </div> -->
 
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label"
@@ -983,7 +983,7 @@
                                 {{ outbound.CUSTOMER }}
                               </td>
                               <td class="table_content text-center">
-                                {{ outbound.DATE_INSTALL | myDateTime }}
+                                {{ outbound.DATE_INSTALL | myDate }}
                               </td>
                               <td class="table_content text-center">
                                 {{ outbound.DATE_AIRCRAFT_IN | myDateTime }}
@@ -1183,8 +1183,10 @@ export default {
       current_page: null,
 
       // Filter
-      filter_start_date: null,
-      filter_end_date: null,
+      filter_start_date: new Date(new Date().setDate(new Date().getDate() - 30))
+        .toISOString()
+        .substr(0, 10),
+      filter_end_date: new Date().toISOString().substr(0, 10),
       filter_customer: null,
       filter_part_number: null,
       filter_submission_number: null,
@@ -1284,7 +1286,42 @@ export default {
   methods: {
     exportExcel() {
       axios
-        .get("/api/outbound-transaction-3-excel", { responseType: "blob" })
+        .get("/api/outbound-transaction-3-excel", {
+          params: {
+            // This is for Search Data
+            search: this.search,
+            search_part_number: this.search_part_number,
+            search_description: this.search_description,
+            search_quantity: this.search_quantity,
+            search_unit_measure: this.search_unit_measure,
+            search_register_aircraft: this.search_register_aircraft,
+            search_customer: this.search_customer,
+            search_date_install: this.search_date_install,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            search_date_aircraft_out: this.search_date_aircraft_out,
+            search_document_type: this.search_document_type,
+            search_submission_number: this.search_submission_number,
+            search_submission_date: this.search_submission_date,
+            search_registration_number: this.search_registration_number,
+            search_registration_date: this.search_registration_date,
+            search_cif_idr: this.search_cif_idr,
+            search_bm_bayar: this.search_bm_bayar,
+            search_ppn_bayar: this.search_ppn_bayar,
+            search_pph_bayar: this.search_pph_bayar,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_customer: this.filter_customer,
+            filter_part_number: this.filter_part_number,
+            filter_document_type: this.filter_document_type,
+            filter_submission_number: this.filter_submission_number,
+            filter_submission_date: this.filter_submission_date,
+            filter_registration_number: this.filter_registration_number,
+            filter_registration_date: this.filter_registration_date,
+            order: this.order,
+            by: this.by,
+          },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
@@ -1296,7 +1333,42 @@ export default {
     },
     exportCsv() {
       axios
-        .get("/api/outbound-transaction-3-csv", { responseType: "blob" })
+        .get("/api/outbound-transaction-3-csv", {
+          params: {
+            // This is for Search Data
+            search: this.search,
+            search_part_number: this.search_part_number,
+            search_description: this.search_description,
+            search_quantity: this.search_quantity,
+            search_unit_measure: this.search_unit_measure,
+            search_register_aircraft: this.search_register_aircraft,
+            search_customer: this.search_customer,
+            search_date_install: this.search_date_install,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            search_date_aircraft_out: this.search_date_aircraft_out,
+            search_document_type: this.search_document_type,
+            search_submission_number: this.search_submission_number,
+            search_submission_date: this.search_submission_date,
+            search_registration_number: this.search_registration_number,
+            search_registration_date: this.search_registration_date,
+            search_cif_idr: this.search_cif_idr,
+            search_bm_bayar: this.search_bm_bayar,
+            search_ppn_bayar: this.search_ppn_bayar,
+            search_pph_bayar: this.search_pph_bayar,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_customer: this.filter_customer,
+            filter_part_number: this.filter_part_number,
+            filter_document_type: this.filter_document_type,
+            filter_submission_number: this.filter_submission_number,
+            filter_submission_date: this.filter_submission_date,
+            filter_registration_number: this.filter_registration_number,
+            filter_registration_date: this.filter_registration_date,
+            order: this.order,
+            by: this.by,
+          },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
@@ -1311,8 +1383,12 @@ export default {
       this.list();
     },
     clearForm() {
-      this.filter_start_date = null;
-      this.filter_end_date = null;
+      this.filter_start_date = new Date(
+        new Date().setDate(new Date().getDate() - 30)
+      )
+        .toISOString()
+        .substr(0, 10);
+      this.filter_end_date = new Date().toISOString().substr(0, 10);
       this.filter_customer = null;
       this.filter_part_number = null;
       this.filter_submission_number = null;
@@ -1320,6 +1396,25 @@ export default {
       this.filter_registration_number = null;
       this.filter_registration_date = null;
       this.filter_document_type = [];
+      this.search = null;
+      this.search_part_number = null;
+      this.search_description = null;
+      this.search_quantity = null;
+      this.search_unit_measure = null;
+      this.search_register_aircraft = null;
+      this.search_customer = null;
+      this.search_date_install = null;
+      this.search_date_aircraft_in = null;
+      this.search_date_aircraft_out = null;
+      this.search_document_type = null;
+      this.search_submission_number = null;
+      this.search_submission_date = null;
+      this.search_registration_number = null;
+      this.search_registration_date = null;
+      this.search_cif_idr = null;
+      this.search_bm_bayar = null;
+      this.search_ppn_bayar = null;
+      this.search_pph_bayar = null;
       this.list();
       this.filter_clicked = false;
     },
