@@ -216,6 +216,7 @@ export default {
       this.date_in = null;
       this.rksp = "";
       this.errors = [];
+      this.$refs.rksp.value = "";
     },
     attachFile() {
       this.rksp = this.$refs.rksp.files[0];
