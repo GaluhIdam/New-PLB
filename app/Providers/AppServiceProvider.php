@@ -28,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
         config(['app.locale' => 'id']);
         Carbon::setLocale('id');
         date_default_timezone_set('Asia/Jakarta');
-        // $this->app['request']->server->set('HTTPS', 'on');
+        if (!$this->app->environment('local')) {
+            $this->app['request']->server->set('HTTPS', 'on');
+        }
     }
 }
