@@ -320,7 +320,7 @@
                             :key="user_index"
                           >
                             <td class="text-center table-content">
-                              {{ user.id }}
+                              {{ user_index + 1 }}
                             </td>
                             <td class="text-center table-content">
                               {{ user.username }}
