@@ -121,9 +121,9 @@
                 </div>
                 <!-- END: Cari Data -->
 
-                <hr v-if="filter_clicked" />
+                <hr />
                 <!-- BEGIN: Tampil Data -->
-                <div class="form-group mt-4" v-if="filter_clicked">
+                <div class="form-group mt-4">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
                       <div class="vgt-global-search vgt-clearfix">
@@ -381,7 +381,11 @@
 
                               <!-- BEGIN: Tanggal Pemasukan -->
                               <th
-                                v-if="order == 'tanggal_daftar ' && by == 'asc'"
+                                v-if="
+                                  order == 'tanggal_daftar ' &&
+                                  by == 'asc' &&
+                                  $gate.isAdminOrPlanner()
+                                "
                                 @click="sort('tanggal_daftar ', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
@@ -394,7 +398,9 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'tanggal_daftar ' && by == 'desc'
+                                  order == 'tanggal_daftar ' &&
+                                  by == 'desc' &&
+                                  $gate.isAdminOrPlanner()
                                 "
                                 @click="sort('id', 'asc')"
                                 class="
@@ -411,7 +417,7 @@
                                 </button>
                               </th>
                               <th
-                                v-else
+                                v-else-if="$gate.isAdminOrPlanner()"
                                 @click="sort('tanggal_daftar ', 'asc')"
                                 class="text-center sortable"
                               >
@@ -761,7 +767,10 @@
                                   />
                                 </div>
                               </th>
-                              <th class="filter-th">
+                              <th
+                                class="filter-th"
+                                v-if="$gate.isAdminOrPlanner()"
+                              >
                                 <div>
                                   <input
                                     type="date"
@@ -881,13 +890,17 @@
                               <td
                                 class="text-center table_content"
                                 v-if="
-                                  !inbound.WAKTU_GATE_IN ||
+                                  ($gate.isAdminOrPlanner() &&
+                                    !inbound.WAKTU_GATE_IN) ||
                                   inbound.WAKTU_GATE_IN == '0000-00-00 00:00:00'
                                 "
                               >
                                 {{ inbound.TANGGAL_DAFTAR | myDate }}
                               </td>
-                              <td class="text-center table_content" v-else>
+                              <td
+                                class="text-center table_content"
+                                v-else-if="$gate.isAdminOrPlanner()"
+                              >
                                 {{ inbound.WAKTU_GATE_IN | myDate }}
                               </td>
                               <td
@@ -945,7 +958,7 @@
                                 -
                               </td>
                               <td class="text-center table_content" v-else>
-                                {{ inbound.JUMLAH_SATUAN }}
+                                {{ inbound.JUMLAH_SATUAN | formatNumber }}
                               </td>
                               <td
                                 v-if="inbound.KODE_SATUAN === null"
@@ -1127,19 +1140,14 @@ export default {
       paginate: "10",
 
       //Filter
-      filter_start_date: new Date(new Date().setDate(new Date().getDate() - 30))
-        .toISOString()
-        .substr(0, 10),
-      filter_end_date: new Date().toISOString().substr(0, 10),
+      filter_start_date: null,
+      filter_end_date: null,
       filter_clicked: false,
       filter_kode_dokumen_pabean: [],
     };
   },
   created() {
-    this.list();
-    Fire.$on("RefreshTable", () => {
-      this.list();
-    });
+    // this.list();
   },
   watch: {
     search: debounce(function () {
@@ -1291,12 +1299,8 @@ export default {
       this.list();
     },
     clearForm() {
-      this.filter_start_date = new Date(
-        new Date().setDate(new Date().getDate() - 30)
-      )
-        .toISOString()
-        .substr(0, 10);
-      this.filter_end_date = new Date().toISOString().substr(0, 10);
+      this.filter_start_date = null;
+      this.filter_end_date = null;
       this.filter_kode_dokumen_pabean = [];
       //  Remove Search
       this.search = null;

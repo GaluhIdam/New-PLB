@@ -5,9 +5,12 @@ namespace App\Exports\Costums;
 use App\Models\Costums\Inbound;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-
-class InboundExport implements FromView
+class InboundExport implements FromView, WithColumnFormatting, WithMapping
 {
     public $search;
     public $search_kode_dokumen_pabean;
@@ -181,5 +184,25 @@ class InboundExport implements FromView
             })->get();
 
         return view('exports.costums.inbound', compact('costums'));
+    }
+
+    public function map($costums): array
+    {
+        return [
+            Date::dateTimeToExcel(Inbound::find($costums->id)->TANGGAL_AJU),
+            Date::dateTimeToExcel(Inbound::find($costums->id)->TANGGAL_DAFTAR),
+            Date::dateTimeToExcel(Inbound::find($costums->id)->WAKTU_GATE_IN),
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'B' => NumberFormat::FORMAT_TEXT,
+            'C' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'D' => NumberFormat::FORMAT_TEXT,
+            'E' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'F' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        ];
     }
 }

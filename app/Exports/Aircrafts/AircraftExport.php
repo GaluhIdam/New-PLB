@@ -5,9 +5,12 @@ namespace App\Exports\Aircrafts;
 use App\Models\Aircraft;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-
-class AircraftExport implements FromView
+class AircraftExport implements FromView, WithColumnFormatting, WithMapping
 {
     public $search;
     public $search_aircraft_registration;
@@ -108,5 +111,21 @@ class AircraftExport implements FromView
         })->get();
 
         return view('exports.aircrafts.mutation', compact('aircrafts'));
+    }
+
+    public function map($aircrafts): array
+    {
+        return [
+            Date::dateTimeToExcel($aircrafts->date_in),
+            Date::dateTimeToExcel($aircrafts->date_out),
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'D' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'E' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        ];
     }
 }

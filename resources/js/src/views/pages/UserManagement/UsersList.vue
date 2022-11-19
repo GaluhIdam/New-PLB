@@ -100,37 +100,9 @@
                         <thead>
                           <tr>
                             <!-- BEGIN: Number by ID (Table Header) -->
-                            <th
-                              v-if="order == 'id' && by == 'asc'"
-                              @click="sort('id', 'desc')"
-                              class="text-center sortable sorting sorting-asc"
-                            >
+                            <th class="text-center">
                               <span class="table_header">No.</span>
-                              <button>
-                                <span class="sr-only"></span>
-                              </button>
                             </th>
-                            <th
-                              v-else-if="order == 'id' && by == 'desc'"
-                              @click="sort('id', 'asc')"
-                              class="text-center sortable sorting sorting-desc"
-                            >
-                              <span class="table_header">No.</span>
-                              <button>
-                                <span class="sr-only"></span>
-                              </button>
-                            </th>
-                            <th
-                              v-else
-                              @click="sort('id', 'asc')"
-                              class="text-center sortable"
-                            >
-                              <span class="table_header">No.</span>
-                              <button>
-                                <span class="sr-only"></span>
-                              </button>
-                            </th>
-
                             <!-- END: Number by ID (Table Header) -->
                             <!-- BEGIN: Username (Table Header) -->
                             <th
@@ -460,10 +432,10 @@
           </div>
           <form @submit.prevent="editmode ? updateUser() : createUser()">
             <div class="modal-body">
-              <AlertErrors
+              <!-- <AlertErrors
                 :form="form"
                 message="Periksa kembali data yang anda masukan!"
-              />
+              /> -->
               <!-- BEGIN: Nama dan Email -->
               <div class="row">
                 <div class="col-sm-6">
@@ -760,6 +732,7 @@ export default {
             icon: "success",
             title: "Pendaftaran berhasil dilakukan",
           });
+          this.clearForm();
           this.$Progress.finish();
         })
         .catch((error) => {
@@ -767,14 +740,24 @@ export default {
           console.log(error);
         });
     },
+    clearForm() {
+      this.form.errors.clear();
+      this.form.id = "";
+      this.form.name = "";
+      this.form.email = "";
+      this.form.username = "";
+      this.form.password = "";
+      this.form.role = "";
+      this.form.description = "";
+    },
     newModal() {
       this.editmode = false;
-      this.form.reset(); //Reset Form Modal AddUsers
+      this.clearForm();
       $("#addUsers").modal("show");
     },
     editModal(users) {
       this.editmode = true;
-      this.form.reset(); //Reset Form Modal AddUsers
+      this.clearForm();
       $("#addUsers").modal("show");
       this.form.id = users.id;
       this.form.name = users.name;
@@ -796,6 +779,7 @@ export default {
             icon: "success",
             title: "Data Pengguna berhasil diperbarui",
           });
+          this.clearForm();
           this.$Progress.finish();
         })
         .catch((error) => {

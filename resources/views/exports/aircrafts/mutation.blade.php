@@ -17,12 +17,14 @@
             <td>{{ $aircraft->operator }}</td>
             <td>{{ $aircraft->type }}</td>
             @if ($aircraft->date_in)
-            <td>{{ Carbon\Carbon::parse($aircraft->date_in)->format('d F Y H:i:s') }}</td>
+            {{-- <td>{{ Carbon\Carbon::parse($aircraft->date_in)->format('d F Y H:i:s') }}</td> --}}
+            <td>{{ $aircraft->date_in }}</td>
             @else
             <td></td>
             @endif
             @if ($aircraft->date_out)
-            <td>{{ Carbon\Carbon::parse($aircraft->date_out)->format('d F Y H:i:s') }}</td>
+            {{-- <td>{{ Carbon\Carbon::parse($aircraft->date_out)->format('d F Y H:i:s') }}</td> --}}
+            <td>{{ $aircraft->date_out }}</td>
             @else
             <td></td>
             @endif
