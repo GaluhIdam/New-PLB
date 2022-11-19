@@ -30,17 +30,20 @@
             <td>{{ $outbound->REGISTER_AIRCRAFT }}</td>
             <td>{{ $outbound->CUSTOMER }}</td>
             @if ($outbound->DATE_INSTALL != null && $outbound->DATE_INSTALL != '0000-00-00 00:00:00' )
-            <td>{{ Carbon\Carbon::parse($outbound->DATE_INSTALL)->format('d F Y') }}</td>
+            {{-- <td>{{ Carbon\Carbon::parse($outbound->DATE_INSTALL)->format('d F Y') }}</td> --}}
+            <td>{{ $outbound->DATE_INSTALL }}</td>
             @else
             <td></td>
             @endif
             @if ($outbound->DATE_AIRCRAFT_IN)
-            <td>{{ Carbon\Carbon::parse($outbound->DATE_AIRCRAFT_IN)->format('d F Y H:i:s') }}</td>
+            {{-- <td>{{ Carbon\Carbon::parse($outbound->DATE_AIRCRAFT_IN)->format('d F Y H:i:s') }}</td> --}}
+            <td>{{$outbound->DATE_AIRCRAFT_IN }}</td>
             @else
             <td></td>
             @endif
             @if ($outbound->DATE_AIRCRAFT_OUT)
-            <td>{{ Carbon\Carbon::parse($outbound->DATE_AIRCRAFT_OUT)->format('d F Y H:i:s') }}</td>
+            {{-- <td>{{ Carbon\Carbon::parse($outbound->DATE_AIRCRAFT_OUT)->format('d F Y H:i:s') }}</td> --}}
+            <td>{{$outbound->DATE_AIRCRAFT_OUT }}</td>
             @else
             <td></td>
             @endif

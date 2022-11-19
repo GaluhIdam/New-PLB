@@ -73,30 +73,7 @@
                           />
                         </div>
                       </div>
-                      <!-- <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Customer</label>
-                        <div class="col-sm-8">
-                          <input
-                            type="text"
-                            v-model="filter_customer"
-                            class="form-control"
-                            placeholder="Masukkan Customer"
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label"
-                          >Part Number</label
-                        >
-                        <div class="col-sm-8">
-                          <input
-                            type="text"
-                            v-model="filter_part_number"
-                            class="form-control"
-                            placeholder="Masukkan Part Number"
-                          />
-                        </div>
-                      </div> -->
+
                       <div class="form-group row" id="dokumenList">
                         <label class="col-sm-3 col-form-label"
                           >Jenis Dokumen</label
@@ -161,10 +138,11 @@
                   </div>
                 </div>
                 <!-- END: Cari Data -->
-                <hr v-if="filter_clicked" />
+                <!-- <hr v-if="filter_clicked" /> -->
+                <hr />
 
                 <!-- BEGIN: Tampil Data -->
-                <div class="form-group mt-4" v-if="filter_clicked">
+                <div class="form-group mt-4">
                   <!-- <div class="form-group mt-4"> -->
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
@@ -836,10 +814,8 @@ export default {
       paginate: "10",
       current_page: null,
 
-      filter_start_date: new Date(new Date().setDate(new Date().getDate() - 30))
-        .toISOString()
-        .substr(0, 10),
-      filter_end_date: new Date().toISOString().substr(0, 10),
+      filter_start_date: null,
+      filter_end_date: null,
       filter_customer: null,
       filter_part_number: null,
       filter_document_type: [],
@@ -847,10 +823,7 @@ export default {
     };
   },
   created() {
-    this.list();
-    Fire.$on("RefreshTable", () => {
-      this.list();
-    });
+    // this.list();
   },
   watch: {
     search: debounce(function () {
@@ -971,12 +944,8 @@ export default {
       this.list();
     },
     clearForm() {
-      this.filter_start_date = new Date(
-        new Date().setDate(new Date().getDate() - 30)
-      )
-        .toISOString()
-        .substr(0, 10);
-      this.filter_end_date = new Date().toISOString().substr(0, 10);
+      this.filter_start_date = null;
+      this.filter_end_date = null;
       this.filter_customer = null;
       this.filter_part_number = null;
       this.filter_document_type = [];

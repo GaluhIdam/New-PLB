@@ -5,9 +5,13 @@ namespace App\Exports\Outbounds;
 use App\Models\Outbound\TransactionThree;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 
-class TransactionThreeExport implements FromView
+class TransactionThreeExport implements FromView, WithColumnFormatting, WithMapping
 {
     public $search;
     public $search_part_number;
@@ -27,12 +31,10 @@ class TransactionThreeExport implements FromView
     public $search_cif_idr;
     public $filter_start_date;
     public $filter_end_date;
-    public $filter_customer;
-    public $filter_part_number;
-    public $filter_submission_number;
-    public $filter_submission_date;
-    public $filter_registration_number;
-    public $filter_registration_date;
+    public $start_submission_date;
+    public $end_submission_date;
+    public $start_registration_date;
+    public $end_registration_date;
     public $filter_document_type;
     public $order;
     public $by;
@@ -56,12 +58,10 @@ class TransactionThreeExport implements FromView
         $search_cif_idr,
         $filter_start_date,
         $filter_end_date,
-        $filter_customer,
-        $filter_part_number,
-        $filter_submission_number,
-        $filter_submission_date,
-        $filter_registration_number,
-        $filter_registration_date,
+        $start_submission_date,
+        $end_submission_date,
+        $start_registration_date,
+        $end_registration_date,
         $filter_document_type,
         $order,
         $by
@@ -84,12 +84,10 @@ class TransactionThreeExport implements FromView
         $this->search_cif_idr = $search_cif_idr;
         $this->filter_start_date = $filter_start_date;
         $this->filter_end_date = $filter_end_date;
-        $this->filter_customer = $filter_customer;
-        $this->filter_part_number = $filter_part_number;
-        $this->filter_submission_number = $filter_submission_number;
-        $this->filter_submission_date = $filter_submission_date;
-        $this->filter_registration_number = $filter_registration_number;
-        $this->filter_registration_date = $filter_registration_date;
+        $this->start_submission_date = $start_submission_date;
+        $this->end_submission_date = $end_submission_date;
+        $this->start_registration_date = $start_registration_date;
+        $this->end_registration_date = $end_registration_date;
         $this->filter_document_type = $filter_document_type;
         $this->order = $order;
         $this->by = $by;
@@ -115,12 +113,10 @@ class TransactionThreeExport implements FromView
         $search_cif_idr = $this->search_cif_idr;
         $filter_start_date = $this->filter_start_date;
         $filter_end_date = $this->filter_end_date;
-        $filter_customer = $this->filter_customer;
-        $filter_part_number = $this->filter_part_number;
-        $filter_submission_number = $this->filter_submission_number;
-        $filter_submission_date = $this->filter_submission_date;
-        $filter_registration_number = $this->filter_registration_number;
-        $filter_registration_date = $this->filter_registration_date;
+        $start_submission_date = $this->start_submission_date;
+        $end_submission_date = $this->end_submission_date;
+        $start_registration_date = $this->start_registration_date;
+        $end_registration_date = $this->end_registration_date;
         $filter_document_type = $this->filter_document_type;
         $order = $this->order;
         $by = $this->by;
@@ -177,18 +173,14 @@ class TransactionThreeExport implements FromView
             $query->whereDate('DATE_INSTALL', '>=', $filter_start_date);
         })->when($filter_end_date, function ($query) use ($filter_end_date) {
             $query->whereDate('DATE_INSTALL', '<=', $filter_end_date);
-        })->when($filter_customer, function ($query) use ($filter_customer) {
-            $query->where('CUSTOMER', 'LIKE', "%$filter_customer%");
-        })->when($filter_part_number, function ($query) use ($filter_part_number) {
-            $query->where('PART_NUMBER', 'LIKE', "%$filter_part_number%");
-        })->when($filter_submission_number, function ($query) use ($filter_submission_number) {
-            $query->where('SUBMISSION_NUMBER', 'LIKE', "%$filter_submission_number%");
-        })->when($filter_submission_date, function ($query) use ($filter_submission_date) {
-            $query->whereDate('SUBMISSION_DATE', "$filter_submission_date");
-        })->when($filter_registration_number, function ($query) use ($filter_registration_number) {
-            $query->where('REGISTRATION_NUMBER', 'LIKE', "%$filter_registration_number%");
-        })->when($filter_registration_date, function ($query) use ($filter_registration_date) {
-            $query->whereDate('REGISTRATION_DATE', "$filter_registration_date");
+        })->when($start_submission_date, function ($query) use ($start_submission_date) {
+            $query->whereDate('SUBMISSION_DATE', '>=', $start_submission_date);
+        })->when($end_submission_date, function ($query) use ($end_submission_date) {
+            $query->whereDate('SUBMISSION_DATE', '<=', $end_submission_date);
+        })->when($start_registration_date, function ($query) use ($start_registration_date) {
+            $query->whereDate('REGISTRATION_DATE', '>=', $start_registration_date);
+        })->when($end_registration_date, function ($query) use ($end_registration_date) {
+            $query->whereDate('REGISTRATION_DATE', '<=', $end_registration_date);
         })->when($filter_document_type, function ($query) use ($filter_document_type) {
             $query->whereIn('TYPE_BC', $filter_document_type);
         })->when(($order && $by), function ($query) use ($order, $by) {
@@ -196,5 +188,27 @@ class TransactionThreeExport implements FromView
         })->get();
 
         return view('exports.outbounds.transaction_three', compact('outbounds'));
+    }
+
+    public function map($outbounds): array
+    {
+        return [
+            Date::dateTimeToExcel($outbounds->DATE_INSTALL),
+            Date::dateTimeToExcel($outbounds->DATE_AIRCRAFT_IN),
+            Date::dateTimeToExcel($outbounds->DATE_AIRCRAFT_OUT),
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'A' => NumberFormat::FORMAT_TEXT,
+            'C' => NumberFormat::FORMAT_TEXT,
+            'G' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'H' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'I' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'K' => NumberFormat::FORMAT_TEXT,
+            'L' => NumberFormat::FORMAT_TEXT,
+        ];
     }
 }

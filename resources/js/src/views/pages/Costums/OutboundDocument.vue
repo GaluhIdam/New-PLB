@@ -127,10 +127,11 @@
                   </div>
                 </div>
                 <!-- END: Cari Data -->
-                <hr v-if="filter_clicked" />
+                <!-- <hr v-if="filter_clicked" /> -->
+                <hr />
 
                 <!-- BEGIN: Tampil Data -->
-                <div class="form-group mt-4" v-if="filter_clicked">
+                <div class="form-group mt-4">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
                       <!-- BEGIN: Global Search -->
@@ -394,7 +395,9 @@
                               <!-- BEGIN: Tanggal Pengeluaran -->
                               <th
                                 v-if="
-                                  order == 'tanggal_pengeluaran' && by == 'asc'
+                                  order == 'tanggal_pengeluaran' &&
+                                  by == 'asc' &&
+                                  $gate.isAdminOrPlanner()
                                 "
                                 @click="sort('tanggal_pengeluaran', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
@@ -408,9 +411,11 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'tanggal_pengeluaran' && by == 'desc'
+                                  order == 'tanggal_daftar' &&
+                                  by == 'desc' &&
+                                  $gate.isAdminOrPlanner()
                                 "
-                                @click="sort('tanggal_pengeluaran', 'asc')"
+                                @click="sort('tanggal_daftar', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -425,8 +430,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else
-                                @click="sort('tanggal_pengeluaran', 'asc')"
+                                v-else-if="$gate.isAdminOrPlanner()"
+                                @click="sort('tanggal_daftar', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header"
@@ -745,7 +750,10 @@
                               </th>
                               <!-- END: Tanggal Daftar -->
                               <!-- BEGIN: Tanggal Pengeluaran -->
-                              <th class="filter-th">
+                              <th
+                                class="filter-th"
+                                v-if="$gate.isAdminOrPlanner()"
+                              >
                                 <div>
                                   <input
                                     type="date"
@@ -880,17 +888,21 @@
                               </td>
                               <td
                                 class="text-center table_content"
-                                v-if="!outbound.WAKTU_GATE_OUT"
+                                v-if="
+                                  ($gate.isAdminOrPlanner() &&
+                                    !outbound.WAKTU_GATE_OUT) ||
+                                  outbound.WAKTU_GATE_OUT ==
+                                    '0000-00-00 00:00:00'
+                                "
                               >
                                 {{ outbound.TANGGAL_DAFTAR | myDate }}
                               </td>
-                              <td class="text-center table_content" v-else>
+                              <td
+                                class="text-center table_content"
+                                v-else-if="$gate.isAdminOrPlanner()"
+                              >
                                 {{ outbound.WAKTU_GATE_OUT | myDate }}
                               </td>
-                              <!-- <td class="text-left table_content">
-                                {{ outbound.NAMA_PEMILIK }}
-                              </td> -->
-
                               <td
                                 v-if="outbound.KODE_DOKUMEN_PABEAN === '28'"
                                 class="text-center table_content"
@@ -929,7 +941,7 @@
                                 -
                               </td>
                               <td class="text-center table_content" v-else>
-                                {{ outbound.JUMLAH_SATUAN }}
+                                {{ outbound.JUMLAH_SATUAN | formatNumber }}
                               </td>
                               <td
                                 v-if="outbound.KODE_SATUAN === null"
@@ -1144,19 +1156,14 @@ export default {
       paginate: "10",
 
       // Filter
-      filter_start_date: new Date(new Date().setDate(new Date().getDate() - 30))
-        .toISOString()
-        .substr(0, 10),
-      filter_end_date: new Date().toISOString().substr(0, 10),
+      filter_start_date: null,
+      filter_end_date: null,
       filter_kode_dokumen_pabean: [],
       filter_clicked: false,
     };
   },
   created() {
-    this.list();
-    Fire.$on("RefreshTable", () => {
-      this.list();
-    });
+    // this.list();
   },
   watch: {
     search: debounce(function () {
@@ -1291,12 +1298,8 @@ export default {
       this.list();
     },
     clearForm() {
-      this.filter_start_date = new Date(
-        new Date().setDate(new Date().getDate() - 30)
-      )
-        .toISOString()
-        .substr(0, 10);
-      this.filter_end_date = new Date().toISOString().substr(0, 10);
+      this.filter_start_date = null;
+      this.filter_end_date = null;
       this.filter_kode_dokumen_pabean = [];
       //  Remove Search
       this.search = null;
@@ -1384,6 +1387,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .vgt-global-search__input .input__icon .magnifying-glass {
   margin-top: -3px;

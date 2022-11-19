@@ -73,54 +73,28 @@
                           />
                         </div>
                       </div>
-                      <!-- <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Customer</label>
-                        <div class="col-sm-8">
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="filter_customer"
-                            placeholder="Masukan Nama Customer"
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label"
-                          >Part Number</label
-                        >
-                        <div class="col-sm-8">
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="filter_part_number"
-                            placeholder="Masukan Nama Part Number"
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Nomor AJU</label>
-                        <div class="col-sm-8">
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="filter_submission_number"
-                            placeholder="Masukan Nomor AJU"
-                          />
-                        </div>
-                      </div>
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label"
                           >Tanggal AJU</label
                         >
-                        <div class="col-sm-8">
+                        <div class="col-sm-4">
                           <datepicker
                             input-class="form-control"
-                            placeholder="Masukan Tanggal"
+                            placeholder="Dari Tanggal"
                             format="dd/MM/yyyy"
-                            v-model="filter_submission_date"
+                            v-model="start_submission_date"
+                            autofocus
                           />
                         </div>
-                      </div> -->
+                        <div class="col-sm-4">
+                          <datepicker
+                            input-class="form-control"
+                            placeholder="Sampai Tanggal"
+                            format="dd/MM/yyyy"
+                            v-model="end_submission_date"
+                          />
+                        </div>
+                      </div>
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label"
                           >Jenis Dokumen</label
@@ -1155,14 +1129,10 @@ export default {
       current_page: null,
 
       // Filter
-      filter_start_date: new Date(new Date().setDate(new Date().getDate() - 30))
-        .toISOString()
-        .substr(0, 10),
-      filter_end_date: new Date().toISOString().substr(0, 10),
-      filter_customer: null,
-      filter_part_number: null,
-      filter_submission_number: null,
-      filter_submission_date: null,
+      filter_start_date: null,
+      filter_end_date: null,
+      start_submission_date: null,
+      end_submission_date: null,
       filter_document_type: [],
       filter_clicked: false,
     };
@@ -1225,16 +1195,10 @@ export default {
     filter_end_date: debounce(function () {
       this.list();
     }, 500),
-    filter_customer: debounce(function () {
+    start_submission_date: debounce(function () {
       this.list();
     }, 500),
-    filter_part_number: debounce(function () {
-      this.list();
-    }, 500),
-    filter_submission_number: debounce(function () {
-      this.list();
-    }, 500),
-    filter_submission_date: debounce(function () {
+    end_submission_date: debounce(function () {
       this.list();
     }, 500),
     filter_document_type: debounce(function () {
@@ -1258,8 +1222,8 @@ export default {
             search_date_aircraft_in: this.search_date_aircraft_in,
             filter_start_date: this.filter_start_date,
             filter_end_date: this.filter_end_date,
-            filter_customer: this.filter_customer,
-            filter_part_number: this.filter_part_number,
+            start_submission_date: this.start_submission_date,
+            end_submission_date: this.end_submission_date,
             filter_document_type: this.filter_document_type,
             order: this.order,
             by: this.by,
@@ -1291,8 +1255,8 @@ export default {
             search_date_aircraft_in: this.search_date_aircraft_in,
             filter_start_date: this.filter_start_date,
             filter_end_date: this.filter_end_date,
-            filter_customer: this.filter_customer,
-            filter_part_number: this.filter_part_number,
+            start_submission_date: this.start_submission_date,
+            end_submission_date: this.end_submission_date,
             filter_document_type: this.filter_document_type,
             order: this.order,
             by: this.by,
@@ -1313,16 +1277,11 @@ export default {
       this.list();
     },
     clearForm() {
-      this.filter_start_date = new Date(
-        new Date().setDate(new Date().getDate() - 30)
-      )
-        .toISOString()
-        .substr(0, 10);
-      this.filter_end_date = new Date().toISOString().substr(0, 10);
+      this.filter_start_date = null;
+      this.filter_end_date = null;
       this.filter_customer = null;
-      this.filter_part_number = null;
-      this.filter_submission_number = null;
-      this.filter_submission_date = null;
+      this.start_submission_date = null;
+      this.end_submission_date = null;
       this.filter_document_type = [];
       this.search = null; // Search Data Global
       this.search_part_number = null; // Search Part Number
@@ -1368,10 +1327,8 @@ export default {
             // This is for filter Data
             filter_start_date: this.filter_start_date,
             filter_end_date: this.filter_end_date,
-            filter_customer: this.filter_customer,
-            filter_part_number: this.filter_part_number,
-            filter_submission_number: this.filter_submission_number,
-            filter_submission_date: this.filter_submission_date,
+            start_submission_date: this.start_submission_date,
+            end_submission_date: this.end_submission_date,
             filter_document_type: this.filter_document_type,
 
             // This is for order by

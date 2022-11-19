@@ -48,14 +48,14 @@
                                     <br>
                                     <br>
                                     <!-- <label>Outbound 1</label><br /> -->
-                                    <label>Inventory berkurang dari Sistem</label>
+                                    <label>Inventory Berkurang dari Sistem dan <br> Pesawat masih di Area PLB GMF</label>
                                 </div>
                                 <div class="col-md-4 text-center">
                                     <router-link to=/outbound-transcation-2 class="btn btn-2">2</router-link>
                                     <br>
                                     <br>
                                     <!-- <label>Outbound 2</label><br /> -->
-                                    <label>Inventory berkurang BC 28 AJU​</label>
+                                    <label>Inventory berkurang dari Sistem dan <br> Pesawat sudah keluar dari Area PLB GMF</label>
                                 </div>
                                 <div class="col-md-4 text-center">
                                     <router-link to=/outbound-transcation-3 class="btn btn-3">3
@@ -63,7 +63,7 @@
                                     <br />
                                     <br />
                                     <!-- <label>Outbound 3</label><br /> -->
-                                    <label>Inventory berkurang BC 28 Daftar</label>
+                                    <label>Inventory berkurang dari Sistem dan <br> Sudah dibuatkan dokumen Custom Clearance</label>
                                 </div>
                             </div>
                         </div>
@@ -78,53 +78,53 @@
 
 <style>
 .btn-1 {
-    background-color: #f77b00;
-    border: none;
-    color: white;
-    text-align: right;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 80px;
-    cursor: pointer;
-    padding-right: 45px;
-    padding-left: 45px;
-    border-radius: 50%;
+  background-color: #f77b00;
+  border: none;
+  color: white;
+  text-align: right;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 80px;
+  cursor: pointer;
+  padding-right: 45px;
+  padding-left: 45px;
+  border-radius: 50%;
 }
 
 .btn-2 {
-    background-color: #f77b00;
-    border: none;
-    color: white;
-    text-align: right;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 80px;
-    cursor: pointer;
-    padding-right: 45px;
-    padding-left: 45px;
-    border-radius: 50%;
+  background-color: #f77b00;
+  border: none;
+  color: white;
+  text-align: right;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 80px;
+  cursor: pointer;
+  padding-right: 45px;
+  padding-left: 45px;
+  border-radius: 50%;
 }
 
 .btn-3 {
-    background-color: #f77b00;
-    border: none;
-    color: white;
-    text-align: right;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 80px;
-    cursor: pointer;
-    padding-right: 45px;
-    padding-left: 45px;
-    border-radius: 50%;
+  background-color: #f77b00;
+  border: none;
+  color: white;
+  text-align: right;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 80px;
+  cursor: pointer;
+  padding-right: 45px;
+  padding-left: 45px;
+  border-radius: 50%;
 }
 </style>
 
 <script>
 export default {
-    mounted() {
-        console.log("Component mounted.");
-    },
+  mounted() {
+    console.log("Component mounted.");
+  },
 };
 </script>
 

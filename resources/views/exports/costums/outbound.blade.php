@@ -25,20 +25,20 @@
             <td>{{ $costum->KODE_DOKUMEN_PABEAN }}</td>
             <td>{{ $costum->NOMOR_AJU }}</td>
             @if ($costum->TANGGAL_AJU != null && $costum->TANGGAL_AJU != '0000-00-00 00:00:00' )
-            <td>{{ Carbon\Carbon::parse($costum->TANGGAL_AJU)->format('d F Y') }}</td>
+            <td>{{date('d/m/Y', strtotime($costum->TANGGAL_AJU))}}</td>
             @else
             <td></td>
             @endif
             <td>{{ $costum->NOMOR_DAFTAR }}</td>
             @if ($costum->TANGGAL_DAFTAR != null && $costum->TANGGAL_DAFTAR != '0000-00-00 00:00:00' )
-            <td>{{ Carbon\Carbon::parse($costum->TANGGAL_DAFTAR)->format('d F Y') }}</td>
+            <td>{{date('d/m/Y', strtotime($costum->TANGGAL_DAFTAR))}}</td>
             @else
             <td></td>
             @endif
-            @if($costum->WAKTU_GATE_IN == null || $costum->WAKTU_GATE_IN == '0000-00-00 00:00:00')
-            <td>{{ Carbon\Carbon::parse($costum->TANGGAL_DAFTAR)->format('d F Y') }}</td>
+            @if($costum->WAKTU_GATE_OUT == null || $costum->WAKTU_GATE_OUT == '0000-00-00 00:00:00')
+            <td>{{ date('d/m/Y', strtotime($costum->TANGGAL_DAFTAR))}}</td>
             @else
-            <td>{{ Carbon\Carbon::parse($costum->WAKTU_GATE_OUT)->format('d F Y') }}</td>
+            <td>{{ date('d/m/Y', strtotime($costum->WAKTU_GATE_OUT)) }}</td>
             @endif
             <td>{{ $costum->NAMA_PENGIRIM }}</td>
             <td>{{ $costum->NAMA_PEMILIK }}</td>

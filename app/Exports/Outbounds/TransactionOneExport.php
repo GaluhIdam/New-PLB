@@ -5,9 +5,13 @@ namespace App\Exports\Outbounds;
 use App\Models\Outbound\TransactionOne;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 
-class TransactionOneExport implements FromView
+class TransactionOneExport implements FromView, WithColumnFormatting, WithMapping
 {
     public $search;
     public $search_part_number;
@@ -124,5 +128,23 @@ class TransactionOneExport implements FromView
         })->get();
 
         return view('exports.outbounds.transaction_one', compact('outbounds'));
+    }
+
+    public function map($outbounds): array
+    {
+        return [
+            Date::dateTimeToExcel($outbounds->DATE_INSTALL),
+            Date::dateTimeToExcel($outbounds->DATE_AIRCRAFT_IN),
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'A' => NumberFormat::FORMAT_TEXT,
+            'C' => NumberFormat::FORMAT_TEXT,
+            'G' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'H' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        ];
     }
 }

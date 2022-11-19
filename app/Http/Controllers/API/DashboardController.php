@@ -43,24 +43,20 @@ class DashboardController extends Controller
         // Return Response in array each object condition
         return response()->json([
             [
-                'labels' => 'Di Area GMF',
+                'labels' => 'Kondisi 1',
                 'series' => $conditionOne,
             ], [
-                'labels' => 'Outbound <= 14 Hari',
+                'labels' => 'Kondisi 2 <= 14 Hari',
                 'series' => $conditionTwo,
             ],
             [
-                'labels' => 'Outbound > 14 Hari',
+                'labels' => 'Kondisi 2 > 14 Hari',
                 'series' => $conditionThree,
             ],
             [
-                'labels' => 'Sudah BC 28',
+                'labels' => 'Kondisi 3',
                 'series' => $conditionFour,
             ]
-            //             Outbound pada Pesawat di Area PLB GMF
-            //              Outbound <= 14 Hari sejak Pesawat Keluar
-            // Outbound > 14 Hari sejak Pesawat Keluar
-            // Sudah dibuat BC 28
         ]);
     }
 

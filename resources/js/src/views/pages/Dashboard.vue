@@ -22,7 +22,9 @@
           <div class="col-md-6">
             <div class="card card-plb">
               <div class="card-header ui-sortable-handle">
-                <h5 class="card-title card_title_margin">Status Outbound</h5>
+                <h5 class="card-title card_title_margin">
+                  Status Outbound BC28
+                </h5>
                 <div class="card-tools">
                   <button
                     type="button"
@@ -45,9 +47,6 @@
                   ></pie-one>
                 </div>
               </div>
-              <div class="card-footer text-center p-1">
-                <h5>Status Part Consume Install Periode</h5>
-              </div>
             </div>
           </div>
           <!-- BEGIN: Status Pesawat di GMF -->
@@ -55,7 +54,7 @@
             <div class="card card-plb">
               <div class="card-header border-0 ui-sortable-handle">
                 <h5 class="card-title card_title_margin">
-                  Status Pesawat di GMF
+                  Jumlah Pesawat yang ada di Hangar GMF
                 </h5>
                 <div class="card-tools">
                   <button
@@ -77,9 +76,6 @@
                     :series="pie_two.series"
                   ></pie-two>
                 </div>
-              </div>
-              <div class="card-footer text-center p-1">
-                <h5>Jumlah Pesawat yang ada di Hangar</h5>
               </div>
             </div>
           </div>
@@ -136,9 +132,6 @@
                   :options="column_one.chartOptions"
                   :series="column_one.series"
                 ></column-one>
-              </div>
-              <div class="card-footer text-center p-1">
-                <h5>Status BC 28</h5>
               </div>
             </div>
           </div>
@@ -275,6 +268,19 @@ export default {
               labels: {
                 formatter: function (val) {
                   // Add dots to thousands
+                  //                   .filter("formatNumber", function (value) {
+                  //   return Number(value) > 0 ?
+                  //     (value / 1).toFixed(2).replace('.', ',').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") :
+                  //     "-";
+                  // });
+                  // Add dots to thousands and comma to decimal
+                  return Number(val) > 0
+                    ? (val / 1)
+                        .toFixed(2)
+                        .replace(".", ",")
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                    : "-";
                   return val.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                 },
               },
@@ -287,7 +293,13 @@ export default {
               labels: {
                 formatter: function (val) {
                   // Add dots to thousands
-                  return val.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                  return Number(val) > 0
+                    ? (val / 1)
+                        .toFixed(2)
+                        .replace(".", ",")
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                    : "-";
                 },
               },
               title: {
