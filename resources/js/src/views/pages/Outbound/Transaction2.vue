@@ -159,10 +159,11 @@
                   </div>
                 </div>
                 <!-- END: Cari Data -->
-                <hr v-if="filter_clicked" />
+                <hr />
 
                 <!-- BEGIN: Tampil Data -->
-                <div class="form-group mt-4" v-if="filter_clicked">
+                <!-- <div class="form-group mt-4" v-if="filter_clicked"> -->
+                <div class="form-group mt-4">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
                       <!-- BEGIN: Global Search -->

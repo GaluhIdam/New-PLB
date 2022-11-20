@@ -49,7 +49,7 @@
             @endif
             <td>{{ $outbound->TYPE_BC }}</td>
             <td>{{ $outbound->SUBMISSION_NUMBER }}</td>
-            <td>{{ $outbound->TTD_DATE }}</td>
+            <td>{{date('d/m/Y', strtotime($outbound->TTD_DATE))}}</td>
             <td>{{ $outbound->CIF_IDR }}</td>
             @if($outbound->JENIS_TARIF == 'BM')
             <td>{{ $outbound->TARIF }}</td>
