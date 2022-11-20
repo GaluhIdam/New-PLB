@@ -1003,7 +1003,7 @@
                               </td>
                             </tr>
                             <tr v-if="outbounds.data.length < 1">
-                              <td colspan="15">
+                              <td colspan="18">
                                 <div class="vgt-center-align vgt-text-disabled">
                                   Data not found
                                 </div>
