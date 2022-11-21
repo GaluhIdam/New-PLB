@@ -1254,6 +1254,7 @@ export default {
         });
     },
     exportCsv() {
+      this.$Progress.start();
       axios
         .get("/api/customs/inbound-csv", {
           params: {
@@ -1291,10 +1292,14 @@ export default {
           link.setAttribute("download", "kepabeanan-inbound.csv");
           document.body.appendChild(link);
           link.click();
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
         });
     },
     filterButton() {
-      // this.filter_clicked = !this.filter_clicked;
       this.filter_clicked = true;
       this.list();
     },

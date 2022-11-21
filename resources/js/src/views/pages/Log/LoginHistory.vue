@@ -84,7 +84,7 @@
                         >
                           <thead>
                             <tr>
-                              <!--  -->
+                              <!-- BEGIN: ID Sort -->
                               <th
                                 v-if="order == 'id' && by == 'asc'"
                                 @click="sort('id', 'desc')"
@@ -119,6 +119,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
+                              <!-- END: ID Sort -->
                               <!-- BEGIN: Username -->
                               <th
                                 v-if="order == 'username' && by == 'asc'"
@@ -132,7 +133,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'username' && by == 'desc'"
-                                @click="sort('username', 'asc')"
+                                @click="sort('id', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -146,7 +147,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('email', 'asc')"
+                                @click="sort('username', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Username</span>
@@ -158,7 +159,7 @@
                               <!-- BEGIN: Email Address -->
                               <th
                                 v-if="order == 'email' && by == 'asc'"
-                                @click="sort('username', 'desc')"
+                                @click="sort('email', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Email Address</span>
@@ -168,7 +169,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'email' && by == 'desc'"
-                                @click="sort('email', 'asc')"
+                                @click="sort('id', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -206,7 +207,7 @@
                                 v-else-if="
                                   order == 'last_login_at' && by == 'desc'
                                 "
-                                @click="sort('last_login_at', 'asc')"
+                                @click="sort('id', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -243,7 +244,7 @@
                                 v-else-if="
                                   order == 'last_login_ip' && by == 'desc'
                                 "
-                                @click="sort('last_login_ip', 'asc')"
+                                @click="sort('id', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -265,10 +266,12 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
+                              <!-- BEGIN: Last Login Device -->
                               <th
-                                v-if="order == 'user_agent' && by == 'asc'"
-                                @click="sort('user_agent', 'desc')"
+                                v-if="
+                                  order == 'last_login_device' && by == 'asc'
+                                "
+                                @click="sort('last_login_device', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">User Agent</span>
@@ -278,9 +281,9 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'user_agent' && by == 'desc'
+                                  order == 'last_login_device' && by == 'desc'
                                 "
-                                @click="sort('user_agent', 'asc')"
+                                @click="sort('id', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -294,7 +297,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('user_agent', 'asc')"
+                                @click="sort('last_login_device', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">User Agent</span>
@@ -302,7 +305,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!--  -->
+                              <!-- END: Last Login Device -->
                             </tr>
                             <tr>
                               <th class="filter-th"></th>
@@ -508,7 +511,7 @@ export default {
       search_last_login_device: null,
 
       //  Query Order
-      order: "last_login_at",
+      order: "id",
       by: "desc",
       paginate: "10",
       current_page: null,
@@ -539,7 +542,7 @@ export default {
   },
   methods: {
     list(paginate) {
-      this.showLoading();
+      this.$Progress.start();
       paginate = paginate || `/api/login-history`;
       axios
         .get(paginate, {
@@ -558,9 +561,12 @@ export default {
         .then((response) => {
           this.login_history = response.data;
           this.current_page = this.login_history.current_page;
-          Swal.close();
+          this.$Progress.finish();
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
+        });
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {

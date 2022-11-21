@@ -133,7 +133,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'username' && by == 'desc'"
-                                @click="sort('username', 'asc')"
+                                @click="sort('id', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -168,7 +168,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'time' && by == 'desc'"
-                                @click="sort('time', 'asc')"
+                                @click="sort('id', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -203,7 +203,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'activity' && by == 'desc'"
-                                @click="sort('activity', 'asc')"
+                                @click="sort('id', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -430,7 +430,7 @@ export default {
   },
   methods: {
     list(paginate) {
-      this.showLoading();
+      this.$Progress.start();
       paginate = paginate || `/api/activity-history`;
       axios
         .get(paginate, {
@@ -447,9 +447,12 @@ export default {
         .then((response) => {
           this.activities = response.data;
           this.current_page = this.activities.current_page;
-          Swal.close();
+          this.$Progress.finish();
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
+        });
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {

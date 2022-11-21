@@ -333,7 +333,7 @@
                                     type="text"
                                     class="vgt-input text-center"
                                     placeholder="Search Aircraft Registration"
-                                    v-model="search_reg"
+                                    v-model="search_aircraft_registration"
                                   />
                                 </div>
                               </th>
@@ -353,7 +353,7 @@
                                     type="text"
                                     class="vgt-input text-center"
                                     placeholder="Search Aircraft Type"
-                                    v-model="search_type"
+                                    v-model="search_aircraft_type"
                                   />
                                 </div>
                               </th>
@@ -362,7 +362,7 @@
                                   <input
                                     type="date"
                                     class="vgt-input text-center"
-                                    v-model="search_date_in"
+                                    v-model="search_date_aircraft_in"
                                   />
                                 </div>
                               </th>
@@ -371,7 +371,7 @@
                                   <input
                                     type="date"
                                     class="vgt-input text-center"
-                                    v-model="search_date_out"
+                                    v-model="search_date_aircraft_out"
                                   />
                                 </div>
                               </th>
@@ -566,14 +566,12 @@ export default {
         links: [],
       },
       search: null,
-      search_reg: null,
+      search_aircraft_registration: null,
       search_operator: null,
-      search_type: null,
-      search_date_in: null,
-      search_date_out: null,
+      search_aircraft_type: null,
+      search_date_aircraft_in: null,
+      search_date_aircraft_out: null,
       search_status: null,
-      start_date: null,
-      end_date: null,
       order: "id",
       by: "desc",
       paginate: "10",
@@ -590,19 +588,19 @@ export default {
     search: debounce(function () {
       this.list();
     }, 500),
-    search_reg: debounce(function () {
+    search_aircraft_registration: debounce(function () {
       this.list();
     }, 500),
     search_operator: debounce(function () {
       this.list();
     }, 500),
-    search_type: debounce(function () {
+    search_aircraft_type: debounce(function () {
       this.list();
     }, 500),
-    search_date_in: debounce(function () {
+    search_date_aircraft_in: debounce(function () {
       this.list();
     }, 0),
-    search_date_out: debounce(function () {
+    search_date_aircraft_out: debounce(function () {
       this.list();
     }, 0),
     search_status: debounce(function () {
@@ -611,18 +609,17 @@ export default {
   },
   methods: {
     exportExcel() {
+      this.$Progress.start();
       axios
         .get("/api/aircraft-mutation-excel", {
           params: {
             search: this.search,
-            search_reg: this.search_reg,
+            search_aircraft_registration: this.search_aircraft_registration,
             search_operator: this.search_operator,
-            search_type: this.search_type,
-            search_date_in: this.search_date_in,
-            search_date_out: this.search_date_out,
+            search_aircraft_type: this.search_aircraft_type,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            search_date_aircraft_out: this.search_date_aircraft_out,
             search_status: this.search_status,
-            start_date: this.start_date,
-            end_date: this.end_date,
             order: this.order,
             by: this.by,
             paginate: this.paginate,
@@ -636,21 +633,25 @@ export default {
           link.setAttribute("download", "aircraft-mutations.xlsx");
           document.body.appendChild(link);
           link.click();
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
         });
     },
     exportCsv() {
+      this.$Progress.start();
       axios
         .get("/api/aircraft-mutation-csv", {
           params: {
             search: this.search,
-            search_reg: this.search_reg,
+            search_aircraft_registration: this.search_aircraft_registration,
             search_operator: this.search_operator,
-            search_type: this.search_type,
-            search_date_in: this.search_date_in,
-            search_date_out: this.search_date_out,
+            search_aircraft_type: this.search_aircraft_type,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            search_date_aircraft_out: this.search_date_aircraft_out,
             search_status: this.search_status,
-            start_date: this.start_date,
-            end_date: this.end_date,
             order: this.order,
             by: this.by,
             paginate: this.paginate,
@@ -664,23 +665,26 @@ export default {
           link.setAttribute("download", "aircraft-mutations.csv");
           document.body.appendChild(link);
           link.click();
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
         });
     },
     list(paginate) {
-      this.showLoading();
+      this.$Progress.start();
       paginate = paginate || `/api/aircraft-mutation`;
       axios
         .get(paginate, {
           params: {
             search: this.search,
-            search_reg: this.search_reg,
+            search_aircraft_registration: this.search_aircraft_registration,
             search_operator: this.search_operator,
-            search_type: this.search_type,
-            search_date_in: this.search_date_in,
-            search_date_out: this.search_date_out,
+            search_aircraft_type: this.search_aircraft_type,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            search_date_aircraft_out: this.search_date_aircraft_out,
             search_status: this.search_status,
-            start_date: this.start_date,
-            end_date: this.end_date,
             order: this.order,
             by: this.by,
             paginate: this.paginate,
@@ -689,9 +693,12 @@ export default {
         .then((response) => {
           this.mutations = response.data;
           this.current_page = this.mutations.current_page;
-          Swal.close();
+          this.$Progress.finish();
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
+        });
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
@@ -732,12 +739,13 @@ export default {
         confirmButtonText: "Ya, hapus!",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.showLoading();
+          this.$Progress.start();
           axios
             .delete(`/api/aircraft/${id}`)
             .then(() => {
               Swal.fire("Berhasil!", "Data berhasil dihapus", "success");
               Fire.$emit("RefreshTable");
+              this.$Progress.finish();
             })
             .catch((error) => {
               this.$Progress.fail();

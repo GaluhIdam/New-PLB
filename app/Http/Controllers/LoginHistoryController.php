@@ -26,7 +26,7 @@ class LoginHistoryController extends Controller
             $order = $request->get('order');
             $by = $request->get('by');
         } else {
-            $order = 'last_login_at';
+            $order = 'id';
             $by = 'desc';
         }
 
