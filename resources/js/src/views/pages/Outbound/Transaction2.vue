@@ -1139,10 +1139,7 @@ export default {
     };
   },
   created() {
-    this.list();
-    Fire.$on("RefreshTable", () => {
-      this.list();
-    });
+    // this.list();
   },
   watch: {
     search: debounce(function () {
@@ -1207,6 +1204,52 @@ export default {
     }, 500),
   },
   methods: {
+    list(paginate) {
+      this.$Progress.start();
+      paginate = paginate || `/api/outbound-transaction-2`;
+      axios
+        .get(paginate, {
+          params: {
+            // This is for Search Data
+            search: this.search,
+            search_part_number: this.search_part_number,
+            search_description: this.search_description,
+            search_quantity: this.search_quantity,
+            search_unit_measure: this.search_unit_measure,
+            search_register_aircraft: this.search_register_aircraft,
+            search_customer: this.search_customer,
+            search_date_install: this.search_date_install,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            search_date_aircraft_out: this.search_date_aircraft_out,
+            search_document_type: this.search_document_type,
+            search_submission_number: this.search_submission_number,
+            search_submission_date: this.search_submission_date,
+            search_ttd_date: this.search_ttd_date,
+            search_cif_idr: this.search_cif_idr,
+
+            // This is for filter Data
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            start_submission_date: this.start_submission_date,
+            end_submission_date: this.end_submission_date,
+            filter_document_type: this.filter_document_type,
+
+            // This is for order by
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+        })
+        .then((response) => {
+          this.outbounds = response.data;
+          this.current_page = this.outbounds.current_page;
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
+        });
+    },
     exportExcel() {
       axios
         .get("/api/outbound-transaction-2-excel", {
@@ -1299,54 +1342,6 @@ export default {
       this.search_submission_date = null; // Search Submission Date
       this.search_ttd_date = null; // Search TTD Date
       this.search_cif_idr = null; // Search CIF IDR
-      this.list();
-      this.filter_clicked = false;
-    },
-    list(paginate) {
-      this.$Progress.start();
-      paginate = paginate || `/api/outbound-transaction-2`;
-      axios
-        .get(paginate, {
-          params: {
-            // This is for Search Data
-            search: this.search,
-            search_part_number: this.search_part_number,
-            search_description: this.search_description,
-            search_quantity: this.search_quantity,
-            search_unit_measure: this.search_unit_measure,
-            search_register_aircraft: this.search_register_aircraft,
-            search_customer: this.search_customer,
-            search_date_install: this.search_date_install,
-            search_date_aircraft_in: this.search_date_aircraft_in,
-            search_date_aircraft_out: this.search_date_aircraft_out,
-            search_document_type: this.search_document_type,
-            search_submission_number: this.search_submission_number,
-            search_submission_date: this.search_submission_date,
-            search_ttd_date: this.search_ttd_date,
-            search_cif_idr: this.search_cif_idr,
-
-            // This is for filter Data
-            filter_start_date: this.filter_start_date,
-            filter_end_date: this.filter_end_date,
-            start_submission_date: this.start_submission_date,
-            end_submission_date: this.end_submission_date,
-            filter_document_type: this.filter_document_type,
-
-            // This is for order by
-            order: this.order,
-            by: this.by,
-            paginate: this.paginate,
-          },
-        })
-        .then((response) => {
-          this.outbounds = response.data;
-          this.current_page = this.outbounds.current_page;
-          this.$Progress.finish();
-        })
-        .catch((error) => {
-          this.$Progress.fail();
-          console.log(error);
-        });
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {

@@ -1237,6 +1237,7 @@ export default {
   },
   methods: {
     exportExcel() {
+      this.$Progress.start();
       axios
         .get("/api/outbound-transaction-3-excel", {
           params: {
@@ -1279,9 +1280,15 @@ export default {
           link.setAttribute("download", "outbound-transaction-three.xlsx");
           document.body.appendChild(link);
           link.click();
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
         });
     },
     exportCsv() {
+      this.$Progress.start();
       axios
         .get("/api/outbound-transaction-3-csv", {
           params: {
@@ -1324,6 +1331,11 @@ export default {
           link.setAttribute("download", "outbound-transaction-three.csv");
           document.body.appendChild(link);
           link.click();
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
         });
     },
     filterButton() {
@@ -1357,8 +1369,6 @@ export default {
       this.search_bm_bayar = null;
       this.search_ppn_bayar = null;
       this.search_pph_bayar = null;
-      this.list();
-      this.filter_clicked = false;
     },
     list(paginate) {
       this.$Progress.start();

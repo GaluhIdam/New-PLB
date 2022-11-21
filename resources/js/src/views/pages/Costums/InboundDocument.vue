@@ -1135,7 +1135,7 @@ export default {
 
       // Order And Paginate
       order: "TANGGAL_DAFTAR",
-      by: "desc  ",
+      by: "desc",
       current_page: "",
       paginate: "10",
 
@@ -1214,6 +1214,7 @@ export default {
 
   methods: {
     exportExcel() {
+      this.$Progress.start();
       axios
         .get("/api/customs/inbound-excel", {
           params: {
@@ -1251,6 +1252,11 @@ export default {
           link.setAttribute("download", "kepabeanan-inbound.xlsx");
           document.body.appendChild(link);
           link.click();
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
         });
     },
     exportCsv() {

@@ -871,96 +871,6 @@ export default {
   },
 
   methods: {
-    exportExcel() {
-      axios
-        .get("/api/outbound-transaction-1-excel", {
-          params: {
-            // This is for Search Data
-            search: this.search,
-            search_part_number: this.search_part_number,
-            search_description: this.search_description,
-            search_quantity: this.search_quantity,
-            search_unit_measure: this.search_unit_measure,
-            search_register_aircraft: this.search_register_aircraft,
-            search_customer: this.search_customer,
-            search_date_install: this.search_date_install,
-            search_date_aircraft_in: this.search_date_aircraft_in,
-            filter_start_date: this.filter_start_date,
-            filter_end_date: this.filter_end_date,
-            filter_customer: this.filter_customer,
-            filter_part_number: this.filter_part_number,
-            filter_document_type: this.filter_document_type,
-            order: this.order,
-            by: this.by,
-            paginate: this.paginate,
-          },
-          responseType: "blob",
-        })
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]));
-          const link = document.createElement("a");
-          link.href = url;
-          link.setAttribute("download", "outbound-transaction-one.xlsx");
-          document.body.appendChild(link);
-          link.click();
-        });
-    },
-    exportCsv() {
-      axios
-        .get("/api/outbound-transaction-1-csv", {
-          params: {
-            // This is for Search Data
-            search: this.search,
-            search_part_number: this.search_part_number,
-            search_description: this.search_description,
-            search_quantity: this.search_quantity,
-            search_unit_measure: this.search_unit_measure,
-            search_register_aircraft: this.search_register_aircraft,
-            search_customer: this.search_customer,
-            search_date_install: this.search_date_install,
-            search_date_aircraft_in: this.search_date_aircraft_in,
-            filter_start_date: this.filter_start_date,
-            filter_end_date: this.filter_end_date,
-            filter_customer: this.filter_customer,
-            filter_part_number: this.filter_part_number,
-            filter_document_type: this.filter_document_type,
-            order: this.order,
-            by: this.by,
-            paginate: this.paginate,
-          },
-          responseType: "blob",
-        })
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]));
-          const link = document.createElement("a");
-          link.href = url;
-          link.setAttribute("download", "outbound-transaction-one.csv");
-          document.body.appendChild(link);
-          link.click();
-        });
-    },
-    filterButton() {
-      this.filter_clicked = true;
-      this.list();
-    },
-    clearForm() {
-      this.filter_start_date = null;
-      this.filter_end_date = null;
-      this.filter_customer = null;
-      this.filter_part_number = null;
-      this.filter_document_type = [];
-      this.search = null; // Search All Data
-      this.search_part_number = null; // Part Number
-      this.search_description = null; // Description
-      this.search_quantity = null; // Quantity
-      this.search_unit_measure = null; // Kode Satuan
-      this.search_register_aircraft = null; // Register Aircraft
-      this.search_customer = null; // Customer
-      this.search_date_install = null; // Date Install
-      this.search_date_aircraft_in = null; // Date Aircraft In
-      this.list();
-      this.filter_clicked = false;
-    },
     list(paginate) {
       this.$Progress.start();
       paginate = paginate || `/api/outbound-transaction-1`;
@@ -1000,6 +910,105 @@ export default {
           this.$Progress.fail();
           console.log(error);
         });
+    },
+    exportExcel() {
+      this.$Progress.start();
+      axios
+        .get("/api/outbound-transaction-1-excel", {
+          params: {
+            // This is for Search Data
+            search: this.search,
+            search_part_number: this.search_part_number,
+            search_description: this.search_description,
+            search_quantity: this.search_quantity,
+            search_unit_measure: this.search_unit_measure,
+            search_register_aircraft: this.search_register_aircraft,
+            search_customer: this.search_customer,
+            search_date_install: this.search_date_install,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_customer: this.filter_customer,
+            filter_part_number: this.filter_part_number,
+            filter_document_type: this.filter_document_type,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+          responseType: "blob",
+        })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "outbound-transaction-one.xlsx");
+          document.body.appendChild(link);
+          link.click();
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
+        });
+    },
+    exportCsv() {
+      this.$Progress.start();
+      axios
+        .get("/api/outbound-transaction-1-csv", {
+          params: {
+            search: this.search,
+            search_part_number: this.search_part_number,
+            search_description: this.search_description,
+            search_quantity: this.search_quantity,
+            search_unit_measure: this.search_unit_measure,
+            search_register_aircraft: this.search_register_aircraft,
+            search_customer: this.search_customer,
+            search_date_install: this.search_date_install,
+            search_date_aircraft_in: this.search_date_aircraft_in,
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_customer: this.filter_customer,
+            filter_part_number: this.filter_part_number,
+            filter_document_type: this.filter_document_type,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+          responseType: "blob",
+        })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "outbound-transaction-one.csv");
+          document.body.appendChild(link);
+          link.click();
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
+        });
+    },
+    filterButton() {
+      this.filter_clicked = true;
+      this.list();
+    },
+    clearForm() {
+      this.filter_start_date = null;
+      this.filter_end_date = null;
+      this.filter_customer = null;
+      this.filter_part_number = null;
+      this.filter_document_type = [];
+      this.search = null; // Search All Data
+      this.search_part_number = null; // Part Number
+      this.search_description = null; // Description
+      this.search_quantity = null; // Quantity
+      this.search_unit_measure = null; // Kode Satuan
+      this.search_register_aircraft = null; // Register Aircraft
+      this.search_customer = null; // Customer
+      this.search_date_install = null; // Date Install
+      this.search_date_aircraft_in = null; // Date Aircraft In
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
