@@ -160,6 +160,7 @@
                             placeholder="Search Data"
                             class="vgt-input vgt-pull-left"
                             v-model="search"
+                            @change="list()"
                           />
                         </div>
                         <!-- BEGIN: Right Button -->
@@ -530,6 +531,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Part Number"
                                     v-model="search_part_number"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -542,6 +544,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Description"
                                     v-model="search_description"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -554,6 +557,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Quantity"
                                     v-model="search_quantity"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -566,6 +570,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Kode Satuan"
                                     v-model="search_unit_measure"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -578,6 +583,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Register A/C"
                                     v-model="search_register_aircraft"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -590,6 +596,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Customer"
                                     v-model="search_customer"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -602,6 +609,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Date Install"
                                     v-model="search_date_install"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -614,6 +622,7 @@
                                     class="vgt-input"
                                     placeholder="Date A/C In"
                                     v-model="search_date_aircraft_in"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -822,53 +831,6 @@ export default {
       filter_clicked: false,
     };
   },
-  created() {
-    // this.list();
-  },
-  watch: {
-    search: debounce(function () {
-      this.list();
-    }, 500),
-    search_part_number: debounce(function () {
-      this.list();
-    }, 500),
-    search_description: debounce(function () {
-      this.list();
-    }, 500),
-    search_quantity: debounce(function () {
-      this.list();
-    }, 500),
-    search_unit_measure: debounce(function () {
-      this.list();
-    }, 500),
-    search_register_aircraft: debounce(function () {
-      this.list();
-    }, 500),
-    search_customer: debounce(function () {
-      this.list();
-    }, 500),
-    search_date_install: debounce(function () {
-      this.list();
-    }, 500),
-    search_date_aircraft_in: debounce(function () {
-      this.list();
-    }, 500),
-    filter_start_date: debounce(function () {
-      this.list();
-    }, 500),
-    filter_end_date: debounce(function () {
-      this.list();
-    }, 500),
-    filter_customer: debounce(function () {
-      this.list();
-    }, 500),
-    filter_part_number: debounce(function () {
-      this.list();
-    }, 500),
-    filter_document_type: debounce(function () {
-      this.list();
-    }, 500),
-  },
 
   methods: {
     list(paginate) {
@@ -995,6 +957,10 @@ export default {
       this.list();
     },
     clearForm() {
+      this.outbounds = {
+        data: [],
+        links: [],
+      };
       this.filter_start_date = null;
       this.filter_end_date = null;
       this.filter_customer = null;

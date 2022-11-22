@@ -130,8 +130,7 @@ class OutboundController extends Controller
             })
             ->when(($order && $by), function ($query) use ($order, $by) {
                 $query->orderBy($order, $by);
-            })
-            ->paginate($paginate);
+            })->paginate($paginate);
 
         $query_string = [
             'search' => $search,
@@ -140,7 +139,7 @@ class OutboundController extends Controller
             'paginate' => $paginate,
         ];
 
-        $outbounds = $outbounds->appends($query_string);
+        $outbounds->appends($query_string);
         return $outbounds;
     }
 
