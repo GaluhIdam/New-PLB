@@ -148,6 +148,7 @@
                             placeholder="Search Data"
                             class="vgt-input vgt-pull-left"
                             v-model="search"
+                            @change="list()"
                           />
                         </div>
                         <!-- END: Global Search -->
@@ -697,6 +698,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Jenis Dokumen"
                                     v-model="search_kode_dokumen_pabean"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -709,6 +711,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Nomor AJU"
                                     v-model="search_nomor_aju"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -721,6 +724,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Tanggal AJU"
                                     v-model="search_tanggal_aju"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -733,6 +737,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Nomor Daftar"
                                     v-model="search_nomor_daftar"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -745,6 +750,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Tanggal Daftar"
                                     v-model="search_tanggal_daftar"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -760,6 +766,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Tanggal Pengeluaran"
                                     v-model="search_tanggal_pengeluaran"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -772,6 +779,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Nama Pemilik"
                                     v-model="search_nama_pemilik"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -784,6 +792,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Kode Barang"
                                     v-model="search_kode_barang"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -796,6 +805,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Kode HS"
                                     v-model="search_kode_hs"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -808,6 +818,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Nama Barang"
                                     v-model="search_nama_barang"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -820,6 +831,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Jumlah"
                                     v-model="search_jumlah_satuan"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -832,6 +844,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Satuan"
                                     v-model="search_kode_satuan"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -844,6 +857,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Nilai Barang"
                                     v-model="search_nilai_barang"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -1162,63 +1176,49 @@ export default {
       filter_clicked: false,
     };
   },
-  created() {
-    // this.list();
-  },
-  watch: {
-    search: debounce(function () {
-      this.list();
-    }, 500),
-    search_kode_dokumen_pabean: debounce(function () {
-      this.list();
-    }, 500),
-    search_nomor_aju: debounce(function () {
-      this.list();
-    }, 500),
-    search_tanggal_aju: debounce(function () {
-      this.list();
-    }, 500),
-    search_nomor_daftar: debounce(function () {
-      this.list();
-    }, 500),
-    search_tanggal_daftar: debounce(function () {
-      this.list();
-    }, 500),
-    search_tanggal_pengeluaran: debounce(function () {
-      this.list();
-    }, 500),
-    search_nama_pemilik: debounce(function () {
-      this.list();
-    }, 500),
-    search_kode_barang: debounce(function () {
-      this.list();
-    }, 500),
-    search_kode_hs: debounce(function () {
-      this.list();
-    }, 500),
-    search_nama_barang: debounce(function () {
-      this.list();
-    }, 500),
-    search_jumlah_satuan: debounce(function () {
-      this.list();
-    }, 500),
-    search_kode_satuan: debounce(function () {
-      this.list();
-    }, 500),
-    search_nilai_barang: debounce(function () {
-      this.list();
-    }, 500),
-    filter_start_date: debounce(function () {
-      this.list();
-    }, 500),
-    filter_end_date: debounce(function () {
-      this.list();
-    }, 500),
-    filter_kode_dokumen_pabean: debounce(function () {
-      this.list();
-    }, 500),
-  },
   methods: {
+    list(paginate) {
+      this.$Progress.start();
+      paginate = paginate || `/api/customs/outbound`;
+      axios
+        .get(paginate, {
+          params: {
+            search: this.search,
+            search_kode_dokumen_pabean: this.search_kode_dokumen_pabean,
+            search_nomor_aju: this.search_nomor_aju,
+            search_tanggal_aju: this.search_tanggal_aju,
+            search_nomor_daftar: this.search_nomor_daftar,
+            search_tanggal_daftar: this.search_tanggal_daftar,
+            search_tanggal_pengeluaran: this.search_tanggal_pengeluaran,
+            search_nama_pemilik: this.search_nama_pemilik,
+            search_kode_barang: this.search_kode_barang,
+            search_kode_hs: this.search_kode_hs,
+            search_nama_barang: this.search_nama_barang,
+            search_jumlah_satuan: this.search_jumlah_satuan,
+            search_kode_satuan: this.search_kode_satuan,
+            search_nilai_barang: this.search_nilai_barang,
+            search_kode_valuta: this.search_kode_valuta,
+
+            // Filter Data
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+            filter_kode_dokumen_pabean: this.filter_kode_dokumen_pabean,
+
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+        })
+        .then((response) => {
+          this.outbounds = response.data;
+          this.current_page = this.outbounds.current_page;
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
+        });
+    },
     exportExcel() {
       axios
         .get("/api/customs/outbound-excel", {
@@ -1298,6 +1298,10 @@ export default {
       this.list();
     },
     clearForm() {
+      this.outbounds = {
+        data: [],
+        links: [],
+      };
       this.filter_start_date = null;
       this.filter_end_date = null;
       this.filter_kode_dokumen_pabean = [];
@@ -1320,50 +1324,6 @@ export default {
       this.search_kode_satuan = null;
       this.search_nilai_barang = null;
       this.search_kode_valuta = null;
-      this.list();
-      this.filter_clicked = false;
-    },
-    list(paginate) {
-      this.$Progress.start();
-      paginate = paginate || `/api/customs/outbound`;
-      axios
-        .get(paginate, {
-          params: {
-            search: this.search,
-            search_kode_dokumen_pabean: this.search_kode_dokumen_pabean,
-            search_nomor_aju: this.search_nomor_aju,
-            search_tanggal_aju: this.search_tanggal_aju,
-            search_nomor_daftar: this.search_nomor_daftar,
-            search_tanggal_daftar: this.search_tanggal_daftar,
-            search_tanggal_pengeluaran: this.search_tanggal_pengeluaran,
-            search_nama_pemilik: this.search_nama_pemilik,
-            search_kode_barang: this.search_kode_barang,
-            search_kode_hs: this.search_kode_hs,
-            search_nama_barang: this.search_nama_barang,
-            search_jumlah_satuan: this.search_jumlah_satuan,
-            search_kode_satuan: this.search_kode_satuan,
-            search_nilai_barang: this.search_nilai_barang,
-            search_kode_valuta: this.search_kode_valuta,
-
-            // Filter Data
-            filter_start_date: this.filter_start_date,
-            filter_end_date: this.filter_end_date,
-            filter_kode_dokumen_pabean: this.filter_kode_dokumen_pabean,
-
-            order: this.order,
-            by: this.by,
-            paginate: this.paginate,
-          },
-        })
-        .then((response) => {
-          this.outbounds = response.data;
-          this.current_page = this.outbounds.current_page;
-          this.$Progress.finish();
-        })
-        .catch((error) => {
-          this.$Progress.fail();
-          console.log(error);
-        });
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {

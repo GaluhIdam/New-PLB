@@ -25,6 +25,7 @@ class InboundController extends Controller
         $search_tanggal_aju = $request->get('search_tanggal_aju');
         $search_nomor_daftar = $request->get('search_nomor_daftar');
         $search_tanggal_daftar = $request->get('search_tanggal_daftar');
+        $search_tanggal_pemasukan = $request->get('search_tanggal_pemasukan');
         $search_nama_pengirim = $request->get('search_nama_pengirim');
         $search_nama_pemilik = $request->get('search_nama_pemilik');
         $search_kode_barang = $request->get('search_kode_barang');
@@ -34,7 +35,6 @@ class InboundController extends Controller
         $search_kode_satuan = $request->get('search_kode_satuan');
         $search_nilai_barang = $request->get('search_nilai_barang'); // Harga Penyerahan / CIF
         $search_kode_valuta = $request->get('search_kode_valuta');
-        $search_tanggal_pemasukan = $request->get('search_tanggal_pemasukan');
 
         // Filter
         $filter_start_date = $request->get('filter_start_date');

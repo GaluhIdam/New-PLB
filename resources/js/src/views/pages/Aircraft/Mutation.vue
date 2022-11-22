@@ -110,21 +110,28 @@
                           v-if="$gate.isUser()"
                         >
                           <div>
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              @click="exportCsv"
+                            >
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
                             </button>
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            <button
+                              class="btn btn-secondary ms-auto rounded-1"
+                              style="margin-right: 10px"
+                              @click="exportExcel"
+                            >
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
                             </button>
-                            <button
+                            <!-- <button
                               class="btn btn-secondary ms-auto rounded-1"
                               style="margin-right: 10px"
                             >
                               <i class="fa-solid fa-file-pdf"></i>
                               PDF
-                            </button>
+                            </button> -->
                           </div>
                         </div>
                       </div>
@@ -322,7 +329,10 @@
                               <th class="text-center">
                                 <span class="table_header">Status</span>
                               </th>
-                              <th class="text-center">
+                              <th
+                                class="text-center"
+                                v-if="$gate.isAdminOrPlanner()"
+                              >
                                 <span class="table_header">Action</span>
                               </th>
                             </tr>
@@ -386,7 +396,10 @@
                                   />
                                 </div>
                               </th>
-                              <th class="filter-th"></th>
+                              <th
+                                class="filter-th"
+                                v-if="$gate.isAdminOrPlanner()"
+                              ></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -423,7 +436,10 @@
                               <td class="table_content text-center">
                                 {{ mutation.status }}
                               </td>
-                              <td class="text-center">
+                              <td
+                                class="text-center table_content"
+                                v-if="$gate.isAdminOrPlanner()"
+                              >
                                 <ul class="list-inline m-0">
                                   <!-- <li class="list-inline-item">
                                     <a

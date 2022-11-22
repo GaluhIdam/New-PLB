@@ -180,6 +180,7 @@
                             placeholder="Search Data"
                             class="vgt-input vgt-pull-left"
                             v-model="search"
+                            @change="list()"
                           />
                         </div>
                         <div
@@ -759,6 +760,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Part Number"
                                     v-model="search_part_number"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -769,6 +771,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Description"
                                     v-model="search_description"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -779,6 +782,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Quantity"
                                     v-model="search_quantity"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -789,6 +793,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Kode satuan"
                                     v-model="search_unit_measure"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -799,6 +804,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Register A/C"
                                     v-model="search_register_aircraft"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -809,6 +815,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Customer"
                                     v-model="search_customer"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -819,6 +826,7 @@
                                     class="vgt-input"
                                     placeholder="Date Install"
                                     v-model="search_date_install"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -829,6 +837,7 @@
                                     class="vgt-input"
                                     placeholder="Date A/C In"
                                     v-model="search_date_aircraft_in"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -839,6 +848,7 @@
                                     class="vgt-input"
                                     placeholder="Date A/C Out"
                                     v-model="search_date_aircraft_out"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -849,6 +859,7 @@
                                     class="vgt-input text-center"
                                     placeholder="BC"
                                     v-model="search_document_type"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -859,6 +870,7 @@
                                     class="vgt-input text-center"
                                     placeholder="Nomor AJU"
                                     v-model="search_submission_number"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -869,6 +881,7 @@
                                     class="vgt-input text-center"
                                     placeholder="TTD Date"
                                     v-model="search_ttd_date"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -879,6 +892,7 @@
                                     class="vgt-input text-center"
                                     placeholder="CIF IDR"
                                     v-model="search_cif_idr"
+                                    @change="list()"
                                   />
                                 </div>
                               </th>
@@ -1138,71 +1152,6 @@ export default {
       filter_clicked: false,
     };
   },
-  created() {
-    // this.list();
-  },
-  watch: {
-    search: debounce(function () {
-      this.list();
-    }, 500),
-    search_part_number: debounce(function () {
-      this.list();
-    }, 500),
-    search_description: debounce(function () {
-      this.list();
-    }, 500),
-    search_quantity: debounce(function () {
-      this.list();
-    }, 500),
-    search_unit_measure: debounce(function () {
-      this.list();
-    }, 500),
-    search_register_aircraft: debounce(function () {
-      this.list();
-    }, 500),
-    search_customer: debounce(function () {
-      this.list();
-    }, 500),
-    search_date_install: debounce(function () {
-      this.list();
-    }, 500),
-    search_date_aircraft_in: debounce(function () {
-      this.list();
-    }, 500),
-    search_date_aircraft_out: debounce(function () {
-      this.list();
-    }, 500),
-    search_document_type: debounce(function () {
-      this.list();
-    }, 500),
-    search_submission_number: debounce(function () {
-      this.list();
-    }, 500),
-    search_submission_date: debounce(function () {
-      this.list();
-    }, 500),
-    search_ttd_date: debounce(function () {
-      this.list();
-    }, 500),
-    search_cif_idr: debounce(function () {
-      this.list();
-    }, 500),
-    filter_start_date: debounce(function () {
-      this.list();
-    }, 500),
-    filter_end_date: debounce(function () {
-      this.list();
-    }, 500),
-    start_submission_date: debounce(function () {
-      this.list();
-    }, 500),
-    end_submission_date: debounce(function () {
-      this.list();
-    }, 500),
-    filter_document_type: debounce(function () {
-      this.list();
-    }, 500),
-  },
   methods: {
     list(paginate) {
       this.$Progress.start();
@@ -1251,7 +1200,9 @@ export default {
         });
     },
     exportExcel() {
+      this.$Progress.start();
       axios
+
         .get("/api/outbound-transaction-2-excel", {
           params: {
             // This is for Search Data
@@ -1281,9 +1232,15 @@ export default {
           link.setAttribute("download", "outbound-transaction-two.xlsx");
           document.body.appendChild(link);
           link.click();
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
         });
     },
     exportCsv() {
+      this.$Progress.start();
       axios
         .get("/api/outbound-transaction-2-csv", {
           params: {
@@ -1314,6 +1271,11 @@ export default {
           link.setAttribute("download", "outbound-transaction-two.csv");
           document.body.appendChild(link);
           link.click();
+          this.$Progress.finish();
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          console.log(error);
         });
     },
     filterButton() {
@@ -1321,6 +1283,10 @@ export default {
       this.list();
     },
     clearForm() {
+      this.outbounds = {
+        data: [],
+        links: [],
+      };
       this.filter_start_date = null;
       this.filter_end_date = null;
       this.filter_customer = null;
