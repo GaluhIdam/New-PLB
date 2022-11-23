@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Costums;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\Costums\Outbound;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -27,6 +28,7 @@ class OutboundController extends Controller
         $search_tanggal_daftar = $request->get('search_tanggal_daftar');
         $search_tanggal_pengeluaran = $request->get('search_tanggal_pengeluaran');
         $search_nama_pemilik = $request->get('search_nama_pemilik');
+        $search_nama_penerima = $request->get('search_nama_penerima');
         $search_kode_barang = $request->get('search_kode_barang');
         $search_kode_hs = $request->get('search_kode_hs');
         $search_nama_barang = $request->get('search_nama_barang');
@@ -37,6 +39,9 @@ class OutboundController extends Controller
 
         // Filter
         $filter_start_date = $request->get('filter_start_date');
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
 
@@ -95,7 +100,11 @@ class OutboundController extends Controller
                     ->orWhere('TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_pengeluaran%");
             })
             ->when($search_nama_pemilik, function ($query) use ($search_nama_pemilik) {
-                $query->where('NAMA_PEMILIK', 'LIKE', "%$search_nama_pemilik%");
+                $query->where('NAMA_PEMILIK', 'LIKE', "%$search_nama_pemilik%")
+                    ->orWhere('NAMA_PENERIMA_BARANG', 'LIKE', "%$search_nama_pemilik%");
+            })
+            ->when($search_nama_penerima, function ($query) use ($search_nama_penerima) {
+                $query->where('NAMA_PENGIRIM', 'LIKE', "%$search_nama_penerima%");
             })
             ->when($search_kode_barang, function ($query) use ($search_kode_barang) {
                 $query->where('KODE_BARANG', 'LIKE', "%$search_kode_barang%");
@@ -154,6 +163,7 @@ class OutboundController extends Controller
         $search_tanggal_daftar = $request->get('search_tanggal_daftar');
         $search_tanggal_pengeluaran = $request->get('search_tanggal_pengeluaran');
         $search_nama_pemilik = $request->get('search_nama_pemilik');
+        $search_nama_penerima = $request->get('search_nama_penerima');
         $search_kode_barang = $request->get('search_kode_barang');
         $search_kode_hs = $request->get('search_kode_hs');
         $search_nama_barang = $request->get('search_nama_barang');
@@ -164,6 +174,9 @@ class OutboundController extends Controller
 
         // Filter
         $filter_start_date = $request->get('filter_start_date');
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
 
@@ -185,6 +198,7 @@ class OutboundController extends Controller
             $search_tanggal_daftar,
             $search_tanggal_pengeluaran,
             $search_nama_pemilik,
+            $search_nama_penerima,
             $search_kode_barang,
             $search_kode_hs,
             $search_nama_barang,
@@ -210,6 +224,7 @@ class OutboundController extends Controller
         $search_tanggal_daftar = $request->get('search_tanggal_daftar');
         $search_tanggal_pengeluaran = $request->get('search_tanggal_pengeluaran');
         $search_nama_pemilik = $request->get('search_nama_pemilik');
+        $search_nama_penerima = $request->get('search_nama_penerima');
         $search_kode_barang = $request->get('search_kode_barang');
         $search_kode_hs = $request->get('search_kode_hs');
         $search_nama_barang = $request->get('search_nama_barang');
@@ -220,6 +235,9 @@ class OutboundController extends Controller
 
         // Filter
         $filter_start_date = $request->get('filter_start_date');
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
 
@@ -240,6 +258,7 @@ class OutboundController extends Controller
             $search_tanggal_daftar,
             $search_tanggal_pengeluaran,
             $search_nama_pemilik,
+            $search_nama_penerima,
             $search_kode_barang,
             $search_kode_hs,
             $search_nama_barang,

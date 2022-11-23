@@ -7,8 +7,8 @@
             <th><strong>NOMOR DAFTAR</strong></th>
             <th><strong>TANGGAL DAFTAR</strong></th>
             <th><strong>TANGGAL PENGELUARAN</strong></th>
-            <th><strong>NAMA PENGIRIM</strong></th>
             <th><strong>NAMA PEMILIK</strong></th>
+            <th><strong>NAMA PENERIMA</strong></th>
             <th><strong>KODE BARANG</strong></th>
             <th><strong>KODE HS</strong></th>
             <th><strong>URAIAN</strong></th>
@@ -40,8 +40,12 @@
             @else
             <td>{{ date('d/m/Y', strtotime($costum->WAKTU_GATE_OUT)) }}</td>
             @endif
-            <td>{{ $costum->NAMA_PENGIRIM }}</td>
+            @if($costum->KODE_DOKUMEN_PABEAN == '28')
             <td>{{ $costum->NAMA_PEMILIK }}</td>
+            @else
+            <td>{{ $costum->NAMA_PENERIMA_BARANG }}</td>
+            @endif
+            <td>{{ $costum->NAMA_PENGIRIM }}</td>
             <td>{{ $costum->KODE_BARANG }}</td>
             <td>{{ $costum->POS_TARIF }}</td>
             <td>{{ $costum->URAIAN }}</td>
