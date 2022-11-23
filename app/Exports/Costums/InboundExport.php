@@ -138,9 +138,9 @@ class InboundExport implements FromView, WithColumnFormatting, WithMapping
             })
             ->when($search_tanggal_daftar, function ($query) use ($search_tanggal_daftar) {
                 $query->where('TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_daftar%");
-            })
-            ->when($search_tanggal_pemasukan, function ($query) use ($search_tanggal_pemasukan) {
-                $query->where('WAKTU_GATE_IN', 'LIKE', "%$search_tanggal_pemasukan%");
+            })->when($search_tanggal_pemasukan, function ($query) use ($search_tanggal_pemasukan) {
+                $query->where('WAKTU_GATE_IN', 'LIKE', "%$search_tanggal_pemasukan%")
+                    ->orWhere('TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_pemasukan%");
             })
             ->when($search_nama_pengirim, function ($query) use ($search_nama_pengirim) {
                 $query->where('NAMA_PENGIRIM', 'LIKE', "%$search_nama_pengirim%");

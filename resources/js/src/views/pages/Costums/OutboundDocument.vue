@@ -254,7 +254,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'nomor_aju' && by == 'desc'"
-                                @click="sort('NOMOR_AJU', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -293,7 +293,7 @@
                                 v-else-if="
                                   order == 'tanggal_aju' && by == 'desc'
                                 "
-                                @click="sort('NOMOR_AJU', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -332,7 +332,7 @@
                                 v-else-if="
                                   order == 'nomor_daftar' && by == 'desc'
                                 "
-                                @click="sort('NOMOR_AJU', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -370,7 +370,7 @@
                                 v-else-if="
                                   order == 'tanggal_daftar' && by == 'desc'
                                 "
-                                @click="sort('NOMOR_AJU', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -396,11 +396,11 @@
                               <!-- BEGIN: Tanggal Pengeluaran -->
                               <th
                                 v-if="
-                                  order == 'tanggal_pengeluaran' &&
+                                  order == 'WAKTU_GATE_OUT' &&
                                   by == 'asc' &&
                                   $gate.isAdminOrPlanner()
                                 "
-                                @click="sort('tanggal_pengeluaran', 'desc')"
+                                @click="sort('WAKTU_GATE_OUT', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header"
@@ -412,11 +412,11 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'tanggal_daftar' &&
+                                  order == 'WAKTU_GATE_OUT' &&
                                   by == 'desc' &&
                                   $gate.isAdminOrPlanner()
                                 "
-                                @click="sort('tanggal_daftar', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -432,7 +432,7 @@
                               </th>
                               <th
                                 v-else-if="$gate.isAdminOrPlanner()"
-                                @click="sort('tanggal_daftar', 'asc')"
+                                @click="sort('WAKTU_GATE_OUT', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header"
@@ -458,7 +458,7 @@
                                 v-else-if="
                                   order == 'nama_pemilik' && by == 'desc'
                                 "
-                                @click="sort('NOMOR_AJU', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -496,7 +496,7 @@
                                 v-else-if="
                                   order == 'kode_barang' && by == 'desc'
                                 "
-                                @click="sort('NOMOR_AJU', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -532,7 +532,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'kode_hs' && by == 'desc'"
-                                @click="sort('NOMOR_AJU', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -570,7 +570,7 @@
                                 v-else-if="
                                   order == 'nama_barang' && by == 'desc'
                                 "
-                                @click="sort('NOMOR_AJU', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -608,7 +608,7 @@
                                 v-else-if="
                                   order == 'jumlah_satuan' && by == 'desc'
                                 "
-                                @click="sort('NOMOR_AJU', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -646,7 +646,7 @@
                                 v-else-if="
                                   order == 'kode_satuan' && by == 'desc'
                                 "
-                                @click="sort('NOMOR_AJU', 'asc')"
+                                @click="sort('id', 'asc')"
                                 class="
                                   text-center
                                   sortable
