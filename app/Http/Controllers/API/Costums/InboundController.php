@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Costums;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\Costums\Inbound;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -38,6 +39,9 @@ class InboundController extends Controller
 
         // Filter
         $filter_start_date = $request->get('filter_start_date');
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
 
@@ -170,6 +174,9 @@ class InboundController extends Controller
 
         // Filter
         $filter_start_date = $request->get('filter_start_date');
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
 
@@ -207,6 +214,9 @@ class InboundController extends Controller
 
         // Filter
         $filter_start_date = $request->get('filter_start_date');
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
 

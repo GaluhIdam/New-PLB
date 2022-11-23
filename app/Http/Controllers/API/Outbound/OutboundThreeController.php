@@ -42,10 +42,19 @@ class OutboundThreeController extends Controller
 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
-        $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
-        $start_submission_date = $request->get('start_submission_date'); // Untuk Filter Tanggal Start Submission Date
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
+        $filter_end_date = $request->get('filter_end_date'); // Untuk Filter End Date
+        $start_submission_date = $request->get('start_submission_date'); // Untuk Filter Tanggal Aju
+        if ($start_submission_date) {
+            $start_submission_date = Carbon::parse($start_submission_date)->subDays();
+        }
         $end_submission_date = $request->get('end_submission_date'); // Untuk Filter Tanggal End Submission Date
         $start_registration_date = $request->get('start_registration_date'); // Untuk Filter Tanggal Start Registration Date
+        if ($start_registration_date) {
+            $start_registration_date = Carbon::parse($start_registration_date)->subDays();
+        }
         $end_registration_date = $request->get('end_registration_date'); // Untuk Filter Tanggal End Registration Date
         $filter_document_type = $request->get('filter_document_type'); // Untuk Filter Type BC
         // Sort Data
@@ -167,10 +176,19 @@ class OutboundThreeController extends Controller
 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
-        $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
-        $start_submission_date = $request->get('start_submission_date'); // Untuk Filter Tanggal Start Date
-        $end_submission_date = $request->get('end_submission_date'); // Untuk Filter Tanggal End Date
-        $start_registration_date = $request->get('start_registration_date'); // Untuk Filter Tanggal Start Date
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
+        $filter_end_date = $request->get('filter_end_date'); // Untuk Filter End Date
+        $start_submission_date = $request->get('start_submission_date'); // Untuk Filter Tanggal Aju
+        if ($start_submission_date) {
+            $start_submission_date = Carbon::parse($start_submission_date)->subDays();
+        }
+        $end_submission_date = $request->get('end_submission_date'); // Untuk Filter Tanggal End Submission Date
+        $start_registration_date = $request->get('start_registration_date'); // Untuk Filter Tanggal Start Registration Date
+        if ($start_registration_date) {
+            $start_registration_date = Carbon::parse($start_registration_date)->subDays();
+        }
         $end_registration_date = $request->get('end_registration_date'); // Untuk Filter Tanggal End Date
         $filter_document_type = $request->get('filter_document_type');  // Untuk Filter Type BC
 
@@ -232,10 +250,19 @@ class OutboundThreeController extends Controller
 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
-        $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
-        $start_submission_date = $request->get('start_submission_date'); // Untuk Filter Tanggal Start Date
-        $end_submission_date = $request->get('end_submission_date'); // Untuk Filter Tanggal End Date
-        $start_registration_date = $request->get('start_registration_date'); // Untuk Filter Tanggal Start Date
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
+        $filter_end_date = $request->get('filter_end_date'); // Untuk Filter End Date
+        $start_submission_date = $request->get('start_submission_date'); // Untuk Filter Tanggal Aju
+        if ($start_submission_date) {
+            $start_submission_date = Carbon::parse($start_submission_date)->subDays();
+        }
+        $end_submission_date = $request->get('end_submission_date'); // Untuk Filter Tanggal End Submission Date
+        $start_registration_date = $request->get('start_registration_date'); // Untuk Filter Tanggal Start Registration Date
+        if ($start_registration_date) {
+            $start_registration_date = Carbon::parse($start_registration_date)->subDays();
+        }
         $end_registration_date = $request->get('end_registration_date'); // Untuk Filter Tanggal End Date
         $filter_document_type = $request->get('filter_document_type');  // Untuk Filter Type BC
 

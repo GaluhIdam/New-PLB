@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API\Outbound;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Carbon;
 // Import Model
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Outbound\TransactionOne;
 use App\Exports\Outbounds\TransactionOneExport;
@@ -33,6 +34,9 @@ class OutboundOneController extends Controller
 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
         $filter_customer = $request->get('filter_customer'); // Untuk Filter customer
         $filter_part_number = $request->get('filter_part_number'); // Untuk Filter Part Number
@@ -123,6 +127,9 @@ class OutboundOneController extends Controller
 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
         $filter_customer = $request->get('filter_customer'); // Untuk Filter customer
         $filter_part_number = $request->get('filter_part_number'); // Untuk Filter Part Number
@@ -171,6 +178,9 @@ class OutboundOneController extends Controller
 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
+        if ($filter_start_date) {
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+        }
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
         $filter_customer = $request->get('filter_customer'); // Untuk Filter customer
         $filter_part_number = $request->get('filter_part_number'); // Untuk Filter Part Number

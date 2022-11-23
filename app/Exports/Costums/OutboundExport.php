@@ -42,6 +42,7 @@ class OutboundExport implements FromView, WithColumnFormatting, WithMapping
         $search_tanggal_daftar,
         $search_tanggal_pengeluaran,
         $search_nama_pemilik,
+        $search_nama_penerima,
         $search_kode_barang,
         $search_kode_hs,
         $search_nama_barang,
@@ -63,6 +64,7 @@ class OutboundExport implements FromView, WithColumnFormatting, WithMapping
         $this->search_tanggal_daftar = $search_tanggal_daftar;
         $this->search_tanggal_pengeluaran = $search_tanggal_pengeluaran;
         $this->search_nama_pemilik = $search_nama_pemilik;
+        $this->search_nama_penerima = $search_nama_penerima;
         $this->search_kode_barang = $search_kode_barang;
         $this->search_kode_hs = $search_kode_hs;
         $this->search_nama_barang = $search_nama_barang;
@@ -87,6 +89,7 @@ class OutboundExport implements FromView, WithColumnFormatting, WithMapping
         $search_tanggal_daftar = $this->search_tanggal_daftar;
         $search_tanggal_pengeluaran = $this->search_tanggal_pengeluaran;
         $search_nama_pemilik = $this->search_nama_pemilik;
+        $search_nama_penerima = $this->search_nama_penerima;
         $search_kode_barang = $this->search_kode_barang;
         $search_kode_hs = $this->search_kode_hs;
         $search_nama_barang = $this->search_nama_barang;
@@ -140,7 +143,11 @@ class OutboundExport implements FromView, WithColumnFormatting, WithMapping
                     ->orWhere('TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_pengeluaran%");
             })
             ->when($search_nama_pemilik, function ($query) use ($search_nama_pemilik) {
-                $query->where('NAMA_PEMILIK', 'LIKE', "%$search_nama_pemilik%");
+                $query->where('NAMA_PEMILIK', 'LIKE', "%$search_nama_pemilik%")
+                    ->orWhere('NAMA_PENERIMA_BARANG', 'LIKE', "%$search_nama_pemilik%");
+            })
+            ->when($search_nama_penerima, function ($query) use ($search_nama_penerima) {
+                $query->where('NAMA_PENGIRIM', 'LIKE', "%$search_nama_penerima%");
             })
             ->when($search_kode_barang, function ($query) use ($search_kode_barang) {
                 $query->where('KODE_BARANG', 'LIKE', "%$search_kode_barang%");
