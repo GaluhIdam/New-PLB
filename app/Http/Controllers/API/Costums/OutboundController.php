@@ -91,7 +91,8 @@ class OutboundController extends Controller
                 $query->where('TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_daftar%");
             })
             ->when($search_tanggal_pengeluaran, function ($query) use ($search_tanggal_pengeluaran) {
-                $query->where('WAKTU_GATE_OUT', 'LIKE', "%$search_tanggal_pengeluaran%");
+                $query->where('WAKTU_GATE_OUT', 'LIKE', "%$search_tanggal_pengeluaran%")
+                    ->orWhere('TANGGAL_DAFTAR', 'LIKE', "%$search_tanggal_pengeluaran%");
             })
             ->when($search_nama_pemilik, function ($query) use ($search_nama_pemilik) {
                 $query->where('NAMA_PEMILIK', 'LIKE', "%$search_nama_pemilik%");

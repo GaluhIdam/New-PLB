@@ -383,11 +383,11 @@
                               <!-- BEGIN: Tanggal Pemasukan -->
                               <th
                                 v-if="
-                                  order == 'tanggal_daftar ' &&
+                                  order == 'WAKTU_GATE_IN' &&
                                   by == 'asc' &&
                                   $gate.isAdminOrPlanner()
                                 "
-                                @click="sort('tanggal_daftar ', 'desc')"
+                                @click="sort('WAKTU_GATE_IN', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header"
@@ -399,7 +399,7 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'tanggal_daftar ' &&
+                                  order == 'WAKTU_GATE_IN' &&
                                   by == 'desc' &&
                                   $gate.isAdminOrPlanner()
                                 "
@@ -419,7 +419,7 @@
                               </th>
                               <th
                                 v-else-if="$gate.isAdminOrPlanner()"
-                                @click="sort('tanggal_daftar ', 'asc')"
+                                @click="sort('WAKTU_GATE_IN', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header"
