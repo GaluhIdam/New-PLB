@@ -43,17 +43,17 @@ class OutboundThreeController extends Controller
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
         if ($filter_start_date) {
-            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays(1);
         }
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter End Date
         $start_submission_date = $request->get('start_submission_date'); // Untuk Filter Tanggal Aju
         if ($start_submission_date) {
-            $start_submission_date = Carbon::parse($start_submission_date)->subDays();
+            $start_submission_date = Carbon::parse($start_submission_date)->subDays(1);
         }
         $end_submission_date = $request->get('end_submission_date'); // Untuk Filter Tanggal End Submission Date
         $start_registration_date = $request->get('start_registration_date'); // Untuk Filter Tanggal Start Registration Date
         if ($start_registration_date) {
-            $start_registration_date = Carbon::parse($start_registration_date)->subDays();
+            $start_registration_date = Carbon::parse($start_registration_date)->subDays(1);
         }
         $end_registration_date = $request->get('end_registration_date'); // Untuk Filter Tanggal End Registration Date
         $filter_document_type = $request->get('filter_document_type'); // Untuk Filter Type BC
@@ -124,15 +124,15 @@ class OutboundThreeController extends Controller
             })->when($search_cif_idr, function ($query) use ($search_cif_idr) {
                 $query->where('CIF_IDR', 'LIKE', "%$search_cif_idr%");
             })->when($filter_start_date, function ($query) use ($filter_start_date) {
-                $query->whereDate('DATE_INSTALL', '>=', $filter_start_date);
+                $query->whereDate('DATE_INSTALL', '>', $filter_start_date);
             })->when($filter_end_date, function ($query) use ($filter_end_date) {
                 $query->whereDate('DATE_INSTALL', '<=', $filter_end_date);
             })->when($start_submission_date, function ($query) use ($start_submission_date) {
-                $query->whereDate('SUBMISSION_DATE', '>=', $start_submission_date);
+                $query->whereDate('SUBMISSION_DATE', '>', $start_submission_date);
             })->when($end_submission_date, function ($query) use ($end_submission_date) {
                 $query->whereDate('SUBMISSION_DATE', '<=', $end_submission_date);
             })->when($start_registration_date, function ($query) use ($start_registration_date) {
-                $query->whereDate('REGISTRATION_DATE', '>=', $start_registration_date);
+                $query->whereDate('REGISTRATION_DATE', '>', $start_registration_date);
             })->when($end_registration_date, function ($query) use ($end_registration_date) {
                 $query->whereDate('REGISTRATION_DATE', '<=', $end_registration_date);
             })->when($filter_document_type, function ($query) use ($filter_document_type) {
@@ -177,17 +177,17 @@ class OutboundThreeController extends Controller
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
         if ($filter_start_date) {
-            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays(1);
         }
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter End Date
         $start_submission_date = $request->get('start_submission_date'); // Untuk Filter Tanggal Aju
         if ($start_submission_date) {
-            $start_submission_date = Carbon::parse($start_submission_date)->subDays();
+            $start_submission_date = Carbon::parse($start_submission_date)->subDays(1);
         }
         $end_submission_date = $request->get('end_submission_date'); // Untuk Filter Tanggal End Submission Date
         $start_registration_date = $request->get('start_registration_date'); // Untuk Filter Tanggal Start Registration Date
         if ($start_registration_date) {
-            $start_registration_date = Carbon::parse($start_registration_date)->subDays();
+            $start_registration_date = Carbon::parse($start_registration_date)->subDays(1);
         }
         $end_registration_date = $request->get('end_registration_date'); // Untuk Filter Tanggal End Date
         $filter_document_type = $request->get('filter_document_type');  // Untuk Filter Type BC
@@ -251,17 +251,17 @@ class OutboundThreeController extends Controller
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
         if ($filter_start_date) {
-            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays(1);
         }
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter End Date
         $start_submission_date = $request->get('start_submission_date'); // Untuk Filter Tanggal Aju
         if ($start_submission_date) {
-            $start_submission_date = Carbon::parse($start_submission_date)->subDays();
+            $start_submission_date = Carbon::parse($start_submission_date)->subDays(1);
         }
         $end_submission_date = $request->get('end_submission_date'); // Untuk Filter Tanggal End Submission Date
         $start_registration_date = $request->get('start_registration_date'); // Untuk Filter Tanggal Start Registration Date
         if ($start_registration_date) {
-            $start_registration_date = Carbon::parse($start_registration_date)->subDays();
+            $start_registration_date = Carbon::parse($start_registration_date)->subDays(1);
         }
         $end_registration_date = $request->get('end_registration_date'); // Untuk Filter Tanggal End Date
         $filter_document_type = $request->get('filter_document_type');  // Untuk Filter Type BC

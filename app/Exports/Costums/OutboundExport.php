@@ -176,7 +176,7 @@ class OutboundExport implements FromView, WithColumnFormatting, WithMapping
                 $query->whereIn('KODE_DOKUMEN_PABEAN', $filter_kode_dokumen_pabean);
             })
             ->when($filter_start_date, function ($query) use ($filter_start_date) {
-                $query->whereDate('TANGGAL_DAFTAR', '>=', $filter_start_date);
+                $query->whereDate('TANGGAL_DAFTAR', '>', $filter_start_date);
             })
             ->when($filter_end_date, function ($query) use ($filter_end_date) {
                 $query->whereDate('TANGGAL_DAFTAR', '<=', $filter_end_date);

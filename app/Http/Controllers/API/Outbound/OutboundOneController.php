@@ -35,7 +35,7 @@ class OutboundOneController extends Controller
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
         if ($filter_start_date) {
-            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays(1);
         }
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
         $filter_customer = $request->get('filter_customer'); // Untuk Filter customer
@@ -88,7 +88,7 @@ class OutboundOneController extends Controller
         })->when($search_date_aircraft_in, function ($query) use ($search_date_aircraft_in) {
             $query->whereDate('DATE_AIRCRAFT_IN', "$search_date_aircraft_in");
         })->when($filter_start_date, function ($query) use ($filter_start_date) {
-            $query->where('DATE_INSTALL', '>=', $filter_start_date);
+            $query->where('DATE_INSTALL', '>', $filter_start_date);
         })->when($filter_end_date, function ($query) use ($filter_end_date) {
             $query->where('DATE_INSTALL', '<=', $filter_end_date);
         })->when($filter_customer, function ($query) use ($filter_customer) {
@@ -128,7 +128,7 @@ class OutboundOneController extends Controller
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
         if ($filter_start_date) {
-            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays(1);
         }
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
         $filter_customer = $request->get('filter_customer'); // Untuk Filter customer
@@ -179,7 +179,7 @@ class OutboundOneController extends Controller
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
         if ($filter_start_date) {
-            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays(1);
         }
         $filter_end_date = $request->get('filter_end_date'); // Untuk Filter Tanggal End Date
         $filter_customer = $request->get('filter_customer'); // Untuk Filter customer

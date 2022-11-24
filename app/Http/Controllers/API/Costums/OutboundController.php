@@ -40,7 +40,7 @@ class OutboundController extends Controller
         // Filter
         $filter_start_date = $request->get('filter_start_date');
         if ($filter_start_date) {
-            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays(1);
         }
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
@@ -133,7 +133,7 @@ class OutboundController extends Controller
                 $query->whereIn('KODE_DOKUMEN_PABEAN', $filter_kode_dokumen_pabean);
             })
             ->when($filter_start_date, function ($query) use ($filter_start_date) {
-                $query->whereDate('TANGGAL_DAFTAR', '>=', $filter_start_date);
+                $query->whereDate('TANGGAL_DAFTAR', '>', $filter_start_date);
             })
             ->when($filter_end_date, function ($query) use ($filter_end_date) {
                 $query->whereDate('TANGGAL_DAFTAR', '<=', $filter_end_date);
@@ -175,7 +175,7 @@ class OutboundController extends Controller
         // Filter
         $filter_start_date = $request->get('filter_start_date');
         if ($filter_start_date) {
-            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays(1);
         }
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');
@@ -236,7 +236,7 @@ class OutboundController extends Controller
         // Filter
         $filter_start_date = $request->get('filter_start_date');
         if ($filter_start_date) {
-            $filter_start_date = Carbon::parse($filter_start_date)->subDays();
+            $filter_start_date = Carbon::parse($filter_start_date)->subDays(1);
         }
         $filter_end_date = $request->get('filter_end_date');
         $filter_kode_dokumen_pabean = $request->get('filter_kode_dokumen_pabean');

@@ -481,44 +481,6 @@
                                 </button>
                               </th>
                               <!-- END: Nama Pemilik -->
-                              <!-- BEGIN: Nama Penerima -->
-                              <th
-                                v-if="order == 'nama_pengirim' && by == 'asc'"
-                                @click="sort('nama_pengirim', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header">Nama Penerima</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="
-                                  order == 'nama_pengirim' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
-                                class="
-                                  text-center
-                                  sortable
-                                  sorting sorting-desc
-                                "
-                              >
-                                <span class="table_header">Nama Penerima</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('nama_pengirim', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Nama Penerima</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <!-- END: Nama Penerima -->
                               <!-- BEGIN: Kode Barang -->
                               <th
                                 v-if="order == 'kode_barang' && by == 'asc'"
@@ -822,19 +784,6 @@
                                 </div>
                               </th>
                               <!-- END: Nama Pemilik -->
-                              <!-- BEGIN: Nama Penerima -->
-                              <th class="filter-th">
-                                <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Nama Penerima"
-                                    v-model="search_nama_penerima"
-                                    @change="list()"
-                                  />
-                                </div>
-                              </th>
-                              <!-- END: Nama Penerima -->
                               <!-- BEGIN: Kode Barang -->
                               <th class="filter-th">
                                 <div>
@@ -977,12 +926,7 @@
                               <td class="text-center table_content" v-else>
                                 {{ outbound.NAMA_PENERIMA_BARANG }}
                               </td>
-                              <td
-                                v-if="outbound.NAMA_PENGIRIM === null"
-                                class="text-center table_content"
-                              >
-                                -
-                              </td>
+
                               <td class="text-center table_content" v-else>
                                 {{ outbound.NAMA_PENGIRIM }}
                               </td>
@@ -1251,7 +1195,7 @@ export default {
             search_tanggal_daftar: this.search_tanggal_daftar,
             search_tanggal_pengeluaran: this.search_tanggal_pengeluaran,
             search_nama_pemilik: this.search_nama_pemilik,
-              search_nama_penerima: this.search_nama_penerima,
+            search_nama_penerima: this.search_nama_penerima,
             search_kode_barang: this.search_kode_barang,
             search_kode_hs: this.search_kode_hs,
             search_nama_barang: this.search_nama_barang,

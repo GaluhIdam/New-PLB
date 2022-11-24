@@ -114,7 +114,7 @@ class TransactionOneExport implements FromView, WithColumnFormatting, WithMappin
         })->when($search_date_aircraft_in, function ($query) use ($search_date_aircraft_in) {
             $query->whereDate('DATE_AIRCRAFT_IN', "$search_date_aircraft_in");
         })->when($filter_start_date, function ($query) use ($filter_start_date) {
-            $query->where('DATE_INSTALL', '>=', $filter_start_date);
+            $query->where('DATE_INSTALL', '>', $filter_start_date);
         })->when($filter_end_date, function ($query) use ($filter_end_date) {
             $query->where('DATE_INSTALL', '<=', $filter_end_date);
         })->when($filter_customer, function ($query) use ($filter_customer) {

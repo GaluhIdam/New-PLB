@@ -155,11 +155,11 @@ class TransactionTwoExport implements FromView, WithColumnFormatting, WithMappin
         })->when($search_cif_idr, function ($query) use ($search_cif_idr) {
             $query->where('CIF_IDR', 'LIKE', "%$search_cif_idr%");
         })->when($filter_start_date, function ($query) use ($filter_start_date) {
-            $query->whereDate('DATE_INSTALL', '>=', $filter_start_date);
+            $query->whereDate('DATE_INSTALL', '>', $filter_start_date);
         })->when($filter_end_date, function ($query) use ($filter_end_date) {
             $query->whereDate('DATE_INSTALL', '<=', $filter_end_date);
         })->when($start_submission_date, function ($query) use ($start_submission_date) {
-            $query->whereDate('SUBMISSION_DATE', '>=', $start_submission_date);
+            $query->whereDate('SUBMISSION_DATE', '>', $start_submission_date);
         })->when($end_submission_date, function ($query) use ($end_submission_date) {
             $query->whereDate('SUBMISSION_DATE', '<=', $end_submission_date);
         })->when($filter_document_type, function ($query) use ($filter_document_type) {
