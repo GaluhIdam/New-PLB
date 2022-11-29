@@ -244,7 +244,7 @@
                                 v-else-if="
                                   order == 'part_number' && by == 'desc'
                                 "
-                                @click="sort('DATE_INSTALL', 'asc')"
+                                @click="sort('DATE_INSTALL', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -282,7 +282,7 @@
                                 v-else-if="
                                   order == 'description' && by == 'desc'
                                 "
-                                @click="sort('DATE_INSTALL', 'asc')"
+                                @click="sort('DATE_INSTALL', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -319,7 +319,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'quantity' && by == 'desc'"
-                                @click="sort('DATE_INSTALL', 'asc')"
+                                @click="sort('DATE_INSTALL', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -358,7 +358,7 @@
                                 v-else-if="
                                   order == 'unit_measure' && by == 'desc'
                                 "
-                                @click="sort('DATE_INSTALL', 'asc')"
+                                @click="sort('DATE_INSTALL', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -399,7 +399,7 @@
                                 v-else-if="
                                   order == 'register_aircraft' && by == 'desc'
                                 "
-                                @click="sort('DATE_INSTALL', 'asc')"
+                                @click="sort('DATE_INSTALL', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -436,7 +436,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'customer' && by == 'desc'"
-                                @click="sort('DATE_INSTALL', 'asc')"
+                                @click="sort('DATE_INSTALL', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -475,7 +475,7 @@
                                 v-else-if="
                                   order == 'date_install' && by == 'desc'
                                 "
-                                @click="sort('DATE_INSTALL', 'asc')"
+                                @click="sort('DATE_INSTALL', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -516,7 +516,7 @@
                                 v-else-if="
                                   order == 'date_aircraft_in' && by == 'desc'
                                 "
-                                @click="sort('DATE_INSTALL', 'asc')"
+                                @click="sort('DATE_INSTALL', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -557,7 +557,7 @@
                                 v-else-if="
                                   order == 'DATE_AIRCRAFT_OUT' && by == 'desc'
                                 "
-                                @click="sort('DATE_INSTALL', 'asc')"
+                                @click="sort('DATE_INSTALL', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -594,7 +594,7 @@
                               </th>
                               <th
                                 v-else-if="order == 'TYPE_BC' && by == 'desc'"
-                                @click="sort('DATE_INSTALL', 'asc')"
+                                @click="sort('DATE_INSTALL', 'desc')"
                                 class="
                                   text-center
                                   sortable
@@ -857,7 +857,7 @@
                                   <input
                                     type="text"
                                     class="vgt-input text-center"
-                                    placeholder="BC"
+                                    placeholder="Type BC"
                                     v-model="search_document_type"
                                     @change="list()"
                                   />
@@ -909,18 +909,47 @@
                               ) in outbounds.data"
                               :key="outbound_index"
                             >
-                              <td class="table_content text-center">
+                              <td
+                                v-if="outbound.PART_NUMBER === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.PART_NUMBER }}
                               </td>
-                              <td class="table_content text-center">
+                              <td
+                                v-if="outbound.DESCRIPTION === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.DESCRIPTION }}
                               </td>
-                              <td class="table_content text-center">
+                              <!-- BEGIN : Quantity -->
+                              <td
+                                v-if="outbound.QUANTITY === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.QUANTITY }}
                               </td>
-                              <td class="table_content text-center">
+                              <!-- END : Quantity -->
+                              <!-- BEGIN : Kode Satuan -->
+                              <td
+                                v-if="outbound.UNIT_MEASURE === null"
+                                class="text-center table_content"
+                              >
+                                -
+                              </td>
+                              <td class="text-center table_content" v-else>
                                 {{ outbound.UNIT_MEASURE }}
                               </td>
+                              <!-- END : Kode Satuan -->
+                              <!-- BEGIN : Register Aircraft -->
                               <td
                                 v-if="outbound.REGISTER_AIRCRAFT === null"
                                 class="text-center table_content"
@@ -930,6 +959,7 @@
                               <td class="text-center table_content" v-else>
                                 {{ outbound.REGISTER_AIRCRAFT }}
                               </td>
+                              <!-- END : Register Aircraft -->
                               <td
                                 v-if="outbound.CUSTOMER === null"
                                 class="text-center table_content"

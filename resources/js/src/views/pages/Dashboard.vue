@@ -19,7 +19,7 @@
       <div class="container-fluid">
         <div class="row">
           <!-- BEGIN: Status Outbound -->
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
             <div class="card card-plb">
               <div class="card-header ui-sortable-handle">
                 <h5 class="card-title card_title_margin">
@@ -37,7 +37,6 @@
               </div>
               <div class="card-body">
                 <div class="align-items-center d-flex justify-content-center">
-                  <!-- <div> -->
                   <pie-one
                     type="pie"
                     width="450"
@@ -48,9 +47,9 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- BEGIN: Status Pesawat di GMF -->
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="card card-plb">
               <div class="card-header border-0 ui-sortable-handle">
                 <h5 class="card-title card_title_margin">
