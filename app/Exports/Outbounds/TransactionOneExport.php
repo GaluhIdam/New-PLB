@@ -22,6 +22,7 @@ class TransactionOneExport implements FromView, WithColumnFormatting, WithMappin
     public $search_customer;
     public $search_date_install;
     public $search_date_aircraft_in;
+    public $search_document_type;
     public $filter_start_date;
     public $filter_end_date;
     public $filter_customer;
@@ -40,6 +41,7 @@ class TransactionOneExport implements FromView, WithColumnFormatting, WithMappin
         $search_customer,
         $search_date_install,
         $search_date_aircraft_in,
+        $search_document_type,
         $filter_start_date,
         $filter_end_date,
         $filter_customer,
@@ -57,6 +59,7 @@ class TransactionOneExport implements FromView, WithColumnFormatting, WithMappin
         $this->search_customer = $search_customer;
         $this->search_date_install = $search_date_install;
         $this->search_date_aircraft_in = $search_date_aircraft_in;
+        $this->search_document_type = $search_document_type;
         $this->filter_start_date = $filter_start_date;
         $this->filter_end_date = $filter_end_date;
         $this->filter_customer = $filter_customer;
@@ -77,6 +80,7 @@ class TransactionOneExport implements FromView, WithColumnFormatting, WithMappin
         $search_customer = $this->search_customer;
         $search_date_install = $this->search_date_install;
         $search_date_aircraft_in = $this->search_date_aircraft_in;
+        $search_document_type = $this->search_document_type;
         $filter_start_date = $this->filter_start_date;
         $filter_end_date = $this->filter_end_date;
         $filter_customer = $this->filter_customer;
@@ -95,7 +99,8 @@ class TransactionOneExport implements FromView, WithColumnFormatting, WithMappin
                     ->orWhere('REGISTER_AIRCRAFT', 'LIKE', "%$search%")
                     ->orWhere('CUSTOMER', 'LIKE', "%$search%")
                     ->orWhere('DATE_INSTALL', 'LIKE', "%$search%")
-                    ->orWhere('DATE_AIRCRAFT_IN', 'LIKE', "%$search%");
+                    ->orWhere('DATE_AIRCRAFT_IN', 'LIKE', "%$search%")
+                    ->orWhere('TYPE_BC', 'LIKE', "%$search%");
             });
         })->when($search_part_number, function ($query) use ($search_part_number) {
             $query->where('PART_NUMBER', 'LIKE', "%$search_part_number%");
@@ -113,6 +118,8 @@ class TransactionOneExport implements FromView, WithColumnFormatting, WithMappin
             $query->whereDate('DATE_INSTALL', "$search_date_install");
         })->when($search_date_aircraft_in, function ($query) use ($search_date_aircraft_in) {
             $query->whereDate('DATE_AIRCRAFT_IN', "$search_date_aircraft_in");
+        })->when($search_document_type, function ($query) use ($search_document_type) {
+            $query->where('TYPE_BC', 'LIKE', "%$search_document_type%");
         })->when($filter_start_date, function ($query) use ($filter_start_date) {
             $query->where('DATE_INSTALL', '>', $filter_start_date);
         })->when($filter_end_date, function ($query) use ($filter_end_date) {

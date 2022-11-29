@@ -43,28 +43,25 @@
                                 </div>
                             </div>
                             <div class="row" style="margin-top: 100px;margin-bottom: 100px;">
-                                <div class="col-md-4 text-center">
+                                <div class="col-md-6 text-center">
                                     <router-link to=/outbound-transcation-1 class="btn btn-1">1</router-link>
                                     <br>
                                     <br>
-                                    <!-- <label>Outbound 1</label><br /> -->
                                     <label>Inventory Berkurang dari Sistem dan <br> Pesawat masih di Area PLB GMF</label>
                                 </div>
-                                <div class="col-md-4 text-center">
+                                <div class="col-md-6 text-center">
                                     <router-link to=/outbound-transcation-2 class="btn btn-2">2</router-link>
                                     <br>
                                     <br>
-                                    <!-- <label>Outbound 2</label><br /> -->
                                     <label>Inventory berkurang dari Sistem dan <br> Pesawat sudah keluar dari Area PLB GMF</label>
                                 </div>
-                                <div class="col-md-4 text-center">
+                                <!-- <div class="col-md-4 text-center">
                                     <router-link to=/outbound-transcation-3 class="btn btn-3">3
                                     </router-link>
                                     <br />
                                     <br />
-                                    <!-- <label>Outbound 3</label><br /> -->
                                     <label>Inventory berkurang dari Sistem dan <br> Sudah dibuatkan dokumen Custom Clearance</label>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <!-- END: Card Body -->

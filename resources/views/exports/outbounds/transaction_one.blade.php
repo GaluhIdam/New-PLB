@@ -9,7 +9,7 @@
             <th><strong>CUSTOMER</strong></th>
             <th><strong>DATE INSTALL</strong></th>
             <th><strong>DATE AIRCRAFT IN</strong></th>
-
+            <th><strong>TYPE BC</strong></th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +33,7 @@
             @else
             <td></td>
             @endif
+            <td>{{ $outbound->TYPE_BC }}</td>
         </tr>
         @endforeach
     </tbody>

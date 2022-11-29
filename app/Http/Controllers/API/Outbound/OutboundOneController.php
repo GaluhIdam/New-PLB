@@ -31,6 +31,7 @@ class OutboundOneController extends Controller
         $search_customer = $request->get('search_customer'); // Untuk Pencarian Customer
         $search_date_install = $request->get('search_date_install'); // Untuk Pencarian Date Install
         $search_date_aircraft_in = $request->get('search_date_aircraft_in'); // Untuk Pencarian Date Aircraft In
+        $search_document_type = $request->get('search_document_type'); // Untuk Pencarian Document Type
 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
@@ -87,8 +88,10 @@ class OutboundOneController extends Controller
             $query->whereDate('DATE_INSTALL', "$search_date_install");
         })->when($search_date_aircraft_in, function ($query) use ($search_date_aircraft_in) {
             $query->whereDate('DATE_AIRCRAFT_IN', "$search_date_aircraft_in");
-        })->when($filter_start_date, function ($query) use ($filter_start_date) {
-            $query->where('DATE_INSTALL', '>', $filter_start_date);
+        })->when($search_date_aircraft_in, function ($query) use ($search_date_aircraft_in) {
+            $query->whereDate('DATE_AIRCRAFT_IN', "$search_date_aircraft_in");
+        })->when($search_document_type, function ($query) use ($search_document_type) {
+            $query->where('TYPE_BC', 'LIKE', "%$search_document_type%");
         })->when($filter_end_date, function ($query) use ($filter_end_date) {
             $query->where('DATE_INSTALL', '<=', $filter_end_date);
         })->when($filter_customer, function ($query) use ($filter_customer) {
@@ -124,6 +127,7 @@ class OutboundOneController extends Controller
         $search_customer = $request->get('search_customer'); // Untuk Pencarian Customer
         $search_date_install = $request->get('search_date_install'); // Untuk Pencarian Date Install
         $search_date_aircraft_in = $request->get('search_date_aircraft_in'); // Untuk Pencarian Date Aircraft In
+        $search_document_type = $request->get('search_document_type'); // Untuk Pencarian Kode Dokumen Kepabeanan
 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
@@ -153,6 +157,7 @@ class OutboundOneController extends Controller
             $search_customer,
             $search_date_install,
             $search_date_aircraft_in,
+            $search_document_type,
             $filter_start_date,
             $filter_end_date,
             $filter_customer,
@@ -175,6 +180,7 @@ class OutboundOneController extends Controller
         $search_customer = $request->get('search_customer'); // Untuk Pencarian Customer
         $search_date_install = $request->get('search_date_install'); // Untuk Pencarian Date Install
         $search_date_aircraft_in = $request->get('search_date_aircraft_in'); // Untuk Pencarian Date Aircraft In
+        $search_document_type = $request->get('search_document_type'); // Untuk Pencarian Kode Dokumen Kepabeanan
 
         // Filter Data
         $filter_start_date = $request->get('filter_start_date'); // Untuk Filter Tanggal Start Date
@@ -204,6 +210,7 @@ class OutboundOneController extends Controller
             $search_customer,
             $search_date_install,
             $search_date_aircraft_in,
+            $search_document_type,
             $filter_start_date,
             $filter_end_date,
             $filter_customer,
