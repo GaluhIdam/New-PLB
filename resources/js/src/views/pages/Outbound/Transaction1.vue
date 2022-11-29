@@ -521,13 +521,13 @@
                               </th>
                               <!-- END: Date A/C IN Header -->
 
-                              <!-- BEGIN: TYPE_BC Header -->
+                              <!-- BEGIN: Type BC Header -->
                               <th
                                 v-if="order == 'TYPE_BC' && by == 'asc'"
                                 @click="sort('TYPE_BC', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">TYPE_BC</span>
+                                <span class="table_header">Type BC</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -541,7 +541,7 @@
                                   sorting sorting-desc
                                 "
                               >
-                                <span class="table_header">TYPE_BC</span>
+                                <span class="table_header">Type BC</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -551,12 +551,12 @@
                                 @click="sort('TYPE_BC', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">TYPE_BC</span>
+                                <span class="table_header">Type BC</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: TYPE_BC Header -->
+                              <!-- END: Type BC Header -->
                             </tr>
                             <!-- END: TR Description-->
                             <!-- BEGIN: TR Filter -->
