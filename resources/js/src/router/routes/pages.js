@@ -76,17 +76,6 @@ export default [
     component: require("@/views/pages/Mutation/ReportMutation.vue").default,
     props: true,
   },
-  {
-    path: "/periodic-mutation",
-    name: "periodic-mutation",
-    component: require("@/views/pages/Mutation/PeriodicMutation.vue").default,
-  },
-  {
-    path: "/calculation-mutation",
-    name: "calculation-mutation",
-    component: require("@/views/pages/Mutation/CalculationMutation.vue")
-      .default,
-  },
   // Scrap
   {
     path: "/scrap",
@@ -123,4 +112,10 @@ export default [
     name: "activity-history",
     component: require("@/views/pages/Log/ActivityHistory.vue").default,
   },
+  // Upload
+  {
+    path: "/upload-mutation",
+    name: "upload-mutation",
+    component: require("@/views/pages/Uploads/Mutation.vue").default,
+  }
 ];

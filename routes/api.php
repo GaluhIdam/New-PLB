@@ -3,8 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HoardingTimeController;
-use App\Http\Controllers\MutationReportController;
-use App\Http\Controllers\MutationPeriodicController;
 use App\Http\Controllers\MovementAllotmentController;
 
 // Authenticated Controller
@@ -26,6 +24,9 @@ use App\Http\Controllers\API\Outbound\OutboundOneController;
 use App\Http\Controllers\API\Outbound\OutboundSummaryController;
 use App\Http\Controllers\API\Outbound\OutboundTwoController;
 use App\Http\Controllers\API\Outbound\OutboundThreeController;
+use App\Http\Controllers\API\Reports\MutationController;
+// Uploads Controller
+use App\Http\Controllers\API\Uploads\MutationReportController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -82,7 +83,10 @@ Route::get('dashboard-two', [DashboardController::class, 'chartTwo']);
 Route::get('dashboard-three', [DashboardController::class, 'chartThree']);
 
 // Mutasi - > (Report Mutasi) // TODO : Will be Development soon
-Route::get('/mutation-report', [MutationReportController::class, 'index']);
+Route::get('/mutation-report', [MutationController::class, 'index']);
+Route::get('/mutation-report-csv', [MutationController::class, 'exportCsv']);
+Route::get('/mutation-report-excel', [MutationController::class, 'exportExcel']);
+
 
 // Mutasi -> Periodic Mutations (Report Mutasi Berkala) // TODO : Will be Development soon
 Route::get('/mutation-periodic', [MutationPeriodicController::class, 'index']);
@@ -94,3 +98,6 @@ Route::get('/hoarding-time', [HoardingTimeController::class, 'index']);
 // Allotment // TODO : Will be Development soon
 Route::get('inventory-allotment', [InventoryController::class, 'inventoryAllotment']);
 Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
+
+// Upload File
+Route::post('/upload-report-mutation', [MutationReportController::class, 'import']);

@@ -46,34 +46,33 @@
               <div class="card-body">
                 <!-- BEGIN: Cari Data -->
                 <div class="row justify-content-center">
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                     <form @submit.prevent class="form-horizontal">
                       <div class="form-group row mt-4">
-                        <label for="mutation_date" class="col-form-label"
+                        <label class="col-sm-3 col-form-label"
                           >Tanggal Mutasi</label
                         >
                         <div class="col-sm-4">
                           <datepicker
-                            input-class="form-control text-center"
+                            input-class="form-control"
                             placeholder="Dari Tanggal"
-                            :language="id"
-                            :format="myDate"
-                            v-model="start_date"
+                            format="MM/dd/yyyy"
+                            v-model="filter_start_date"
                           />
                         </div>
                         <div class="col-sm-4">
                           <datepicker
-                            input-class="form-control text-center"
+                            input-class="form-control"
                             placeholder="Sampai Tanggal"
-                            :language="id"
-                            :format="myDate"
-                            v-model="end_date"
+                            format="MM/dd/yyyy"
+                            v-model="filter_end_date"
                           />
                         </div>
                       </div>
+
                       <div class="form-group row justify-content-center">
-                        <div class="col-sm-4">
-                          <button class="btn btn-primary" @click="filterDate">
+                        <div class="col-sm-6">
+                          <button class="btn btn-primary" @click="filterButton">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             Filter
                           </button>
@@ -86,10 +85,10 @@
                   </div>
                 </div>
                 <!-- END: Cari Data -->
-                <hr v-if="date_selected" />
+                <hr />
 
                 <!-- BEGIN: Tampil Data -->
-                <div class="form-group mt-4" v-if="date_selected">
+                <div class="form-group mt-4">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
                       <!-- BEGIN : Global Search -->
@@ -152,7 +151,11 @@
                                 rowspan="2"
                                 v-else-if="order == 'id' && by == 'desc'"
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">No.</span>
                                 <button>
@@ -187,7 +190,11 @@
                                 rowspan="2"
                                 v-else-if="order == 'item_code' && by == 'desc'"
                                 @click="sort('item_code', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Kode Barang</span>
                                 <button>
@@ -222,7 +229,11 @@
                                 rowspan="2"
                                 v-else-if="order == 'item_name' && by == 'desc'"
                                 @click="sort('item_name', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Nama Barang</span>
                                 <button>
@@ -257,7 +268,11 @@
                                 rowspan="2"
                                 v-else-if="order == 'unit' && by == 'desc'"
                                 @click="sort('unit', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Satuan</span>
                                 <button>
@@ -296,7 +311,11 @@
                                   order == 'beginning_balance' && by == 'desc'
                                 "
                                 @click="sort('beginning_balance', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Saldo Awal</span>
                                 <button>
@@ -318,11 +337,11 @@
                               <th colspan="3" class="text-center">
                                 <span class="table_header">Pemasukan</span>
                               </th>
-                              <th colspan="3" class="text-center">
+                              <th colspan="4" class="text-center">
                                 <span class="table_header">Pengeluaran</span>
                               </th>
                               <!-- BEGIN: Penyesuaian (Table Header) -->
-                              <th
+                              <!-- <th
                                 rowspan="2"
                                 v-if="order == 'adjustment' && by == 'asc'"
                                 @click="sort('adjustment', 'desc')"
@@ -339,7 +358,11 @@
                                   order == 'adjustment' && by == 'desc'
                                 "
                                 @click="sort('adjustment', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Penyesuaian</span>
                                 <button>
@@ -356,7 +379,7 @@
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
-                              </th>
+                              </th> -->
                               <!-- END: Penyesuaian (Table Header) -->
                               <!-- BEGIN: Saldo Buku (Table Header) -->
                               <th
@@ -376,7 +399,11 @@
                                   order == 'book_balance' && by == 'desc'
                                 "
                                 @click="sort('book_balance', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Saldo Buku</span>
                                 <button>
@@ -415,7 +442,11 @@
                                   order == 'inventory_taking' && by == 'desc'
                                 "
                                 @click="sort('inventory_taking', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Stock Opname</span>
                                 <button>
@@ -452,7 +483,11 @@
                                   order == 'difference' && by == 'desc'
                                 "
                                 @click="sort('difference', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">Selisih</span>
                                 <button>
@@ -489,7 +524,11 @@
                                   order == 'code_bc_16_in' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">BC 1.6</span>
                                 <button>
@@ -507,40 +546,6 @@
                                 </button>
                               </th>
                               <!-- END: BC 1.6 In (Table Header) -->
-                              <!-- BEGIN: BC 4.0 In (Table Header) -->
-                              <th
-                                v-if="order == 'code_bc_40_in' && by == 'asc'"
-                                @click="sort('code_bc_40_in', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header">BC 4.0</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="
-                                  order == 'code_bc_40_in' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">BC 4.0</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('code_bc_40_in', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">BC 4.0</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <!-- END: BC 4.0 In (Table Header) -->
                               <!-- BEGIN: BC 2.7 In (Table Header) -->
                               <th
                                 v-if="order == 'code_bc_27_in' && by == 'asc'"
@@ -557,7 +562,11 @@
                                   order == 'code_bc_27_in' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">BC 2.7</span>
                                 <button>
@@ -575,74 +584,45 @@
                                 </button>
                               </th>
                               <!-- END: BC 2.7 In (Table Header) -->
-                              <!-- BEGIN: BC 2.8 Out (Table Header) -->
+                              <!-- BEGIN: BC 4.0 In (Table Header) -->
                               <th
-                                v-if="order == 'code_bc_28_out' && by == 'asc'"
-                                @click="sort('code_bc_28_out', 'desc')"
+                                v-if="order == 'code_bc_40_in' && by == 'asc'"
+                                @click="sort('code_bc_40_in', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">BC 2.8</span>
+                                <span class="table_header">BC 4.0</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'code_bc_28_out' && by == 'desc'
+                                  order == 'code_bc_40_in' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
-                                <span class="table_header">BC 2.8</span>
+                                <span class="table_header">BC 4.0</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th
                                 v-else
-                                @click="sort('code_bc_28_out', 'asc')"
+                                @click="sort('code_bc_40_in', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">BC 2.8</span>
+                                <span class="table_header">BC 4.0</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: BC 2.8 Out (Table Header) -->
-                              <!-- BEGIN: BC 4.1 Out (Table Header) -->
-                              <th
-                                v-if="order == 'code_bc_41_out' && by == 'asc'"
-                                @click="sort('code_bc_41_out', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header">BC 4.1</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else-if="
-                                  order == 'code_bc_41_out' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
-                              >
-                                <span class="table_header">BC 4.1</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                v-else
-                                @click="sort('code_bc_41_out', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">BC 4.1</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <!-- END: BC 4.1 Out (Table Header) -->
+                              <!-- END: BC 4.0 In (Table Header) -->
+
                               <!-- BEGIN: BC 2.7 Out (Table Header) -->
                               <th
                                 v-if="order == 'code_bc_27_out' && by == 'asc'"
@@ -659,7 +639,11 @@
                                   order == 'code_bc_27_out' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
-                                class="text-center sortable sorting sorting-desc"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
                               >
                                 <span class="table_header">BC 2.7</span>
                                 <button>
@@ -677,6 +661,120 @@
                                 </button>
                               </th>
                               <!-- END: BC 2.7 Out (Table Header) -->
+                              <!-- BEGIN: BC 2.8 Out (Table Header) -->
+                              <th
+                                v-if="order == 'code_bc_28_out' && by == 'asc'"
+                                @click="sort('code_bc_28_out', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header">BC 2.8</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else-if="
+                                  order == 'code_bc_28_out' && by == 'desc'
+                                "
+                                @click="sort('id', 'asc')"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
+                              >
+                                <span class="table_header">BC 2.8</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else
+                                @click="sort('code_bc_28_out', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header">BC 2.8</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!-- END: BC 2.8 Out (Table Header) -->
+                              <!-- BEGIN: BC 3.0 Out (Table Header) -->
+                              <th
+                                v-if="order == 'code_bc_27_out' && by == 'asc'"
+                                @click="sort('code_bc_27_out', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header">BC 3.0</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else-if="
+                                  order == 'code_bc_27_out' && by == 'desc'
+                                "
+                                @click="sort('id', 'asc')"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
+                              >
+                                <span class="table_header">BC 3.0</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else
+                                @click="sort('code_bc_27_out', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header">BC 3.0</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!-- END: BC 3.0 Out (Table Header) -->
+                              <!-- BEGIN: BC 4.1 Out (Table Header) -->
+                              <th
+                                v-if="order == 'code_bc_41_out' && by == 'asc'"
+                                @click="sort('code_bc_41_out', 'desc')"
+                                class="text-center sortable sorting sorting-asc"
+                              >
+                                <span class="table_header">BC 4.1</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else-if="
+                                  order == 'code_bc_41_out' && by == 'desc'
+                                "
+                                @click="sort('id', 'asc')"
+                                class="
+                                  text-center
+                                  sortable
+                                  sorting sorting-desc
+                                "
+                              >
+                                <span class="table_header">BC 4.1</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <th
+                                v-else
+                                @click="sort('code_bc_41_out', 'asc')"
+                                class="text-center sortable"
+                              >
+                                <span class="table_header">BC 4.1</span>
+                                <button>
+                                  <span class="sr-only"></span>
+                                </button>
+                              </th>
+                              <!-- END: BC 4.1 Out (Table Header) -->
                             </tr>
                           </thead>
                           <!-- END: Table Head -->
@@ -720,11 +818,12 @@
                                 {{ mutation_periodic.code_bc_40_in }}
                               </td>
                               <td class="text-center table-content">
-                                {{ mutation_periodic.code_bc_27_in }}
+                                {{ mutation_periodic.code_bc_27_out }}
                               </td>
                               <td class="text-center table-content">
-                                {{ mutation_periodic.adjustment }}
+                                {{ mutation_periodic.code_bc_27_out }}
                               </td>
+
                               <td class="text-center table-content">
                                 {{ mutation_periodic.book_balance }}
                               </td>
@@ -736,7 +835,7 @@
                               </td>
                             </tr>
                             <tr v-if="mutation_periodics.data.length < 1">
-                              <td colspan="15">
+                              <td colspan="20">
                                 <div class="vgt-center-align vgt-text-disabled">
                                   Data not found
                                 </div>
@@ -755,7 +854,10 @@
                             Rows per page:
                           </label>
                           <select
-                            class="footer__row-count__select row_per_page_option"
+                            class="
+                              footer__row-count__select
+                              row_per_page_option
+                            "
                             v-model="paginate"
                             @change="list()"
                           >
@@ -795,7 +897,10 @@
                               <span class="paginate_text">page</span>
                               <input
                                 type="text"
-                                class="footer__navigation__page-info__current-entry vgt-input"
+                                class="
+                                  footer__navigation__page-info__current-entry
+                                  vgt-input
+                                "
                                 v-model="current_page"
                                 @keypress="directPage"
                                 style="width: 60px"

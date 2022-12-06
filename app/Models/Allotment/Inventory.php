@@ -5,7 +5,7 @@ namespace App\Models\Allotment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InventoryAllotment extends Model
+class Inventory extends Model
 {
     use HasFactory;
     protected $connection = 'dummy';
