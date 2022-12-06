@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_mutation_reports', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('part_number', 100)->nullable();
-            $table->string('part_name', 255)->nullable();
-            $table->string('unit', 50)->nullable();
-            $table->integer('saldo_awal')->nullable();
-            $table->integer('saldo_akhir')->nullable();
-            $table->integer('saldo_penyesuaian')->nullable();
+        Schema::create('tbl_log_uploads', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('username')->nullable();
+            $table->string('email')->nullable();
+            $table->string('uploaded_to')->nullable();
             $table->dateTime('uploaded_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_mutation_reports');
+        Schema::dropIfExists('tbl_log_uploads');
     }
 };

@@ -10,14 +10,33 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ImportMutationReport implements ToModel
 {
+    public $selectSaldo;
+    public $uploaded_at;
+
+    public function __construct($selectSaldo, $uploaded_at)
+    {
+        $this->selectSaldo = $selectSaldo;
+        $this->uploaded_at = $uploaded_at;
+    }
+
     public function model(array $row)
     {
-        return new MutationReport([
-            'part_number' => $row[1],
-            'part_name' => $row[2],
-            'unit' => $row[3],
-            'saldo_awal ' => $row[4],
-            'imported_by' => Auth::user()->name
-        ]);
+        if ($this->selectSaldo == 'saldo_awal') {
+            return new MutationReport([
+                'part_number' => $row[0],
+                'part_name' => $row[1],
+                'unit' => $row[2],
+                'saldo_awal' => $row[3],
+                'uploaded_at' => Carbon::parse(substr($this->uploaded_at, 0, strpos($this->uploaded_at, " ("))),
+            ]);
+        } else {
+            return new MutationReport([
+                'part_number' => $row[0],
+                'part_name' => $row[1],
+                'unit' => $row[2],
+                'saldo_akhir' => $row[3],
+                'uploaded_at' => Carbon::parse(substr($this->uploaded_at, 0, strpos($this->uploaded_at, " ("))),
+            ]);
+        }
     }
 }

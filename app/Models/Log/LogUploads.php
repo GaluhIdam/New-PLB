@@ -1,28 +1,26 @@
 <?php
 
-namespace App\Models\Uploads;
+namespace App\Models\Log;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MutationReport extends Model
+class LogUploads extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'tbl_mutation_reports';
+    protected $table = 'tbl_log_uploads';
     protected $timestamp = true;
     protected $dates = [
         'deleted_at',
         'uploaded_at'
     ];
     protected $fillable = [
-        'part_number',
-        'part_name',
-        'unit',
-        'saldo_awal',
-        'saldo_akhir',
-        'saldo_penyesuaian',
+        'name',
+        'username',
+        'email',
+        'uploaded_to',
         'uploaded_at',
     ];
 }

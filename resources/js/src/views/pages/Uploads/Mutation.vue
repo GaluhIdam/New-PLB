@@ -46,17 +46,19 @@
               <form @submit.prevent="create" class="form-horizontal">
                 <div class="card-body">
                   <!-- BEGIN: Data Upload -->
-                  <!-- <div class="form-group row">
+                  <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Data Upload</label>
                     <div class="col-sm-4">
-                      <select class="form-control" autofocus>
-                        <option value="1">Saldo Awal</option>
-                        <option value="2">
-                          Saldo Stock Opname/Saldo Akhir
-                        </option>
+                      <select
+                        class="form-control"
+                        v-model="selectSaldo"
+                        autofocus
+                      >
+                        <option value="saldo_awal">Saldo Awal</option>
+                        <option value="saldo_akhir">Saldo Akhir</option>
                       </select>
                     </div>
-                  </div> -->
+                  </div>
 
                   <!-- END: Data Upload -->
 
@@ -69,11 +71,22 @@
                         :placeholder="'Masukan Tanggal Saldo'"
                         :clear-button="true"
                         :clear-button-icon="'fa-solid fa-times'"
-                        :input-class="'form-control'"
                         :format="'dd-MM-yyyy'"
                         :initial-view="'year'"
-                        v-model="imported_at"
-                      />
+                        :input-class="{
+                          'is-invalid': errors.uploaded_at,
+                          'form-control': true,
+                        }"
+                        @selected="onDateChange"
+                        v-model="uploaded_at"
+                      >
+                        <span
+                          slot="afterDateInput"
+                          v-if="errors.uploaded_at"
+                          class="invalid-feedback"
+                          >{{ errors.uploaded_at[0] }}</span
+                        >
+                      </datepicker>
                     </div>
                   </div>
                   <!-- END: Tanggal Saldo -->
@@ -81,7 +94,7 @@
                   <!-- BEGIN: Upload File -->
                   <div class="form-group row mt-4">
                     <label class="col-sm-2 col-form-label">Upload File</label>
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                       <input
                         type="file"
                         class="form-control"
@@ -89,9 +102,12 @@
                         accept=".xlsx, .xls, .csv"
                         v-on:change="attachFile"
                         :class="{
-                          'is-invalid': erros.file,
+                          'is-invalid': errors.file,
                         }"
                       />
+                      <span v-if="errors.file" class="error invalid-feedback">{{
+                        errors.file[0]
+                      }}</span>
                     </div>
                   </div>
                   <!-- END: Upload File -->
@@ -123,23 +139,26 @@
 <script>
 import axios from "axios";
 import debounce from "lodash/debounce";
-import moment from "moment";
 import Swal from "sweetalert2";
+import moment from "moment";
 moment.locale("id");
 
 export default {
   data() {
     return {
       file: "",
-      imported_at: "",
-      erros: [],
+      selectSaldo: "saldo_awal",
+      uploaded_at: "",
+      errors: [],
     };
   },
   methods: {
     create() {
       let formData = new FormData();
       formData.append("file", this.file);
-      formData.append("imported_at", this.imported_at);
+      formData.append("uploaded_at", this.uploaded_at);
+      formData.append("selectSaldo", this.selectSaldo);
+
       this.$Progress.start();
       axios
         .post("/api/upload-report-mutation", formData, {
@@ -149,31 +168,40 @@ export default {
         })
         .then((response) => {
           this.$Progress.finish();
-          Swal.fire({
-            title: "Berhasil",
-            text: "Data berhasil diupload",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
+          toast
+            .fire({
+              icon: "success",
+              title: "Berhasil Upload Data",
+            })
+            .then((result) => {
+              this.clearForm();
+            });
         })
         .catch((error) => {
-          if (error.response.status === 422) {
-            this.erros = error.response.data.errors;
-            this.$Progress.fail();
-            console.log(error);
-          }
+          this.errors = error.response.data.errors;
+          this.$Progress.fail();
+          toast.fire({
+            icon: "error",
+            title: "Gagal Upload Data",
+          });
+          console.log(this.errors);
         });
     },
     attachFile() {
       this.file = this.$refs.file.files[0];
       let reader = new FileReader();
       reader.readAsDataURL(this.file);
+      this.errors.file = "";
+    },
+    onDateChange() {
+      this.errors.uploaded_at = "";
+      console.log(this.uploaded_at);
     },
     clearForm() {
       this.$refs.file.value = "";
       this.file = "";
-      this.imported_at = null;
-      this.erros = [];
+      this.uploaded_at = "";
+      this.errors = [];
     },
   },
 };
