@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LogUploads extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'tbl_log_uploads';
     protected $timestamp = true;
@@ -22,5 +22,6 @@ class LogUploads extends Model
         'email',
         'uploaded_to',
         'uploaded_at',
+        'uploaded_file'
     ];
 }

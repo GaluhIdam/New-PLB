@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('saldo_awal')->nullable();
             $table->integer('saldo_akhir')->nullable();
             $table->integer('saldo_penyesuaian')->nullable();
+            $table->string('saldo_type', 100)->nullable();
             $table->dateTime('uploaded_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

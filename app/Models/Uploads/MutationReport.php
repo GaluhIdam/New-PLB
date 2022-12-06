@@ -2,13 +2,13 @@
 
 namespace App\Models\Uploads;
 
+use App\Models\Log\LogUploads;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MutationReport extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'tbl_mutation_reports';
     protected $timestamp = true;
@@ -23,6 +23,16 @@ class MutationReport extends Model
         'saldo_awal',
         'saldo_akhir',
         'saldo_penyesuaian',
+        'saldo_type',
         'uploaded_at',
     ];
+
+    protected $appends = [
+        'uploaded_file'
+    ];
+
+    public function getUploadedFileAttribute()
+    {
+        return LogUploads::where('uploaded_at', $this->attributes['uploaded_at'])->first()->uploaded_file;
+    }
 }

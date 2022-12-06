@@ -100,4 +100,6 @@ Route::get('inventory-allotment', [InventoryController::class, 'inventoryAllotme
 Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
 
 // Upload File
+Route::get('/get-report-mutation', [MutationReportController::class, 'index']);
+Route::delete('/delete-report-mutation/{uploaded_at}', [MutationReportController::class, 'destroy']);
 Route::post('/upload-report-mutation', [MutationReportController::class, 'importExcel']);

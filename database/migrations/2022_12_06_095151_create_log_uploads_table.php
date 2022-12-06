@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('uploaded_to')->nullable();
             $table->dateTime('uploaded_at')->nullable();
+            $table->string('uploaded_file')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
