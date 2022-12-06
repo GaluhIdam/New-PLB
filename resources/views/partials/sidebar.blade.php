@@ -58,11 +58,11 @@
                                 <p>Outbound Transaction</p>
                             </router-link>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <router-link to="/summary-outbound" class="nav-link">
                                 <p>Summary Outbound</p>
                             </router-link>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <!-- END: Outbound -->
@@ -151,11 +151,6 @@
                         <li class="nav-item">
                             <router-link to="/report-mutation" class="nav-link">
                                 <p>Report Mutasi</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/upload-saldo-awal" class="nav-link">
-                                <p>Upload Mutasi</p>
                             </router-link>
                         </li>
                     </ul>

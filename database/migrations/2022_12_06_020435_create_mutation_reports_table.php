@@ -19,15 +19,12 @@ return new class extends Migration
             $table->string('part_name', 255)->nullable();
             $table->string('unit', 50)->nullable();
             $table->integer('saldo_awal')->nullable();
-            // $table->string('opening_balance_quantity', 100)->nullable();
-            // $table->string('ending_balance_quantity', 100)->nullable();
-            // $table->string('adjusted_balance_quantity', 100)->nullable();
-            // $table->string('book_balance_quantity', 100)->nullable();
-            $table->string('file', 255);
-            $table->date('imported_at');
-            $table->string('imported_by', 100);
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->integer('saldo_akhir')->nullable();
+            $table->integer('saldo_penyesuaian')->nullable();
+            $table->string('saldo_type', 100)->nullable();
+            $table->dateTime('uploaded_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
