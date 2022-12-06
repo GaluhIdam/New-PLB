@@ -48,6 +48,20 @@
                     <form @submit.prevent class="form-horizontal">
                       <div class="form-group row mt-4">
                         <label class="col-sm-3 col-form-label"
+                          >Part Number</label
+                        >
+                        <div class="col-sm-8">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Masukkan Part Number"
+                            v-model="filter_part_number"
+                            autofocus
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label"
                           >Tanggal Outbound</label
                         >
                         <div class="col-sm-4">
@@ -56,7 +70,6 @@
                             placeholder="Dari Tanggal"
                             format="dd/MM/yyyy"
                             v-model="filter_start_date"
-                            autofocus
                           />
                         </div>
                         <div class="col-sm-4">
@@ -68,19 +81,7 @@
                           />
                         </div>
                       </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label"
-                          >Part Number</label
-                        >
-                        <div class="col-sm-8">
-                          <input
-                            type="text"
-                            v-model="filter_part_number"
-                            class="form-control"
-                            placeholder="Masukkan Part Number"
-                          />
-                        </div>
-                      </div>
+
                       <div class="form-group row justify-content-center">
                         <div class="col-sm-6">
                           <button class="btn btn-primary" @click="filterButton">
@@ -96,14 +97,14 @@
                   </div>
                 </div>
                 <!-- END: Cari Data -->
-                <hr v-if="filter_clicked" />
+                <hr />
 
                 <!-- BEGIN: Tampil Data -->
-                <div class="form-group mt-4" v-if="filter_clicked">
+                <div class="form-group mt-4">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
-                      <!-- BEGIN: Global Search -->
                       <div class="vgt-global-search vgt-clearfix">
+                        <!-- BEGIN: Global Search -->
                         <div class="vgt-global-search__input vgt-pull-left">
                           <label>
                             <span aria-hidden="true" class="input__icon">
@@ -118,7 +119,8 @@
                             v-model="search"
                           />
                         </div>
-                        <!-- BEGIN: Right Button -->
+                        <!-- END: Global Search -->
+                        <!-- BEGIN : Right Button (Export) -->
                         <div
                           class="vgt-global-search__actions vgt-pull-right"
                           v-if="$gate.isAdminOrPlanner()"
@@ -148,9 +150,13 @@
                             </button> -->
                           </div>
                         </div>
+                        <div
+                          v-else
+                          class="vgt-global-search__actions vgt-pull-right"
+                          style="margin-right: 5px"
+                        ></div>
                         <!-- END: Right Button -->
                       </div>
-                      <!-- END: Global Search -->
 
                       <!-- BEGIN: Table -->
                       <div class="vgt-responsive">

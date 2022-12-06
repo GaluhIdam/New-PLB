@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\Costums\Inbound;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Costums\InboundExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InboundController extends Controller
 {
@@ -16,6 +16,7 @@ class InboundController extends Controller
     {
         $this->middleware('auth:api');
     }
+
     public function index(Request $request)
     {
         $this->recordActivity('Akses Dokumen Kepabeanan (Inbound)');
@@ -229,6 +230,28 @@ class InboundController extends Controller
             $by = 'desc';
         }
 
-        return Excel::download(new InboundExport($search, $search_kode_dokumen_pabean, $search_nomor_aju, $search_tanggal_aju, $search_nomor_daftar, $search_tanggal_daftar, $search_nama_pengirim, $search_nama_pemilik, $search_kode_barang, $search_pos_tarif, $search_uraian, $search_jumlah_satuan, $search_kode_satuan, $search_nilai_barang, $search_kode_valuta, $search_tanggal_pemasukan, $filter_start_date, $filter_end_date, $filter_kode_dokumen_pabean, $order, $by), 'kepabeanan-inbound.xlsx');
+        return Excel::download(new InboundExport(
+            $search,
+            $search_kode_dokumen_pabean,
+            $search_nomor_aju,
+            $search_tanggal_aju,
+            $search_nomor_daftar,
+            $search_tanggal_daftar,
+            $search_nama_pengirim,
+            $search_nama_pemilik,
+            $search_kode_barang,
+            $search_pos_tarif,
+            $search_uraian,
+            $search_jumlah_satuan,
+            $search_kode_satuan,
+            $search_nilai_barang,
+            $search_kode_valuta,
+            $search_tanggal_pemasukan,
+            $filter_start_date,
+            $filter_end_date,
+            $filter_kode_dokumen_pabean,
+            $order,
+            $by
+        ), 'kepabeanan-inbound.xlsx');
     }
 }

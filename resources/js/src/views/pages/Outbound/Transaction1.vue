@@ -925,7 +925,6 @@ export default {
       filter_customer: null,
       filter_part_number: null,
       filter_document_type: [],
-      filter_clicked: false,
     };
   },
 

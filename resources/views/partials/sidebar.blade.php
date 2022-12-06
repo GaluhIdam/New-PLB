@@ -58,11 +58,11 @@
                                 <p>Outbound Transaction</p>
                             </router-link>
                         </li>
-                        {{-- <li class="nav-item">
+                        <li class="nav-item">
                             <router-link to="/summary-outbound" class="nav-link">
                                 <p>Summary Outbound</p>
                             </router-link>
-                        </li> --}}
+                        </li>
                     </ul>
                 </li>
                 <!-- END: Outbound -->
@@ -141,7 +141,8 @@
                 <!-- END: Allotment -->
 
                 <!-- BEGIN: Mutasi -->
-                <!-- <li class="nav-item ">
+                @can('isAdmin')
+                <li class="nav-item ">
                     <a href="#" class=" nav-link">
                         <i class="nav-icon fa-solid fa-file-circle-exclamation"></i>
                         <p>Mutasi<i class="right fas fa-angle-right"></i></p>
@@ -153,25 +154,12 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/periodic-mutation" class="nav-link">
-                                <p>Report Mutasi Berkala</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/calculation-mutation" class="nav-link">
-                                <p>Report Perhitungan Mutasi</p>
+                            <router-link to="/upload-saldo-awal" class="nav-link">
+                                <p>Upload Mutasi</p>
                             </router-link>
                         </li>
                     </ul>
-                </li> -->
-                @can('isAdminOrPlanner')
-                {{-- <li class="nav-item">
-                    <router-link to="/report-mutation" class="nav-link">
-                        <i class="nav-icon fa-solid fa-file-circle-exclamation"></i>
-                        <p>Mutasi</p>
-                    </router-link>
-                </li> --}}
-                <!-- END: Mutasi -->
+                </li>
                 @endcan
 
                 {{-- BEGIN: Scrap --}}
@@ -194,6 +182,19 @@
                 <!-- END: Masa Timbun -->
                 @can('isAdminOrPlanner')
                 <!-- BEGIN: Data Upload -->
+                <li class="nav-item ">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa-solid fa-cloud-arrow-up"></i>
+                        <p>Data Upload<i class="right fas fa-angle-right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <router-link to="upload-mutation" class="nav-link">
+                                <p>Data Mutasi</p>
+                            </router-link>
+                        </li>
+                    </ul>
+                </li>
                 {{-- <li class="nav-item ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-cloud-arrow-up"></i>

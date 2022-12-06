@@ -5,11 +5,8 @@ namespace App\Models\Reports;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OutboundTransaction extends Model
+class Mutation extends Model
 {
     use HasFactory;
-    protected $connection = 'dummy';
-    protected $table = 'tbl_outcon';
-
-    protected $guarded = [];
+    protected $connection = 'plb_db_prod';
 }
