@@ -15,18 +15,14 @@ return new class extends Migration
     {
         Schema::create('tbl_mutation_reports', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('part_number', 100)->nullable();
-            $table->string('part_name', 255)->nullable();
-            $table->string('unit', 50)->nullable();
+            $table->string('kode_barang', 100)->nullable();
+            $table->string('uraian', 255)->nullable();
+            $table->string('kode_satuan', 50)->nullable();
             $table->integer('saldo_awal')->nullable();
-            // $table->string('opening_balance_quantity', 100)->nullable();
-            // $table->string('ending_balance_quantity', 100)->nullable();
-            // $table->string('adjusted_balance_quantity', 100)->nullable();
-            // $table->string('book_balance_quantity', 100)->nullable();
-            $table->string('file', 255);
-            $table->date('imported_at');
-            $table->string('imported_by', 100);
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->integer('saldo_akhir')->nullable();
+            $table->integer('saldo_penyesuaian')->nullable();
+            $table->string('tipe_saldo', 100)->nullable();
+            $table->dateTime('uploaded_at')->nullable();
             $table->timestamps();
         });
     }

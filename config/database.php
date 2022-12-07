@@ -64,26 +64,6 @@ return [
             ]) : [],
         ],
 
-        // Database Connection for db_plbGmf (Outbound)
-        'db_plbGmf' => [
-            'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_PLBGMF_HOST', '10.143.147.245'),
-            'port' => env('DB_PLBGMF_PORT', '3306'),
-            'database' => env('DB_PLBGMF_DATABASE', 'db_plbGmf'),
-            'username' => env('DB_PLBGMF_USERNAME', 'usr-jti'),
-            'password' => env('DB_PLBGMF_PASSWORD', 'Usr-jti1'),
-            'unix_socket' => env('DB_PLBGMF_SOCKET', ''),
-            'charset' => 'utf8',
-            'collation' => 'utf8_general_ci',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => false,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
-        ],
         // Database Connection for PLB Production (plb_db_prod)
         'plb_db_prod' => [
             'driver' => 'mysql',

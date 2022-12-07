@@ -9,6 +9,5 @@ class TransactionTwo extends Model
 {
     use HasFactory;
 
-    protected $connection = 'db_plbGmf';
     protected $table = 'v_tbl_outbound_two';
 }

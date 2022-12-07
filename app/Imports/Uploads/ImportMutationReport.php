@@ -10,14 +10,38 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ImportMutationReport implements ToModel
 {
+    public $tipe_saldo;
+    public $uploaded_at;
+
+    public function __construct($tipe_saldo, $uploaded_at)
+    {
+        $this->tipe_saldo = $tipe_saldo;
+        $this->uploaded_at = $uploaded_at;
+    }
+
     public function model(array $row)
     {
-        return new MutationReport([
-            'part_number' => $row[1],
-            'part_name' => $row[2],
-            'unit' => $row[3],
-            'saldo_awal ' => $row[4],
-            'imported_by' => Auth::user()->name
-        ]);
+        $removeUnderScore = str_replace('_', ' ', $this->tipe_saldo);
+        $saldoType = ucwords($removeUnderScore);
+
+        if ($this->tipe_saldo == 'saldo_awal') {
+            return new MutationReport([
+                'kode_barang' => $row[0],
+                'uraian' => $row[1],
+                'kode_satuan' => $row[2],
+                'saldo_awal' => $row[3],
+                'tipe_saldo' => $saldoType,
+                'uploaded_at' => Carbon::parse(substr($this->uploaded_at, 0, strpos($this->uploaded_at, " ("))),
+            ]);
+        } else {
+            return new MutationReport([
+                'kode_barang' => $row[0],
+                'uraian' => $row[1],
+                'kode_satuan' => $row[2],
+                'saldo_akhir' => $row[3],
+                'tipe_saldo' => $saldoType,
+                'uploaded_at' => Carbon::parse(substr($this->uploaded_at, 0, strpos($this->uploaded_at, " ("))),
+            ]);
+        }
     }
 }
