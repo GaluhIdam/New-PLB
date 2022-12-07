@@ -10,36 +10,36 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ImportMutationReport implements ToModel
 {
-    public $saldo_type;
+    public $tipe_saldo;
     public $uploaded_at;
 
-    public function __construct($saldo_type, $uploaded_at)
+    public function __construct($tipe_saldo, $uploaded_at)
     {
-        $this->saldo_type = $saldo_type;
+        $this->tipe_saldo = $tipe_saldo;
         $this->uploaded_at = $uploaded_at;
     }
 
     public function model(array $row)
     {
-        $removeUnderScore = str_replace('_', ' ', $this->saldo_type);
+        $removeUnderScore = str_replace('_', ' ', $this->tipe_saldo);
         $saldoType = ucwords($removeUnderScore);
 
-        if ($this->saldo_type == 'saldo_awal') {
+        if ($this->tipe_saldo == 'saldo_awal') {
             return new MutationReport([
-                'part_number' => $row[0],
-                'part_name' => $row[1],
-                'unit' => $row[2],
+                'kode_barang' => $row[0],
+                'uraian' => $row[1],
+                'kode_satuan' => $row[2],
                 'saldo_awal' => $row[3],
-                'saldo_type' => $saldoType,
+                'tipe_saldo' => $saldoType,
                 'uploaded_at' => Carbon::parse(substr($this->uploaded_at, 0, strpos($this->uploaded_at, " ("))),
             ]);
         } else {
             return new MutationReport([
-                'part_number' => $row[0],
-                'part_name' => $row[1],
-                'unit' => $row[2],
+                'kode_barang' => $row[0],
+                'uraian' => $row[1],
+                'kode_satuan' => $row[2],
                 'saldo_akhir' => $row[3],
-                'saldo_type' => $saldoType,
+                'tipe_saldo' => $saldoType,
                 'uploaded_at' => Carbon::parse(substr($this->uploaded_at, 0, strpos($this->uploaded_at, " ("))),
             ]);
         }

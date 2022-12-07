@@ -10,19 +10,6 @@ use App\Exports\Outbounds\SummaryExport;
 
 class OutboundSummaryController extends Controller
 {
-    /*
-    List of Outbound Summary:
-    1. Number of Summary (Total) - ID
-    2. Part Number [$part_number] - db_plbGmf.TBL_PLB_SWIFT.MATNR
-    3. Kondisi [$condition] - ?
-    4. Quantity [$quantity] - db_plbGmf.TBL_PLB_SWIFT.ERFMG
-    5. CIF IDR [$cif_idr] - iplb_db_prod.PLB_HEADER.CIF_RUPIAH
-    6. BM Bayar [$bm_dibayar] - iplb_db_prod.PLB_HEADER.JENIS_TARIF (if Jenis_Tarif = BM)
-    7. PPn Bayar [$ppn_dibayar] - iplb_db_prod.PLB_HEADER.JENIS_TARIF (if Jenis_Tarif = PPN)
-    8. PPh Bayar [pph_dibayar] - iplb_db_prod.PLB_HEADER.JENIS_TARIF (if Jenis_Tarif = PPh)
-    9. PPn Tidak dipungut ?
-    10. PPh Tidak dipungut ?
-    */
 
     public function __construct()
     {

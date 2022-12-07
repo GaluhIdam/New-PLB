@@ -13,7 +13,6 @@ class LogUploads extends Model
     protected $table = 'tbl_log_uploads';
     protected $timestamp = true;
     protected $dates = [
-        'deleted_at',
         'uploaded_at'
     ];
     protected $fillable = [
