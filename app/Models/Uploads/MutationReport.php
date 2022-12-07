@@ -13,17 +13,16 @@ class MutationReport extends Model
     protected $table = 'tbl_mutation_reports';
     protected $timestamp = true;
     protected $dates = [
-        'deleted_at',
         'uploaded_at'
     ];
     protected $fillable = [
-        'part_number',
-        'part_name',
-        'unit',
+        'kode_barang',
+        'uraian',
+        'kode_satuan',
         'saldo_awal',
         'saldo_akhir',
         'saldo_penyesuaian',
-        'saldo_type',
+        'tipe_saldo',
         'uploaded_at',
     ];
 

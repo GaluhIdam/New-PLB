@@ -56,9 +56,9 @@
                         <div class="col-sm-8">
                           <select
                             class="form-control"
-                            v-model="saldo_type"
+                            v-model="tipe_saldo"
                             :class="{
-                              'is-invalid': errors.saldo_type,
+                              'is-invalid': errors.tipe_saldo,
                             }"
                             autofocus
                           >
@@ -69,9 +69,9 @@
                             <option value="saldo_akhir">Saldo Akhir</option>
                           </select>
                           <span
-                            v-if="errors.saldo_type"
+                            v-if="errors.tipe_saldo"
                             class="error invalid-feedback"
-                            >{{ errors.saldo_type[0] }}</span
+                            >{{ errors.tipe_saldo[0] }}</span
                           >
                         </div>
                       </div>
@@ -196,8 +196,8 @@
                             <tr>
                               <!-- BEGIN: Tipe Saldo -->
                               <th
-                                v-if="order == 'saldo_type' && by == 'asc'"
-                                @click="sort('saldo_type', 'desc')"
+                                v-if="order == 'tipe_saldo' && by == 'asc'"
+                                @click="sort('tipe_saldo', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Tipe Saldo</span>
@@ -207,7 +207,7 @@
                               </th>
                               <th
                                 v-else-if="
-                                  order == 'saldo_type' && by == 'desc'
+                                  order == 'tipe_saldo' && by == 'desc'
                                 "
                                 @click="sort('id', 'asc')"
                                 class="
@@ -223,7 +223,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('saldo_type', 'asc')"
+                                @click="sort('tipe_saldo', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Tipe Saldo</span>
@@ -319,7 +319,7 @@
                               :key="upload_index"
                             >
                               <td class="text-center table_content">
-                                {{ upload.saldo_type }}
+                                {{ upload.tipe_saldo }}
                               </td>
 
                               <td class="text-center table_content">
@@ -475,7 +475,7 @@ export default {
       current_page: null,
 
       file: "",
-      saldo_type: "",
+      tipe_saldo: "",
       uploaded_at: "",
       errors: [],
     };
@@ -545,7 +545,7 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Ya, hapus!",
+        confirmButtonText: "Ya, Hapus!",
       }).then((result) => {
         if (result.isConfirmed) {
           this.$Progress.start();
@@ -569,7 +569,7 @@ export default {
     clearForm() {
       this.file = "";
       this.uploaded_at = "";
-      this.saldo_type = "";
+      this.tipe_saldo = "";
       this.errors = [];
       this.$refs.file.value = "";
     },
@@ -577,7 +577,7 @@ export default {
       let formData = new FormData();
       formData.append("file", this.file);
       formData.append("uploaded_at", this.uploaded_at);
-      formData.append("saldo_type", this.saldo_type);
+      formData.append("tipe_saldo", this.tipe_saldo);
 
       this.$Progress.start();
       axios

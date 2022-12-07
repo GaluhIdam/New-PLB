@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_log_uploads', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('name');
             $table->string('username')->nullable();
             $table->string('email')->nullable();
@@ -22,7 +22,6 @@ return new class extends Migration
             $table->dateTime('uploaded_at')->nullable();
             $table->string('uploaded_file')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

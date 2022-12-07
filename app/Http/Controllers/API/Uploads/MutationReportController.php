@@ -46,11 +46,11 @@ class MutationReportController extends Controller
 
         $uploads = MutationReport::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
-                $sub_query->where('saldo_type', 'LIKE', "%{$search}%")
+                $sub_query->where('tipe_saldo', 'LIKE', "%{$search}%")
                     ->orWhere('uploaded_at', 'LIKE', "%{$search}%");
             });
         })->when($search_tipe_saldo, function ($query) use ($search_tipe_saldo) {
-            $query->where('saldo_type', 'LIKE', "%{$search_tipe_saldo}%");
+            $query->where('tipe_saldo', 'LIKE', "%{$search_tipe_saldo}%");
         })->when($search_tanggal_saldo, function ($query) use ($search_tanggal_saldo) {
             $query->whereDate('uploaded_at', $search_tanggal_saldo);
         })->when(($order && $by), function ($query) use ($order, $by) {
@@ -101,11 +101,11 @@ class MutationReportController extends Controller
     {
         $this->recordActivity('Upload Mutation Report');
         $request->validate([
-            'saldo_type' => 'required',
+            'tipe_saldo' => 'required',
             'file' => 'required|mimes:cvs,xlsx,xls',
             'uploaded_at' => 'required'
         ], [
-            'saldo_type.required' => 'Saldo Awal atau Saldo Akhir harus dipilih',
+            'tipe_saldo.required' => 'Saldo Awal atau Saldo Akhir harus dipilih',
             'file.required' => 'Pilih file yang akan diupload',
             'file.mimes' => 'Hanya file dengan format xls, xlsx, dan csv yang diperbolehkan',
             'uploaded_at.required' => 'Tanggal Saldo harus diisi'
@@ -119,21 +119,21 @@ class MutationReportController extends Controller
             $data['file'] = $path;
         }
 
-        $removeUnderScore = str_replace('_', ' ', $data['saldo_type']);
-        $saldoType = ucwords($removeUnderScore);
+        $removeUnderScore = str_replace('_', ' ', $data['tipe_saldo']);
+        $tipeSaldo = ucwords($removeUnderScore);
 
         $createLog = LogUploads::create([
             'name' => Auth::user()->name,
             'username' => Auth::user()->username,
             'email' => Auth::user()->email,
-            'uploaded_to' => 'Upload data ' . $saldoType,
+            'uploaded_to' => 'Upload data ' . $tipeSaldo,
             'uploaded_at' => Carbon::parse(substr($data['uploaded_at'], 0, strpos($data['uploaded_at'], " ("))),
             'uploaded_file' => $data['file'],
         ]);
 
         // Upload File Excel store to database
         Excel::import(
-            new ImportMutationReport($data['saldo_type'], $data['uploaded_at']),
+            new ImportMutationReport($data['tipe_saldo'], $data['uploaded_at']),
             request()->file('file')
         );
 
