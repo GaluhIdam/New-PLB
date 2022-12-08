@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Mutation extends Model
 {
     use HasFactory;
-    protected $connection = 'plb_db_prod';
+
+    protected $table = 'v_tbl_report_mutation';
 }

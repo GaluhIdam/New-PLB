@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Uploads\MutationReport;
 use App\Imports\Uploads\ImportMutationReport;
 
-class MutationReportController extends Controller
+class UploadMutationController extends Controller
 {
     use \App\Http\Traits\ActivityHistoryTrait;
     public function __construct()
