@@ -2,31 +2,35 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HoardingTimeController;
-use App\Http\Controllers\MovementAllotmentController;
-
-// Authenticated Controller
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
-// Login History & Activity Log Controller 
-use App\Http\Controllers\ActivityHistoryController;
+
+// Authenticated Controller
+use App\Http\Controllers\HoardingTimeController;
 use App\Http\Controllers\LoginHistoryController;
-// Dashboard Controller
+// Login History & Activity Log Controller 
 use App\Http\Controllers\API\DashboardController;
+use App\Http\Controllers\ActivityHistoryController;
+// Dashboard Controller
+use App\Http\Controllers\MutationPeriodicController;
 // Module Aircraft Controller
 use App\Http\Controllers\API\Aircraft\AircraftController;
 // Dokumen Kepabeanan Controller 
 use App\Http\Controllers\API\Costums\InboundController;
 use App\Http\Controllers\API\Costums\OutboundController;
-use App\Http\Controllers\API\Allotment\InventoryController;
-// Outbound Controller
-use App\Http\Controllers\API\Outbound\OutboundOneController;
-use App\Http\Controllers\API\Outbound\OutboundSummaryController;
-use App\Http\Controllers\API\Outbound\OutboundTwoController;
-use App\Http\Controllers\API\Outbound\OutboundThreeController;
 use App\Http\Controllers\API\Reports\MutationController;
+// Outbound Controller
+use App\Http\Controllers\API\Outbound\OutboundOneController; // Outbound Kondisi 1 Controller
+use App\Http\Controllers\API\Outbound\OutboundTwoController; // Outbound Kondisi 2 Controller
+use App\Http\Controllers\API\Outbound\OutboundThreeController; // Outbound Kondisi 3 Controller
+use App\Http\Controllers\API\Outbound\OutboundSummaryController; // Outbound Summary Controller
+// Reports Mutasi Controller
+use App\Http\Controllers\API\Reports\MutationReportController; // Mutasi Report Controller
 // Uploads Controller
-use App\Http\Controllers\API\Uploads\MutationReportController;
+use App\Http\Controllers\API\Uploads\UploadMutationController; //Upload Mutasi Report
+// Allotment Controller
+use App\Http\Controllers\MovementAllotmentController;
+use App\Http\Controllers\API\Allotment\InventoryController; // Inventory Controller
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -99,7 +103,10 @@ Route::get('/hoarding-time', [HoardingTimeController::class, 'index']);
 Route::get('inventory-allotment', [InventoryController::class, 'inventoryAllotment']);
 Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
 
+// Report Mutasi
+Route::get('/report-mutation', [MutationReportController::class, 'index']); // Report Mutation
+
 // Upload File
-Route::get('/get-report-mutation', [MutationReportController::class, 'index']);
-Route::delete('/delete-report-mutation/{uploaded_at}', [MutationReportController::class, 'destroy']);
-Route::post('/upload-report-mutation', [MutationReportController::class, 'importExcel']);
+Route::post('/upload-report-mutation', [UploadMutationController::class, 'importExcel']); // Upload Report Mutation
+Route::get('/get-report-mutation', [UploadMutationController::class, 'index']); // Get Upload Report Mutation
+Route::delete('/delete-report-mutation/{uploaded_at}', [UploadMutationController::class, 'destroy']); // Delete Upload Report Mutation

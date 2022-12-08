@@ -105,6 +105,7 @@
                             placeholder="Search Data"
                             class="vgt-input vgt-pull-left"
                             v-model="search"
+                            @change="list()"
                           />
                         </div>
                         <div class="vgt-global-search__actions vgt-pull-right">
@@ -136,8 +137,9 @@
                           <thead>
                             <tr>
                               <!-- BEGIN: Number by ID (Table Header) -->
-                              <th
+                              <!-- <th
                                 rowspan="2"
+                                
                                 v-if="order == 'id' && by == 'asc'"
                                 @click="sort('id', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
@@ -172,13 +174,16 @@
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
+                              </th> -->
+                              <th rowspan="2" class="text-center">
+                                <span class="table_header">No.</span>
                               </th>
                               <!-- END: Number by ID (Table Header) -->
                               <!-- BEGIN: Kode Barang (Table Header) -->
                               <th
                                 rowspan="2"
-                                v-if="order == 'item_code' && by == 'asc'"
-                                @click="sort('item_code', 'desc')"
+                                v-if="order == 'KODE_BARANG_1' && by == 'asc'"
+                                @click="sort('KODE_BARANG_1', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Kode Barang</span>
@@ -188,8 +193,10 @@
                               </th>
                               <th
                                 rowspan="2"
-                                v-else-if="order == 'item_code' && by == 'desc'"
-                                @click="sort('item_code', 'asc')"
+                                v-else-if="
+                                  order == 'KODE_BARANG_1' && by == 'desc'
+                                "
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -204,7 +211,7 @@
                               <th
                                 rowspan="2"
                                 v-else
-                                @click="sort('item_code', 'asc')"
+                                @click="sort('KODE_BARANG_1', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Kode Barang</span>
@@ -216,8 +223,8 @@
                               <!-- BEGIN: Nama Barang (Table Header) -->
                               <th
                                 rowspan="2"
-                                v-if="order == 'item_name' && by == 'asc'"
-                                @click="sort('item_name', 'desc')"
+                                v-if="order == 'URAIAN_1' && by == 'asc'"
+                                @click="sort('URAIAN_1', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Nama Barang</span>
@@ -227,8 +234,8 @@
                               </th>
                               <th
                                 rowspan="2"
-                                v-else-if="order == 'item_name' && by == 'desc'"
-                                @click="sort('item_name', 'asc')"
+                                v-else-if="order == 'URAIAN_1' && by == 'desc'"
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -243,7 +250,7 @@
                               <th
                                 rowspan="2"
                                 v-else
-                                @click="sort('item_name', 'asc')"
+                                @click="sort('URAIAN_1', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Nama Barang</span>
@@ -255,8 +262,8 @@
                               <!-- BEGIN: Satuan (Table Header) -->
                               <th
                                 rowspan="2"
-                                v-if="order == 'unit' && by == 'asc'"
-                                @click="sort('unit', 'desc')"
+                                v-if="order == 'KODE_SATUAN_1' && by == 'asc'"
+                                @click="sort('KODE_SATUAN_1', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Satuan</span>
@@ -266,8 +273,10 @@
                               </th>
                               <th
                                 rowspan="2"
-                                v-else-if="order == 'unit' && by == 'desc'"
-                                @click="sort('unit', 'asc')"
+                                v-else-if="
+                                  order == 'KODE_SATUAN_1' && by == 'desc'
+                                "
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -282,7 +291,7 @@
                               <th
                                 rowspan="2"
                                 v-else
-                                @click="sort('unit', 'asc')"
+                                @click="sort('KODE_SATUAN_1', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Satuan</span>
@@ -294,10 +303,8 @@
                               <!-- BEGIN: Saldo Awal (Table Header) -->
                               <th
                                 rowspan="2"
-                                v-if="
-                                  order == 'beginning_balance' && by == 'asc'
-                                "
-                                @click="sort('beginning_balance', 'desc')"
+                                v-if="order == 'SALDO_AWAL_1' && by == 'asc'"
+                                @click="sort('SALDO_AWAL_1', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">Saldo Awal</span>
@@ -308,9 +315,9 @@
                               <th
                                 rowspan="2"
                                 v-else-if="
-                                  order == 'beginning_balance' && by == 'desc'
+                                  order == 'SALDO_AWAL_1' && by == 'desc'
                                 "
-                                @click="sort('beginning_balance', 'asc')"
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -325,7 +332,7 @@
                               <th
                                 rowspan="2"
                                 v-else
-                                @click="sort('beginning_balance', 'asc')"
+                                @click="sort('SALDO_AWAL_1', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">Saldo Awal</span>
@@ -382,56 +389,18 @@
                               </th> -->
                               <!-- END: Penyesuaian (Table Header) -->
                               <!-- BEGIN: Saldo Buku (Table Header) -->
-                              <th
-                                rowspan="2"
-                                v-if="order == 'book_balance' && by == 'asc'"
-                                @click="sort('book_balance', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th rowspan="2" class="text-center">
                                 <span class="table_header">Saldo Buku</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                rowspan="2"
-                                v-else-if="
-                                  order == 'book_balance' && by == 'desc'
-                                "
-                                @click="sort('book_balance', 'asc')"
-                                class="
-                                  text-center
-                                  sortable
-                                  sorting sorting-desc
-                                "
-                              >
-                                <span class="table_header">Saldo Buku</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                rowspan="2"
-                                v-else
-                                @click="sort('book_balance', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Saldo Buku</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
                               </th>
                               <!-- END: Saldo Buku (Table Header) -->
-                              <!-- BEGIN: Stock Opname (Table Header) -->
+                              <!-- BEGIN: Saldo Akhir (Table Header) -->
                               <th
                                 rowspan="2"
-                                v-if="
-                                  order == 'inventory_taking' && by == 'asc'
-                                "
-                                @click="sort('inventory_taking', 'desc')"
+                                v-if="order == 'SALDO_AKHIR_1' && by == 'asc'"
+                                @click="sort('SALDO_AKHIR_1', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
-                                <span class="table_header">Stock Opname</span>
+                                <span class="table_header">Saldo Akhir</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -439,16 +408,16 @@
                               <th
                                 rowspan="2"
                                 v-else-if="
-                                  order == 'inventory_taking' && by == 'desc'
+                                  order == 'SALDO_AKHIR_1' && by == 'desc'
                                 "
-                                @click="sort('inventory_taking', 'asc')"
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
                                 "
                               >
-                                <span class="table_header">Stock Opname</span>
+                                <span class="table_header">Saldo Akhir</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
@@ -456,62 +425,27 @@
                               <th
                                 rowspan="2"
                                 v-else
-                                @click="sort('inventory_taking', 'asc')"
+                                @click="sort('SALDO_AKHIR_1', 'asc')"
                                 class="text-center sortable"
                               >
-                                <span class="table_header">Stock Opname</span>
+                                <span class="table_header">Saldo Akhir</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <!-- END: Stock Opname (Table Header) -->
+                              <!-- END: Saldo Akhir (Table Header) -->
+
                               <!-- BEGIN: Selisih (Table Header) -->
-                              <th
-                                rowspan="2"
-                                v-if="order == 'difference' && by == 'asc'"
-                                @click="sort('difference', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th rowspan="2" class="text-center">
                                 <span class="table_header">Selisih</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                rowspan="2"
-                                v-else-if="
-                                  order == 'difference' && by == 'desc'
-                                "
-                                @click="sort('difference', 'asc')"
-                                class="
-                                  text-center
-                                  sortable
-                                  sorting sorting-desc
-                                "
-                              >
-                                <span class="table_header">Selisih</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
-                              </th>
-                              <th
-                                rowspan="2"
-                                v-else
-                                @click="sort('difference', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header">Selisih</span>
-                                <button>
-                                  <span class="sr-only"></span>
-                                </button>
                               </th>
                               <!-- END: Selisih (Table Header) -->
                             </tr>
                             <tr>
                               <!-- BEGIN: BC 1.6 In (Table Header) -->
                               <th
-                                v-if="order == 'code_bc_16_in' && by == 'asc'"
-                                @click="sort('code_bc_16_in', 'desc')"
+                                v-if="order == 'BC16' && by == 'asc'"
+                                @click="sort('BC16', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">BC 1.6</span>
@@ -520,10 +454,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'code_bc_16_in' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'BC16' && by == 'desc'"
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -537,7 +469,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('code_bc_16_in', 'asc')"
+                                @click="sort('BC16', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">BC 1.6</span>
@@ -548,8 +480,8 @@
                               <!-- END: BC 1.6 In (Table Header) -->
                               <!-- BEGIN: BC 2.7 In (Table Header) -->
                               <th
-                                v-if="order == 'code_bc_27_in' && by == 'asc'"
-                                @click="sort('code_bc_27_in', 'desc')"
+                                v-if="order == 'BC27IN' && by == 'asc'"
+                                @click="sort('BC27IN', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">BC 2.7</span>
@@ -558,10 +490,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'code_bc_27_in' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'BC27IN' && by == 'desc'"
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -575,7 +505,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('code_bc_27_in', 'asc')"
+                                @click="sort('BC27IN', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">BC 2.7</span>
@@ -586,8 +516,8 @@
                               <!-- END: BC 2.7 In (Table Header) -->
                               <!-- BEGIN: BC 4.0 In (Table Header) -->
                               <th
-                                v-if="order == 'code_bc_40_in' && by == 'asc'"
-                                @click="sort('code_bc_40_in', 'desc')"
+                                v-if="order == 'BC40' && by == 'asc'"
+                                @click="sort('BC40', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">BC 4.0</span>
@@ -596,10 +526,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'code_bc_40_in' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'BC40' && by == 'desc'"
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -613,7 +541,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('code_bc_40_in', 'asc')"
+                                @click="sort('BC40', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">BC 4.0</span>
@@ -625,8 +553,8 @@
 
                               <!-- BEGIN: BC 2.7 Out (Table Header) -->
                               <th
-                                v-if="order == 'code_bc_27_out' && by == 'asc'"
-                                @click="sort('code_bc_27_out', 'desc')"
+                                v-if="order == 'BC27' && by == 'asc'"
+                                @click="sort('BC27', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">BC 2.7</span>
@@ -635,10 +563,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'code_bc_27_out' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'BC27' && by == 'desc'"
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -652,7 +578,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('code_bc_27_out', 'asc')"
+                                @click="sort('BC27', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">BC 2.7</span>
@@ -663,8 +589,8 @@
                               <!-- END: BC 2.7 Out (Table Header) -->
                               <!-- BEGIN: BC 2.8 Out (Table Header) -->
                               <th
-                                v-if="order == 'code_bc_28_out' && by == 'asc'"
-                                @click="sort('code_bc_28_out', 'desc')"
+                                v-if="order == 'BC28' && by == 'asc'"
+                                @click="sort('BC28', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">BC 2.8</span>
@@ -673,10 +599,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'code_bc_28_out' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'BC28' && by == 'desc'"
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -690,7 +614,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('code_bc_28_out', 'asc')"
+                                @click="sort('BC28', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">BC 2.8</span>
@@ -701,8 +625,8 @@
                               <!-- END: BC 2.8 Out (Table Header) -->
                               <!-- BEGIN: BC 3.0 Out (Table Header) -->
                               <th
-                                v-if="order == 'code_bc_27_out' && by == 'asc'"
-                                @click="sort('code_bc_27_out', 'desc')"
+                                v-if="order == 'BC30' && by == 'asc'"
+                                @click="sort('BC30', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">BC 3.0</span>
@@ -711,10 +635,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'code_bc_27_out' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'BC30' && by == 'desc'"
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -728,7 +650,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('code_bc_27_out', 'asc')"
+                                @click="sort('BC30', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">BC 3.0</span>
@@ -739,8 +661,8 @@
                               <!-- END: BC 3.0 Out (Table Header) -->
                               <!-- BEGIN: BC 4.1 Out (Table Header) -->
                               <th
-                                v-if="order == 'code_bc_41_out' && by == 'asc'"
-                                @click="sort('code_bc_41_out', 'desc')"
+                                v-if="order == 'BC41' && by == 'asc'"
+                                @click="sort('BC41', 'desc')"
                                 class="text-center sortable sorting sorting-asc"
                               >
                                 <span class="table_header">BC 4.1</span>
@@ -749,10 +671,8 @@
                                 </button>
                               </th>
                               <th
-                                v-else-if="
-                                  order == 'code_bc_41_out' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
+                                v-else-if="order == 'BC41' && by == 'desc'"
+                                @click="sort('TANGGAL_SALDO_1', 'asc')"
                                 class="
                                   text-center
                                   sortable
@@ -766,7 +686,7 @@
                               </th>
                               <th
                                 v-else
-                                @click="sort('code_bc_41_out', 'asc')"
+                                @click="sort('BC41', 'asc')"
                                 class="text-center sortable"
                               >
                                 <span class="table_header">BC 4.1</span>
@@ -776,65 +696,404 @@
                               </th>
                               <!-- END: BC 4.1 Out (Table Header) -->
                             </tr>
+                            <!-- BEGIN: Filter -->
+                            <tr>
+                              <!-- BEGIN: Filter Indexing -->
+                              <th class="filter-th"></th>
+                              <!-- END: Filter Indexing -->
+
+                              <!-- BEGIN: Filter Kode Barang -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="Kode Barang"
+                                    v-model="search_kode_barang"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter Kode Barang -->
+
+                              <!-- BEGIN: Filter Nama Barang -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="Nama Barang"
+                                    v-model="search_nama_barang"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter Nama Barang -->
+
+                              <!-- BEGIN: Filter Kode Satuan -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="Kode"
+                                    v-model="search_kode_satuan"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter Kode Satuan -->
+
+                              <!-- BEGIN: Filter Saldo Awal -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="Awal"
+                                    v-model="search_saldo_awal"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter Saldo Awal -->
+
+                              <!-- BEGIN: Filter BC 1.6 -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="1.6"
+                                    v-model="search_bc16"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter BC 1.6 -->
+
+                              <!-- BEGIN: Filter BC 2.7 IN -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="2.7 IN"
+                                    v-model="search_bc27_in"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter BC 2.7 IN -->
+
+                              <!-- BEGIN: Filter BC 4.0 -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="4.0"
+                                    v-model="search_bc40"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter BC 4.0 -->
+
+                              <!-- BEGIN: Filter BC 2.7 OUT -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="2.7 OUT"
+                                    v-model="search_bc27_out"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter BC 2.7 OUT -->
+
+                              <!-- BEGIN: Filter BC 2.8 -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="2.8"
+                                    v-model="search_bc28"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter BC 2.8 -->
+
+                              <!-- BEGIN: Filter BC 3.0 -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="3.0"
+                                    v-model="search_bc30"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter BC 3.0 -->
+
+                              <!-- BEGIN: Filter BC 4.1 -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="4.1"
+                                    v-model="search_bc41"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter BC 4.1 -->
+
+                              <!-- BEGIN: Filter Saldo Buku -->
+                              <th class="filter-th"></th>
+                              <!-- END: Filter Saldo Buku -->
+
+                              <!-- BEGIN: Filter Saldo Akhir -->
+                              <th class="filter-th">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="vgt-input text-center"
+                                    placeholder="Akhir"
+                                    v-model="search_saldo_akhir"
+                                    @change="list()"
+                                  />
+                                </div>
+                              </th>
+                              <!-- END: Filter Saldo Akhir -->
+
+                              <!-- BEGIN: Filter Saldo Selisih -->
+                              <th class="filter-th"></th>
+                              <!-- END: Filter Saldo Selisih -->
+                            </tr>
+                            <!-- END: Filter -->
                           </thead>
                           <!-- END: Table Head -->
 
                           <!-- BEGIN: Table Body -->
                           <tbody>
+                            <!-- BEGIN: Table Content -->
                             <tr
-                              v-for="(
-                                mutation_periodic, mutation_periodic_index
-                              ) in mutation_periodics.data"
-                              :key="mutation_periodic_index"
+                              v-for="(report, report_index) in reports.data"
+                              :key="report_index"
                             >
+                              <!-- BEGIN: Content No -->
                               <td class="text-center table-content">
-                                {{ mutation_periodic.id }}
+                                {{ report_index + 1 }}
                               </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.item_code }}
+                              <!-- END: Content No -->
+                              <!-- BEGIN: Content Kode Barang -->
+                              <td class="text-center table_content">
+                                {{
+                                  checkDataString(
+                                    report.KODE_BARANG_1,
+                                    report.KODE_BARANG_2,
+                                    report.KODE_BARANG_3
+                                  )
+                                }}
                               </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.item_name }}
-                              </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.unit }}
-                              </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.beginning_balance }}
-                              </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.code_bc_16_in }}
-                              </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.code_bc_28_out }}
-                              </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.code_bc_41_out }}
-                              </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.code_bc_27_out }}
-                              </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.code_bc_40_in }}
-                              </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.code_bc_27_out }}
-                              </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.code_bc_27_out }}
-                              </td>
+                              <!-- END: Content Kode Barang -->
 
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.book_balance }}
+                              <!-- BEGIN: Content Nama Barang -->
+                              <td class="text-center table_content">
+                                {{
+                                  checkDataString(
+                                    report.URAIAN_1,
+                                    report.URAIAN_2,
+                                    report.URAIAN_3
+                                  )
+                                }}
                               </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.inventory_taking }}
+                              <!-- END: Content Nama Barang -->
+
+                              <!-- BEGIN: Content Kode Satuan -->
+                              <td class="text-center table_content">
+                                {{
+                                  checkDataString(
+                                    report.KODE_SATUAN_1,
+                                    report.KODE_SATUAN_2,
+                                    report.KODE_SATUAN_3
+                                  )
+                                }}
                               </td>
-                              <td class="text-center table-content">
-                                {{ mutation_periodic.difference }}
+                              <!-- END: Content Kode Satuan -->
+
+                              <!-- BEGIN: Content Saldo Awal -->
+                              <td class="text-center table_content">
+                                {{
+                                  checkDataNumber(
+                                    report.SALDO_AWAL_1,
+                                    report.SALDO_AWAL_2,
+                                    report.SALDO_AWAL_3
+                                  ) | formatNumber
+                                }}
                               </td>
+                              <!-- END: Content Saldo Awal -->
+
+                              <!-- BEGIN: Content BC 1.6 -->
+                              <td class="text-center table_content">
+                                {{ report.BC16 | formatNumber }}
+                              </td>
+                              <!-- END: Content BC 1.6 -->
+
+                              <!-- BEGIN: Content BC 2.7 IN -->
+                              <td class="text-center table_content">
+                                {{ report.BC27IN | formatNumber }}
+                              </td>
+                              <!-- END: Content BC 2.7 IN-->
+
+                              <!-- BEGIN: Content BC 4.0  -->
+                              <td class="text-center table_content">
+                                {{ report.BC40 | formatNumber }}
+                              </td>
+                              <!-- END: Content BC 4.0 -->
+
+                              <!-- BEGIN: Content BC 2.7 OUT -->
+                              <td class="text-center table_content">
+                                {{ report.BC27 | formatNumber }}
+                              </td>
+                              <!-- END: Content BC 2.7 OUT-->
+
+                              <!-- BEGIN: Content BC 2.8 OUT -->
+                              <td class="text-center table_content">
+                                {{ report.BC28 | formatNumber }}
+                              </td>
+                              <!-- END: Content BC 2.8 OUT-->
+
+                              <!-- BEGIN: Content BC 3.0 OUT -->
+                              <td class="text-center table_content">
+                                {{ report.BC30 | formatNumber }}
+                              </td>
+                              <!-- END: Content BC 3.0 OUT-->
+
+                              <!-- BEGIN: Content BC 4.1 OUT -->
+                              <td class="text-center table_content">
+                                {{ report.BC41 | formatNumber }}
+                              </td>
+                              <!-- END: Content BC 4.1 OUT-->
+
+                              <!-- BEGIN: Content Saldo Buku -->
+                              <td class="text-center table_content">
+                                <span
+                                  v-if="
+                                    Number(
+                                      checkDataNumber(
+                                        report.SALDO_AWAL_1,
+                                        report.SALDO_AWAL_2,
+                                        report.SALDO_AWAL_3
+                                      )
+                                    ) +
+                                    Number(report.BC16) +
+                                    Number(report.BC27IN) +
+                                    Number(report.BC40) -
+                                    Number(report.BC27) -
+                                    Number(report.BC28) -
+                                    Number(report.BC30) -
+                                    Number(report.BC41)
+                                  "
+                                >
+                                  {{
+                                    Number(
+                                      checkDataNumber(
+                                        report.SALDO_AWAL_1,
+                                        report.SALDO_AWAL_2,
+                                        report.SALDO_AWAL_3
+                                      )
+                                    ) +
+                                    Number(report.BC16) +
+                                    Number(report.BC27IN) +
+                                    Number(report.BC40) -
+                                    Number(report.BC27) -
+                                    Number(report.BC28) -
+                                    Number(report.BC30) -
+                                    Number(report.BC41)
+                                  }}</span
+                                >
+
+                                <span v-else> - </span>
+                              </td>
+                              <!-- END: Content Saldo Buku -->
+
+                              <!-- BEGIN: Content Saldo Akhir -->
+                              <td class="text-center table_content">
+                                {{
+                                  checkDataNumber(
+                                    report.SALDO_AKHIR_1,
+                                    report.SALDO_AKHIR_2,
+                                    report.SALDO_AKHIR_3
+                                  ) | formatNumber
+                                }}
+                              </td>
+                              <!-- END: Content Saldo Akhir -->
+
+                              <!-- BEGIN: Content Selisih -->
+                              <td class="text-center table_content">
+                                <span
+                                  v-if="
+                                    Number(
+                                      checkDataNumber(
+                                        report.SALDO_AKHIR_1,
+                                        report.SALDO_AKHIR_2,
+                                        report.SALDO_AKHIR_3
+                                      )
+                                    ) -
+                                    Number(
+                                      checkDataNumber(
+                                        report.SALDO_AWAL_1,
+                                        report.SALDO_AWAL_2,
+                                        report.SALDO_AWAL_3
+                                      )
+                                    ) +
+                                    Number(report.BC16) +
+                                    Number(report.BC27IN) +
+                                    Number(report.BC40) -
+                                    Number(report.BC27) -
+                                    Number(report.BC28) -
+                                    Number(report.BC30) -
+                                    Number(report.BC41)
+                                  "
+                                >
+                                  {{
+                                    Number(
+                                      checkDataNumber(
+                                        report.SALDO_AKHIR_1,
+                                        report.SALDO_AKHIR_2,
+                                        report.SALDO_AKHIR_3
+                                      )
+                                    ) -
+                                    Number(
+                                      checkDataNumber(
+                                        report.SALDO_AWAL_1,
+                                        report.SALDO_AWAL_2,
+                                        report.SALDO_AWAL_3
+                                      )
+                                    ) +
+                                    Number(report.BC16) +
+                                    Number(report.BC27IN) +
+                                    Number(report.BC40) -
+                                    Number(report.BC27) -
+                                    Number(report.BC28) -
+                                    Number(report.BC30) -
+                                    Number(report.BC41)
+                                  }}
+                                </span>
+                                <span v-else> - </span>
+                              </td>
+                              <!-- END: Content Selisih -->
                             </tr>
-                            <tr v-if="mutation_periodics.data.length < 1">
+                            <tr v-if="reports.data.length < 1">
                               <td colspan="20">
                                 <div class="vgt-center-align vgt-text-disabled">
                                   Data not found
@@ -872,11 +1131,11 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !mutation_periodics.prev_page_url,
+                              disabled: !reports.prev_page_url,
                             }"
                             @click="
-                              mutation_periodics.prev_page_url &&
-                                list(mutation_periodics.prev_page_url)
+                              reports.prev_page_url &&
+                                list(reports.prev_page_url)
                             "
                             style="margin-right: 0px"
                           >
@@ -907,7 +1166,7 @@
                               />
                               <span class="paginate_text">
                                 of
-                                {{ mutation_periodics.last_page }}
+                                {{ reports.last_page }}
                               </span>
                             </label>
                           </div>
@@ -915,11 +1174,11 @@
                             type="button"
                             class="footer__navigation__page-btn"
                             :class="{
-                              disabled: !mutation_periodics.next_page_url,
+                              disabled: !reports.next_page_url,
                             }"
                             @click="
-                              mutation_periodics.next_page_url &&
-                                list(mutation_periodics.next_page_url)
+                              reports.next_page_url &&
+                                list(reports.next_page_url)
                             "
                           >
                             <span style="font-weight: 500">Next</span>
@@ -944,6 +1203,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import axios from "axios";
 import debounce from "lodash/debounce";
@@ -953,141 +1213,100 @@ moment.locale("id");
 export default {
   data() {
     return {
-      mutation_periodics: {
+      reports: {
         data: [],
       },
       search: null,
-      search_item_code: null,
-      search_item_name: null,
-      search_unit: null,
-      search_beginning_balance: null,
-      search_code_bc_16_in: null,
-      search_code_bc_40_in: null,
-      search_code_bc_27_in: null,
-      search_code_bc_28_out: null,
-      search_code_bc_41_out: null,
-      search_code_bc_27_out: null,
-      search_adjustment: null,
-      search_book_balance: null,
-      search_inventory_taking: null,
-      search_difference: null,
-      search_submission_date: null,
-      search_submission_number: null,
-      order: "id",
+      search_kode_barang: null,
+      search_nama_barang: null,
+      search_kode_satuan: null,
+      search_saldo_awal: null,
+      search_saldo_akhir: null,
+      search_saldo_penyesuaian: null,
+      search_bc16: null,
+      search_bc27_in: null,
+      search_bc27_out: null,
+      search_bc40: null,
+      search_bc41: null,
+      search_bc28: null,
+      search_bc30: null,
+
+      // Order Data
+      order: "TANGGAL_SALDO_1",
       by: "desc",
+      current_page: "",
       paginate: "10",
-      current_page: null,
-      start_date: null,
-      end_date: null,
-      date_selected: false,
+
+      // Filter Data
+      filter_start_date: null,
+      filter_end_date: null,
     };
   },
-  // created() {
-  //   this.list();
-  //   Fire.$on("RefreshTable", () => {
-  //     this.list();
-  //   });
-  // },
-  watch: {
-    // search: debounce(function () {
-    //   this.list();
-    // }, 500),
-    search_item_code: debounce(function () {
-      this.list();
-    }, 500),
-    search_item_name: debounce(function () {
-      this.list();
-    }, 500),
-    search_unit: debounce(function () {
-      this.list();
-    }, 500),
-    search_beginning_balance: debounce(function () {
-      this.list();
-    }, 500),
-    search_code_bc_16_in: debounce(function () {
-      this.list();
-    }, 500),
-    search_code_bc_40_in: debounce(function () {
-      this.list();
-    }, 500),
-    search_code_bc_27_in: debounce(function () {
-      this.list();
-    }, 500),
-    search_code_bc_28_out: debounce(function () {
-      this.list();
-    }, 500),
-    search_code_bc_41_out: debounce(function () {
-      this.list();
-    }, 500),
-    search_code_bc_27_out: debounce(function () {
-      this.list();
-    }, 500),
-    search_adjustment: debounce(function () {
-      this.list();
-    }, 500),
-    search_book_balance: debounce(function () {
-      this.list();
-    }, 500),
-    search_inventory_taking: debounce(function () {
-      this.list();
-    }, 500),
-    search_difference: debounce(function () {
-      this.list();
-    }, 500),
-    search_submission_date: debounce(function () {
-      this.list();
-    }, 500),
-    search_submission_number: debounce(function () {
-      this.list();
-    }, 500),
-  },
+
   methods: {
-    filterDate() {
-      this.date_selected = true;
-      this.list();
+    checkDataString(data1, data2, data3) {
+      if (data1) {
+        return data1;
+      } else {
+        if (data2) {
+          return data2;
+        } else {
+          if (data3) {
+            return data3;
+          }
+        }
+      }
     },
-    DatePicker(date) {
-      return moment(date).format("DD MMMM YYYY");
+    checkDataNumber(data1, data2, data3) {
+      if ((data1 = !null)) {
+        return data1;
+      } else {
+        if ((data2 = !null)) {
+          return data2;
+        } else {
+          if ((data3 = !null)) {
+            return data3;
+          }
+        }
+      }
     },
-    clearForm() {
-      this.start_date = null;
-      this.end_date = null;
+    filterButton() {
       this.list();
-      this.date_selected = false;
     },
     list(paginate) {
       this.$Progress.start();
-      paginate = paginate || "/api/mutation-periodic";
+      paginate = paginate || "/api/report-mutation";
       axios
         .get(paginate, {
           params: {
             search: this.search,
-            search_item_code: this.search_item_code,
-            search_item_name: this.search_item_name,
-            search_unit: this.$search_unit,
-            search_beginning_balance: this.$search_beginning_balance,
-            search_code_bc_16_in: this.$search_code_bc_16_in,
-            search_code_bc_40_in: this.$search_code_bc_40_in,
-            search_code_bc_27_in: this.$search_code_bc_27_in,
-            search_code_bc_28_out: this.$search_code_bc_28_out,
-            search_code_bc_41_out: this.$search_code_bc_41_out,
-            search_code_bc_27_out: this.$search_code_bc_27_out,
-            search_adjustment: this.$search_adjustment,
-            search_book_balance: this.$search_book_balance,
-            search_inventory_taking: this.$search_inventory_taking,
-            search_difference: this.$search_difference,
-            search_submission_date: this.$search_submission_date,
-            search_submission_number: this.$search_submission_number,
-            start_date: this.start_date,
-            end_date: this.end_date,
+            search_kode_barang: this.search_kode_barang,
+            search_nama_barang: this.search_nama_barang,
+            search_kode_satuan: this.$search_kode_satuan,
+            search_saldo_awal: this.$search_saldo_awal,
+            search_saldo_akhir: this.$search_saldo_akhir,
+            search_saldo_penyesuaian: this.$search_saldo_penyesuaian,
+            search_bc16: this.$search_bc16,
+            search_bc27_in: this.$search_bc27_in,
+            search_bc27_out: this.$search_bc27_out,
+            search_bc40: this.$search_bc40,
+            search_bc41: this.$search_bc41,
+            search_bc28: this.$search_bc28,
+            search_bc30: this.$search_bc30,
+
+            // Filter Date
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+
+            // Order, By, Paginate
             order: this.order,
             by: this.by,
             paginate: this.paginate,
           },
         })
         .then((response) => {
-          this.mutation_periodics = response.data;
-          this.current_page = this.mutation_periodics.current_page;
+          this.reports = response.data;
+          this.current_page = this.reports.current_page;
           this.$Progress.finish();
         })
         .catch((error) => {
@@ -1095,21 +1314,40 @@ export default {
           console.log(error);
         });
     },
+    clearForm() {
+      this.filter_start_date = null;
+      this.filter_end_date = null;
+      // Remove Search
+      this.search = null;
+      this.search_kode_barang = null;
+      this.search_nama_barang = null;
+      this.search_kode_satuan = null;
+      this.search_saldo_awal = null;
+      this.search_saldo_akhir = null;
+      this.search_saldo_penyesuaian = null;
+      this.search_bc16 = null;
+      this.search_bc27_in = null;
+      this.search_bc27_out = null;
+      this.search_bc40 = null;
+      this.search_bc41 = null;
+      this.search_bc28 = null;
+      this.search_bc30 = null;
+    },
 
     directPage: debounce(function () {
       if (this.current_page < 1) {
         this.current_page = 1;
-      } else if (this.current_page > this.mutation_periodics.last_page) {
-        this.current_page = this.mutation_periodics.last_page;
+      } else if (this.current_page > this.paginate.last_page) {
+        this.current_page = this.paginate.last_page;
       }
 
-      let url = new URL(this.mutation_periodics.first_page_url);
-      let search_params = new URLSearchParams(url.search);
+      let url = new URL(this.outbounds.first_page_url);
+      let search_params = url.searchParams;
       search_params.set("page", this.current_page);
       url.search = search_params.toString();
+      let new_url = url.toString();
       this.list(new_url);
     }, 500),
-
     sort(order, by) {
       this.order = order;
       this.by = by;
@@ -1118,6 +1356,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .vgt-global-search__input .input__icon .magnifying-glass {
   margin-top: -3px;
