@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('kode_barang', 100)->nullable();
             $table->string('uraian', 255)->nullable();
             $table->string('kode_satuan', 50)->nullable();
-            $table->integer('saldo_awal')->nullable();
-            $table->integer('saldo_akhir')->nullable();
-            $table->integer('saldo_penyesuaian')->nullable();
+            $table->decimal('saldo_awal', 38, 4)->nullable();
+            $table->decimal('saldo_akhir', 38, 4)->nullable();
+            $table->decimal('saldo_mutasi', 38, 4)->nullable();
             $table->string('tipe_saldo', 100)->nullable();
             $table->dateTime('uploaded_at')->nullable();
             $table->timestamps();
