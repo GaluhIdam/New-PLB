@@ -167,6 +167,7 @@ export default {
   },
   methods: {
     create() {
+      this.$Progress.start();
       axios
         .post("/api/aircraft-redelivery", {
           reg: this.reg,
@@ -175,10 +176,17 @@ export default {
           date_out: this.date_out,
         })
         .then((data) => {
+          this.$Progress.finish();
+          toast.fire({
+            icon: "success",
+            title: "Berhasil Menambahkan Data",
+          });
           this.$router.push({ name: "aircraft-mutation" });
         })
         .catch((error) => {
           if (error.response.status == 422) {
+            this.$Progress.fail();
+            console.log(error);
             this.errors = error.response.data.errors;
           }
         });
@@ -193,16 +201,15 @@ export default {
       this.selected_mutation = null;
     },
     initMutation() {
-      this.isLoading = true;
+      this.$Progress.start();
 
       axios.get("/api/aircraft-data").then((response) => {
         this.mutations = response.data;
-        this.isLoading = false;
+        this.$Progress.finish();
       });
     },
     findMutation(keyword) {
-      this.isLoading = true;
-
+      this.$Progress.start();
       axios
         .get("/api/aircraft-data", {
           params: {
@@ -210,8 +217,8 @@ export default {
           },
         })
         .then((response) => {
+          this.$Progress.finish();
           this.mutations = response.data;
-          this.isLoading = false;
         });
     },
     mutationLabel({ reg }) {
