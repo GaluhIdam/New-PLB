@@ -139,6 +139,7 @@
                     <div class="col-md-4">
                       <input
                         type="file"
+                        accept="application/pdf"
                         v-on:change="attachFile"
                         ref="rksp"
                         class="form-control"
@@ -187,6 +188,7 @@ export default {
   },
   methods: {
     create() {
+      this.$Progress.start();
       let formData = new FormData();
       formData.append("operator", this.operator);
       formData.append("type", this.type);
@@ -201,10 +203,17 @@ export default {
           },
         })
         .then((data) => {
+          this.$Progress.finish();
+          toast.fire({
+            icon: "success",
+            title: "Berhasil Menambahkan Data",
+          });
           this.$router.push({ name: "aircraft-mutation" });
         })
         .catch((error) => {
           if (error.response.status == 422) {
+            this.$Progress.fail();
+            console.log(error);
             this.errors = error.response.data.errors;
           }
         });

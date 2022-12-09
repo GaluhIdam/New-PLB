@@ -104,12 +104,14 @@ Vue.filter("defaultFilter", function (value) {
 // Vue-Progressbar
 import VueProgressBar from "vue-progressbar";
 const options = {
-  color: "#2A3F54",
-  failedColor: "#red",
-  thickness: "2px",
+  // color: "#2A3F54",
+  color: "#517AA2",
+  failedColor: "#EE7475",
+  thickness: "5px",
   transition: {
+    speed: "0.2s",
     opacity: "0.6s",
-    termination: 300,
+    termination: 700,
   },
   autoRevert: true,
   position: "fixed",

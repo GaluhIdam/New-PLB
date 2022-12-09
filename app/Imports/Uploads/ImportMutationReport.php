@@ -5,10 +5,13 @@ namespace App\Imports\Uploads;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Uploads\MutationReport;
 use Carbon\Carbon;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class ImportMutationReport implements ToModel
+class ImportMutationReport implements ToModel, WithHeadingRow, WithChunkReading, ShouldQueue
+
 {
     public $tipe_saldo;
     public $uploaded_at;
@@ -26,22 +29,27 @@ class ImportMutationReport implements ToModel
 
         if ($this->tipe_saldo == 'saldo_awal') {
             return new MutationReport([
-                'kode_barang' => $row[0],
-                'uraian' => $row[1],
-                'kode_satuan' => $row[2],
-                'saldo_awal' => $row[3],
+                'kode_barang' => $row['kode_barang'],
+                'uraian' => $row['uraian_barang'],
+                'kode_satuan' => $row['satuan'],
+                'saldo_awal' => $row['saldo_buku'],
                 'tipe_saldo' => $saldoType,
                 'uploaded_at' => Carbon::parse(substr($this->uploaded_at, 0, strpos($this->uploaded_at, " ("))),
             ]);
         } else {
             return new MutationReport([
-                'kode_barang' => $row[0],
-                'uraian' => $row[1],
-                'kode_satuan' => $row[2],
-                'saldo_akhir' => $row[3],
+                'kode_barang' => $row['kode_barang'],
+                'uraian' => $row['uraian_barang'],
+                'kode_satuan' => $row['satuan'],
+                'saldo_akhir' => $row['saldo_buku'],
                 'tipe_saldo' => $saldoType,
                 'uploaded_at' => Carbon::parse(substr($this->uploaded_at, 0, strpos($this->uploaded_at, " ("))),
             ]);
         }
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }
