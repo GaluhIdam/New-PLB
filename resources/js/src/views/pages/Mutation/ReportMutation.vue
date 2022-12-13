@@ -47,7 +47,7 @@
                 <!-- BEGIN: Cari Data -->
                 <div class="row justify-content-center">
                   <div class="col-md-8">
-                    <form @submit.prevent class="form-horizontal">
+                    <form @submit.prevent class="form-horizontal" enctype="multipart/form-data">
                       <div class="form-group row mt-4">
                         <label class="col-sm-3 col-form-label"
                           >Tanggal Mutasi</label

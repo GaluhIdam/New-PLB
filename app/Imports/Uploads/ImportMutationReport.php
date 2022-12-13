@@ -55,11 +55,11 @@ class ImportMutationReport implements ToModel, WithHeadingRow, WithBatchInserts,
 
     public function chunkSize(): int
     {
-        return 500;
+        return 2000;
     }
 
     public function batchSize(): int
     {
-        return 500;
+        return 2000;
     }
 }
