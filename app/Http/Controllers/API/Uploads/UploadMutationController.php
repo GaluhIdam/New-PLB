@@ -122,20 +122,26 @@ class UploadMutationController extends Controller
         $removeUnderScore = str_replace('_', ' ', $data['tipe_saldo']);
         $tipeSaldo = ucwords($removeUnderScore);
 
-        $createLog = LogUploads::create([
-            'name' => Auth::user()->name,
-            'username' => Auth::user()->username,
-            'email' => Auth::user()->email,
-            'uploaded_to' => 'Upload data ' . $tipeSaldo,
-            'uploaded_at' => Carbon::parse(substr($data['uploaded_at'], 0, strpos($data['uploaded_at'], " ("))),
-            'uploaded_file' => $data['file'],
-        ]);
-
-        // Upload File Excel store to database
-        Excel::import(
+        // If Excel::Import success
+        if (Excel::import(
             new ImportMutationReport($data['tipe_saldo'], $data['uploaded_at']),
             request()->file('file')
-        );
+        )) {
+            // Create Log Uploads
+            $createLog = LogUploads::create([
+                'name' => Auth::user()->name,
+                'username' => Auth::user()->username,
+                'email' => Auth::user()->email,
+                'uploaded_to' => 'Upload data ' . $tipeSaldo,
+                'uploaded_at' => Carbon::parse(substr($data['uploaded_at'], 0, strpos($data['uploaded_at'], " ("))),
+                'uploaded_file' => $data['file'],
+            ]);
+        } else {
+            return response()->json([
+                'Success' => false,
+                'Messages' => 'Upload Mutation Report Gagal'
+            ], 500);
+        }
 
         return response()->json([
             'Success' => true,

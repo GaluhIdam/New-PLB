@@ -32,7 +32,7 @@ class ImportMutationReport implements ToModel, WithHeadingRow, WithChunkReading,
                 'kode_barang' => $row['kode_barang'],
                 'uraian' => $row['uraian_barang'],
                 'kode_satuan' => $row['satuan'],
-                'saldo_awal' => $row['saldo_buku'],
+                'saldo_awal' => $row['saldo_awal'],
                 'tipe_saldo' => $saldoType,
                 'uploaded_at' => Carbon::parse(substr($this->uploaded_at, 0, strpos($this->uploaded_at, " ("))),
             ]);
@@ -41,7 +41,7 @@ class ImportMutationReport implements ToModel, WithHeadingRow, WithChunkReading,
                 'kode_barang' => $row['kode_barang'],
                 'uraian' => $row['uraian_barang'],
                 'kode_satuan' => $row['satuan'],
-                'saldo_akhir' => $row['saldo_buku'],
+                'saldo_akhir' => $row['saldo_akhir'],
                 'tipe_saldo' => $saldoType,
                 'uploaded_at' => Carbon::parse(substr($this->uploaded_at, 0, strpos($this->uploaded_at, " ("))),
             ]);
@@ -50,6 +50,6 @@ class ImportMutationReport implements ToModel, WithHeadingRow, WithChunkReading,
 
     public function chunkSize(): int
     {
-        return 1000;
+        return 2000;
     }
 }

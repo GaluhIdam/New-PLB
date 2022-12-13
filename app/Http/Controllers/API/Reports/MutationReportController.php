@@ -46,7 +46,6 @@ class MutationReportController extends Controller
             $by = $request->get('by');
         } else {
             $order = 'SALDO_AKHIR_1';
-            // $order = 'TANGGAL_AJU_1';
             $by = 'desc';
         }
         if ($request->get('paginate')) {

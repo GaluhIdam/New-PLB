@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('kode_satuan', 50)->nullable();
             $table->decimal('saldo_awal', 38, 4)->nullable();
             $table->decimal('saldo_akhir', 38, 4)->nullable();
-            $table->decimal('saldo_mutasi', 38, 4)->nullable();
+            $table->decimal('saldo_penyesuaian', 38, 4)->nullable();
             $table->string('tipe_saldo', 100)->nullable();
             $table->dateTime('uploaded_at')->nullable();
             $table->timestamps();
