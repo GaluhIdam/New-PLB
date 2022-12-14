@@ -9,11 +9,9 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">
-                <router-link
-                  :to="{
-                    name: 'dashboard',
-                  }"
-                >
+                <router-link :to="{
+                  name: 'dashboard',
+                }">
                   Dashboard
                 </router-link>
               </li>
@@ -37,11 +35,7 @@
                   Aircraft Mutation
                 </h5>
                 <div class="card-tools">
-                  <button
-                    type="button"
-                    data-card-widget="collapse"
-                    class="btn btn-tool"
-                  >
+                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
@@ -58,29 +52,16 @@
                             </span>
                             <span class="sr-only"> Search </span>
                           </label>
-                          <input
-                            type="text"
-                            placeholder="Search Data"
-                            class="vgt-input vgt-pull-left"
-                            v-model="search"
-                          />
+                          <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left"
+                            v-model="search" />
                         </div>
-                        <div
-                          class="vgt-global-search__actions vgt-pull-right"
-                          v-if="$gate.isAdminOrPlanner()"
-                        >
+                        <div class="vgt-global-search__actions vgt-pull-right" v-if="$gate.isAdminOrPlanner()">
                           <div>
-                            <button
-                              class="btn btn-secondary ms-auto rounded-1"
-                              @click="exportCsv"
-                            >
+                            <button class="btn btn-secondary ms-auto rounded-1" @click="exportCsv">
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
                             </button>
-                            <button
-                              class="btn btn-secondary ms-auto rounded-1"
-                              @click="exportExcel"
-                            >
+                            <button class="btn btn-secondary ms-auto rounded-1" @click="exportExcel">
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
                             </button>
@@ -92,36 +73,23 @@
                               PDF
                             </button> -->
 
-                            <router-link
-                              :to="{
-                                name: 'aircraft-delivery',
-                              }"
-                              class="btn btn-primary btn-md"
-                              style="margin-right: 10px"
-                            >
+                            <router-link :to="{
+                              name: 'aircraft-delivery',
+                            }" class="btn btn-primary btn-md" style="margin-right: 10px">
                               <i class="fa-solid fa-plus"></i>
                               New Delivery
                             </router-link>
                           </div>
                         </div>
 
-                        <div
-                          class="vgt-global-search__actions vgt-pull-right"
-                          v-if="$gate.isUser()"
-                        >
+                        <div class="vgt-global-search__actions vgt-pull-right" v-if="$gate.isUser()">
                           <div>
-                            <button
-                              class="btn btn-secondary ms-auto rounded-1"
-                              @click="exportCsv"
-                            >
+                            <button class="btn btn-secondary ms-auto rounded-1" @click="exportCsv">
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
                             </button>
-                            <button
-                              class="btn btn-secondary ms-auto rounded-1"
-                              style="margin-right: 10px"
-                              @click="exportExcel"
-                            >
+                            <button class="btn btn-secondary ms-auto rounded-1" style="margin-right: 10px"
+                              @click="exportExcel">
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
                             </button>
@@ -136,188 +104,124 @@
                         </div>
                       </div>
                       <div class="vgt-responsive">
-                        <table
-                          id="vgt-table"
-                          class="vgt-table bordered polar-bear"
-                        >
+                        <table id="vgt-table" class="vgt-table bordered polar-bear">
                           <thead>
                             <tr>
                               <!--  -->
-                              <th
-                                v-if="order == 'reg' && by == 'asc'"
-                                @click="sort('reg', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
-                                <span class="table_header"
-                                  >Aircraft Registration</span
-                                >
+                              <th v-if="order == 'reg' && by == 'asc'" @click="sort('reg', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
+                                <span class="table_header">Aircraft Registration</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'reg' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="
+                              <th v-else-if="order == 'reg' && by == 'desc'" @click="sort('id', 'asc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
-                                <span class="table_header"
-                                  >Aircraft Registration</span
-                                >
+                                ">
+                                <span class="table_header">Aircraft Registration</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('reg', 'asc')"
-                                class="text-center sortable"
-                              >
-                                <span class="table_header"
-                                  >Aircraft Registration</span
-                                >
+                              <th v-else @click="sort('reg', 'asc')" class="text-center sortable">
+                                <span class="table_header">Aircraft Registration</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  -->
-                              <th
-                                v-if="order == 'operator' && by == 'asc'"
-                                @click="sort('operator', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'operator' && by == 'asc'" @click="sort('operator', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Operator</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'operator' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="
+                              <th v-else-if="order == 'operator' && by == 'desc'" @click="sort('id', 'asc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">Operator</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('operator', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('operator', 'asc')" class="text-center sortable">
                                 <span class="table_header">Operator</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  -->
-                              <th
-                                v-if="order == 'type' && by == 'asc'"
-                                @click="sort('type', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Aircraft Type</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'type' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="
+                              <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'asc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">Aircraft Type</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('type', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('type', 'asc')" class="text-center sortable">
                                 <span class="table_header">Aircraft Type</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  -->
-                              <th
-                                v-if="order == 'date_in' && by == 'asc'"
-                                @click="sort('date_in', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'date_in' && by == 'asc'" @click="sort('date_in', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Date In</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'date_in' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="
+                              <th v-else-if="order == 'date_in' && by == 'desc'" @click="sort('id', 'asc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">Date In</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('date_in', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('date_in', 'asc')" class="text-center sortable">
                                 <span class="table_header">Date In</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!--  -->
-                              <th
-                                v-if="order == 'date_out' && by == 'asc'"
-                                @click="sort('date_out', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'date_out' && by == 'asc'" @click="sort('date_out', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Date Out</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'date_out' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="
+                              <th v-else-if="order == 'date_out' && by == 'desc'" @click="sort('id', 'asc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">Date Out</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('date_out', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('date_out', 'asc')" class="text-center sortable">
                                 <span class="table_header">Date Out</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -329,86 +233,53 @@
                               <th class="text-center">
                                 <span class="table_header">Status</span>
                               </th>
-                              <th
-                                class="text-center"
-                                v-if="$gate.isAdminOrPlanner()"
-                              >
+                              <th class="text-center" v-if="$gate.isAdminOrPlanner()">
                                 <span class="table_header">Action</span>
                               </th>
                             </tr>
                             <tr>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Search Aircraft Registration"
-                                    v-model="search_aircraft_registration"
-                                  />
+                                  <input type="text" class="vgt-input text-center"
+                                    placeholder="Search Aircraft Registration" v-model="search_aircraft_registration" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Search Operator"
-                                    v-model="search_operator"
-                                  />
+                                  <input type="text" class="vgt-input text-center" placeholder="Search Operator"
+                                    v-model="search_operator" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Search Aircraft Type"
-                                    v-model="search_aircraft_type"
-                                  />
+                                  <input type="text" class="vgt-input text-center" placeholder="Search Aircraft Type"
+                                    v-model="search_aircraft_type" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="date"
-                                    class="vgt-input text-center"
-                                    v-model="search_date_aircraft_in"
-                                  />
+                                  <input type="date" class="vgt-input text-center" v-model="search_date_aircraft_in" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="date"
-                                    class="vgt-input text-center"
-                                    v-model="search_date_aircraft_out"
-                                  />
+                                  <input type="date" class="vgt-input text-center" v-model="search_date_aircraft_out" />
                                 </div>
                               </th>
                               <th class="filter-th"></th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Search Status"
-                                    v-model="search_status"
-                                  />
+                                  <input type="text" class="vgt-input text-center" placeholder="Search Status"
+                                    v-model="search_status" />
                                 </div>
                               </th>
-                              <th
-                                class="filter-th"
-                                v-if="$gate.isAdminOrPlanner()"
-                              ></th>
+                              <th class="filter-th" v-if="$gate.isAdminOrPlanner()"></th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr
-                              v-for="(
+                            <tr v-for="(
                                 mutation, mutation_index
-                              ) in mutations.data"
-                              :key="mutation_index"
-                            >
+                              ) in mutations.data" :key="mutation_index">
                               <td class="table_content text-center">
                                 {{ mutation.reg }}
                               </td>
@@ -425,21 +296,15 @@
                                 {{ mutation.date_out | myDateTime }}
                               </td>
                               <td class="text-center table_content">
-                                <a
-                                  class="text-danger"
-                                  v-if="mutation.rksp != null"
-                                  :href="`/storage/${mutation.rksp}`"
-                                  target="_blank"
-                                  ><h4><i class="fa-solid fa-file-pdf"></i></h4
-                                ></a>
+                                <a class="text-danger" v-if="mutation.rksp != null" :href="`/storage/${mutation.rksp}`"
+                                  target="_blank">
+                                  <h4><i class="fa-solid fa-file-pdf"></i></h4>
+                                </a>
                               </td>
                               <td class="table_content text-center">
                                 {{ mutation.status }}
                               </td>
-                              <td
-                                class="text-center table_content"
-                                v-if="$gate.isAdminOrPlanner()"
-                              >
+                              <td class="text-center table_content" v-if="$gate.isAdminOrPlanner()">
                                 <ul class="list-inline m-0">
                                   <!-- <li class="list-inline-item">
                                     <a
@@ -451,12 +316,9 @@
                                     ></a>
                                   </li> -->
                                   <li class="list-inline-item">
-                                    <a
-                                      @click="deleteData(mutation.id)"
-                                      class="text-danger"
-                                      title="Delete"
-                                      ><h5><i class="fa-solid fa-trash"></i></h5
-                                    ></a>
+                                    <a @click="deleteData(mutation.id)" class="text-danger" title="Delete">
+                                      <h5><i class="fa-solid fa-trash"></i></h5>
+                                    </a>
                                   </li>
                                 </ul>
                               </td>
@@ -473,19 +335,13 @@
                       </div>
                       <div class="vgt-wrap__footer vgt-clearfix">
                         <div class="footer__row-count vgt-pull-left">
-                          <label
-                            class="footer__row-count__label row_per_page_label"
-                          >
+                          <label class="footer__row-count__label row_per_page_label">
                             Rows per page:
                           </label>
-                          <select
-                            class="
+                          <select class="
                               footer__row-count__select
                               row_per_page_option
-                            "
-                            v-model="paginate"
-                            @change="list()"
-                          >
+                            " v-model="paginate" @change="list()">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -493,65 +349,36 @@
                           </select>
                         </div>
                         <div class="footer__navigation vgt-pull-right">
-                          <button
-                            type="button"
-                            class="footer__navigation__page-btn"
-                            :class="{
-                              disabled: !mutations.prev_page_url,
-                            }"
-                            @click="
-                              mutations.prev_page_url &&
-                                list(mutations.prev_page_url)
-                            "
-                            style="margin-right: 0px"
-                          >
-                            <span
-                              aria-hidden="true"
-                              class="chevron left"
-                            ></span>
+                          <button type="button" class="footer__navigation__page-btn" :class="{
+                            disabled: !mutations.prev_page_url,
+                          }" @click="
+  mutations.prev_page_url &&
+  list(mutations.prev_page_url)
+" style="margin-right: 0px">
+                            <span aria-hidden="true" class="chevron left"></span>
                             <span class="paginate_text">Prev</span>
                           </button>
-                          <div
-                            class="footer__navigation__page-info"
-                            style="color: #99a0b2"
-                          >
-                            <label
-                              class="page-info__label"
-                              style="margin-bottom: -5px"
-                            >
+                          <div class="footer__navigation__page-info" style="color: #99a0b2">
+                            <label class="page-info__label" style="margin-bottom: -5px">
                               <span class="paginate_text">page</span>
-                              <input
-                                type="text"
-                                class="
+                              <input type="text" class="
                                   footer__navigation__page-info__current-entry
                                   vgt-input
-                                "
-                                v-model="current_page"
-                                @keypress="directPage"
-                                style="width: 60px"
-                              />
+                                " v-model="current_page" @keypress="directPage" style="width: 60px" />
                               <span class="paginate_text">
                                 of
                                 {{ mutations.last_page }}
                               </span>
                             </label>
                           </div>
-                          <button
-                            type="button"
-                            class="footer__navigation__page-btn"
-                            :class="{
-                              disabled: !mutations.next_page_url,
-                            }"
-                            @click="
-                              mutations.next_page_url &&
-                                list(mutations.next_page_url)
-                            "
-                          >
+                          <button type="button" class="footer__navigation__page-btn" :class="{
+                            disabled: !mutations.next_page_url,
+                          }" @click="
+  mutations.next_page_url &&
+  list(mutations.next_page_url)
+">
                             <span style="font-weight: 500">Next</span>
-                            <span
-                              aria-hidden="true"
-                              class="chevron right"
-                            ></span>
+                            <span aria-hidden="true" class="chevron right"></span>
                           </button>
                         </div>
                       </div>
@@ -596,9 +423,6 @@ export default {
   },
   created() {
     this.list();
-    Fire.$on("RefreshTable", () => {
-      this.list();
-    });
   },
   watch: {
     search: debounce(function () {
@@ -625,7 +449,7 @@ export default {
   },
   methods: {
     exportExcel() {
-      this.$Progress.start();
+      this.showLoading();
       axios
         .get("/api/aircraft-mutation-excel", {
           params: {
@@ -649,15 +473,17 @@ export default {
           link.setAttribute("download", "aircraft-mutations.xlsx");
           document.body.appendChild(link);
           link.click();
-          this.$Progress.finish();
+          Swal.close();
+          this.showSuccessExport();
         })
         .catch((error) => {
-          this.$Progress.fail();
+          Swal.close();
+          this.showErrorExport();
           console.log(error);
         });
     },
     exportCsv() {
-      this.$Progress.start();
+      this.showLoading();
       axios
         .get("/api/aircraft-mutation-csv", {
           params: {
@@ -681,15 +507,17 @@ export default {
           link.setAttribute("download", "aircraft-mutations.csv");
           document.body.appendChild(link);
           link.click();
-          this.$Progress.finish();
+          Swal.close();
+          this.showSuccessExport();
         })
         .catch((error) => {
-          this.$Progress.fail();
+          Swal.close();
+          this.showErrorExport();
           console.log(error);
         });
     },
     list(paginate) {
-      this.$Progress.start();
+      this.showLoading();
       paginate = paginate || `/api/aircraft-mutation`;
       axios
         .get(paginate, {
@@ -709,10 +537,12 @@ export default {
         .then((response) => {
           this.mutations = response.data;
           this.current_page = this.mutations.current_page;
-          this.$Progress.finish();
+          Swal.close();
+          this.showSuccessRequest();
         })
         .catch((error) => {
-          this.$Progress.fail();
+          Swal.close();
+          this.showErrorRequest();
           console.log(error);
         });
     },
@@ -734,15 +564,6 @@ export default {
       this.order = order;
       this.by = by;
       this.list();
-    },
-    showLoading() {
-      Swal.fire({
-        didOpen: () => {
-          Swal.showLoading();
-        },
-        background: "transparent",
-        allowOutsideClick: false,
-      });
     },
     deleteData(id) {
       Swal.fire({
@@ -768,6 +589,55 @@ export default {
               console.log(error);
             });
         }
+      });
+    },
+    showLoading() {
+      Swal.fire({
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        background: "transparent",
+        allowOutsideClick: false,
+      });
+    },
+    showSuccessRequest() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Successfully Retrieve Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showErrorRequest() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Retrieve Data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+    showSuccessExport() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Successfully Export Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showErrorExport() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Export Data",
+        showConfirmButton: false,
+        timer: 1500,
       });
     },
   },

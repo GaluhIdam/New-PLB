@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Passport\Passport;
 
 class AuthController extends Controller
 {
@@ -68,7 +69,13 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
+        // Make Remember Me
+        if ($request->remember_me) {
+            Passport::personalAccessTokensExpireIn(now()->addDays(15));
+        }
+
         $user = User::where('username', $request->username)->first();
+        $token = $user->createToken('authToken')->plainTextToken;
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
@@ -81,7 +88,7 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Login Berhasil!',
             'data'    => $user,
-            'token'   => $user->createToken('authToken')->accessToken
+            'token'   => $token,
         ]);
     }
 
