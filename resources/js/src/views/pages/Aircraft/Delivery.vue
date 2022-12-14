@@ -12,9 +12,7 @@
                 <router-link :to="{ name: 'dashboard' }">Dashboard</router-link>
               </li>
               <li class="breadcrumb-item">
-                <router-link :to="{ name: 'aircraft-mutation' }"
-                  >Aircraft Mutation</router-link
-                >
+                <router-link :to="{ name: 'aircraft-mutation' }">Aircraft Mutation</router-link>
               </li>
               <li class="breadcrumb-item active">Aircraft Delivery</li>
             </ol>
@@ -34,11 +32,7 @@
                   Aircraft Delivery
                 </h5>
                 <div class="card-tools">
-                  <button
-                    type="button"
-                    data-card-widget="collapse"
-                    class="btn btn-tool"
-                  >
+                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
@@ -47,89 +41,49 @@
                 <div class="card-body">
                   <!-- BEGIN: Aircraft Registration -->
                   <div class="form-group row">
-                    <label for="reg" class="col-sm-2 col-form-label"
-                      >Aircraft Registration</label
-                    >
+                    <label for="reg" class="col-sm-2 col-form-label">Aircraft Registration</label>
                     <div class="col-sm-4">
-                      <input
-                        type="text"
-                        class="form-control"
-                        :class="{
-                          'is-invalid': errors.reg,
-                        }"
-                        v-model="reg"
-                        placeholder="Masukan Aircraft Registration"
-                        autofocus
-                      />
+                      <input type="text" class="form-control" :class="{
+                        'is-invalid': errors.reg,
+                      }" v-model="reg" placeholder="Masukan Aircraft Registration" autofocus />
                       <span v-if="errors.reg" class="error invalid-feedback">{{
-                        errors.reg[0]
+                          errors.reg[0]
                       }}</span>
                     </div>
                   </div>
                   <!-- END: Aircraft Registration -->
                   <!-- BEGIN: Aircraft Type -->
                   <div class="form-group row mt-4">
-                    <label for="type" class="col-sm-2 col-form-label"
-                      >Aircraft Type</label
-                    >
+                    <label for="type" class="col-sm-2 col-form-label">Aircraft Type</label>
                     <div class="col-sm-4">
-                      <input
-                        type="text"
-                        class="form-control"
-                        :class="{
-                          'is-invalid': errors.type,
-                        }"
-                        v-model="type"
-                        placeholder="Masukan Aircraft Type"
-                      />
+                      <input type="text" class="form-control" :class="{
+                        'is-invalid': errors.type,
+                      }" v-model="type" placeholder="Masukan Aircraft Type" />
                       <span v-if="errors.type" class="error invalid-feedback">{{
-                        errors.type[0]
+                          errors.type[0]
                       }}</span>
                     </div>
                   </div>
                   <!-- END: Aircraft Type -->
                   <!-- BEGIN: Operator -->
                   <div class="form-group row mt-4">
-                    <label for="operator" class="col-sm-2 col-form-label"
-                      >Operator</label
-                    >
+                    <label for="operator" class="col-sm-2 col-form-label">Operator</label>
                     <div class="col-sm-4">
-                      <input
-                        type="text"
-                        class="form-control"
-                        :class="{
-                          'is-invalid': errors.operator,
-                        }"
-                        v-model="operator"
-                        placeholder="Masukan Operator"
-                      />
-                      <span
-                        v-if="errors.operator"
-                        class="error invalid-feedback"
-                        >{{ errors.operator[0] }}</span
-                      >
+                      <input type="text" class="form-control" :class="{
+                        'is-invalid': errors.operator,
+                      }" v-model="operator" placeholder="Masukan Operator" />
+                      <span v-if="errors.operator" class="error invalid-feedback">{{ errors.operator[0] }}</span>
                     </div>
                   </div>
                   <!-- END: Operator -->
                   <!-- BEGIN: Actual Time Arrival -->
                   <div class="form-group row mt-4">
-                    <label class="col-sm-2 col-form-label"
-                      >Actual Time Arrival</label
-                    >
+                    <label class="col-sm-2 col-form-label">Actual Time Arrival</label>
                     <div class="col-sm-4">
-                      <input
-                        type="datetime-local"
-                        class="form-control"
-                        :class="{
-                          'is-invalid': errors.date_in,
-                        }"
-                        v-model="date_in"
-                      />
-                      <span
-                        v-if="errors.date_in"
-                        class="error invalid-feedback"
-                        >{{ errors.date_in[0] }}</span
-                      >
+                      <input type="datetime-local" class="form-control" :class="{
+                        'is-invalid': errors.date_in,
+                      }" v-model="date_in" />
+                      <span v-if="errors.date_in" class="error invalid-feedback">{{ errors.date_in[0] }}</span>
                     </div>
                   </div>
                   <!-- END: Actual Time Arrival -->
@@ -137,16 +91,10 @@
                   <div class="form-group row mt-4">
                     <label class="col-sm-2 col-form-label">RKSP</label>
                     <div class="col-md-4">
-                      <input
-                        type="file"
-                        accept="application/pdf"
-                        v-on:change="attachFile"
-                        ref="rksp"
-                        class="form-control"
-                        :class="{
+                      <input type="file" accept="application/pdf" v-on:change="attachFile" ref="rksp"
+                        class="form-control" :class="{
                           'is-invalid': errors.rksp,
-                        }"
-                      />
+                        }" />
                     </div>
                   </div>
                   <!-- END: Upload RKSP -->
@@ -156,11 +104,7 @@
                     <i class="fa-solid fa-save"></i> Save
                   </button>
 
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="clearForm"
-                  >
+                  <button type="button" class="btn btn-secondary" @click="clearForm">
                     <i class="fa-solid fa-rotate"></i> Reset
                   </button>
                 </div>
@@ -175,6 +119,8 @@
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {
@@ -188,7 +134,7 @@ export default {
   },
   methods: {
     create() {
-      this.$Progress.start();
+      this.showLoading();
       let formData = new FormData();
       formData.append("operator", this.operator);
       formData.append("type", this.type);
@@ -203,16 +149,12 @@ export default {
           },
         })
         .then((data) => {
-          this.$Progress.finish();
-          toast.fire({
-            icon: "success",
-            title: "Berhasil Menambahkan Data",
-          });
+          this.showSuccessRequest();
           this.$router.push({ name: "aircraft-mutation" });
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.$Progress.fail();
+            this.showErrorRequest();
             console.log(error);
             this.errors = error.response.data.errors;
           }
@@ -232,6 +174,55 @@ export default {
       let reader = new FileReader();
 
       reader.readAsDataURL(this.rksp);
+    },
+    showLoading() {
+      Swal.fire({
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        background: "transparent",
+        allowOutsideClick: false,
+      });
+    },
+    showSuccessRequest() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Successfully Retrieve Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showErrorRequest() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Retrieve Data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+    showSuccessExport() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Successfully Export Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showErrorExport() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Export Data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     },
   },
 };

@@ -33,11 +33,7 @@
                   Upload Mutasi
                 </h5>
                 <div class="card-tools">
-                  <button
-                    type="button"
-                    data-card-widget="collapse"
-                    class="btn btn-tool"
-                  >
+                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
@@ -50,60 +46,37 @@
                     <form @submit.prevent class="form-horizontal">
                       <!-- BEGIN: Data Upload -->
                       <div class="form-group row mt-4">
-                        <label class="col-sm-3 col-form-label"
-                          >Data Upload</label
-                        >
+                        <label class="col-sm-3 col-form-label">Data Upload</label>
                         <div class="col-sm-8">
-                          <select
-                            class="form-control"
-                            v-model="tipe_saldo"
-                            :class="{
-                              'is-invalid': errors.tipe_saldo,
-                            }"
-                            autofocus
-                          >
+                          <select class="form-control" v-model="tipe_saldo" :class="{
+                            'is-invalid': errors.tipe_saldo,
+                          }" autofocus>
                             <option value="" disabled selected>
                               Pilih Data
                             </option>
                             <option value="saldo_awal">Saldo Awal</option>
                             <option value="saldo_akhir">Saldo Akhir</option>
                           </select>
-                          <span
-                            v-if="errors.tipe_saldo"
-                            class="error invalid-feedback"
-                            >{{ errors.tipe_saldo[0] }}</span
-                          >
+                          <span v-if="errors.tipe_saldo" class="error invalid-feedback">{{ errors.tipe_saldo[0]
+                          }}</span>
                         </div>
                       </div>
                       <!-- END: Data Upload -->
 
                       <!-- BEGIN: Tanggal Saldo -->
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label"
-                          >Tanggal Saldo</label
-                        >
+                        <label class="col-sm-3 col-form-label">Tanggal Saldo</label>
                         <div class="col-sm-8">
-                          <datepicker
-                            :bootstrap-styling="true"
-                            :placeholder="'Masukan Tanggal Saldo'"
-                            :clear-button="true"
-                            :clear-button-icon="'fa-solid fa-times'"
-                            :format="'dd-MM-yyyy'"
-                            :initial-view="'year'"
-                            :input-class="{
+                          <datepicker :bootstrap-styling="true" :placeholder="'Masukan Tanggal Saldo'"
+                            :clear-button="true" :clear-button-icon="'fa-solid fa-times'" :format="'dd-MM-yyyy'"
+                            :initial-view="'year'" :input-class="{
                               'is-invalid': errors.uploaded_at,
                               'form-control': true,
                               'text-center': true,
-                            }"
-                            @selected="onDateChange"
-                            v-model="uploaded_at"
-                          >
-                            <span
-                              slot="afterDateInput"
-                              v-if="errors.uploaded_at"
-                              class="invalid-feedback"
-                              >{{ errors.uploaded_at[0] }}</span
-                            >
+                            }" @selected="onDateChange" v-model="uploaded_at">
+                            <span slot="afterDateInput" v-if="errors.uploaded_at" class="invalid-feedback">{{
+                                errors.uploaded_at[0]
+                            }}</span>
                           </datepicker>
                         </div>
                       </div>
@@ -111,36 +84,20 @@
 
                       <!-- BEGIN: Upload File -->
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label"
-                          >Upload File</label
-                        >
+                        <label class="col-sm-3 col-form-label">Upload File</label>
                         <div class="col-sm-8">
-                          <input
-                            type="file"
-                            class="form-control"
-                            ref="file"
-                            accept=".xlsx, .xls, .csv"
-                            v-on:change="attachFile"
-                            :class="{
+                          <input type="file" class="form-control" ref="file" accept=".xlsx, .xls, .csv"
+                            v-on:change="attachFile" :class="{
                               'is-invalid': errors.file,
-                            }"
-                          />
-                          <span
-                            v-if="errors.file"
-                            class="error invalid-feedback"
-                            >{{ errors.file[0] }}</span
-                          >
+                            }" />
+                          <span v-if="errors.file" class="error invalid-feedback">{{ errors.file[0] }}</span>
                         </div>
                       </div>
                       <!-- END: Upload File -->
 
                       <div class="form-group row justify-content-center">
                         <div class="col-sm-6">
-                          <button
-                            type="submit"
-                            class="btn btn-success"
-                            @click="uploadButton"
-                          >
+                          <button type="submit" class="btn btn-success" @click="uploadButton">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
                             Upload
                           </button>
@@ -168,64 +125,42 @@
                             </span>
                             <span class="sr-only"> Search </span>
                           </label>
-                          <input
-                            type="text"
-                            placeholder="Search Data"
-                            class="vgt-input vgt-pull-left"
-                            v-model="search"
-                            @change="list()"
-                          />
+                          <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left" v-model="search"
+                            @change="list()" />
                         </div>
                         <!-- END: Global Search -->
 
                         <!-- BEGIN: Button Right -->
-                        <div
-                          class="vgt-global-search__actions vgt-pull-right"
-                          style="margin-right: 5px"
-                        ></div>
+                        <div class="vgt-global-search__actions vgt-pull-right" style="margin-right: 5px"></div>
                         <!-- END: Button Right -->
                       </div>
                       <!-- BEGIN: Table Data -->
                       <div class="vgt-responsive">
-                        <table
-                          id="vgt-table"
-                          class="vgt-table bordered polar-bear"
-                        >
+                        <table id="vgt-table" class="vgt-table bordered polar-bear">
                           <!-- BEGIN: Thead -->
                           <thead>
                             <tr>
                               <!-- BEGIN: Tipe Saldo -->
-                              <th
-                                v-if="order == 'tipe_saldo' && by == 'asc'"
-                                @click="sort('tipe_saldo', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'tipe_saldo' && by == 'asc'" @click="sort('tipe_saldo', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Tipe Saldo</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="
-                                  order == 'tipe_saldo' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
-                                class="
+                              <th v-else-if="
+                                order == 'tipe_saldo' && by == 'desc'
+                              " @click="sort('id', 'asc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">Tipe Saldo</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('tipe_saldo', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('tipe_saldo', 'asc')" class="text-center sortable">
                                 <span class="table_header">Tipe Saldo</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -234,37 +169,26 @@
                               <!-- END: List Saldo -->
 
                               <!-- BEGIN: Tanggal Saldo -->
-                              <th
-                                v-if="order == 'uploaded_at' && by == 'asc'"
-                                @click="sort('uploaded_at', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'uploaded_at' && by == 'asc'" @click="sort('uploaded_at', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Tanggal Saldo</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="
-                                  order == 'uploaded_at' && by == 'desc'
-                                "
-                                @click="sort('id', 'asc')"
-                                class="
+                              <th v-else-if="
+                                order == 'uploaded_at' && by == 'desc'
+                              " @click="sort('id', 'asc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">Tanggal Saldo</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('uploaded_at', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('uploaded_at', 'asc')" class="text-center sortable">
                                 <span class="table_header">Tanggal Saldo</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -282,12 +206,8 @@
                               <!-- BEGIN: Tipe Saldo -->
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Tipe Saldo"
-                                    v-model="search_tipe_saldo"
-                                  />
+                                  <input type="text" class="vgt-input text-center" placeholder="Tipe Saldo"
+                                    v-model="search_tipe_saldo" />
                                 </div>
                               </th>
                               <!-- END: Tipe Saldo -->
@@ -295,12 +215,8 @@
                               <!-- BEGIN: Tanggal Saldo -->
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="date"
-                                    class="vgt-input text-center"
-                                    placeholder="Tanggal Saldo"
-                                    v-model="search_tanggal_saldo"
-                                  />
+                                  <input type="date" class="vgt-input text-center" placeholder="Tanggal Saldo"
+                                    v-model="search_tanggal_saldo" />
                                 </div>
                               </th>
                               <!-- END: Tanggal Saldo -->
@@ -314,10 +230,7 @@
                           <!-- END: Thead -->
                           <!-- BEGIN: Tbody -->
                           <tbody>
-                            <tr
-                              v-for="(upload, upload_index) in uploads.data"
-                              :key="upload_index"
-                            >
+                            <tr v-for="(upload, upload_index) in uploads.data" :key="upload_index">
                               <td class="text-center table_content">
                                 {{ upload.tipe_saldo }}
                               </td>
@@ -326,17 +239,11 @@
                                 {{ upload.uploaded_at | myDate }}
                               </td>
                               <td class="text-center table-content">
-                                <a
-                                  class="btn btn-primary btn-sm rounded-1"
-                                  :href="`/storage/${upload.uploaded_file}`"
-                                  target="_blank"
-                                >
+                                <a class="btn btn-primary btn-sm rounded-1" :href="`/storage/${upload.uploaded_file}`"
+                                  target="_blank">
                                   <i class="fa-solid fa-download"></i> Download
                                 </a>
-                                <button
-                                  class="btn btn-danger btn-sm rounded-1"
-                                  @click="deleteData(upload.uploaded_at)"
-                                >
+                                <button class="btn btn-danger btn-sm rounded-1" @click="deleteData(upload.uploaded_at)">
                                   <i class="fa-solid fa-trash"></i> Delete
                                 </button>
                               </td>
@@ -355,19 +262,13 @@
                       <!-- END: Table Data -->
                       <div class="vgt-wrap__footer vgt-clearfix">
                         <div class="footer__row-count vgt-pull-left">
-                          <label
-                            class="footer__row-count__label row_per_page_label"
-                          >
+                          <label class="footer__row-count__label row_per_page_label">
                             Rows per page:
                           </label>
-                          <select
-                            class="
+                          <select class="
                               footer__row-count__select
                               row_per_page_option
-                            "
-                            v-model="paginate"
-                            @change="list()"
-                          >
+                            " v-model="paginate" @change="list()">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -375,65 +276,36 @@
                           </select>
                         </div>
                         <div class="footer__navigation vgt-pull-right">
-                          <button
-                            type="button"
-                            class="footer__navigation__page-btn"
-                            :class="{
-                              disabled: !uploads.prev_page_url,
-                            }"
-                            @click="
-                              uploads.prev_page_url &&
-                                list(uploads.prev_page_url)
-                            "
-                            style="margin-right: 0px"
-                          >
-                            <span
-                              aria-hidden="true"
-                              class="chevron left"
-                            ></span>
+                          <button type="button" class="footer__navigation__page-btn" :class="{
+                            disabled: !uploads.prev_page_url,
+                          }" @click="
+  uploads.prev_page_url &&
+  list(uploads.prev_page_url)
+" style="margin-right: 0px">
+                            <span aria-hidden="true" class="chevron left"></span>
                             <span class="paginate_text">Prev</span>
                           </button>
-                          <div
-                            class="footer__navigation__page-info"
-                            style="color: #99a0b2"
-                          >
-                            <label
-                              class="page-info__label"
-                              style="margin-bottom: -5px"
-                            >
+                          <div class="footer__navigation__page-info" style="color: #99a0b2">
+                            <label class="page-info__label" style="margin-bottom: -5px">
                               <span class="paginate_text">page</span>
-                              <input
-                                type="text"
-                                class="
+                              <input type="text" class="
                                   footer__navigation__page-info__current-entry
                                   vgt-input
-                                "
-                                v-model="current_page"
-                                @keypress="directPage"
-                                style="width: 60px"
-                              />
+                                " v-model="current_page" @keypress="directPage" style="width: 60px" />
                               <span class="paginate_text">
                                 of
                                 {{ uploads.last_page }}
                               </span>
                             </label>
                           </div>
-                          <button
-                            type="button"
-                            class="footer__navigation__page-btn"
-                            :class="{
-                              disabled: !uploads.next_page_url,
-                            }"
-                            @click="
-                              uploads.next_page_url &&
-                                list(uploads.next_page_url)
-                            "
-                          >
+                          <button type="button" class="footer__navigation__page-btn" :class="{
+                            disabled: !uploads.next_page_url,
+                          }" @click="
+  uploads.next_page_url &&
+  list(uploads.next_page_url)
+">
                             <span style="font-weight: 500">Next</span>
-                            <span
-                              aria-hidden="true"
-                              class="chevron right"
-                            ></span>
+                            <span aria-hidden="true" class="chevron right"></span>
                           </button>
                         </div>
                       </div>
@@ -496,7 +368,7 @@ export default {
   },
   methods: {
     list(paginate) {
-      this.$Progress.start();
+      this.showLoading();
       paginate = paginate || `/api/get-report-mutation`;
       axios
         .get(paginate, {
@@ -512,10 +384,10 @@ export default {
         .then((response) => {
           this.uploads = response.data;
           this.current_page = this.uploads.current_page;
-          this.$Progress.finish();
+          Swal.close();
         })
         .catch((error) => {
-          this.$Progress.fail();
+          Swal.close();
           console.log(error);
         });
     },
@@ -539,28 +411,29 @@ export default {
     },
     deleteData(uploaded_at) {
       Swal.fire({
-        title: "Apakah anda yakin?",
-        text: "Data yang dihapus tidak dapat dikembalikan!",
+        title: "Are you sure?",
+        text: "Data will be deleted permanently!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Ya, Hapus!",
+        confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$Progress.start();
+          this.showLoading();
           axios
             .delete(`/api/delete-report-mutation/${uploaded_at}`)
             .then(() => {
               toast.fire({
                 icon: "success",
-                title: "Berhasil Menghapus Data",
+                title: "Successfullly deleted",
               });
               this.list();
-              this.$Progress.finish();
+              Swal.close();
+              this.showSuccessDelete();
             })
             .catch((error) => {
-              this.$Progress.fail();
+              Swal.close();
               console.log(error);
             });
         }
@@ -579,7 +452,7 @@ export default {
       formData.append("uploaded_at", this.uploaded_at);
       formData.append("tipe_saldo", this.tipe_saldo);
 
-      this.$Progress.start();
+      this.showLoading();
       axios
         .post("/api/upload-report-mutation", formData, {
           headers: {
@@ -587,24 +460,58 @@ export default {
           },
         })
         .then((response) => {
+          swal.close();
           this.list();
-          this.$Progress.finish();
-          toast.fire({
-            icon: "success",
-            title: "Berhasil Upload Data",
-          });
           this.clearForm();
+          this.showSuccessUpload();
         })
         .catch((error) => {
-          if (error.response.status === 422) {
+          if (error.response.status === 422 || error.response.status === 400 || error.response.status === 500) {
             this.errors = error.response.data.errors;
-            this.$Progress.fail();
-            toast.fire({
-              icon: "error",
-              title: "Gagal Upload Data",
-            });
+            Swal.close();
+            this.showErrorUpload();
           }
         });
+    },
+    showLoading() {
+      Swal.fire({
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        background: "transparent",
+        allowOutsideClick: false,
+      });
+    },
+    showSuccessDelete() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Succssfully Delete Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showSuccessUpload() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Succssfully Upload Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showErrorUpload() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed Upload Data",
+        showConfirmButton: false,
+        timer: 1500,
+
+      });
     },
     attachFile() {
       this.file = this.$refs.file.files[0];
@@ -622,6 +529,7 @@ export default {
 option {
   text-align: left;
 }
+
 select {
   text-align: center;
   text-align-last: center;

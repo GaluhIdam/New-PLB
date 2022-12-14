@@ -45,7 +45,7 @@ class MutationReportController extends Controller
             $order = $request->get('order');
             $by = $request->get('by');
         } else {
-            $order = 'SALDO_AKHIR_1';
+            $order = 'SALDO_AKHIR';
             $by = 'desc';
         }
         if ($request->get('paginate')) {
@@ -57,27 +57,13 @@ class MutationReportController extends Controller
         // Start Query
         $reports = Mutation::when($search, function ($query) use ($search) {
             $query->where(function ($sub_query) use ($search) {
-                $sub_query->where('KODE_BARANG_1', 'LIKE', "%$search%")
-                    ->orWhere('URAIAN_1', 'LIKE', "%$search%")
-                    ->orWhere('KODE_SATUAN_1', 'LIKE', "%$search%")
-                    ->orWhere('TANGGAL_AJU_1', 'LIKE', "%$search%")
-                    ->orWhere('SALDO_AWAL_1', 'LIKE', "%$search%")
-                    ->orWhere('SALDO_AKHIR_1', 'LIKE', "%$search%")
-                    ->orWhere('SALDO_PENYESUAIAN_1', 'LIKE', "%$search%")
-                    ->orWhere('KODE_BARANG_2', 'LIKE', "%$search%")
-                    ->orWhere('URAIAN_2', 'LIKE', "%$search%")
-                    ->orWhere('KODE_SATUAN_2', 'LIKE', "%$search%")
-                    ->orWhere('TANGGAL_AJU_2', 'LIKE', "%$search%")
-                    ->orWhere('SALDO_AWAL_2', 'LIKE', "%$search%")
-                    ->orWhere('SALDO_AKHIR_2', 'LIKE', "%$search%")
-                    ->orWhere('SALDO_PENYESUAIAN_2', 'LIKE', "%$search%")
-                    ->orWhere('KODE_BARANG_3', 'LIKE', "%$search%")
-                    ->orWhere('URAIAN_3', 'LIKE', "%$search%")
-                    ->orWhere('KODE_SATUAN_3', 'LIKE', "%$search%")
-                    ->orWhere('TANGGAL_AJU_3', 'LIKE', "%$search%")
-                    ->orWhere('SALDO_AWAL_3', 'LIKE', "%$search%")
-                    ->orWhere('SALDO_AKHIR_3', 'LIKE', "%$search%")
-                    ->orWhere('SALDO_PENYESUAIAN_3', 'LIKE', "%$search%")
+                $sub_query->where('KODE_BARANG', 'LIKE', "%$search%")
+                    ->orWhere('URAIAN', 'LIKE', "%$search%")
+                    ->orWhere('KODE_SATUAN', 'LIKE', "%$search%")
+                    ->orWhere('TANGGAL_AJU', 'LIKE', "%$search%")
+                    ->orWhere('SALDO_AWAL', 'LIKE', "%$search%")
+                    ->orWhere('SALDO_AKHIR', 'LIKE', "%$search%")
+                    ->orWhere('SALDO_PENYESUAIAN', 'LIKE', "%$search%")
                     ->orWhere('BC16', 'LIKE', "%$search%")
                     ->orWhere('BC27IN', 'LIKE', "%$search%")
                     ->orWhere('BC27', 'LIKE', "%$search%")
@@ -87,41 +73,17 @@ class MutationReportController extends Controller
                     ->orWhere('BC30', 'LIKE', "%$search%");
             });
         })->when($search_kode_barang, function ($query) use ($search_kode_barang) {
-            $query->where(function ($sub_query) use ($search_kode_barang) {
-                $sub_query->where('KODE_BARANG_1', 'LIKE', "%$search_kode_barang%")
-                    ->orWhere('KODE_BARANG_2', 'LIKE', "%$search_kode_barang%")
-                    ->orWhere('KODE_BARANG_3', 'LIKE', "%$search_kode_barang%");
-            });
+            $query->where('KODE_BARANG', 'LIKE', "%$search_kode_barang%");
         })->when($search_nama_barang, function ($query) use ($search_nama_barang) {
-            $query->where(function ($sub_query) use ($search_nama_barang) {
-                $sub_query->where('URAIAN_1', 'LIKE', "%$search_nama_barang%")
-                    ->orWhere('URAIAN_2', 'LIKE', "%$search_nama_barang%")
-                    ->orWhere('URAIAN_3', 'LIKE', "%$search_nama_barang%");
-            });
+            $query->where('URAIAN', 'LIKE', "%$search_nama_barang%");
         })->when($search_kode_satuan, function ($query) use ($search_kode_satuan) {
-            $query->where(function ($sub_query) use ($search_kode_satuan) {
-                $sub_query->where('KODE_SATUAN_1', 'LIKE', "%$search_kode_satuan%")
-                    ->orWhere('KODE_SATUAN_2', 'LIKE', "%$search_kode_satuan%")
-                    ->orWhere('KODE_SATUAN_3', 'LIKE', "%$search_kode_satuan%");
-            });
+            $query->where('KODE_SATUAN', 'LIKE', "%$search_kode_satuan%");
         })->when($search_saldo_awal, function ($query) use ($search_saldo_awal) {
-            $query->where(function ($sub_query) use ($search_saldo_awal) {
-                $sub_query->where('SALDO_AWAL_1', 'LIKE', "%$search_saldo_awal%")
-                    ->orWhere('SALDO_AWAL_2', 'LIKE', "%$search_saldo_awal%")
-                    ->orWhere('SALDO_AWAL_3', 'LIKE', "%$search_saldo_awal%");
-            });
+            $query->where('SALDO_AWAL', 'LIKE', "%$search_saldo_awal%");
         })->when($search_saldo_akhir, function ($query) use ($search_saldo_akhir) {
-            $query->where(function ($sub_query) use ($search_saldo_akhir) {
-                $sub_query->where('SALDO_AKHIR_1', 'LIKE', "%$search_saldo_akhir%")
-                    ->orWhere('SALDO_AKHIR_2', 'LIKE', "%$search_saldo_akhir%")
-                    ->orWhere('SALDO_AKHIR_3', 'LIKE', "%$search_saldo_akhir%");
-            });
+            $query->where('SALDO_AKHIR', 'LIKE', "%$search_saldo_akhir%");
         })->when($search_saldo_penyesuaian, function ($query) use ($search_saldo_penyesuaian) {
-            $query->where(function ($sub_query) use ($search_saldo_penyesuaian) {
-                $sub_query->where('SALDO_PENYESUAIAN_1', 'LIKE', "%$search_saldo_penyesuaian%")
-                    ->orWhere('SALDO_PENYESUAIAN_2', 'LIKE', "%$search_saldo_penyesuaian%")
-                    ->orWhere('SALDO_PENYESUAIAN_3', 'LIKE', "%$search_saldo_penyesuaian%");
-            });
+            $query->where('SALDO_PENYESUAIAN', 'LIKE', "%$search_saldo_penyesuaian%");
         })->when($search_bc16, function ($query) use ($search_bc16) {
             $query->where(function ($sub_query) use ($search_bc16) {
                 $sub_query->where('BC16', 'LIKE', "%$search_bc16%");
@@ -151,9 +113,9 @@ class MutationReportController extends Controller
                 $sub_query->where('BC30', 'LIKE', "%$search_bc30%");
             });
         })->when($filter_start_date, function ($query) use ($filter_start_date) {
-            $query->whereDate('TANGGAL_SALDO_1', '>', $filter_start_date);
+            $query->whereDate('TANGGAL_SALDO', '>', $filter_start_date);
         })->when($filter_end_date, function ($query) use ($filter_end_date) {
-            $query->whereDate('TANGGAL_SALDO_1', '<=', $filter_end_date);
+            $query->whereDate('TANGGAL_SALDO', '<=', $filter_end_date);
         })->when(($order && $by), function ($query) use ($order, $by) {
             $query->orderBy($order, $by);
         })->paginate($paginate);

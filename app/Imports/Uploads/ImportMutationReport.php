@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Uploads\MutationReport;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
@@ -16,8 +15,6 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ImportMutationReport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading, ShouldQueue
 {
-    use Importable;
-
     public $tipe_saldo;
     public $uploaded_at;
 

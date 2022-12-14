@@ -12,9 +12,7 @@
                 <router-link :to="{ name: 'dashboard' }">Dashboard</router-link>
               </li>
               <li class="breadcrumb-item">
-                <router-link :to="{ name: 'aircraft-mutation' }"
-                  >Aircraft Mutation</router-link
-                >
+                <router-link :to="{ name: 'aircraft-mutation' }">Aircraft Mutation</router-link>
               </li>
               <li class="breadcrumb-item active">Aircraft Redelivery</li>
             </ol>
@@ -34,11 +32,7 @@
                   Aircraft Redelivery
                 </h5>
                 <div class="card-tools">
-                  <button
-                    type="button"
-                    data-card-widget="collapse"
-                    class="btn btn-tool"
-                  >
+                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
@@ -47,45 +41,26 @@
                 <div class="card-body">
                   <!-- BEGIN: Aircraft Registration -->
                   <div class="form-group row">
-                    <label for="reg" class="col-sm-2 col-form-label"
-                      >Aircraft Registration</label
-                    >
+                    <label for="reg" class="col-sm-2 col-form-label">Aircraft Registration</label>
                     <div class="col-sm-4">
-                      <multiselect
-                        v-model="selected_mutation"
-                        id="ajax"
-                        :custom-label="mutationLabel"
-                        track-by="id"
-                        placeholder="Pilih Aircraft Registration"
-                        open-direction="bottom"
-                        :options="mutations"
-                        :multiple="false"
-                        :searchable="true"
-                        :loading="isLoading"
-                        :internal-search="false"
-                        :clear-on-select="false"
-                        :close-on-select="true"
-                        :options-limit="300"
-                        :max-height="600"
-                        :show-no-results="false"
-                        @search-change="findMutation"
-                        @select="selectedMutation"
-                      ></multiselect>
+                      <multiselect v-model="selected_mutation" id="ajax" :custom-label="mutationLabel" track-by="id"
+                        placeholder="Pilih Aircraft Registration" open-direction="bottom" :options="mutations"
+                        :multiple="false" :searchable="true" :loading="isLoading" :internal-search="false"
+                        :clear-on-select="false" :close-on-select="true" :options-limit="300" :max-height="600"
+                        :show-no-results="false" @search-change="findMutation" @select="selectedMutation"></multiselect>
                       <span v-if="errors.reg" class="text-danger">{{
-                        errors.reg[0]
+                          errors.reg[0]
                       }}</span>
                     </div>
                   </div>
                   <!-- END: Aircraft Registration -->
                   <!-- BEGIN: Aircraft Type -->
                   <div class="form-group row mt-4">
-                    <label for="type" class="col-sm-2 col-form-label"
-                      >Aircraft Type</label
-                    >
+                    <label for="type" class="col-sm-2 col-form-label">Aircraft Type</label>
                     <div class="col-sm-4">
                       <input type="text" class="form-control" v-model="type" />
                       <span v-if="errors.type" class="text-danger">{{
-                        errors.type[0]
+                          errors.type[0]
                       }}</span>
                     </div>
                   </div>
@@ -94,30 +69,20 @@
                   <div class="form-group row mt-4">
                     <label class="col-sm-2 col-form-label">Operator</label>
                     <div class="col-sm-4">
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="operator"
-                      />
+                      <input type="text" class="form-control" v-model="operator" />
                       <span v-if="errors.operator" class="text-danger">{{
-                        errors.operator[0]
+                          errors.operator[0]
                       }}</span>
                     </div>
                   </div>
                   <!-- END: Operator -->
                   <!-- BEGIN: Actual Time Departure -->
                   <div class="form-group row mt-4">
-                    <label class="col-sm-2 col-form-label"
-                      >Actual Time Depart</label
-                    >
+                    <label class="col-sm-2 col-form-label">Actual Time Depart</label>
                     <div class="col-sm-4">
-                      <input
-                        type="datetime-local"
-                        class="form-control"
-                        v-model="date_out"
-                      />
+                      <input type="datetime-local" class="form-control" v-model="date_out" />
                       <span v-if="errors.date_out" class="text-danger">{{
-                        errors.date_out[0]
+                          errors.date_out[0]
                       }}</span>
                     </div>
                   </div>
@@ -128,11 +93,7 @@
                     <i class="fa-solid fa-save"></i> Save
                   </button>
 
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="clearForm"
-                  >
+                  <button type="button" class="btn btn-secondary" @click="clearForm">
                     <i class="fa-solid fa-rotate"></i> Reset
                   </button>
                 </div>
@@ -147,6 +108,7 @@
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -167,7 +129,7 @@ export default {
   },
   methods: {
     create() {
-      this.$Progress.start();
+      this.showLoading();
       axios
         .post("/api/aircraft-redelivery", {
           reg: this.reg,
@@ -176,16 +138,14 @@ export default {
           date_out: this.date_out,
         })
         .then((data) => {
-          this.$Progress.finish();
-          toast.fire({
-            icon: "success",
-            title: "Berhasil Menambahkan Data",
-          });
+          Swal.close();
+          this.showSuccessAdd();
           this.$router.push({ name: "aircraft-mutation" });
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.$Progress.fail();
+            Swal.close();
+            this.showErrorAdd();
             console.log(error);
             this.errors = error.response.data.errors;
           }
@@ -201,15 +161,16 @@ export default {
       this.selected_mutation = null;
     },
     initMutation() {
-      this.$Progress.start();
+      this.showLoading();
 
       axios.get("/api/aircraft-data").then((response) => {
         this.mutations = response.data;
-        this.$Progress.finish();
+        Swal.close();
+        this.showSuccessRequest();
       });
     },
     findMutation(keyword) {
-      this.$Progress.start();
+      this.showLoading();
       axios
         .get("/api/aircraft-data", {
           params: {
@@ -217,7 +178,8 @@ export default {
           },
         })
         .then((response) => {
-          this.$Progress.finish();
+          Swal.close();
+          this.showSuccessRequest();
           this.mutations = response.data;
         });
     },
@@ -228,6 +190,55 @@ export default {
       this.reg = reg;
       this.operator = operator;
       this.type = type;
+    },
+    showLoading() {
+      Swal.fire({
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        background: "transparent",
+        allowOutsideClick: false,
+      });
+    },
+    showSuccessRequest() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Successfully Retrieve Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showErrorRequest() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Retrieve Data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+    showSuccessAdd() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Successfully Add Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showErrorAdd() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Add Data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     },
   },
 };
@@ -287,6 +298,7 @@ export default {
 .multiselect__tag-icon:hover:after {
   color: red !important;
 }
+
 .form-control {
   display: block;
   width: 100%;
