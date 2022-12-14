@@ -36,11 +36,7 @@
                 <div class="card-tools">
                   <ul class="nav nav-pills ml-auto">
                     <li class="nav-item">
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-sm"
-                        @click="newModal"
-                      >
+                      <button type="button" class="btn btn-primary btn-sm" @click="newModal">
                         <i class="fa-solid fa-user-plus"></i> Add User
                       </button>
                     </li>
@@ -63,12 +59,7 @@
                           </span>
                           <span class="sr-only"> Search </span>
                         </label>
-                        <input
-                          type="text"
-                          placeholder="Search User"
-                          class="vgt-input vgt-pull-left"
-                          v-model="search"
-                        />
+                        <input type="text" placeholder="Search User" class="vgt-input vgt-pull-left" v-model="search" />
                       </div>
                       <div class="vgt-global-search__actions vgt-pull-right">
                         <div>
@@ -93,10 +84,7 @@
                     </div>
                     <!-- END Global Search Button -->
                     <div class="vgt-responsive">
-                      <table
-                        id="vgt-table"
-                        class="vgt-table bordered polar-bear"
-                      >
+                      <table id="vgt-table" class="vgt-table bordered polar-bear">
                         <thead>
                           <tr>
                             <!-- BEGIN: Number by ID (Table Header) -->
@@ -105,31 +93,21 @@
                             </th>
                             <!-- END: Number by ID (Table Header) -->
                             <!-- BEGIN: Username (Table Header) -->
-                            <th
-                              v-if="order == 'username' && by == 'asc'"
-                              @click="sort('username', 'desc')"
-                              class="text-center sortable sorting sorting-asc"
-                            >
+                            <th v-if="order == 'username' && by == 'asc'" @click="sort('username', 'desc')"
+                              class="text-center sortable sorting sorting-asc">
                               <span class="table_header">Username</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <th
-                              v-else-if="order == 'username' && by == 'desc'"
-                              @click="sort('id', 'asc')"
-                              class="text-center sortable sorting sorting-desc"
-                            >
+                            <th v-else-if="order == 'username' && by == 'desc'" @click="sort('id', 'asc')"
+                              class="text-center sortable sorting sorting-desc">
                               <span class="table_header">Username</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <th
-                              v-else
-                              @click="sort('username', 'asc')"
-                              class="text-center sortable"
-                            >
+                            <th v-else @click="sort('username', 'asc')" class="text-center sortable">
                               <span class="table_header">Username</span>
                               <button>
                                 <span class="sr-only"></span>
@@ -137,31 +115,21 @@
                             </th>
                             <!-- END: Username (Table Header) -->
                             <!-- BEGIN: Role (Table Header) -->
-                            <th
-                              v-if="order == 'role' && by == 'asc'"
-                              @click="sort('role', 'desc')"
-                              class="text-center sortable sorting sorting-asc"
-                            >
+                            <th v-if="order == 'role' && by == 'asc'" @click="sort('role', 'desc')"
+                              class="text-center sortable sorting sorting-asc">
                               <span class="table_header">Role</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <th
-                              v-else-if="order == 'role' && by == 'desc'"
-                              @click="sort('id', 'asc')"
-                              class="text-center sortable sorting sorting-desc"
-                            >
+                            <th v-else-if="order == 'role' && by == 'desc'" @click="sort('id', 'asc')"
+                              class="text-center sortable sorting sorting-desc">
                               <span class="table_header">Role</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <th
-                              v-else
-                              @click="sort('role', 'asc')"
-                              class="text-center sortable"
-                            >
+                            <th v-else @click="sort('role', 'asc')" class="text-center sortable">
                               <span class="table_header">Role</span>
                               <button>
                                 <span class="sr-only"></span>
@@ -169,31 +137,21 @@
                             </th>
                             <!-- END: Role (Table Header) -->
                             <!-- BEGIN: Email (Table Header) -->
-                            <th
-                              v-if="order == 'email' && by == 'asc'"
-                              @click="sort('email', 'desc')"
-                              class="text-center sortable sorting sorting-asc"
-                            >
+                            <th v-if="order == 'email' && by == 'asc'" @click="sort('email', 'desc')"
+                              class="text-center sortable sorting sorting-asc">
                               <span class="table_header">Email</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <th
-                              v-else-if="order == 'email' && by == 'desc'"
-                              @click="sort('id', 'asc')"
-                              class="text-center sortable sorting sorting-desc"
-                            >
+                            <th v-else-if="order == 'email' && by == 'desc'" @click="sort('id', 'asc')"
+                              class="text-center sortable sorting sorting-desc">
                               <span class="table_header">Email</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <th
-                              v-else
-                              @click="sort('email', 'asc')"
-                              class="text-center sortable"
-                            >
+                            <th v-else @click="sort('email', 'asc')" class="text-center sortable">
                               <span class="table_header">Email</span>
                               <button>
                                 <span class="sr-only"></span>
@@ -201,31 +159,21 @@
                             </th>
                             <!-- END: Email (Table Header) -->
                             <!-- BEGIN: Date Created (Table Header) -->
-                            <th
-                              v-if="order == 'created_at' && by == 'asc'"
-                              @click="sort('created_at', 'desc')"
-                              class="text-center sortable sorting sorting-asc"
-                            >
+                            <th v-if="order == 'created_at' && by == 'asc'" @click="sort('created_at', 'desc')"
+                              class="text-center sortable sorting sorting-asc">
                               <span class="table_header">Date Created</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <th
-                              v-else-if="order == 'created_at' && by == 'desc'"
-                              @click="sort('id', 'asc')"
-                              class="text-center sortable sorting sorting-desc"
-                            >
+                            <th v-else-if="order == 'created_at' && by == 'desc'" @click="sort('id', 'asc')"
+                              class="text-center sortable sorting sorting-desc">
                               <span class="table_header">Date Created</span>
                               <button>
                                 <span class="sr-only"></span>
                               </button>
                             </th>
-                            <th
-                              v-else
-                              @click="sort('created_at', 'asc')"
-                              class="text-center sortable"
-                            >
+                            <th v-else @click="sort('created_at', 'asc')" class="text-center sortable">
                               <span class="table_header">Date Created</span>
                               <button>
                                 <span class="sr-only"></span>
@@ -242,41 +190,25 @@
                             <th class="filter-th"></th>
                             <th class="filter-th">
                               <div>
-                                <input
-                                  type="text"
-                                  class="vgt-input text-center"
-                                  placeholder="Search Username"
-                                  v-model="search_username"
-                                />
+                                <input type="text" class="vgt-input text-center" placeholder="Search Username"
+                                  v-model="search_username" />
                               </div>
                             </th>
                             <th class="filter-th">
                               <div>
-                                <input
-                                  type="text"
-                                  class="vgt-input text-center"
-                                  placeholder="Search Role"
-                                  v-model="search_role"
-                                />
+                                <input type="text" class="vgt-input text-center" placeholder="Search Role"
+                                  v-model="search_role" />
                               </div>
                             </th>
                             <th class="filter-th">
                               <div>
-                                <input
-                                  type="text"
-                                  class="vgt-input text-center"
-                                  placeholder="Search Email"
-                                  v-model="search_email"
-                                />
+                                <input type="text" class="vgt-input text-center" placeholder="Search Email"
+                                  v-model="search_email" />
                               </div>
                             </th>
                             <th class="filter-th">
                               <div>
-                                <input
-                                  type="date"
-                                  class="vgt-input text-center"
-                                  v-model="search_created_at"
-                                />
+                                <input type="date" class="vgt-input text-center" v-model="search_created_at" />
                               </div>
                             </th>
                             <th class="filter-th"></th>
@@ -287,10 +219,7 @@
                         <!-- BEGIN: Table Body -->
 
                         <tbody>
-                          <tr
-                            v-for="(user, user_index) in users.data"
-                            :key="user_index"
-                          >
+                          <tr v-for="(user, user_index) in users.data" :key="user_index">
                             <td class="text-center table-content">
                               {{ user_index + 1 }}
                             </td>
@@ -307,17 +236,11 @@
                               {{ user.created_at | myDate }}
                             </td>
                             <td class="text-center table-content">
-                              <button
-                                class="btn btn-warning btn-sm rounded-1 mx-1"
-                                title="Edit"
-                                @click="editModal(user)"
-                              >
+                              <button class="btn btn-warning btn-sm rounded-1 mx-1" title="Edit"
+                                @click="editModal(user)">
                                 <i class="fa-solid fa-edit"></i> Edit
                               </button>
-                              <button
-                                class="btn btn-danger btn-sm rounded-1"
-                                @click="deleteUser(user.id)"
-                              >
+                              <button class="btn btn-danger btn-sm rounded-1" @click="deleteUser(user.id)">
                                 <i class="fa-solid fa-trash"></i> Delete
                               </button>
                             </td>
@@ -327,16 +250,11 @@
                     </div>
                     <div class="vgt-wrap__footer vgt-clearfix">
                       <div class="footer__row-count vgt-pull-left">
-                        <label
-                          class="footer__row-count__label row_per_page_label"
-                        >
+                        <label class="footer__row-count__label row_per_page_label">
                           Rows per page:
                         </label>
-                        <select
-                          class="footer__row-count__select row_per_page_option"
-                          v-model="paginate"
-                          @change="list()"
-                        >
+                        <select class="footer__row-count__select row_per_page_option" v-model="paginate"
+                          @change="list()">
                           <option value="10">10</option>
                           <option value="25">25</option>
                           <option value="50">50</option>
@@ -344,55 +262,32 @@
                         </select>
                       </div>
                       <div class="footer__navigation vgt-pull-right">
-                        <button
-                          type="button"
-                          class="footer__navigation__page-btn"
-                          :class="{
-                            disabled: !users.prev_page_url,
-                          }"
-                          @click="
-                            users.prev_page_url && list(users.prev_page_url)
-                          "
-                          style="margin-right: 0px"
-                        >
+                        <button type="button" class="footer__navigation__page-btn" :class="{
+                          disabled: !users.prev_page_url,
+                        }" @click="
+  users.prev_page_url && list(users.prev_page_url)
+" style="margin-right: 0px">
                           <span aria-hidden="true" class="chevron left"></span>
                           <span class="paginate_text">Prev</span>
                         </button>
-                        <div
-                          class="footer__navigation__page-info"
-                          style="color: #99a0b2"
-                        >
-                          <label
-                            class="page-info__label"
-                            style="margin-bottom: -5px"
-                          >
+                        <div class="footer__navigation__page-info" style="color: #99a0b2">
+                          <label class="page-info__label" style="margin-bottom: -5px">
                             <span class="paginate_text">page</span>
-                            <input
-                              type="text"
-                              class="
+                            <input type="text" class="
                                 footer__navigation__page-info__current-entry
                                 vgt-input
-                              "
-                              v-model="current_page"
-                              @keypress="directPage"
-                              style="width: 60px"
-                            />
+                              " v-model="current_page" @keypress="directPage" style="width: 60px" />
                             <span class="paginate_text">
                               of
                               {{ users.last_page }}
                             </span>
                           </label>
                         </div>
-                        <button
-                          type="button"
-                          class="footer__navigation__page-btn"
-                          :class="{
-                            disabled: !users.next_page_url,
-                          }"
-                          @click="
-                            users.next_page_url && list(users.next_page_url)
-                          "
-                        >
+                        <button type="button" class="footer__navigation__page-btn" :class="{
+                          disabled: !users.next_page_url,
+                        }" @click="
+  users.next_page_url && list(users.next_page_url)
+">
                           <span style="font-weight: 500">Next</span>
                           <span aria-hidden="true" class="chevron right"></span>
                         </button>
@@ -410,23 +305,13 @@
     <!-- END: Content User Management -->
 
     <!-- BEGIN : Modal Add / Edit User  -->
-    <div
-      class="modal fade"
-      id="addUsers"
-      style="display: none"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="addUsers" style="display: none" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" v-show="!editmode">Add User</h4>
             <h4 class="modal-title" v-show="editmode">Update User</h4>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
@@ -441,29 +326,16 @@
                 <div class="col-sm-6">
                   <div class="form-group mb-2">
                     <label for="name" class="form-label">Nama Pengguna</label>
-                    <input
-                      id="name"
-                      v-model="form.name"
-                      type="text"
-                      name="name"
-                      class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('name') }"
-                      autofocus
-                    />
+                    <input id="name" v-model="form.name" type="text" name="name" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('name') }" autofocus />
                     <HasError :form="form" field="name" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group mb-2">
                     <label for="email" class="form-label">Alamat Email</label>
-                    <input
-                      id="email"
-                      v-model="form.email"
-                      type="email"
-                      name="email"
-                      class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('email') }"
-                    />
+                    <input id="email" v-model="form.email" type="email" name="email" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('email') }" />
                     <HasError :form="form" field="email" />
                   </div>
                 </div>
@@ -475,29 +347,16 @@
                 <div class="col-sm-6">
                   <div class="form-group mb-2">
                     <label for="username" class="form-label">Username</label>
-                    <input
-                      id="username"
-                      v-model="form.username"
-                      type="text"
-                      name="username"
-                      class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('username') }"
-                    />
+                    <input id="username" v-model="form.username" type="text" name="username" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('username') }" />
                     <HasError :form="form" field="username" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group mb-2">
                     <label for="password" class="form-label">Password</label>
-                    <input
-                      id="password"
-                      v-model="form.password"
-                      type="password"
-                      name="password"
-                      class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('password') }"
-                      autocomplete="false"
-                    />
+                    <input id="password" v-model="form.password" type="password" name="password" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('password') }" autocomplete="false" />
                     <HasError :form="form" field="password" />
                   </div>
                 </div>
@@ -508,16 +367,9 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group mb-2">
-                    <label for="password" class="form-label"
-                      >Role Pengguna</label
-                    >
-                    <select
-                      name="role"
-                      v-model="form.role"
-                      id="role"
-                      class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('role') }"
-                    >
+                    <label for="password" class="form-label">Role Pengguna</label>
+                    <select name="role" v-model="form.role" id="role" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('role') }">
                       <option value="">Pilih Role Pengguna</option>
                       <option value="admin">Admin</option>
                       <option value="user">Standar User</option>
@@ -533,18 +385,10 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group mb-2">
-                    <label for="description" class="form-label"
-                      >Keterangan</label
-                    >
-                    <textarea
-                      name="description"
-                      id="description"
-                      v-model="form.description"
-                      class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('description') }"
-                      rows="3"
-                      placeholder="Masukan Keterangan Pengguna (Optional)"
-                    ></textarea>
+                    <label for="description" class="form-label">Keterangan</label>
+                    <textarea name="description" id="description" v-model="form.description" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('description') }" rows="3"
+                      placeholder="Masukan Keterangan Pengguna (Optional)"></textarea>
                     <HasError :form="form" field="description" />
                   </div>
                 </div>
@@ -650,7 +494,7 @@ export default {
 
   methods: {
     list(paginate) {
-      this.$Progress.start();
+      this.showLoading();
       paginate = paginate || `/api/user`;
       axios
         .get(paginate, {
@@ -671,10 +515,11 @@ export default {
         .then((response) => {
           this.users = response.data;
           this.current_page = this.users.current_page;
-          this.$Progress.finish();
+          Swal.close();
         })
         .catch((error) => {
-          this.$Progress.fail();
+          Swal.close();
+          this.showErrorRequest();
           console.log(error);
         });
     },
@@ -698,13 +543,13 @@ export default {
     },
     deleteUser(id) {
       Swal.fire({
-        title: "Apakah Kamu yakin ingin menghapusnya?",
-        text: "Pengguna tidak dapat dikembalikan",
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Ya, Hapus Pengguna!",
+        confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         // Kirim request ke Server
         if (result.value) {
@@ -715,28 +560,27 @@ export default {
               Fire.$emit("RefreshTable");
             })
             .catch((error) => {
-              this.$Progress.fail();
+              Swal.close();
+              this.showErrorDelete();
               console.log(error);
             });
         }
       });
     },
     createUser() {
-      this.$Progress.start();
+      this.showLoading();
       this.form
         .post("api/user")
         .then(() => {
-          Fire.$emit("RefreshTable");
           $("#addUsers").modal("hide");
-          toast.fire({
-            icon: "success",
-            title: "Pendaftaran berhasil dilakukan",
-          });
+          Swal.close();
+          this.showSuccessCreate();
           this.clearForm();
-          this.$Progress.finish();
+          this.list();
         })
         .catch((error) => {
-          this.$Progress.fail();
+          Swal.close();
+          this.showErrorCreate();
           console.log(error);
         });
     },
@@ -769,23 +613,111 @@ export default {
       console.log(users);
     },
     updateUser(form) {
-      this.$Progress.start();
+      this.showLoading();
       this.form
         .put("api/user/" + this.form.id)
         .then(() => {
           Fire.$emit("RefreshTable");
           $("#addUsers").modal("hide");
-          toast.fire({
-            icon: "success",
-            title: "Data Pengguna berhasil diperbarui",
-          });
+          Swal.close();
           this.clearForm();
-          this.$Progress.finish();
+          this.showSuccessUpdate();
         })
         .catch((error) => {
-          this.$Progress.fail();
+          Swal.close();
+          this.showErrorUpdate();
           console.log(error);
         });
+    },
+    showLoading() {
+      Swal.fire({
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        background: "transparent",
+        allowOutsideClick: false,
+      });
+    },
+    showSuccessRequest() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Successfully Retrieve Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showErrorRequest() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Retrieve Data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+    showSuccessCreate() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Successfully Create User data",
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    },
+    showErrorCreate() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Create User data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+    showSuccessUpdate() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Successfully Update User data",
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    },
+    showErrorUpdate() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Update User data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+    showSuccessEDelete() {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      })
+    },
+    showErrorDelete() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Delete User",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     },
   },
 };

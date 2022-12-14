@@ -29,11 +29,7 @@
                   Login History
                 </h5>
                 <div class="card-tools">
-                  <button
-                    type="button"
-                    data-card-widget="collapse"
-                    class="btn btn-tool"
-                  >
+                  <button type="button" data-card-widget="collapse" class="btn btn-tool">
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
@@ -50,12 +46,8 @@
                             </span>
                             <span class="sr-only"> Search </span>
                           </label>
-                          <input
-                            type="text"
-                            placeholder="Search Data"
-                            class="vgt-input vgt-pull-left"
-                            v-model="search"
-                          />
+                          <input type="text" placeholder="Search Data" class="vgt-input vgt-pull-left"
+                            v-model="search" />
                         </div>
                         <div class="vgt-global-search__actions vgt-pull-right">
                           <div>
@@ -78,42 +70,28 @@
                         </div>
                       </div>
                       <div class="vgt-responsive">
-                        <table
-                          id="vgt-table"
-                          class="vgt-table bordered polar-bear"
-                        >
+                        <table id="vgt-table" class="vgt-table bordered polar-bear">
                           <thead>
                             <tr>
                               <!-- BEGIN: ID Sort -->
-                              <th
-                                v-if="order == 'id' && by == 'asc'"
-                                @click="sort('id', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'id' && by == 'asc'" @click="sort('id', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'id' && by == 'desc'"
-                                @click="sort('id', 'asc')"
-                                class="
+                              <th v-else-if="order == 'id' && by == 'desc'" @click="sort('id', 'asc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('id', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('id', 'asc')" class="text-center sortable">
                                 <span class="table_header">No.</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -121,35 +99,25 @@
                               </th>
                               <!-- END: ID Sort -->
                               <!-- BEGIN: Username -->
-                              <th
-                                v-if="order == 'username' && by == 'asc'"
-                                @click="sort('username', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'username' && by == 'asc'" @click="sort('username', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Username</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'username' && by == 'desc'"
-                                @click="sort('id', 'desc')"
+                              <th v-else-if="order == 'username' && by == 'desc'" @click="sort('created_at', 'desc')"
                                 class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">Username</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('username', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('username', 'asc')" class="text-center sortable">
                                 <span class="table_header">Username</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -157,35 +125,25 @@
                               </th>
                               <!-- END: Username -->
                               <!-- BEGIN: Email Address -->
-                              <th
-                                v-if="order == 'email' && by == 'asc'"
-                                @click="sort('email', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'email' && by == 'asc'" @click="sort('email', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Email Address</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="order == 'email' && by == 'desc'"
-                                @click="sort('id', 'desc')"
+                              <th v-else-if="order == 'email' && by == 'desc'" @click="sort('created_at', 'desc')"
                                 class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">Email Address</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('email', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('email', 'asc')" class="text-center sortable">
                                 <span class="table_header">Email Address</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -193,113 +151,80 @@
                               </th>
                               <!-- END: Email Address -->
                               <!-- BEGIN: Last Login  -->
-                              <th
-                                v-if="order == 'last_login_at' && by == 'asc'"
-                                @click="sort('last_login_at', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'last_login_at' && by == 'asc'" @click="sort('last_login_at', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Last Login</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="
-                                  order == 'last_login_at' && by == 'desc'
-                                "
-                                @click="sort('id', 'desc')"
-                                class="
+                              <th v-else-if="
+                                order == 'last_login_at' && by == 'desc'
+                              " @click="sort('created_at', 'desc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">Last Login</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('last_login_at', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('last_login_at', 'asc')" class="text-center sortable">
                                 <span class="table_header">Last Login</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!-- END: Last Login -->
-                              <th
-                                v-if="order == 'last_login_ip' && by == 'asc'"
-                                @click="sort('last_login_ip', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="order == 'last_login_ip' && by == 'asc'" @click="sort('last_login_ip', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">IP Address</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="
-                                  order == 'last_login_ip' && by == 'desc'
-                                "
-                                @click="sort('id', 'desc')"
-                                class="
+                              <th v-else-if="
+                                order == 'last_login_ip' && by == 'desc'
+                              " @click="sort('created_at', 'desc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">IP Address</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('last_login_ip', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('last_login_ip', 'asc')" class="text-center sortable">
                                 <span class="table_header">IP Address</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <!-- BEGIN: Last Login Device -->
-                              <th
-                                v-if="
-                                  order == 'last_login_device' && by == 'asc'
-                                "
-                                @click="sort('last_login_device', 'desc')"
-                                class="text-center sortable sorting sorting-asc"
-                              >
+                              <th v-if="
+                                order == 'last_login_device' && by == 'asc'
+                              " @click="sort('last_login_device', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">User Agent</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else-if="
-                                  order == 'last_login_device' && by == 'desc'
-                                "
-                                @click="sort('id', 'desc')"
-                                class="
+                              <th v-else-if="
+                                order == 'last_login_device' && by == 'desc'
+                              " @click="sort('created_at', 'desc')" class="
                                   text-center
                                   sortable
                                   sorting sorting-desc
-                                "
-                              >
+                                ">
                                 <span class="table_header">User Agent</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th
-                                v-else
-                                @click="sort('last_login_device', 'asc')"
-                                class="text-center sortable"
-                              >
+                              <th v-else @click="sort('last_login_device', 'asc')" class="text-center sortable">
                                 <span class="table_header">User Agent</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -311,60 +236,37 @@
                               <th class="filter-th"></th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Search Username"
-                                    v-model="search_username"
-                                  />
+                                  <input type="text" class="vgt-input text-center" placeholder="Search Username"
+                                    v-model="search_username" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Search Email"
-                                    v-model="search_email"
-                                  />
+                                  <input type="text" class="vgt-input text-center" placeholder="Search Email"
+                                    v-model="search_email" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="date"
-                                    class="vgt-input text-center"
-                                    v-model="search_last_login_at"
-                                  />
+                                  <input type="date" class="vgt-input text-center" v-model="search_last_login_at" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Search IP"
-                                    v-model="search_last_login_ip"
-                                  />
+                                  <input type="text" class="vgt-input text-center" placeholder="Search IP"
+                                    v-model="search_last_login_ip" />
                                 </div>
                               </th>
                               <th class="filter-th">
                                 <div>
-                                  <input
-                                    type="text"
-                                    class="vgt-input text-center"
-                                    placeholder="Search Device"
-                                    v-model="search_last_login_device"
-                                  />
+                                  <input type="text" class="vgt-input text-center" placeholder="Search Device"
+                                    v-model="search_last_login_device" />
                                 </div>
                               </th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr
-                              v-for="(login, login_index) in login_history.data"
-                              :key="login_index"
-                            >
+                            <tr v-for="(login, login_index) in login_history.data" :key="login_index">
                               <td class="text-center table_content">
                                 {{ login.id }}
                               </td>
@@ -396,19 +298,13 @@
                       </div>
                       <div class="vgt-wrap__footer vgt-clearfix">
                         <div class="footer__row-count vgt-pull-left">
-                          <label
-                            class="footer__row-count__label row_per_page_label"
-                          >
+                          <label class="footer__row-count__label row_per_page_label">
                             Rows per page:
                           </label>
-                          <select
-                            class="
+                          <select class="
                               footer__row-count__select
                               row_per_page_option
-                            "
-                            v-model="paginate"
-                            @change="list()"
-                          >
+                            " v-model="paginate" @change="list()">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -416,65 +312,36 @@
                           </select>
                         </div>
                         <div class="footer__navigation vgt-pull-right">
-                          <button
-                            type="button"
-                            class="footer__navigation__page-btn"
-                            :class="{
-                              disabled: !login_history.prev_page_url,
-                            }"
-                            @click="
-                              login_history.prev_page_url &&
-                                list(login_history.prev_page_url)
-                            "
-                            style="margin-right: 0px"
-                          >
-                            <span
-                              aria-hidden="true"
-                              class="chevron left"
-                            ></span>
+                          <button type="button" class="footer__navigation__page-btn" :class="{
+                            disabled: !login_history.prev_page_url,
+                          }" @click="
+  login_history.prev_page_url &&
+  list(login_history.prev_page_url)
+" style="margin-right: 0px">
+                            <span aria-hidden="true" class="chevron left"></span>
                             <span class="paginate_text">Prev</span>
                           </button>
-                          <div
-                            class="footer__navigation__page-info"
-                            style="color: #99a0b2"
-                          >
-                            <label
-                              class="page-info__label"
-                              style="margin-bottom: -5px"
-                            >
+                          <div class="footer__navigation__page-info" style="color: #99a0b2">
+                            <label class="page-info__label" style="margin-bottom: -5px">
                               <span class="paginate_text">page</span>
-                              <input
-                                type="text"
-                                class="
+                              <input type="text" class="
                                   footer__navigation__page-info__current-entry
                                   vgt-input
-                                "
-                                v-model="current_page"
-                                @keypress="directPage"
-                                style="width: 60px"
-                              />
+                                " v-model="current_page" @keypress="directPage" style="width: 60px" />
                               <span class="paginate_text">
                                 of
                                 {{ login_history.last_page }}
                               </span>
                             </label>
                           </div>
-                          <button
-                            type="button"
-                            class="footer__navigation__page-btn"
-                            :class="{
-                              disabled: !login_history.next_page_url,
-                            }"
-                            @click="
-                              login_history.next_page_url &&
-                                list(login_history.next_page_url)
-                            "
-                          >
+                          <button type="button" class="footer__navigation__page-btn" :class="{
+                            disabled: !login_history.next_page_url,
+                          }" @click="
+  login_history.next_page_url &&
+  list(login_history.next_page_url)
+">
                             <span style="font-weight: 500">Next</span>
-                            <span
-                              aria-hidden="true"
-                              class="chevron right"
-                            ></span>
+                            <span aria-hidden="true" class="chevron right"></span>
                           </button>
                         </div>
                       </div>
@@ -541,8 +408,37 @@ export default {
     }, 500),
   },
   methods: {
+    showLoading() {
+      Swal.fire({
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        background: "transparent",
+        allowOutsideClick: false,
+      });
+    },
+    showSuccessRequest() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Successfully Retrieve Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showErrorRequest() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Retrieve Data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
     list(paginate) {
-      this.$Progress.start();
+      this.showLoading();
       paginate = paginate || `/api/login-history`;
       axios
         .get(paginate, {
@@ -561,10 +457,12 @@ export default {
         .then((response) => {
           this.login_history = response.data;
           this.current_page = this.login_history.current_page;
-          this.$Progress.finish();
+          Swal.close();
+          this.showSuccessRequest();
         })
         .catch((error) => {
-          this.$Progress.fail();
+          Swal.close();
+          this.showErrorRequest();
           console.log(error);
         });
     },
@@ -586,15 +484,6 @@ export default {
       this.order = order;
       this.by = by;
       this.list();
-    },
-    showLoading() {
-      Swal.fire({
-        didOpen: () => {
-          Swal.showLoading();
-        },
-        background: "transparent",
-        allowOutsideClick: false,
-      });
     },
   },
 };
