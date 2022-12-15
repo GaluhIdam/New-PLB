@@ -55,7 +55,7 @@ class UploadMutationController extends Controller
             $query->whereDate('uploaded_at', $search_tanggal_saldo);
         })->when(($order && $by), function ($query) use ($order, $by) {
             $query->orderBy($order, $by);
-        })->groupBy('tipe_saldo')
+        })->groupBy('uploaded_at')
             ->paginate($paginate);
 
         $result = [
