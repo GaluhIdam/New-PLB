@@ -112,7 +112,6 @@
                 <hr />
 
                 <!-- BEGIN: Tampil Data -->
-                <!-- <div class="form-group mt-4" v-if="filter_clicked"> -->
                 <div class="form-group mt-4">
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
@@ -788,10 +787,6 @@
                 </div>
                 <!-- END: Tampil Data -->
               </div>
-              <!-- END: Card Body -->
-              <div class="card-footer text-center" v-if="filter_clicked">
-                Inventory berkurang BC 28 AJU​
-              </div>
             </div>
             <!-- END: Card -->
           </div>
@@ -845,7 +840,6 @@ export default {
       start_submission_date: null,
       end_submission_date: null,
       filter_document_type: [],
-      filter_clicked: false,
     };
   },
   methods: {
@@ -981,7 +975,6 @@ export default {
         });
     },
     filterButton() {
-      this.filter_clicked = true;
       this.list();
     },
     showLoading() {

@@ -886,6 +886,7 @@ export default {
           this.outbounds = response.data;
           this.current_page = this.outbounds.current_page;
           Swal.close();
+          this.showSuccessRequest();
         }).catch((error) => {
           this.showErrorRequest();
           console.log(error);

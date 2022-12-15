@@ -858,6 +858,8 @@ export default {
         .then((response) => {
           this.inbounds = response.data;
           this.current_page = this.inbounds.current_page;
+          Swal.close();
+          this.showSuccessRequest();
         })
         .catch((error) => {
           this.showErrorRequest();

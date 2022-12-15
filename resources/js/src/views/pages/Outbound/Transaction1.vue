@@ -99,12 +99,10 @@
                   </div>
                 </div>
                 <!-- END: Cari Data -->
-                <!-- <hr v-if="filter_clicked" /> -->
                 <hr />
 
                 <!-- BEGIN: Tampil Data -->
                 <div class="form-group mt-4">
-                  <!-- <div class="form-group mt-4"> -->
                   <div class="vgt-wrap polar-bear">
                     <div class="vgt-inner-wrap">
                       <!-- BEGIN: Global Search -->
@@ -617,9 +615,7 @@
                 <!-- END: Tampil Data -->
               </div>
               <!-- END: Card Body -->
-              <div class="card-footer text-center" v-if="filter_clicked">
-                Inventory berkurang dari Sistem
-              </div>
+
             </div>
             <!-- END: Card -->
           </div>
@@ -801,7 +797,6 @@ export default {
         });
     },
     filterButton() {
-      this.filter_clicked = true;
       this.list();
     },
     showLoading() {
