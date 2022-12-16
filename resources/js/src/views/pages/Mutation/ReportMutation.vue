@@ -881,7 +881,7 @@ export default {
         });
     },
     exportCsv() {
-      this.ShowLoading();
+      this.showLoading();
       axios
         .get("/api/report-mutation-csv", {
           params: {
@@ -926,7 +926,7 @@ export default {
         });
     },
     exportExcel() {
-      this.ShowLoading();
+      this.showLoading();
       axios
         .get("/api/report-mutation-excel", {
           params: {
