@@ -86,15 +86,6 @@ Route::get('dashboard-one', [DashboardController::class, 'chartOne']);
 Route::get('dashboard-two', [DashboardController::class, 'chartTwo']);
 Route::get('dashboard-three', [DashboardController::class, 'chartThree']);
 
-// Mutasi - > (Report Mutasi) // TODO : Will be Development soon
-Route::get('/mutation-report', [MutationController::class, 'index']);
-Route::get('/mutation-report-csv', [MutationController::class, 'exportCsv']);
-Route::get('/mutation-report-excel', [MutationController::class, 'exportExcel']);
-
-
-// Mutasi -> Periodic Mutations (Report Mutasi Berkala) // TODO : Will be Development soon
-Route::get('/mutation-periodic', [MutationPeriodicController::class, 'index']);
-Route::post('/mutation-periodic-report', [MutationPeriodicController::class, 'searchDate']);
 
 // Masa Timbun (Hoarding Time) // TODO : Will be Development soon
 Route::get('/hoarding-time', [HoardingTimeController::class, 'index']);
@@ -105,6 +96,8 @@ Route::get('movement-allotment', [MovementAllotmentController::class, 'index']);
 
 // Report Mutasi
 Route::get('/report-mutation', [MutationReportController::class, 'index']); // Report Mutation
+Route::get('/report-mutation-csv', [MutationReportController::class, 'exportCsv']);
+Route::get('/report-mutation-excel', [MutationReportController::class, 'exportExcel']);
 
 // Upload File
 Route::post('/upload-report-mutation', [UploadMutationController::class, 'importExcel']); // Upload Report Mutation

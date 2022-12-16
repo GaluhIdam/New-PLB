@@ -105,6 +105,25 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+        'plb_db_30' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_30_HOST', '10.143.147.245'),
+            'port' => env('DB_30_PORT', '3306'),
+            'database' => env('DB_30_DATABASE', 'plb_db_30'),
+            'username' => env('DB_30_USERNAME', 'usr-jti'),
+            'password' => env('DB_30_PASSWORD', 'Usr-jti1'),
+            'unix_socket' => env('DB_30_SOCKET', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_general_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',
