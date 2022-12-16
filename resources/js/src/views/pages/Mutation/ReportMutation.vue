@@ -91,17 +91,19 @@
                         </div>
                         <div class="vgt-global-search__actions vgt-pull-right">
                           <div>
-                            <!-- <button class="btn btn-secondary ms-auto rounded-1">
+                            <button class="btn btn-secondary ms-auto rounded-1" @click="exportCsv">
                               <i class="fa-solid fa-file-csv"></i>
                               CSV
                             </button>
-                            <button class="btn btn-secondary ms-auto rounded-1">
+                            <button class="btn btn-secondary ms-auto rounded-1" style="margin-right: 10px"
+                              @click="exportExcel">
+
                               <i class="fa-solid fa-file-excel"></i>
                               Excel
                             </button>
-                            <button
+                            <!-- <button
                               class="btn btn-secondary ms-auto rounded-1"
-                              style="margin-right: 10px"
+                             
                             >
                               <i class="fa-solid fa-file-pdf"></i>
                               PDF
@@ -158,23 +160,23 @@
                               </th>
                               <!-- END: Number by ID (Table Header) -->
                               <!-- BEGIN: Kode Barang (Table Header) -->
-                              <th rowspan="2" v-if="order == 'KODE_BARANG_1' && by == 'asc'"
-                                @click="sort('KODE_BARANG_1', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th rowspan="2" v-if="order == 'KODE_BARANG' && by == 'asc'"
+                                @click="sort('KODE_BARANG', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Kode Barang</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th rowspan="2" v-else-if="
-                                order == 'KODE_BARANG_1' && by == 'desc'
-                              " @click="sort('TANGGAL_SALDO_1', 'asc')"
+                                order == 'KODE_BARANG' && by == 'desc'
+                              " @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Kode Barang</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th rowspan="2" v-else @click="sort('KODE_BARANG_1', 'asc')" class="text-center sortable">
+                              <th rowspan="2" v-else @click="sort('KODE_BARANG', 'asc')" class="text-center sortable">
                                 <span class="table_header">Kode Barang</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -182,22 +184,21 @@
                               </th>
                               <!-- END: Kode Barang (Table Header) -->
                               <!-- BEGIN: Nama Barang (Table Header) -->
-                              <th rowspan="2" v-if="order == 'URAIAN_1' && by == 'asc'"
-                                @click="sort('URAIAN_1', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th rowspan="2" v-if="order == 'URAIAN' && by == 'asc'" @click="sort('URAIAN', 'desc')"
+                                class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Nama Barang</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th rowspan="2" v-else-if="order == 'URAIAN_1' && by == 'desc'"
-                                @click="sort('TANGGAL_SALDO_1', 'asc')"
-                                class="text-center sortable sorting sorting-desc">
+                              <th rowspan="2" v-else-if="order == 'URAIAN' && by == 'desc'"
+                                @click="sort('TANGGAL_SALDO', 'asc')" class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Nama Barang</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th rowspan="2" v-else @click="sort('URAIAN_1', 'asc')" class="text-center sortable">
+                              <th rowspan="2" v-else @click="sort('URAIAN', 'asc')" class="text-center sortable">
                                 <span class="table_header">Nama Barang</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -205,23 +206,23 @@
                               </th>
                               <!-- END: Nama Barang (Table Header) -->
                               <!-- BEGIN: Satuan (Table Header) -->
-                              <th rowspan="2" v-if="order == 'KODE_SATUAN_1' && by == 'asc'"
-                                @click="sort('KODE_SATUAN_1', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th rowspan="2" v-if="order == 'KODE_SATUAN' && by == 'asc'"
+                                @click="sort('KODE_SATUAN', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Satuan</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th rowspan="2" v-else-if="
-                                order == 'KODE_SATUAN_1' && by == 'desc'
-                              " @click="sort('TANGGAL_SALDO_1', 'asc')"
+                                order == 'KODE_SATUAN' && by == 'desc'
+                              " @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Satuan</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th rowspan="2" v-else @click="sort('KODE_SATUAN_1', 'asc')" class="text-center sortable">
+                              <th rowspan="2" v-else @click="sort('KODE_SATUAN', 'asc')" class="text-center sortable">
                                 <span class="table_header">Satuan</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -229,23 +230,23 @@
                               </th>
                               <!-- END: Satuan (Table Header) -->
                               <!-- BEGIN: Saldo Awal (Table Header) -->
-                              <th rowspan="2" v-if="order == 'SALDO_AWAL_1' && by == 'asc'"
-                                @click="sort('SALDO_AWAL_1', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th rowspan="2" v-if="order == 'SALDO_AWAL' && by == 'asc'"
+                                @click="sort('SALDO_AWAL', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Saldo Awal</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th rowspan="2" v-else-if="
-                                order == 'SALDO_AWAL_1' && by == 'desc'
-                              " @click="sort('TANGGAL_SALDO_1', 'asc')"
+                                order == 'SALDO_AWAL' && by == 'desc'
+                              " @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Saldo Awal</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th rowspan="2" v-else @click="sort('SALDO_AWAL_1', 'asc')" class="text-center sortable">
+                              <th rowspan="2" v-else @click="sort('SALDO_AWAL', 'asc')" class="text-center sortable">
                                 <span class="table_header">Saldo Awal</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -305,23 +306,23 @@
                               </th>
                               <!-- END: Saldo Buku (Table Header) -->
                               <!-- BEGIN: Saldo Akhir (Table Header) -->
-                              <th rowspan="2" v-if="order == 'SALDO_AKHIR_1' && by == 'asc'"
-                                @click="sort('SALDO_AKHIR_1', 'desc')" class="text-center sortable sorting sorting-asc">
+                              <th rowspan="2" v-if="order == 'SALDO_AKHIR' && by == 'asc'"
+                                @click="sort('SALDO_AKHIR', 'desc')" class="text-center sortable sorting sorting-asc">
                                 <span class="table_header">Saldo Akhir</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
                               <th rowspan="2" v-else-if="
-                                order == 'SALDO_AKHIR_1' && by == 'desc'
-                              " @click="sort('TANGGAL_SALDO_1', 'asc')"
+                                order == 'SALDO_AKHIR' && by == 'desc'
+                              " @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">Saldo Akhir</span>
                                 <button>
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th rowspan="2" v-else @click="sort('SALDO_AKHIR_1', 'asc')" class="text-center sortable">
+                              <th rowspan="2" v-else @click="sort('SALDO_AKHIR', 'asc')" class="text-center sortable">
                                 <span class="table_header">Saldo Akhir</span>
                                 <button>
                                   <span class="sr-only"></span>
@@ -344,7 +345,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'BC16' && by == 'desc'" @click="sort('TANGGAL_SALDO_1', 'asc')"
+                              <th v-else-if="order == 'BC16' && by == 'desc'" @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">BC 1.6</span>
                                 <button>
@@ -366,7 +367,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'BC27IN' && by == 'desc'" @click="sort('TANGGAL_SALDO_1', 'asc')"
+                              <th v-else-if="order == 'BC27IN' && by == 'desc'" @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">BC 2.7</span>
                                 <button>
@@ -388,7 +389,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'BC40' && by == 'desc'" @click="sort('TANGGAL_SALDO_1', 'asc')"
+                              <th v-else-if="order == 'BC40' && by == 'desc'" @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">BC 4.0</span>
                                 <button>
@@ -411,7 +412,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'BC27' && by == 'desc'" @click="sort('TANGGAL_SALDO_1', 'asc')"
+                              <th v-else-if="order == 'BC27' && by == 'desc'" @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">BC 2.7</span>
                                 <button>
@@ -433,7 +434,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'BC28' && by == 'desc'" @click="sort('TANGGAL_SALDO_1', 'asc')"
+                              <th v-else-if="order == 'BC28' && by == 'desc'" @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">BC 2.8</span>
                                 <button>
@@ -455,7 +456,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'BC30' && by == 'desc'" @click="sort('TANGGAL_SALDO_1', 'asc')"
+                              <th v-else-if="order == 'BC30' && by == 'desc'" @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">BC 3.0</span>
                                 <button>
@@ -477,7 +478,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                               </th>
-                              <th v-else-if="order == 'BC41' && by == 'desc'" @click="sort('TANGGAL_SALDO_1', 'asc')"
+                              <th v-else-if="order == 'BC41' && by == 'desc'" @click="sort('TANGGAL_SALDO', 'asc')"
                                 class="text-center sortable sorting sorting-desc">
                                 <span class="table_header">BC 4.1</span>
                                 <button>
@@ -837,9 +838,6 @@ export default {
   },
 
   methods: {
-    filterButton() {
-      this.list();
-    },
     list(paginate) {
       this.showLoading();
       paginate = paginate || "/api/report-mutation";
@@ -875,9 +873,100 @@ export default {
           this.reports = response.data;
           this.current_page = this.reports.current_page;
           Swal.close();
+
         })
         .catch((error) => {
           Swal.close();
+          console.log(error);
+        });
+    },
+    exportCsv() {
+      this.showLoading();
+      axios
+        .get("/api/report-mutation-csv", {
+          params: {
+            search: this.search,
+            search_kode_barang: this.search_kode_barang,
+            search_nama_barang: this.search_nama_barang,
+            search_kode_satuan: this.$search_kode_satuan,
+            search_saldo_awal: this.$search_saldo_awal,
+            search_saldo_akhir: this.$search_saldo_akhir,
+            search_saldo_penyesuaian: this.$search_saldo_penyesuaian,
+            search_bc16: this.$search_bc16,
+            search_bc27_in: this.$search_bc27_in,
+            search_bc27_out: this.$search_bc27_out,
+            search_bc40: this.$search_bc40,
+            search_bc41: this.$search_bc41,
+            search_bc28: this.$search_bc28,
+            search_bc30: this.$search_bc30,
+
+            // Filter Date
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+
+            // Order, By, Paginate
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+          responseType: "blob", // important
+        })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "report-mutation.csv");
+          document.body.appendChild(link);
+          link.click();
+          Swal.close();
+          this.showSuccessExport();
+        }).catch((error) => {
+          this.showErrorExport();
+          console.log(error);
+        });
+    },
+    exportExcel() {
+      this.showLoading();
+      axios
+        .get("/api/report-mutation-excel", {
+          params: {
+            search: this.search,
+            search_kode_barang: this.search_kode_barang,
+            search_nama_barang: this.search_nama_barang,
+            search_kode_satuan: this.$search_kode_satuan,
+            search_saldo_awal: this.$search_saldo_awal,
+            search_saldo_akhir: this.$search_saldo_akhir,
+            search_saldo_penyesuaian: this.$search_saldo_penyesuaian,
+            search_bc16: this.$search_bc16,
+            search_bc27_in: this.$search_bc27_in,
+            search_bc27_out: this.$search_bc27_out,
+            search_bc40: this.$search_bc40,
+            search_bc41: this.$search_bc41,
+            search_bc28: this.$search_bc28,
+            search_bc30: this.$search_bc30,
+
+            // Filter Date
+            filter_start_date: this.filter_start_date,
+            filter_end_date: this.filter_end_date,
+
+            // Order, By, Paginate
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+          responseType: "blob", // important
+        })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "report-mutation.xlsx");
+          document.body.appendChild(link);
+          link.click();
+          Swal.close();
+          this.showSuccessExport();
+        }).catch((error) => {
+          this.showErrorExport();
           console.log(error);
         });
     },
@@ -889,6 +978,50 @@ export default {
         background: "transparent",
         allowOutsideClick: false,
       });
+    },
+    showSuccessRequest() {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Successfully Retrive Data',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },
+    showErrorRequest() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Retrive Data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+    ShowSuccessExport() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Successfully Export Data",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+    showErrorExport() {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to Export Data",
+        showConfirmButton: false,
+        timer: 1500,
+
+      });
+    },
+    filterButton() {
+      this.list();
     },
     clearForm() {
       this.filter_start_date = null;
